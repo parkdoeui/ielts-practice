@@ -158,7 +158,8 @@ def _classify_blocks(children: list) -> list[Block]:
 
         # Question header: "Questions N-M" or "Question N" at start of a group
         if re.search(r"(?i)Questions?\s+\d+", text):
-            blocks.append(Block(el, text, "question_header"))
+            img_url = _extract_image_url(el) if el.find("img") else None
+            blocks.append(Block(el, text, "question_header", img_url=img_url))
             continue
 
         # Heading tags: always passage titles
