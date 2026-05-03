@@ -375,7 +375,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
 
     numbered_pattern = re.compile(r"^(\d+)\.?\s+(.*)")
     option_inline_pattern = re.compile(r"^([A-K])\s+(.*)")
-    heading_option_pattern = re.compile(r"^(i|ii|iii|iv|v|vi|vii|viii|ix|x)\.\s+(.*)", re.IGNORECASE)
+    heading_option_pattern = re.compile(r"^(i{1,3}|iv|vi{0,3}|ix|x)\.?\s+(.*)", re.IGNORECASE)
     option_standalone_pattern = re.compile(r"^([A-K])$")
     instruction_kw_pattern = re.compile(r"^(YES|NO|TRUE|FALSE|NOT GIVEN|NOT)\b", re.IGNORECASE)
     instruction_cont_pattern = re.compile(r"^if (the statement|there is|it is)", re.IGNORECASE)
