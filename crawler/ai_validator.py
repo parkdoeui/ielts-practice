@@ -46,17 +46,17 @@ def ai_validate(
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(source_html, "html.parser")
     entry = soup.find("div", class_="entry-content")
-    page_text = entry.get_text(separator="\n", strip=True)[:6000] if entry else source_html[:6000]
+    page_text = entry.get_text(separator="\n", strip=True)[:12000] if entry else source_html[:12000]
 
     test_json = json.dumps(test.model_dump(), indent=2)
 
     prompt = f"""You are validating a parsed IELTS Academic Reading test JSON against its source page.
 
-SOURCE PAGE TEXT (truncated to first 6000 chars):
+SOURCE PAGE TEXT (truncated to first 12000 chars):
 {page_text}
 
 PARSED JSON:
-{test_json[:8000]}
+{test_json}
 
 Check for any of these issues:
 1. Wrong number of passages (should be 3)
