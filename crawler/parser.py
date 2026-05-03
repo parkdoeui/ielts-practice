@@ -300,7 +300,7 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
                 "instruction": block.text,
                 "text": "",
                 "passage_id": p_id,
-                "image_url": None,
+                "image_url": block.img_url,  # may be embedded in the header <p>
             }
             raw_groups.append(current_q_group)
             continue
