@@ -123,7 +123,6 @@ def _extract_image_url(element) -> str | None:
 
 _NOISE_SHORT_PATTERNS = [
     r"(?i)^cambridge ielts test\b",
-    r"(?i)^list of\b",               # "List of Headings", "List of People"
     r"(?i)^show answers\b",
     r"(?i)^(example|reading passage)\b",
 ]
