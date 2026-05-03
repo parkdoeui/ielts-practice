@@ -64,11 +64,10 @@ class ParserRegressionTests(unittest.TestCase):
         test = parse_reading_test(HTML, "https://practicepteonline.com/ielts-reading-test-3/")
 
         self.assertEqual(len(test.passages), 3)
-        self.assertEqual([p.title for p in test.passages], [
-            "Passage 1",
-            "Is There Anybody Out There?",
-            "The History of the Tortoise",
-        ])
+        # New pipeline correctly detects "William Henry Perkin" as passage-1 title
+        self.assertEqual(test.passages[0].title, "William Henry Perkin")
+        self.assertEqual(test.passages[1].title, "Is There Anybody Out There?")
+        self.assertEqual(test.passages[2].title, "The History of the Tortoise")
 
         groups_by_id = {group.id: group for group in test.question_groups}
         self.assertIn("group-14-17", groups_by_id)
