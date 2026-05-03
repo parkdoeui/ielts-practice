@@ -127,5 +127,36 @@ class ParserRegressionTests(unittest.TestCase):
         self.assertEqual(groups_by_id["group-3-4"].passage_id, "passage-2")
 
 
+class FixtureRegressionTests(unittest.TestCase):
+    """Regression tests against saved raw HTML fixtures.
+
+    Each test loads a real captured HTML file, parses it, and runs the
+    deterministic validator. All 10 tests must produce valid output.
+    """
+
+    def _assert_fixture_valid(self, test_num: int):
+        fixture = FIXTURES_DIR / f"test-{test_num}.html"
+        if not fixture.exists():
+            self.skipTest(f"Fixture not found: {fixture}")
+        html = fixture.read_text(encoding="utf-8")
+        url = f"https://practicepteonline.com/ielts-reading-test-{test_num}/"
+        test = parse_reading_test(html, url)
+        result = validate_reading_test(test)
+        self.assertTrue(
+            result.valid,
+            msg=f"test-{test_num} failed validation:\n{result.report()}"
+        )
+
+    def test_fixture_01(self): self._assert_fixture_valid(1)
+    def test_fixture_02(self): self._assert_fixture_valid(2)
+    def test_fixture_03(self): self._assert_fixture_valid(3)
+    def test_fixture_04(self): self._assert_fixture_valid(4)
+    def test_fixture_05(self): self._assert_fixture_valid(5)
+    def test_fixture_06(self): self._assert_fixture_valid(6)
+    def test_fixture_07(self): self._assert_fixture_valid(7)
+    def test_fixture_08(self): self._assert_fixture_valid(8)
+    def test_fixture_09(self): self._assert_fixture_valid(9)
+    def test_fixture_10(self): self._assert_fixture_valid(10)
+
 if __name__ == "__main__":
     unittest.main()
