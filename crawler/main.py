@@ -18,7 +18,7 @@ from parser import parse_reading_test
 from validator import validate_reading_test
 
 
-def cmd_crawl(url: str, output_dir: str, ai_validate: bool = False, project: str | None = None) -> None:
+def cmd_crawl(url: str, output_dir: str, ai_validate: bool = False, project: Optional[str] = None) -> None:
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
