@@ -540,7 +540,8 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
                 options=heading_options,
             ))
 
-        elif "choose" in instr_lower and "letter" in instr_lower:
+        elif ("choose" in instr_lower and "letter" in instr_lower
+              or "choose" in body_lower and "letter" in body_lower):
             mc_options = options if options else {chr(65 + i): f"Option {chr(65 + i)}" for i in range(4)}
             result.append(QuestionGroup(
                 id=group_id,
