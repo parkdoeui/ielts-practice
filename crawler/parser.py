@@ -477,6 +477,8 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
             simple_questions.append(SimpleQuestion(id=qid, statement=statement, answer=ans))
 
         instr_lower = full_instruction.lower()
+        # Also search the body text for type signals when instruction is minimal (e.g. "Question 26")
+        body_lower = children_text.lower()
 
         if "diagram" in instr_lower or "label" in instr_lower:
             result.append(QuestionGroup(
