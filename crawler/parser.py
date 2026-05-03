@@ -351,8 +351,16 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
         # --- Long paragraph and other content ---
         if state == "PASSAGE":
             current_passage_text.append(block.text)
-        elif state == "QUESTIONS" and current_q_group is not None:
-            current_q_group["text"] += "\n" + block.text
+        elif state == "QUESTIONS":
+            # A long_p of genuine passage prose in QUESTIONS mode means a new
+            # passage started without an explicit title (e.g. "Reading Passage 3"
+            # label was filtered as noise and no h-tag title followed).
+            if block.type == "long_p" and _is_passage_content(block.text):
+                flush_passage()
+                state = "PASSAGE"
+                current_passage_text.append(block.text)
+            elif current_q_group is not None:
+                current_q_group["text"] += "\n" + block.text
 
     flush_passage()
     return passages, raw_groups
