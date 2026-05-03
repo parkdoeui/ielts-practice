@@ -11,6 +11,7 @@ import json
 import sys
 import argparse
 from pathlib import Path
+from typing import Optional
 
 from scraper import fetch_test_page
 from parser import parse_reading_test
