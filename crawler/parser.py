@@ -146,6 +146,14 @@ def _classify_blocks(children: list) -> list[Block]:
     blocks = []
     for el in children:
         text = el.get_text(separator="\n", strip=True)
+
+        # Images may have no text — classify them before the empty-text guard
+        if not text and (el.name in ("figure", "img") or el.find("img")):
+            img_url = _extract_image_url(el)
+            if img_url:
+                blocks.append(Block(el, "", "image", img_url=img_url))
+            continue
+
         if not text:
             continue
 
