@@ -1,6 +1,10 @@
 import unittest
+from pathlib import Path
 
 from parser import _build_question_groups, parse_reading_test
+from validator import validate_reading_test
+
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 HTML = """
