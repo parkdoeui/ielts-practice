@@ -29,15 +29,21 @@ def _is_passage_content(text: str) -> bool:
     """True if text is genuine reading-passage prose (not question material).
 
     Rejects:
-      - MC option blocks (≥2 lines starting with a letter + space/word)
+      - MC option blocks: ≥2 lines starting with a letter+space, OR ≥2 standalone
+        single-letter lines (A, B, C, D each on their own line due to <br/> splits)
       - Summary fill-in-blank patterns (…, _, (N) ___)
       - Text containing question headers
     """
     if len(text) < 100:
         return False
     lines = [l.strip() for l in text.split("\n") if l.strip()]
+    # "A word" style option lines (letter + space + text on same line)
     option_lines = sum(1 for l in lines if re.match(r"^[A-K]\s+\S", l))
     if option_lines >= 2:
+        return False
+    # Standalone single-letter lines from <br/>-split MC options (A, B, C each alone)
+    standalone_letters = sum(1 for l in lines if re.match(r"^[A-K]$", l))
+    if standalone_letters >= 2:
         return False
     if re.search(r"[…_]{3,}", text):
         return False
