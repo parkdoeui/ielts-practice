@@ -208,9 +208,17 @@ def _is_passage_title_candidate(text: str, blocks: list[Block], current_index: i
     """
     if re.match(r"^\d+", text):
         return False
-    if re.match(r"(?i)^(which|choose|select|for each|where|complete|answer|true|false|yes|no|not given)\b", text):
+    if re.match(r"(?i)^(which|choose|select|for each|where|complete|answer|true|false|yes|no|not given|write|nb\b|note\b|according to)\b", text):
         return False
     if re.match(r"(?i)^(list of|example\b|reading passage\b)", text):
+        return False
+    # Reject option lists: standalone letter lines (A, B, C each on own line)
+    lines_check = [l.strip() for l in text.split("\n") if l.strip()]
+    standalone = sum(1 for l in lines_check if re.match(r"^[A-K]$", l))
+    if standalone >= 2:
+        return False
+    option_check = sum(1 for l in lines_check if re.match(r"^[A-K]\s+\S", l))
+    if option_check >= 2:
         return False
 
     for j in range(current_index + 1, min(current_index + 25, len(blocks))):
