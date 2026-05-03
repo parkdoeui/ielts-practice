@@ -19,7 +19,8 @@ class SimpleQuestion(BaseModel):
 class QuestionGroup(BaseModel):
     id: str
     type: str  # "true-false-ng", "multiple-choice", "matching-information", "matching-headings",
-               # "summary-completion", "sentence-completion", "diagram-labeling"
+               # "summary-completion", "sentence-completion", "diagram-labeling",
+               # "classification", "matching-sentence-endings"
     passage_id: str
     instruction: str
     questions: list[SimpleQuestion]
