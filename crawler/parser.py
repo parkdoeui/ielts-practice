@@ -548,6 +548,31 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
                 questions=simple_questions,
             ))
 
+        elif "classif" in instr_lower:
+            # "Classify the following statements as referring to A ... B ... C ..."
+            # options are inline in the instruction (A hand collecting, B using bait, ...)
+            classif_options = options if options else None
+            result.append(QuestionGroup(
+                id=group_id,
+                type="classification",
+                passage_id=passage_id,
+                instruction=full_instruction,
+                questions=simple_questions,
+                options=classif_options,
+            ))
+
+        elif re.search(r"correct ending", instr_lower):
+            # "Complete each sentence with the correct ending, A-G, below"
+            ending_options = options if options else None
+            result.append(QuestionGroup(
+                id=group_id,
+                type="matching-sentence-endings",
+                passage_id=passage_id,
+                instruction=full_instruction,
+                questions=simple_questions,
+                options=ending_options,
+            ))
+
         else:
             result.append(QuestionGroup(
                 id=group_id,
