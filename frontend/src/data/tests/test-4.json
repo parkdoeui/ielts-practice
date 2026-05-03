@@ -1,0 +1,380 @@
+{
+  "id": "test-4",
+  "title": "IELTS  Reading Test 4",
+  "test_type": "academic",
+  "passages": [
+    {
+      "id": "passage-1",
+      "title": "Passage 1",
+      "text": "Land of the Rising Sun\n\nA\nJapan has a significantly better record in terms of average mathematical attainment than England and Wales. Large sample international comparisons of pupils’ attainments since the 1960s have established that not only did Japanese pupils at age 13 have better scores of average attainment, but there was also a larger proportion of ‘low’ attainers in England, where, incidentally, the variation in attainment scores was much greater. The percentage of Gross National Product spent on education is reasonably similar in the two countries, so how is this higher and more consistent attainment in maths achieved?\n\nB\nLower secondary schools in Japan cover three school years, from the seventh grade (age 13) to the ninth grade (age 15). Virtually all pupils at this stage attend state schools: only 3 per cent are in the private sector. Schools are usually modern in design, set well back from the road and spacious inside. Classrooms are large and pupils sit at single desks in rows. Lessons last for a standardised 50 minutes and are always followed by a 10-minute break, which gives the pupils a chance to let off steam. Teachers begin with a formal address and mutual bowing, and then concentrate on whole-class teaching.\n\nClasses are large – usually about 40 – and are unstreamed. Pupils stay in the same class for all lessons throughout the school and develop considerable class identity and loyalty. Pupils attend the school in their own neighbourhood, which in theory removes ranking by school. In practice in Tokyo, because of the relative concentration of schools, there is some competition to get into the ‘better’ school in a particular area.\n\nC\nTraditional ways of teaching form the basis of the lesson and the remarkably quiet classes take their own notes of the points made and the examples demonstrated. Everyone has their own copy of the textbook supplied by the central education authority, Monbusho, as part of the concept of free compulsory education up to the age of 15. These textbooks are, on the whole, small, presumably inexpensive to produce, but well set out and logically developed. (One teacher was particularly keen to introduce colour and pictures into maths textbooks: he felt this would make them more accessible to pupils brought up in a cartoon culture.) Besides approving textbooks, Monbusho also decides the highly centralised national curriculum and how it is to be delivered.\n\nD\nLessons all follow the same pattern. At the beginning, the pupils put solutions to the homework on the board, then the teachers comment, correct or elaborate as necessary. Pupils mark their own homework: this is an important principle in Japanese schooling as it enables pupils to see where and why they made a mistake, so that these can be avoided in future. No one minds mistakes or ignorance as long as you are prepared to learn from them.\n\nAfter the homework has been discussed, the teacher explains the topic of the lesson, slowly and with a lot of repetition and elaboration. Examples are demonstrated on the board; questions from the textbook are worked through first with the class, and then the class is set questions from the textbook to do individually. Only rarely are supplementary worksheets distributed in a maths class. The impression is that the logical nature of the textbooks and their comprehensive coverage of different types of examples, combined with the relative homogeneity of the class, renders work sheets unnecessary. At this point, the teacher would circulate and make sure that all the pupils were coping well.\n\nE\nIt is remarkable that large, mixed-ability classes could be kept together for maths throughout all their compulsory schooling from 6 to 15. Teachers say that they give individual help at the end of a lesson or after school, setting extra work if necessary. In observed lessons, any strugglers would be assisted by the teacher or quietly seek help from their neighbour. Carefully fostered class identity makes pupils keen to help each other – anyway, it is in their interests since the class progresses together.\n\nThis scarcely seems adequate help to enable slow learners to keep up. However, the Japanese attitude towards education runs along the lines of ‘if you work hard enough, you can do almost anything’. Parents are kept closely informed of their children’s progress and will play a part in helping their children to keep up with class, sending them to ‘Juku’ (private evening tuition) if extra help is needed and encouraging them to work harder. It seems to work, at least for 95 per cent of the school population.\n\nF\nSo what are the major contributing factors in the success of maths teaching?\n\nClearly, attitudes are important. Education is valued greatly in Japanese culture; maths is recognised as an important compulsory subject throughout schooling; and the emphasis is on hard work coupled with a focus on accuracy. Other relevant points relate to the supportive attitude of a class towards slower pupils, the lack of competition within a class, and the positive emphasis on learning for oneself and improving one’s own standard. And the view of repetitively boring lessons and learning the facts by heart, which is sometimes quoted in relation to Japanese classes, may be unfair and unjustified. No poor maths lessons were observed. They were mainly good and one or two were inspirational.",
+      "paragraphs": [
+        "Land of the Rising Sun",
+        "A\nJapan has a significantly better record in terms of average mathematical attainment than England and Wales. Large sample international comparisons of pupils’ attainments since the 1960s have established that not only did Japanese pupils at age 13 have better scores of average attainment, but there was also a larger proportion of ‘low’ attainers in England, where, incidentally, the variation in attainment scores was much greater. The percentage of Gross National Product spent on education is reasonably similar in the two countries, so how is this higher and more consistent attainment in maths achieved?",
+        "B\nLower secondary schools in Japan cover three school years, from the seventh grade (age 13) to the ninth grade (age 15). Virtually all pupils at this stage attend state schools: only 3 per cent are in the private sector. Schools are usually modern in design, set well back from the road and spacious inside. Classrooms are large and pupils sit at single desks in rows. Lessons last for a standardised 50 minutes and are always followed by a 10-minute break, which gives the pupils a chance to let off steam. Teachers begin with a formal address and mutual bowing, and then concentrate on whole-class teaching.",
+        "Classes are large – usually about 40 – and are unstreamed. Pupils stay in the same class for all lessons throughout the school and develop considerable class identity and loyalty. Pupils attend the school in their own neighbourhood, which in theory removes ranking by school. In practice in Tokyo, because of the relative concentration of schools, there is some competition to get into the ‘better’ school in a particular area.",
+        "C\nTraditional ways of teaching form the basis of the lesson and the remarkably quiet classes take their own notes of the points made and the examples demonstrated. Everyone has their own copy of the textbook supplied by the central education authority, Monbusho, as part of the concept of free compulsory education up to the age of 15. These textbooks are, on the whole, small, presumably inexpensive to produce, but well set out and logically developed. (One teacher was particularly keen to introduce colour and pictures into maths textbooks: he felt this would make them more accessible to pupils brought up in a cartoon culture.) Besides approving textbooks, Monbusho also decides the highly centralised national curriculum and how it is to be delivered.",
+        "D\nLessons all follow the same pattern. At the beginning, the pupils put solutions to the homework on the board, then the teachers comment, correct or elaborate as necessary. Pupils mark their own homework: this is an important principle in Japanese schooling as it enables pupils to see where and why they made a mistake, so that these can be avoided in future. No one minds mistakes or ignorance as long as you are prepared to learn from them.",
+        "After the homework has been discussed, the teacher explains the topic of the lesson, slowly and with a lot of repetition and elaboration. Examples are demonstrated on the board; questions from the textbook are worked through first with the class, and then the class is set questions from the textbook to do individually. Only rarely are supplementary worksheets distributed in a maths class. The impression is that the logical nature of the textbooks and their comprehensive coverage of different types of examples, combined with the relative homogeneity of the class, renders work sheets unnecessary. At this point, the teacher would circulate and make sure that all the pupils were coping well.",
+        "E\nIt is remarkable that large, mixed-ability classes could be kept together for maths throughout all their compulsory schooling from 6 to 15. Teachers say that they give individual help at the end of a lesson or after school, setting extra work if necessary. In observed lessons, any strugglers would be assisted by the teacher or quietly seek help from their neighbour. Carefully fostered class identity makes pupils keen to help each other – anyway, it is in their interests since the class progresses together.",
+        "This scarcely seems adequate help to enable slow learners to keep up. However, the Japanese attitude towards education runs along the lines of ‘if you work hard enough, you can do almost anything’. Parents are kept closely informed of their children’s progress and will play a part in helping their children to keep up with class, sending them to ‘Juku’ (private evening tuition) if extra help is needed and encouraging them to work harder. It seems to work, at least for 95 per cent of the school population.",
+        "F\nSo what are the major contributing factors in the success of maths teaching?"
+      ]
+    },
+    {
+      "id": "passage-2",
+      "title": "Biological Control of Pests",
+      "text": "The continuous and reckless use of synthetic chemicals for the control of pests which pose a threat to agricultural crops and human health is proving to be counter-productive. Apart from engendering widespread ecological disorders, pesticides have contributed to the emergence of a new breed of chemical-resistant, highly lethal superbugs.\n\nAccording to a recent study by the Food and Agriculture Organisation (FAO), more than 300 species of agricultural pests have developed resistance to a wide range of potent chemicals. Not to be left behind are the disease-spreading pests, about 100 species of which have become immune to a variety of insecticides now in use.\n\nOne glaring disadvantage of pesticides’ application is that, while destroying harmful pests, they also wipe out many useful non-targeted organisms, which keep the growth of the pest population in check. This results in what agroecologists call the ‘treadmill syndrome’. Because of their tremendous breeding potential and genetic diversity, many pests are known to withstand synthetic chemicals and bear offspring with a built-in resistance to pesticides.\n\nThe havoc that the ‘treadmill syndrome’ can bring about is well illustrated by what happened to cotton farmers in Central America. In the early 1940s, basking in the glory of chemical- based intensive agriculture, the farmers avidly took to pesticides as a sure measure to boost crop yield. The insecticide was applied eight times a year in the mid-1940s, rising to 28 in a season in the mid-1950s, following the sudden proliferation of three new varieties of chemical- resistant pests.\n\nBy the mid-1960s, the situation took an alarming turn with the outbreak of four more new pests, necessitating pesticide spraying to such an extent that 50% of the financial outlay on cotton production was accounted for by pesticides. In the early 1970s, the spraying frequently reached 70 times a season as the farmers were pushed to the wall by the invasion of genetically stronger insect species.\n\nMost of the pesticides in the market today remain inadequately tested for properties that cause cancer and mutations as well as for other adverse effects on health, says a study by United States environmental agencies. The United States National Resource Defense Council has found that DDT was the most popular of a long list of dangerous chemicals in use.\n\nIn the face of the escalating perils from indiscriminate applications of pesticides, a more effective and ecologically sound strategy of biological control, involving the selective use of natural enemies of the pest population, is fast gaining popularity – though, as yet, it is a new field with limited potential. The advantage of biological control in contrast to other methods is that it provides a relatively low-cost, perpetual control system with a minimum of detrimental side-effects. When handled by experts, bio-control is safe, non-polluting and self-dispersing.\n\nThe Commonwealth Institute of Biological Control (CIBC) in Bangalore, with its global network of research laboratories and field stations, is one of the most active, non-commercial research agencies engaged in pest control by setting natural predators against parasites. CIBC also serves as a clearing-house for the export and import of biological agents for pest control world-wide.\n\nCIBC successfully used a seed-feeding weevil, native to Mexico, to control the obnoxious parthenium weed, known to exert devious influence on agriculture and human health in both India and Australia. Similarly the Hyderabad-based Regional Research Laboratory (RRL), supported by CIBC, is now trying out an Argentinian weevil for the eradication of water hyacinth, another dangerous weed, which has become a nuisance in many parts of the world. According to Mrs Kaiser Jamil of RRL, ‘The Argentinian weevil does not attack any other plant and a pair of adult bugs could destroy the weed in 4-5 days.’ CIBC is also perfecting the technique for breeding parasites that prey on ‘disapene scale’ insects – notorious defoliants of fruit trees in the US and India.\n\nHow effectively biological control can be pressed into service is proved by the following examples. In the late 1960s, when Sri Lanka’s flourishing coconut groves were plagued by leaf-mining hispides, a larval parasite imported from Singapore brought the pest under control. A natural predator indigenous to India, Neodumetia sangawani, was found useful in controlling the Rhodes grass-scale insect that was devouring forage grass in many parts of the US. By using Neochetina bruci, a beetle native to Brazil, scientists at Kerala Agricultural University freed a 12- kilometre- long canal from the clutches of the weed Salvinia molesta, popularly called ‘African Payal’ in Kerala. About 30,000 hectares of rice fields in Kerala are infested by this weed.",
+      "paragraphs": [
+        "The continuous and reckless use of synthetic chemicals for the control of pests which pose a threat to agricultural crops and human health is proving to be counter-productive. Apart from engendering widespread ecological disorders, pesticides have contributed to the emergence of a new breed of chemical-resistant, highly lethal superbugs.",
+        "According to a recent study by the Food and Agriculture Organisation (FAO), more than 300 species of agricultural pests have developed resistance to a wide range of potent chemicals. Not to be left behind are the disease-spreading pests, about 100 species of which have become immune to a variety of insecticides now in use.",
+        "One glaring disadvantage of pesticides’ application is that, while destroying harmful pests, they also wipe out many useful non-targeted organisms, which keep the growth of the pest population in check. This results in what agroecologists call the ‘treadmill syndrome’. Because of their tremendous breeding potential and genetic diversity, many pests are known to withstand synthetic chemicals and bear offspring with a built-in resistance to pesticides.",
+        "The havoc that the ‘treadmill syndrome’ can bring about is well illustrated by what happened to cotton farmers in Central America. In the early 1940s, basking in the glory of chemical- based intensive agriculture, the farmers avidly took to pesticides as a sure measure to boost crop yield. The insecticide was applied eight times a year in the mid-1940s, rising to 28 in a season in the mid-1950s, following the sudden proliferation of three new varieties of chemical- resistant pests.",
+        "By the mid-1960s, the situation took an alarming turn with the outbreak of four more new pests, necessitating pesticide spraying to such an extent that 50% of the financial outlay on cotton production was accounted for by pesticides. In the early 1970s, the spraying frequently reached 70 times a season as the farmers were pushed to the wall by the invasion of genetically stronger insect species.",
+        "Most of the pesticides in the market today remain inadequately tested for properties that cause cancer and mutations as well as for other adverse effects on health, says a study by United States environmental agencies. The United States National Resource Defense Council has found that DDT was the most popular of a long list of dangerous chemicals in use.",
+        "In the face of the escalating perils from indiscriminate applications of pesticides, a more effective and ecologically sound strategy of biological control, involving the selective use of natural enemies of the pest population, is fast gaining popularity – though, as yet, it is a new field with limited potential. The advantage of biological control in contrast to other methods is that it provides a relatively low-cost, perpetual control system with a minimum of detrimental side-effects. When handled by experts, bio-control is safe, non-polluting and self-dispersing.",
+        "The Commonwealth Institute of Biological Control (CIBC) in Bangalore, with its global network of research laboratories and field stations, is one of the most active, non-commercial research agencies engaged in pest control by setting natural predators against parasites. CIBC also serves as a clearing-house for the export and import of biological agents for pest control world-wide.",
+        "CIBC successfully used a seed-feeding weevil, native to Mexico, to control the obnoxious parthenium weed, known to exert devious influence on agriculture and human health in both India and Australia. Similarly the Hyderabad-based Regional Research Laboratory (RRL), supported by CIBC, is now trying out an Argentinian weevil for the eradication of water hyacinth, another dangerous weed, which has become a nuisance in many parts of the world. According to Mrs Kaiser Jamil of RRL, ‘The Argentinian weevil does not attack any other plant and a pair of adult bugs could destroy the weed in 4-5 days.’ CIBC is also perfecting the technique for breeding parasites that prey on ‘disapene scale’ insects – notorious defoliants of fruit trees in the US and India.",
+        "How effectively biological control can be pressed into service is proved by the following examples. In the late 1960s, when Sri Lanka’s flourishing coconut groves were plagued by leaf-mining hispides, a larval parasite imported from Singapore brought the pest under control. A natural predator indigenous to India, Neodumetia sangawani, was found useful in controlling the Rhodes grass-scale insect that was devouring forage grass in many parts of the US. By using Neochetina bruci, a beetle native to Brazil, scientists at Kerala Agricultural University freed a 12- kilometre- long canal from the clutches of the weed Salvinia molesta, popularly called ‘African Payal’ in Kerala. About 30,000 hectares of rice fields in Kerala are infested by this weed."
+      ]
+    },
+    {
+      "id": "passage-3",
+      "title": "Collecting Ant Specimens",
+      "text": "Collecting ants can be as simple as picking up stray ones and placing them in a glass jar, or as complicated as completing an exhaustive survey of all species present in an area and estimating their relative abundances. The exact method used will depend on the final purpose of the collections. For taxonomy, or classification, long series, from a single nest, which contain all castes (workers, including majors and minors, and, if present, queens and males) are desirable, to allow the determination of variation within species. For ecological studies, the most important factor is collecting identifiable samples of as many of the different species present as possible. Unfortunately, these methods are not always compatible. The taxonomist sometimes overlooks whole species in favour of those groups currently under study, while the ecologist often collects only a limited number of specimens of each species, thus reducing their value for taxonomic investigations.\n\nTo collect as wide a range of species as possible, several methods must be used. These include hand collecting, using baits to attract the ants, ground litter sampling, and the use of pitfall traps. Hand collecting consists of searching for ants everywhere they are likely to occur. This includes on the ground, under rocks, logs or other objects on the ground, in rotten wood on the ground or on trees, in vegetation, on tree trunks and under bark. When possible, collections should be made from nests or foraging columns and at least 20 to 25 individuals collected. This will ensure that all individuals are of the same species, and so increase their value for detailed studies. Since some species are largely nocturnal, collecting should not be confined to daytime. Specimens are collected using an aspirator (often called a pooter), forceps, a fine, moistened paint brush, or fingers, if the ants are known not to sting. Individual insects are placed in plastic or glass tubes (1.5-3-0 ml capacity for small ants, 5-8 ml for larger ants) containing 75% to 95% ethanol. Plastic tubes with secure tops are better than glass because they are lighter, and do not break as easily if mishandled.\n\nBaits can be used to attract and concentrate foragers. This often increases the number of individuals collected and attracts species that are otherwise elusive. Sugars and meats or oils will attract different species and a range should be utilised. These baits can be placed either on the ground or on the trunks of trees or large shrubs. When placed on the ground, baits should be situated on small paper cards or other flat, light-coloured surfaces, or in test-tubes or vials. This makes it easier to spot ants and to capture them before they can escape into the surrounding leaf litter.\n\nMany ants are small and forage primarily in the layer of leaves and other debris on the ground. Collecting these species by hand can be difficult. One of the most successful ways to collect them is to gather the leaf litter in which they are foraging and extract the ants from it. This is most commonly done by placing leaf litter on a screen over a large funnel, often under some heat. As the leaf litter dries from above, ants (and other animals) move downward and eventually fall out the bottom and are collected in alcohol placed below the funnel. This method works especially well in rain forests and marshy areas. A method of improving the catch when using a funnel is to sift the leaf litter through a coarse screen before placing it above the funnel. This will concentrate the litter and remove larger leaves and twigs. It will also allow more litter to be sampled when using a limited number of funnels.\n\nThe pitfall trap is another commonly used tool for collecting ants. A pitfall trap can be any small container placed in the ground with the top level with the surrounding surface and filled with a preservative. Ants are collected when they fall into the trap while foraging. The diameter of the traps can vary from about 18 mm to 10 cm and the number used can vary from a few to several hundred. The size of the traps used is influenced largely by personal preference (although larger sizes are generally better), while the number will be determined by the study being undertaken. The preservative used is usually ethylene glycol or propylene glycol, as alcohol will evaporate quickly and the traps will dry out. One advantage of pitfall traps is that they can be used to collect over a period of time with minimal maintenance and intervention. One disadvantage is that some species are not collected as they either avoid the traps or do not commonly encounter them while foraging.",
+      "paragraphs": [
+        "Collecting ants can be as simple as picking up stray ones and placing them in a glass jar, or as complicated as completing an exhaustive survey of all species present in an area and estimating their relative abundances. The exact method used will depend on the final purpose of the collections. For taxonomy, or classification, long series, from a single nest, which contain all castes (workers, including majors and minors, and, if present, queens and males) are desirable, to allow the determination of variation within species. For ecological studies, the most important factor is collecting identifiable samples of as many of the different species present as possible. Unfortunately, these methods are not always compatible. The taxonomist sometimes overlooks whole species in favour of those groups currently under study, while the ecologist often collects only a limited number of specimens of each species, thus reducing their value for taxonomic investigations.",
+        "To collect as wide a range of species as possible, several methods must be used. These include hand collecting, using baits to attract the ants, ground litter sampling, and the use of pitfall traps. Hand collecting consists of searching for ants everywhere they are likely to occur. This includes on the ground, under rocks, logs or other objects on the ground, in rotten wood on the ground or on trees, in vegetation, on tree trunks and under bark. When possible, collections should be made from nests or foraging columns and at least 20 to 25 individuals collected. This will ensure that all individuals are of the same species, and so increase their value for detailed studies. Since some species are largely nocturnal, collecting should not be confined to daytime. Specimens are collected using an aspirator (often called a pooter), forceps, a fine, moistened paint brush, or fingers, if the ants are known not to sting. Individual insects are placed in plastic or glass tubes (1.5-3-0 ml capacity for small ants, 5-8 ml for larger ants) containing 75% to 95% ethanol. Plastic tubes with secure tops are better than glass because they are lighter, and do not break as easily if mishandled.",
+        "Baits can be used to attract and concentrate foragers. This often increases the number of individuals collected and attracts species that are otherwise elusive. Sugars and meats or oils will attract different species and a range should be utilised. These baits can be placed either on the ground or on the trunks of trees or large shrubs. When placed on the ground, baits should be situated on small paper cards or other flat, light-coloured surfaces, or in test-tubes or vials. This makes it easier to spot ants and to capture them before they can escape into the surrounding leaf litter.",
+        "Many ants are small and forage primarily in the layer of leaves and other debris on the ground. Collecting these species by hand can be difficult. One of the most successful ways to collect them is to gather the leaf litter in which they are foraging and extract the ants from it. This is most commonly done by placing leaf litter on a screen over a large funnel, often under some heat. As the leaf litter dries from above, ants (and other animals) move downward and eventually fall out the bottom and are collected in alcohol placed below the funnel. This method works especially well in rain forests and marshy areas. A method of improving the catch when using a funnel is to sift the leaf litter through a coarse screen before placing it above the funnel. This will concentrate the litter and remove larger leaves and twigs. It will also allow more litter to be sampled when using a limited number of funnels.",
+        "The pitfall trap is another commonly used tool for collecting ants. A pitfall trap can be any small container placed in the ground with the top level with the surrounding surface and filled with a preservative. Ants are collected when they fall into the trap while foraging. The diameter of the traps can vary from about 18 mm to 10 cm and the number used can vary from a few to several hundred. The size of the traps used is influenced largely by personal preference (although larger sizes are generally better), while the number will be determined by the study being undertaken. The preservative used is usually ethylene glycol or propylene glycol, as alcohol will evaporate quickly and the traps will dry out. One advantage of pitfall traps is that they can be used to collect over a period of time with minimal maintenance and intervention. One disadvantage is that some species are not collected as they either avoid the traps or do not commonly encounter them while foraging."
+      ]
+    }
+  ],
+  "question_groups": [
+    {
+      "id": "group-1-5",
+      "type": "matching-headings",
+      "passage_id": "passage-1",
+      "instruction": "Questions 1-5\nReading Passage 1 has six sections, A—F. Choose the correct heading for sections B—F from the list of headings below.",
+      "questions": [
+        {
+          "id": 1,
+          "statement": "Section",
+          "answer": "vii"
+        },
+        {
+          "id": 2,
+          "statement": "",
+          "answer": "i"
+        },
+        {
+          "id": 3,
+          "statement": "",
+          "answer": "v"
+        },
+        {
+          "id": 4,
+          "statement": "",
+          "answer": "ii"
+        },
+        {
+          "id": 5,
+          "statement": "",
+          "answer": "viii"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "B": "2 Section",
+        "C": "3 Section",
+        "D": "4 Section",
+        "E": "5 Section F"
+      }
+    },
+    {
+      "id": "group-6-9",
+      "type": "true-false-ng",
+      "passage_id": "passage-1",
+      "instruction": "Questions 6-9\nDO the following statements agree with the claims of the writer in Reading Passage 1?\nYES\nif the statement agrees with the claims of the writer\nNO\nif the statement contradicts the claims of the writer\nNOT GIVEN\nif it is impossible to say what the writer thinks about this",
+      "questions": [
+        {
+          "id": 6,
+          "statement": "There is a wider range of achievement amongst English pupils studying maths than amongst their Japanese counterparts.",
+          "answer": "yes"
+        },
+        {
+          "id": 7,
+          "statement": "The percentage of Gross National Product spent on education generally reflects the level of attainment in mathematics.",
+          "answer": "not given"
+        },
+        {
+          "id": 8,
+          "statement": "Private schools in Japan are more modern and spacious than state-run lower secondary schools.",
+          "answer": "not given"
+        },
+        {
+          "id": 9,
+          "statement": "Teachers mark homework in Japanese schools.",
+          "answer": "no"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "group-10-13",
+      "type": "multiple-choice",
+      "passage_id": "passage-1",
+      "instruction": "Questions 10-13\nChoose the correct letter, A, B, C or D. Write the correct letter in boxes 10-13 on your answer sheet.",
+      "questions": [
+        {
+          "id": 10,
+          "statement": "Maths textbooks in Japanese schools are",
+          "answer": "B"
+        },
+        {
+          "id": 11,
+          "statement": "When a new maths topic is introduced,",
+          "answer": "C"
+        },
+        {
+          "id": 12,
+          "statement": "How do schools deal with students who experience difficulties?",
+          "answer": "A"
+        },
+        {
+          "id": 13,
+          "statement": "Why do Japanese students tend to achieve relatively high rates of success in maths?",
+          "answer": "C"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "It is a compulsory subject in Japan.",
+        "B": "They are used to working without help from others.",
+        "C": "Much effort is made and correct answers are emphasised.",
+        "D": "There is a strong emphasis on repetitive learning"
+      }
+    },
+    {
+      "id": "group-14-17",
+      "type": "multiple-choice",
+      "passage_id": "passage-2",
+      "instruction": "Questions 14-17\nChoose the correct letter, A, B, C, or D. Write the correct letter in boxes 14-17 on your answer sheet.",
+      "questions": [
+        {
+          "id": 14,
+          "statement": "The use of pesticides has contributed to",
+          "answer": "B"
+        },
+        {
+          "id": 15,
+          "statement": "The Food and Agriculture Organisation has counted more than 300 agricultural pests which",
+          "answer": "A"
+        },
+        {
+          "id": 16,
+          "statement": "Cotton farmers in Central America began to use pesticides",
+          "answer": "D"
+        },
+        {
+          "id": 17,
+          "statement": "By the mid-1960s, cotton farmers in Central America found that pesticides",
+          "answer": "D"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "were wiping out 50% of the pests plaguing the crops.",
+        "B": "were destroying 50% of the crops they were meant to protect.",
+        "C": "were causing a 50% increase in the number of new pests reported.",
+        "D": "were costing 50% of the total amount they spent on their crops."
+      }
+    },
+    {
+      "id": "group-18-21",
+      "type": "true-false-ng",
+      "passage_id": "passage-2",
+      "instruction": "Questions 18-21\nDo the following statements agree with the claims of the writer in Reading Passage 2?\nIn boxes 18-21 on your answer sheet, write\nYES\nif the statement agrees with the claims of the writer\nNO\nif the statement contradicts the claims of the writer\nNOT GIVEN\nif it is impossible to say what the writer thinks about this",
+      "questions": [
+        {
+          "id": 18,
+          "statement": "Disease-spreading pests respond more quickly to pesticides than agricultural pests do.",
+          "answer": "not given"
+        },
+        {
+          "id": 19,
+          "statement": "A number of pests are now born with an innate immunity to some pesticides.",
+          "answer": "yes"
+        },
+        {
+          "id": 20,
+          "statement": "Biological control entails using synthetic chemicals to try and change the genetic make-up of the pests’ offspring.",
+          "answer": "no"
+        },
+        {
+          "id": 21,
+          "statement": "Bio-control is free from danger under certain circumstances.",
+          "answer": "yes"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "group-22-26",
+      "type": "sentence-completion",
+      "passage_id": "passage-2",
+      "instruction": "Questions 22-26\nComplete each sentence with the correct ending, A—I, below.",
+      "questions": [
+        {
+          "id": 22,
+          "statement": "Disapene scale insects feed on",
+          "answer": "D"
+        },
+        {
+          "id": 23,
+          "statement": "Neodumetia sangawani ate",
+          "answer": "H"
+        },
+        {
+          "id": 24,
+          "statement": "Leaf-mining hispides blighted",
+          "answer": "C"
+        },
+        {
+          "id": 25,
+          "statement": "An Argentinian weevil may be successful in wiping out",
+          "answer": "E"
+        },
+        {
+          "id": 26,
+          "statement": "Salvinia molesta plagues",
+          "answer": "B"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "group-27-30",
+      "type": "true-false-ng",
+      "passage_id": "passage-3",
+      "instruction": "Questions 27-30\nDo the following statements agree with the information given in Reading Passage 3?\nIn boxes 27-30 on your answer sheet, write\nTRUE\nif the statement agrees with the information\nFALSE\nif the statement contradicts the information\nNOT GIVEN\nif there is no information on this",
+      "questions": [
+        {
+          "id": 27,
+          "statement": "Taxonomic research involves comparing members of one group of ants.",
+          "answer": "true"
+        },
+        {
+          "id": 28,
+          "statement": "New species of ant are frequently identified by taxonomists.",
+          "answer": "not given"
+        },
+        {
+          "id": 29,
+          "statement": "Range is the key criterion for ecological collections.",
+          "answer": "true"
+        },
+        {
+          "id": 30,
+          "statement": "A single collection of ants can generally be used for both taxonomic and ecological purposes.",
+          "answer": "false"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "group-31-36",
+      "type": "sentence-completion",
+      "passage_id": "passage-3",
+      "instruction": "Questions 31-36\nClassify the following statements as referring to\nA\nhand collecting\nB\nusing bait\nC\nsampling ground litter\nD\nusing a pitfall trap",
+      "questions": [
+        {
+          "id": 31,
+          "statement": "It is preferable to take specimens from groups of ants.",
+          "answer": "A"
+        },
+        {
+          "id": 32,
+          "statement": "It is particularly effective for wet habitats.",
+          "answer": "C"
+        },
+        {
+          "id": 33,
+          "statement": "It is a good method for species which are hard to find.",
+          "answer": "B"
+        },
+        {
+          "id": 34,
+          "statement": "Little time and effort is required.",
+          "answer": "D"
+        },
+        {
+          "id": 35,
+          "statement": "Separate containers are used for individual specimens.",
+          "answer": "A"
+        },
+        {
+          "id": 36,
+          "statement": "Non-alcoholic preservative should be used.",
+          "answer": "D"
+        }
+      ],
+      "shared_text": "Write the correct letter, A, B, C or D, in boxes 31-36 on your answer sheet.",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "group-37-40",
+      "type": "diagram-labeling",
+      "passage_id": "passage-3",
+      "instruction": "Questions 37-40\nLabel the diagram below. Choose\nNO MORE THAN TWO WORDS\nfrom the passage for each answer.",
+      "questions": [
+        {
+          "id": 37,
+          "statement": "",
+          "answer": "heat"
+        },
+        {
+          "id": 38,
+          "statement": "",
+          "answer": "leaf litter"
+        },
+        {
+          "id": 39,
+          "statement": "",
+          "answer": "screen"
+        },
+        {
+          "id": 40,
+          "statement": "",
+          "answer": "alcohol"
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": "",
+      "options": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-reading-test-4/"
+}
