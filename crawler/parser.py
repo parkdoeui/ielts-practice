@@ -220,6 +220,9 @@ def _is_passage_title_candidate(text: str, blocks: list[Block], current_index: i
         return False
     if re.match(r"(?i)^(list of|example\b|reading passage\b)", text):
         return False
+    # Reject MC option blocks: "A\nsome option text" (letter alone on first line)
+    if re.match(r"^[A-K]\n", text):
+        return False
     # Reject option lists: standalone letter lines (A, B, C each on own line)
     lines_check = [l.strip() for l in text.split("\n") if l.strip()]
     standalone = sum(1 for l in lines_check if re.match(r"^[A-K]$", l))
