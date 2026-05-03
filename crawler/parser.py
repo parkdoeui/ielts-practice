@@ -175,6 +175,12 @@ def _classify_blocks(children: list) -> list[Block]:
             blocks.append(Block(el, text, "noise"))
             continue
 
+        # "Reading Passage N" / "Reading Passage One" — section boundary marker,
+        # treat as passage_title so the segmenter flushes and starts a new passage.
+        if re.match(r"(?i)^reading passage\b", text.strip()):
+            blocks.append(Block(el, text, "passage_title"))
+            continue
+
         # Image / figure
         if el.name in ("figure", "img") or el.find("img"):
             img_url = _extract_image_url(el)
