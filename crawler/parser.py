@@ -266,7 +266,7 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
                 id=f"passage-{passage_count}",
                 title=current_passage_title or f"Passage {passage_count}",
                 text="\n\n".join(current_passage_text),
-                paragraphs=current_passage_text[:10],
+                paragraphs=current_passage_text,
             ))
             passage_count += 1
         current_passage_text = []
