@@ -51,6 +51,7 @@ def ai_validate(
     test_json = json.dumps(test.model_dump(), indent=2)
 
     prompt = f"""You are validating a parsed IELTS Academic Reading test JSON against its source page.
+Focus ONLY on structural parsing failures — things the parser got wrong. Do NOT flag issues that are in the source HTML itself (typos in source text, answers that exceed word limits as written in source, Cyrillic/encoding quirks in source).
 
 SOURCE PAGE TEXT (truncated to first 12000 chars):
 {page_text}
@@ -58,14 +59,21 @@ SOURCE PAGE TEXT (truncated to first 12000 chars):
 PARSED JSON:
 {test_json}
 
-Check for any of these issues:
-1. Wrong number of passages (should be 3)
-2. Passage text is garbled, truncated, or empty
+Flag ONLY these structural parsing failures:
+1. Wrong number of passages (should be 3) — only if clearly provable from the visible source
+2. Passage text is garbled or empty (blank passages, truncated mid-word)
 3. Questions assigned to wrong passage
-4. Question type classification looks wrong (e.g. labelled "true-false-ng" but instruction says "complete the summary")
-5. Instructions missing key details (e.g. "NO MORE THAN TWO WORDS" limit)
-6. shared_text or word_list present in source but missing in JSON
-7. Answer key values that look wrong or inconsistent
+4. Question type label is completely wrong given the instruction (e.g. labelled "true-false-ng" but instruction clearly says "complete the summary with NO MORE THAN TWO WORDS")
+5. A word_list or shared_text is clearly present in the source but completely absent in JSON (null when it should have content)
+6. Question statements are all empty when the source clearly shows numbered question text
+
+Do NOT flag:
+- Typos or encoding issues in the source HTML (those get copied faithfully)
+- Answers that exceed word limits (the source answer key may have verbose answers)
+- YES/NO/NOT GIVEN vs TRUE/FALSE/NOT GIVEN distinction (treat as equivalent)
+- Missing options for individual questions within a multi-question MC group (model limitation)
+- Minor type classification differences (e.g. "sentence-completion" vs "short-answer" — only flag if completely wrong)
+- Issues with portions of the source page that are truncated/not visible
 
 Respond with ONLY a JSON object (no markdown, no extra text):
 {{
