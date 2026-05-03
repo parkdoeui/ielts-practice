@@ -79,6 +79,10 @@ def _normalize_dom(entry_content) -> list:
     for child in entry_content.children:
         if child.name is None:
             continue
+        # Check "Show Answers" boundary BEFORE filtering buttons/inputs so we don't skip the trigger
+        text = child.get_text(strip=True)
+        if "Show Answers" in text and child.name in ("p", "button", "div", "strong", "h2", "h3"):
+            break
         if child.name == "ins":
             continue
         if child.name in ("input", "button"):
@@ -86,9 +90,6 @@ def _normalize_dom(entry_content) -> list:
         cls = " ".join(child.get("class", []))
         if "addtoany" in cls or "a2a_" in cls:
             continue
-        text = child.get_text(strip=True)
-        if "Show Answers" in text and child.name in ("p", "button", "div", "strong", "h2", "h3"):
-            break
         result.append(child)
     return result
 
