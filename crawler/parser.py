@@ -343,11 +343,25 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
             raw_groups.append(current_q_group)
             continue
 
-        # --- Passage title (heading tag): always triggers passage mode ---
+        # --- Passage title (heading tag) ---
         if block.type == "passage_title":
-            flush_passage()
-            state = "PASSAGE"
-            current_passage_title = block.text
+            # "Reading Passage N" always triggers a boundary.
+            # In QUESTIONS mode, other headings may be table/section titles embedded
+            # in a question group — only trigger a boundary if passage content follows.
+            is_rp_marker = re.match(r"(?i)^reading passage\b", block.text.strip())
+            if state == "QUESTIONS" and not is_rp_marker:
+                if _is_passage_title_candidate(block.text, blocks, i):
+                    flush_passage()
+                    state = "PASSAGE"
+                    current_passage_title = block.text
+                else:
+                    # Treat as question context (table title, sub-section header)
+                    if current_q_group is not None:
+                        current_q_group["text"] += "\n" + block.text
+            else:
+                flush_passage()
+                state = "PASSAGE"
+                current_passage_title = block.text
             continue
 
         # --- Image: attach to current question group ---
