@@ -88,7 +88,8 @@ def _normalize_dom(entry_content) -> list:
                 btn = child.find("button")
                 if btn and "Show Answers" in btn.get_text(strip=True):
                     clean = BeautifulSoup(str(child), "html.parser").find("p")
-                    for noise in clean.find_all(["button", "input", "ins"]):
+                    # Also strip hidden divs (answer containers) in addition to buttons/inputs/ins
+                    for noise in clean.find_all(["button", "input", "ins", "div"]):
                         noise.decompose()
                     if clean.get_text(strip=True):
                         result.append(clean)
