@@ -451,8 +451,10 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             continue
 
         # Skip noise lines (Example Answer, Cambridge IELTS promo, etc.)
+        # Note: "Show Answers" is intentionally NOT skipped here — it needs to
+        # propagate to stem_text so _sanitize_shared_text can detect and reject it.
         if (re.match(r'(?i)^example\b', line)
-                or any(re.match(p, line) for p in _NOISE_SHORT_PATTERNS)):
+                or re.match(r'(?i)^cambridge ielts\b', line)):
             last_qnum = None
             continue
 
