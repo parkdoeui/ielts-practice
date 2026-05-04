@@ -422,6 +422,29 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
     pending_option_letter = None
     last_qnum = None  # track most recently parsed question number (for multi-line questions)
 
+    # Pre-pass: extract options embedded in the instruction header.
+    # Some groups (e.g. classification) put "A\nfirst category\nB\nsecond category" in
+    # the instruction text rather than in the body.
+    _pre_pending = None
+    for hline in header.strip().split("\n")[1:]:  # skip "Questions N-M" first line
+        hline = hline.strip()
+        if not hline:
+            continue
+        if _pre_pending is not None:
+            options[_pre_pending] = hline
+            _pre_pending = None
+            continue
+        heading_match = heading_option_pattern.match(hline)
+        if heading_match:
+            options[heading_match.group(1).lower()] = heading_match.group(2).strip()
+            continue
+        opt_m = option_inline_pattern.match(hline)
+        if opt_m and len(opt_m.group(2)) > 1:
+            options[opt_m.group(1)] = opt_m.group(2).strip()
+            continue
+        if option_standalone_pattern.match(hline):
+            _pre_pending = hline
+
     for line in lines:
         line = line.strip()
         if not line:
