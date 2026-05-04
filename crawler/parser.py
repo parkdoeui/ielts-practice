@@ -13,6 +13,7 @@ from typing import Any
 from bs4 import BeautifulSoup
 import re
 import uuid
+from urllib.parse import urljoin
 from models import ReadingTest, Passage, SimpleQuestion, QuestionGroup
 
 QUESTION_RANGE_SEPARATORS = r"[-–—]"
@@ -63,6 +64,15 @@ def _sanitize_shared_text(text: str | None) -> str | None:
     if stripped.lower().startswith("show answers"):
         return None
     return stripped
+
+
+def _normalize_url(url: str | None, base_url: str) -> str | None:
+    if not url:
+        return None
+    resolved = urljoin(base_url, url.strip())
+    if resolved.startswith("data:"):
+        return None
+    return resolved
 
 
 # ---------------------------------------------------------------------------
@@ -118,7 +128,7 @@ class Block:
     img_url: str | None = None
 
 
-def _extract_image_url(element) -> str | None:
+def _extract_image_url(element, base_url: str) -> str | None:
     """Extract image URL, handling lazy-loaded data-src and <figure> wrappers."""
     img = element if element.name == "img" else element.find("img")
     if not img:
@@ -127,10 +137,14 @@ def _extract_image_url(element) -> str | None:
             img = fig.find("img")
     if not img:
         return None
-    url = img.get("data-src") or img.get("src") or None
-    if url and url.startswith("data:"):
-        url = None
-    return url
+    url = (
+        img.get("data-src")
+        or img.get("data-lazy-src")
+        or img.get("data-original")
+        or img.get("src")
+        or None
+    )
+    return _normalize_url(url, base_url)
 
 
 _NOISE_SHORT_PATTERNS = [
@@ -142,7 +156,7 @@ _NOISE_SHORT_PATTERNS = [
 ]
 
 
-def _classify_blocks(children: list) -> list[Block]:
+def _classify_blocks(children: list, base_url: str) -> list[Block]:
     """Classify each DOM element into a Block type.
 
     Types:
@@ -162,7 +176,7 @@ def _classify_blocks(children: list) -> list[Block]:
 
         # Images may have no text — classify them before the empty-text guard
         if not text and (el.name in ("figure", "img") or el.find("img")):
-            img_url = _extract_image_url(el)
+            img_url = _extract_image_url(el, base_url)
             if img_url:
                 blocks.append(Block(el, "", "image", img_url=img_url))
             continue
@@ -173,7 +187,7 @@ def _classify_blocks(children: list) -> list[Block]:
         # Question header: "Questions N-M" or "Question N" at the START of a line
         # (use multiline ^ so "(Questions 34-39)" in the middle of a line doesn't match)
         if re.search(r"(?im)^Questions?\s+\d+", text):
-            img_url = _extract_image_url(el) if el.find("img") else None
+            img_url = _extract_image_url(el, base_url) if el.find("img") else None
             blocks.append(Block(el, text, "question_header", img_url=img_url))
             continue
 
@@ -192,13 +206,13 @@ def _classify_blocks(children: list) -> list[Block]:
 
         # "Reading Passage N" / "Reading Passage One" — section boundary marker,
         # treat as passage_title so the segmenter flushes and starts a new passage.
-        if re.match(r"(?i)^reading passage\b", text.strip()):
+        if re.match(r"(?i)^reading passage\s*(?:\d+|one|two|three)?\s*$", text.strip()):
             blocks.append(Block(el, text, "passage_title"))
             continue
 
         # Image / figure — only if there's an actual <img> tag inside
         if el.name == "img" or el.find("img"):
-            img_url = _extract_image_url(el)
+            img_url = _extract_image_url(el, base_url)
             blocks.append(Block(el, text, "image", img_url=img_url))
             continue
 
@@ -235,9 +249,16 @@ def _is_passage_title_candidate(text: str, blocks: list[Block], current_index: i
       - starts with a digit
       - starts with known question words / section markers
     """
+    if len(text) > 80:
+        return False
     if re.match(r"^\d+", text):
         return False
     if re.match(r"(?i)^(which|choose|select|for each|where|complete|answer|true|false|yes|no|not given|write|nb\b|note\b|according to)\b", text):
+        return False
+    if re.match(
+        r"(?i)^(do the following|look at the following|in boxes|write your answers|complete the|complete each sentence|complete the summary|complete the notes|complete the chart|complete the table|complete the vertical axis|do the following statements agree|classify the following)\b",
+        text,
+    ):
         return False
     if re.match(r"(?i)^(list of|example\b|reading passage\b)", text):
         return False
@@ -282,6 +303,7 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
     passage_count = 1
     state = "PASSAGE"
     current_q_group: dict | None = None
+    pending_image_url: str | None = None
 
     def flush_passage():
         nonlocal passage_count, current_passage_text, current_passage_title
@@ -338,8 +360,9 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
                 "instruction": instruction_text,
                 "text": "",
                 "passage_id": p_id,
-                "image_url": block.img_url,  # may be embedded in the header <p>
+                "image_url": block.img_url or pending_image_url,  # may be embedded in or before the header
             }
+            pending_image_url = None
             raw_groups.append(current_q_group)
             continue
 
@@ -368,6 +391,8 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
         if block.type == "image":
             if state == "QUESTIONS" and current_q_group and not current_q_group["image_url"]:
                 current_q_group["image_url"] = block.img_url or ""
+            elif block.img_url:
+                pending_image_url = block.img_url
             continue
 
         # --- Short paragraph: resolve via lookahead ---
@@ -572,7 +597,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
     return full_instruction, numbered_questions, options, stem_text
 
 
-def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGroup]:
+def _build_question_groups(groups: list[dict], answers: dict, base_url: str = "") -> list[QuestionGroup]:
     result = []
     seen_ids: set[str] = set()
 
@@ -582,7 +607,7 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
         passage_id = g["passage_id"]
         header = g["instruction"]
         children_text = g["text"].strip()
-        image_url = g.get("image_url")
+        image_url = _normalize_url(g.get("image_url"), base_url)
 
         # Deduplicate groups with the same ID
         group_id = f"group-{start_q}-{end_q}"
@@ -605,7 +630,7 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
         body_lower = children_text.lower()
         stem_lower = stem_text.lower()
 
-        if "diagram" in instr_lower or "label" in instr_lower:
+        if "diagram" in instr_lower or re.search(r"\blabel(?:s|ing)?\b", instr_lower):
             result.append(QuestionGroup(
                 id=group_id,
                 type="diagram-labeling",
@@ -802,13 +827,13 @@ def parse_reading_test(html: str, url: str) -> ReadingTest:
     clean_children = _normalize_dom(entry_content)
 
     # Phase 2: Classify blocks
-    blocks = _classify_blocks(clean_children)
+    blocks = _classify_blocks(clean_children, url)
 
     # Phase 3: Segment into passages and raw question groups
     passages, raw_groups = _segment_test(blocks)
 
     # Phase 4: Build question groups (type classification)
-    question_groups = _build_question_groups(raw_groups, answers)
+    question_groups = _build_question_groups(raw_groups, answers, url)
 
     # Fallback to placeholders if completely failed
     if not passages:

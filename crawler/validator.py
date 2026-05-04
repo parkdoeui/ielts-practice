@@ -71,7 +71,7 @@ def validate_reading_test(test: ReadingTest) -> ValidationResult:
     for g in test.question_groups:
         if g.type == "diagram-labeling":
             url = g.image_url or ""
-            if not url or url.startswith("data:"):
+            if not re.match(r"^https?://", url):
                 errors.append(f"Group {g.id}: diagram-labeling group has no valid image_url (got: '{url[:40]}')")
 
     for p in test.passages:

@@ -125,6 +125,34 @@ class ParserRegressionTests(unittest.TestCase):
         groups_by_id = {group.id: group for group in test.question_groups}
         self.assertEqual(groups_by_id["group-3-4"].passage_id, "passage-2")
 
+    def test_resolves_relative_image_urls_against_source_page(self):
+        html = """
+        <html>
+          <body>
+            <div class="entry-content">
+              <p>Diagram Passage</p>
+              <p>This is a long passage paragraph. This is a long passage paragraph. This is a long passage paragraph. This is a long passage paragraph. This is a long passage paragraph.</p>
+              <p>Questions 1-2<br/>Label the diagram below.</p>
+              <p><img data-src="/wp-content/uploads/2024/09/test-relative.png" alt="" /></p>
+              <p>1. A</p>
+              <p>2. B</p>
+              <p>Show Answers</p>
+              <div id="bg-showmore-hidden-1">
+                <p>1. A</p>
+                <p>2. B</p>
+              </div>
+            </div>
+          </body>
+        </html>
+        """
+
+        test = parse_reading_test(html, "https://practicepteonline.com/ielts-reading-test-11/")
+        group = next(g for g in test.question_groups if g.id == "group-1-2")
+        self.assertEqual(
+            group.image_url,
+            "https://practicepteonline.com/wp-content/uploads/2024/09/test-relative.png",
+        )
+
 
 class FixtureRegressionTests(unittest.TestCase):
     """Regression tests against saved raw HTML fixtures.
