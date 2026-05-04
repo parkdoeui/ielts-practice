@@ -507,6 +507,7 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
 
         elif (("contain" in instr_lower and ("paragraph" in instr_lower or "section" in instr_lower))
               or ("which" in instr_lower and ("paragraph" in instr_lower or "section" in instr_lower))
+              or ("which" in stem_lower and ("paragraph" in stem_lower or "section" in stem_lower))
               or ("match" in instr_lower and ("person" in instr_lower or "people" in instr_lower
                                               or "statement" in instr_lower or "nationality" in instr_lower
                                               or "researcher" in instr_lower or "event" in instr_lower))):
