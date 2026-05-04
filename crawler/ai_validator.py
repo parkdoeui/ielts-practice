@@ -42,18 +42,26 @@ def ai_validate(
 
     client = genai.Client(vertexai=True, project=project, location=location)
 
-    # Strip HTML down to just .entry-content text to save tokens
+    # Strip HTML down to just .entry-content text to save tokens.
+    # Use first 10000 chars + last 10000 chars to cover both passages and question sections.
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(source_html, "html.parser")
     entry = soup.find("div", class_="entry-content")
-    page_text = entry.get_text(separator="\n", strip=True)[:12000] if entry else source_html[:12000]
+    if entry:
+        full_text = entry.get_text(separator="\n", strip=True)
+        if len(full_text) > 20000:
+            page_text = full_text[:10000] + "\n...[middle truncated]...\n" + full_text[-10000:]
+        else:
+            page_text = full_text
+    else:
+        page_text = source_html[:20000]
 
     test_json = json.dumps(test.model_dump(), indent=2)
 
     prompt = f"""You are validating a parsed IELTS Academic Reading test JSON against its source page.
 Focus ONLY on structural parsing failures — things the parser got wrong. Do NOT flag issues that are in the source HTML itself (typos in source text, answers that exceed word limits as written in source, Cyrillic/encoding quirks in source).
 
-SOURCE PAGE TEXT (truncated to first 12000 chars):
+SOURCE PAGE TEXT (first 10000 + last 10000 chars if long):
 {page_text}
 
 PARSED JSON:
@@ -73,9 +81,10 @@ Do NOT flag:
 - YES/NO/NOT GIVEN vs TRUE/FALSE/NOT GIVEN distinction (treat as equivalent)
 - Multiple MC questions within a single group having unique A/B/C/D options each — the model only captures one shared options dict, so options for earlier questions may be absent. Do NOT flag this at all.
 - Minor type classification differences (e.g. "sentence-completion" vs "short-answer" — only flag if completely wrong)
-- Issues with portions of the source page that are truncated/not visible
-- The `paragraphs` array having multiple items for a section that contains multiple paragraphs — that is correct behavior
+- Issues with portions of the source page that are truncated/not visible in the excerpt above — trust the JSON for sections you cannot see
+- The `paragraphs` array: it is a raw list of HTML paragraph elements. Multiple items without paragraph labels is ALWAYS correct and expected — never flag paragraph splitting
 - Minor inconsistencies in whether instruction text appears in `instruction` vs `shared_text` field
+- Form/table completion questions (where blanks are marked as (20)… etc.) having empty question statements — this is expected when the form context is captured in shared_text or instruction
 
 Respond with ONLY a JSON object (no markdown, no extra text):
 {{
