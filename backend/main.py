@@ -1,12 +1,12 @@
 from datetime import datetime
-from typing import Any
-import uuid
+from typing import Any, Optional
 
 from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
+from config import settings
 from database import engine, get_db
 from models import Base, TestSessionRecord
 
@@ -29,6 +29,7 @@ class UserAnswerSchema(BaseModel):
     user_answer: str
     is_correct: bool
     time_spent_ms: int
+    question_type: Optional[str] = None
 
 
 class ScoreSchema(BaseModel):
@@ -78,6 +79,16 @@ class ProgressResponse(BaseModel):
 
 # ---------- Helper ----------
 
+def verify_passcode(passcode: str) -> None:
+    if passcode != settings.valid_passcode:
+        raise HTTPException(status_code=403, detail="Invalid passcode")
+
+
+def parse_iso_datetime(value: str) -> datetime:
+    if value.endswith("Z"):
+        value = f"{value[:-1]}+00:00"
+    return datetime.fromisoformat(value)
+
 def session_to_response(record: TestSessionRecord) -> SessionResponse:
     answers: list[dict[str, Any]] = record.answers_json  # type: ignore[assignment]
     correct = sum(1 for a in answers if a.get("is_correct"))
@@ -107,7 +118,8 @@ def health():
 
 @app.post("/api/sessions", response_model=SessionResponse, status_code=201)
 def create_session(payload: SessionCreate, db: Session = Depends(get_db)):
-    # Upsert — if the client sends the same id twice, we overwrite
+    verify_passcode(payload.passcode)
+
     existing = db.get(TestSessionRecord, payload.id)
     if existing:
         raise HTTPException(status_code=409, detail="Session already exists")
@@ -116,8 +128,8 @@ def create_session(payload: SessionCreate, db: Session = Depends(get_db)):
         id=payload.id,
         test_id=payload.test_id,
         passcode=payload.passcode,
-        started_at=datetime.fromisoformat(payload.started_at),
-        completed_at=datetime.fromisoformat(payload.completed_at),
+        started_at=parse_iso_datetime(payload.started_at),
+        completed_at=parse_iso_datetime(payload.completed_at),
         total_time_ms=payload.total_time_ms,
         score_correct=payload.score.correct,
         score_total=payload.score.total,
@@ -135,6 +147,8 @@ def list_sessions(
     passcode: str = Query(..., description="User passcode"),
     db: Session = Depends(get_db),
 ):
+    verify_passcode(passcode)
+
     records = (
         db.query(TestSessionRecord)
         .filter(TestSessionRecord.passcode == passcode)
@@ -149,6 +163,8 @@ def get_progress(
     passcode: str = Query(..., description="User passcode"),
     db: Session = Depends(get_db),
 ):
+    verify_passcode(passcode)
+
     records = (
         db.query(TestSessionRecord)
         .filter(TestSessionRecord.passcode == passcode)
