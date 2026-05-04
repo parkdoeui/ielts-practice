@@ -182,8 +182,8 @@ def _classify_blocks(children: list) -> list[Block]:
             blocks.append(Block(el, text, "passage_title"))
             continue
 
-        # Image / figure
-        if el.name in ("figure", "img") or el.find("img"):
+        # Image / figure — only if there's an actual <img> tag inside
+        if el.name == "img" or el.find("img"):
             img_url = _extract_image_url(el)
             blocks.append(Block(el, text, "image", img_url=img_url))
             continue
