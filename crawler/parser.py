@@ -446,7 +446,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             if start_q <= qnum <= end_q:
                 stmt = stem_lines.pop() if stem_lines else ""
                 numbered_questions[qnum] = stmt
-                last_qnum = qnum
+                last_qnum = None  # next line is a new row label, not a continuation
                 in_instruction_block = False
                 continue
 
