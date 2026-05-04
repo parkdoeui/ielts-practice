@@ -479,6 +479,10 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
                     if re.match(r'^[A-Za-z][A-Za-z\-\s]+$', candidate) and len(candidate) <= 30:
                         stmt = stem_lines.pop()
                 numbered_questions[qnum] = stmt
+                if not stmt:
+                    # No label found; preserve the blank marker in stem so
+                    # it appears in shared_text (gives form/table context to the reader)
+                    stem_lines.append(line)
                 last_qnum = None  # next line is a new row label, not a continuation
                 in_instruction_block = False
                 continue
