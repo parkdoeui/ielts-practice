@@ -304,6 +304,20 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
             start_q = int(q_match.group(1)) if q_match else (int(q_single.group(1)) if q_single else 0)
             end_q = int(q_match.group(2)) if q_match else start_q
 
+            # If the block contains content BEFORE the "Questions N-M" marker
+            # (e.g. numbered question statements from the previous group),
+            # append that prefix to the previous group's text.
+            header_match = q_match or q_single
+            if header_match and header_match.start() > 0 and current_q_group is not None:
+                prefix = block.text[: header_match.start()].strip()
+                if prefix:
+                    current_q_group["text"] += "\n" + prefix
+            # Use only the text from the "Questions N-M" marker onwards as instruction
+            if header_match:
+                instruction_text = block.text[header_match.start():].strip()
+            else:
+                instruction_text = block.text
+
             current_q_group = {
                 "start": start_q,
                 "end": end_q,
