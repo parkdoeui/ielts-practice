@@ -74,6 +74,8 @@ Do NOT flag:
 - Missing options for individual questions within a multi-question MC group (model limitation)
 - Minor type classification differences (e.g. "sentence-completion" vs "short-answer" — only flag if completely wrong)
 - Issues with portions of the source page that are truncated/not visible
+- The `paragraphs` array having multiple items for a section that contains multiple paragraphs — that is correct behavior
+- Minor inconsistencies in whether instruction text appears in `instruction` vs `shared_text` field
 
 Respond with ONLY a JSON object (no markdown, no extra text):
 {{
