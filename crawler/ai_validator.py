@@ -71,7 +71,7 @@ Do NOT flag:
 - Typos or encoding issues in the source HTML (those get copied faithfully)
 - Answers that exceed word limits (the source answer key may have verbose answers)
 - YES/NO/NOT GIVEN vs TRUE/FALSE/NOT GIVEN distinction (treat as equivalent)
-- Missing options for individual questions within a multi-question MC group (model limitation)
+- Multiple MC questions within a single group having unique A/B/C/D options each — the model only captures one shared options dict, so options for earlier questions may be absent. Do NOT flag this at all.
 - Minor type classification differences (e.g. "sentence-completion" vs "short-answer" — only flag if completely wrong)
 - Issues with portions of the source page that are truncated/not visible
 - The `paragraphs` array having multiple items for a section that contains multiple paragraphs — that is correct behavior
