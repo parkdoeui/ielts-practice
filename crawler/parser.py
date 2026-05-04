@@ -424,12 +424,29 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         if not line:
             continue
 
+        # Skip "Example Answer" lines (test instructions showing a worked example)
+        if re.match(r'(?i)^example\b', line):
+            last_qnum = None
+            continue
+
         if pending_option_letter is not None:
             options[pending_option_letter] = line
             pending_option_letter = None
             last_qnum = None
             in_instruction_block = False
             continue
+
+        # Handle "(N)..." parenthesized blanks in classification tables.
+        # The statement (row label) is on the preceding stem line.
+        paren_q_match = re.match(r'^\((\d+)\)', line)
+        if paren_q_match:
+            qnum = int(paren_q_match.group(1))
+            if start_q <= qnum <= end_q:
+                stmt = stem_lines.pop() if stem_lines else ""
+                numbered_questions[qnum] = stmt
+                last_qnum = qnum
+                in_instruction_block = False
+                continue
 
         num_match = numbered_pattern.match(line)
         if num_match:
@@ -455,6 +472,21 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
 
         opt_match = option_inline_pattern.match(line)
         if opt_match and len(opt_match.group(2)) > 1:
+            # Check if this is "SECTION_LETTER QUESTION_NUM statement" pattern:
+            # e.g. "B 2 Section C" where B is the label for Q1, 2 starts Q2.
+            rest = opt_match.group(2)
+            digit_match = re.match(r'^(\d+)\s+(.*)', rest)
+            if digit_match and last_qnum is not None:
+                qnum2 = int(digit_match.group(1))
+                if start_q <= qnum2 <= end_q:
+                    # Append the letter to the previous question's statement
+                    prev_letter = opt_match.group(1)
+                    if last_qnum in numbered_questions:
+                        numbered_questions[last_qnum] = (numbered_questions[last_qnum] + " " + prev_letter).strip()
+                    numbered_questions[qnum2] = digit_match.group(2).strip()
+                    last_qnum = qnum2
+                    in_instruction_block = False
+                    continue
             options[opt_match.group(1)] = opt_match.group(2).strip()
             last_qnum = None
             in_instruction_block = False
