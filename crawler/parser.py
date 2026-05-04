@@ -427,8 +427,9 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         if not line:
             continue
 
-        # Skip "Example Answer" lines (test instructions showing a worked example)
-        if re.match(r'(?i)^example\b', line):
+        # Skip noise lines (Example Answer, Cambridge IELTS promo, etc.)
+        if (re.match(r'(?i)^example\b', line)
+                or any(re.match(p, line) for p in _NOISE_SHORT_PATTERNS)):
             last_qnum = None
             continue
 
