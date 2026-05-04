@@ -157,8 +157,9 @@ def _classify_blocks(children: list) -> list[Block]:
         if not text:
             continue
 
-        # Question header: "Questions N-M" or "Question N" at start of a group
-        if re.search(r"(?i)Questions?\s+\d+", text):
+        # Question header: "Questions N-M" or "Question N" at the START of a line
+        # (use multiline ^ so "(Questions 34-39)" in the middle of a line doesn't match)
+        if re.search(r"(?im)^Questions?\s+\d+", text):
             img_url = _extract_image_url(el) if el.find("img") else None
             blocks.append(Block(el, text, "question_header", img_url=img_url))
             continue
