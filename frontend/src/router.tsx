@@ -16,4 +16,6 @@ export const router = createBrowserRouter([
       { path: "progress", element: <ProgressDashboard /> },
     ],
   },
-]);
+], {
+  basename: import.meta.env.BASE_URL,
+});
