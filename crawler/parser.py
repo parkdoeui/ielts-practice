@@ -445,12 +445,14 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         opt_match = option_inline_pattern.match(line)
         if opt_match and len(opt_match.group(2)) > 1:
             options[opt_match.group(1)] = opt_match.group(2).strip()
+            last_qnum = None
             in_instruction_block = False
             continue
 
         opt_standalone = option_standalone_pattern.match(line)
         if opt_standalone:
             pending_option_letter = opt_standalone.group(1)
+            last_qnum = None
             continue
 
         if in_instruction_block:
