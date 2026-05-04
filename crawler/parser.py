@@ -82,6 +82,16 @@ def _normalize_dom(entry_content) -> list:
         # Check "Show Answers" boundary BEFORE filtering buttons/inputs so we don't skip the trigger
         text = child.get_text(strip=True)
         if "Show Answers" in text and child.name in ("p", "button", "div", "strong", "h2", "h3"):
+            # If "Show Answers" comes from an embedded button inside a <p> that also
+            # contains question content, include the element (cleaned) then stop.
+            if child.name == "p":
+                btn = child.find("button")
+                if btn and "Show Answers" in btn.get_text(strip=True):
+                    clean = BeautifulSoup(str(child), "html.parser").find("p")
+                    for noise in clean.find_all(["button", "input", "ins"]):
+                        noise.decompose()
+                    if clean.get_text(strip=True):
+                        result.append(clean)
             break
         if child.name == "ins":
             continue
