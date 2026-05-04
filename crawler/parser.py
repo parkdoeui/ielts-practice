@@ -321,7 +321,7 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
             current_q_group = {
                 "start": start_q,
                 "end": end_q,
-                "instruction": block.text,
+                "instruction": instruction_text,
                 "text": "",
                 "passage_id": p_id,
                 "image_url": block.img_url,  # may be embedded in the header <p>
