@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. Default passcode: `ielts2024`
+Create `frontend/.env` from `frontend/.env.example` before starting. Open http://localhost:5173.
 
 ### 2. Backend (progress tracking) — optional
 
@@ -34,9 +34,9 @@ pip install -r requirements.txt
 uvicorn main:app --reload     # http://localhost:8000
 ```
 
-Copy `.env.example` to `.env` and set `VITE_API_URL=http://localhost:8000` in `frontend/.env.local`.
+Copy `backend/.env.example` to `backend/.env` and `frontend/.env.example` to `frontend/.env`.
 
-The frontend works **without** the backend — sessions are saved to localStorage. The progress dashboard shows local data as a fallback.
+The frontend works **without** the backend — sessions are still saved to localStorage. When the backend is unavailable, the results page shows that the attempt was stored locally only.
 
 ### 3. Crawler — add new tests
 
@@ -58,13 +58,29 @@ Then rebuild the frontend (`npm run build`) to include the new test JSON.
 - **Progress dashboard** — score history, band trend chart, per-question-type accuracy
 - **Passcode gate** — simple access control for friends-only use
 
-## Changing the Passcode
+## Environment Config
 
-Edit `frontend/src/components/AccessGate.tsx`:
+Frontend `frontend/.env`:
 
-```ts
-const VALID_PASSCODE = "your-passcode-here";
+```bash
+VITE_API_URL=http://localhost:8000
+VITE_VALID_PASSCODE=your-passcode-here
 ```
+
+Backend `backend/.env`:
+
+```bash
+DATABASE_URL=postgresql://ielts:ielts@localhost:5432/ielts
+VALID_PASSCODE=your-passcode-here
+```
+
+Architecture:
+
+- The browser uses `VITE_VALID_PASSCODE` to unlock the app and stores the successful passcode in localStorage.
+- On submit, the frontend saves the result to localStorage immediately, then awaits `POST /api/sessions`.
+- The backend validates the submitted passcode against `VALID_PASSCODE` before saving or returning session data.
+- `GET /api/sessions` and `GET /api/progress` are passcode-scoped and backed by PostgreSQL when the API is available.
+- localStorage remains the fallback cache if the backend is down or misconfigured.
 
 ## Tech Stack
 
