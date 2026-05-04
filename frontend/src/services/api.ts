@@ -62,6 +62,14 @@ export async function getSessions(passcode: string): Promise<TestSession[]> {
   return res.json();
 }
 
+export async function getSessionById(
+  passcode: string,
+  sessionId: string
+): Promise<TestSession | null> {
+  const sessions = await getSessions(passcode);
+  return sessions.find((session) => session.id === sessionId) ?? null;
+}
+
 /**
  * GET /api/progress — fetch aggregated progress stats for a passcode.
  */

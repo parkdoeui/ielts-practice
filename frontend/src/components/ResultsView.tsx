@@ -1,21 +1,44 @@
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
+import { getSessionById } from "../services/api";
 import type { TestSession } from "../types";
 
 export function ResultsView() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [session, setSession] = useState<TestSession | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const sessionStr = localStorage.getItem(`ielts_session_${id}`);
-  if (!sessionStr) {
+  useEffect(() => {
+    const passcode = localStorage.getItem("ielts_passcode") ?? "";
+    if (!id || !passcode) {
+      setLoading(false);
+      return;
+    }
+
+    getSessionById(passcode, id)
+      .then(setSession)
+      .catch(() => setSession(null))
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) {
     return (
       <div className="max-w-2xl mx-auto py-16 px-4 text-center">
-        <p className="text-gray-500">Session not found.</p>
+        <p className="text-gray-500">Loading result…</p>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return (
+      <div className="max-w-2xl mx-auto py-16 px-4 text-center">
+        <p className="text-gray-500">Session not found on the backend.</p>
         <button onClick={() => navigate("/")} className="mt-4 text-blue-600 text-sm">← Back to tests</button>
       </div>
     );
   }
 
-  const session: TestSession = JSON.parse(sessionStr);
   const { score, answers } = session;
   const timeTakenMinutes = Math.round(session.total_time_ms / 60000);
 

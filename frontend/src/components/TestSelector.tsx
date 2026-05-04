@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { getSessions } from "../services/api";
 import type { ReadingTest, TestSession } from "../types";
 
 const testFiles = import.meta.glob<{ default: ReadingTest }>(
@@ -31,29 +32,6 @@ function getTestNumber(test: ReadingTest): number {
 
   const titleMatch = test.title.match(/test\s*(\d+)/i);
   return titleMatch ? Number(titleMatch[1]) : Number.MAX_SAFE_INTEGER;
-}
-
-function getStoredSessions(): TestSession[] {
-  const passcode = localStorage.getItem("ielts_passcode") ?? "";
-  const sessions: TestSession[] = [];
-
-  for (let i = 0; i < localStorage.length; i += 1) {
-    const key = localStorage.key(i);
-    if (!key?.startsWith("ielts_session_")) {
-      continue;
-    }
-
-    try {
-      const session = JSON.parse(localStorage.getItem(key) ?? "") as TestSession;
-      if (!passcode || session.passcode === passcode) {
-        sessions.push(session);
-      }
-    } catch {
-      // Ignore malformed session entries.
-    }
-  }
-
-  return sessions;
 }
 
 function buildLatestSessionMap(sessions: TestSession[]) {
@@ -101,11 +79,20 @@ export function TestSelector() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const passcode = localStorage.getItem("ielts_passcode") ?? "";
     const loaded = Object.values(testFiles)
       .map((m) => m.default)
       .sort((a, b) => getTestNumber(a) - getTestNumber(b) || a.title.localeCompare(b.title));
     setTests(loaded);
-    setSessions(getStoredSessions());
+
+    if (!passcode) {
+      setSessions([]);
+      return;
+    }
+
+    getSessions(passcode)
+      .then((serverSessions) => setSessions(serverSessions))
+      .catch(() => setSessions([]));
   }, []);
 
   const testItems = useMemo(() => {

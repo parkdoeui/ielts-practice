@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import type { ProgressData } from "../services/api";
 import { getProgress } from "../services/api";
-import type { TestSession } from "../types";
 
 function bandColor(band: number): string {
   if (band >= 8) return "#10b981"; // green
@@ -42,75 +41,17 @@ function formatQType(type: string): string {
   return labels[type] ?? type;
 }
 
-/** Build ProgressData from localStorage sessions as a fallback */
-function buildProgressFromLocal(sessions: TestSession[]): ProgressData {
-  if (sessions.length === 0) {
-    return {
-      total_tests: 0,
-      average_band: 0,
-      best_band: 0,
-      score_history: [],
-      per_type_accuracy: [],
-    };
-  }
-
-  const bands = sessions.map((s) => s.score.band_estimate);
-  const average_band =
-    Math.round((bands.reduce((a, b) => a + b, 0) / bands.length) * 100) / 100;
-  const best_band = Math.max(...bands);
-
-  const score_history = sessions.map((s) => ({
-    date: s.completed_at,
-    test_id: s.test_id,
-    band: s.score.band_estimate,
-    correct: s.score.correct,
-    total: s.score.total,
-  }));
-
-  return {
-    total_tests: sessions.length,
-    average_band,
-    best_band,
-    score_history,
-    per_type_accuracy: [],
-  };
-}
-
 export function ProgressDashboard() {
   const navigate = useNavigate();
   const [progress, setProgress] = useState<ProgressData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [fromBackend, setFromBackend] = useState(false);
 
   useEffect(() => {
     const passcode = localStorage.getItem("ielts_passcode") ?? "";
 
     getProgress(passcode)
-      .then((data) => {
-        setProgress(data);
-        setFromBackend(true);
-      })
-      .catch(() => {
-        // Fallback: read sessions from localStorage
-        const sessions: TestSession[] = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const key = localStorage.key(i);
-          if (key?.startsWith("ielts_session_")) {
-            try {
-              sessions.push(JSON.parse(localStorage.getItem(key)!));
-            } catch {
-              // skip corrupt entries
-            }
-          }
-        }
-        sessions.sort(
-          (a, b) =>
-            new Date(b.completed_at).getTime() -
-            new Date(a.completed_at).getTime()
-        );
-        setProgress(buildProgressFromLocal(sessions));
-        setFromBackend(false);
-      })
+      .then((data) => setProgress(data))
+      .catch(() => setProgress(null))
       .finally(() => setLoading(false));
   }, []);
 
@@ -156,8 +97,7 @@ export function ProgressDashboard() {
               Progress Dashboard
             </h1>
             <p className="text-sm text-gray-400 mt-0.5">
-              {fromBackend ? "Synced from backend" : "From local sessions"} ·{" "}
-              {progress.total_tests} test
+              Synced from backend · {progress.total_tests} test
               {progress.total_tests !== 1 ? "s" : ""} taken
             </p>
           </div>
