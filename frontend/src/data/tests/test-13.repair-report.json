@@ -1,0 +1,12 @@
+{
+  "changes": [
+    "Split multiple-choice group 1-4 into four separate groups to correctly associate unique options with each question, as required by the schema.",
+    "Corrected question group 5-8 type from 'sentence-completion' to 'table-completion' to match source instructions.",
+    "Corrected question group 9-12 type from 'true-false-ng' to 'yes-no-ng' to match source instructions.",
+    "Moved the question stem for question 13 from a group-level `shared_text` field to the question's `statement` field.",
+    "Added missing 'List of Headings' context to `shared_text` for question group 14-17.",
+    "Corrected question group 18-21 type from 'sentence-completion' to 'short-answer' to match the question format.",
+    "Corrected question group 32-36 type from 'sentence-completion' to 'table-completion' to match source instructions."
+  ],
+  "confidence": 0.95
+}

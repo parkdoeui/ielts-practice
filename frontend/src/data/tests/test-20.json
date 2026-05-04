@@ -107,7 +107,7 @@
       "id": "group-6-10",
       "type": "true-false-ng",
       "passage_id": "passage-1",
-      "instruction": "Questions 6-10\nTRUE\nif the statement agrees with the information\nFALSE\nif the statement contradicts the information\nNOT GIVEN\nif there is no information on this",
+      "instruction": "Questions 6-10\nDo the following statements agree with the information given in Reading Passage 1?\nIn boxes 6-10 on your answer sheet, write\nTRUE\nif the statement agrees with the information\nFALSE\nif the statement contradicts the information\nNOT GIVEN\nif there is no information on this",
       "questions": [
         {
           "id": 6,
@@ -142,9 +142,9 @@
     },
     {
       "id": "group-11-13",
-      "type": "sentence-completion",
+      "type": "matching-features",
       "passage_id": "passage-1",
-      "instruction": "Questions 11-13",
+      "instruction": "Questions 11-13\nLook at the following cities (Questions 11-13) and the list of descriptions below.\nMatch each city with the correct description, A-F.\nWrite the correct letter, A-F, in boxes 11-13 on your answer sheet.",
       "questions": [
         {
           "id": 11,
@@ -162,7 +162,7 @@
           "answer": "C"
         }
       ],
-      "shared_text": "Look at the following cities (Questions 11-13) and the list of descriptions below.\nMatch each city with the correct description, A-F.\nWrite the correct letter, A-F, in boxes 11-13 on your answer sheet.",
+      "shared_text": null,
       "word_list": null,
       "image_url": null,
       "options": null
@@ -171,7 +171,7 @@
       "id": "group-14-22",
       "type": "summary-completion",
       "passage_id": "passage-2",
-      "instruction": "Questions 14-22",
+      "instruction": "Questions 14-22\nComplete the summary using the list of words, A-Q, below. Write the correct letter, A-Q, in boxes 14-22 on your answer sheet.",
       "questions": [
         {
           "id": 14,
@@ -219,7 +219,7 @@
           "answer": "cost"
         }
       ],
-      "shared_text": "Complete the summary using the list of words, A-Q, below. Write the correct letter, A-Q, in boxes 14-22 on your answer sheet.\nResearch carried out by scientists in the United States has shown that the proportion of people over 65 suffering from the most common age-related medical problems is (14) ……………….. and that the speed of this change is (15)……………………… . It also seems that these diseases are affecting people (16) ……………….. in life than they did in the past, This is largely due to developments in (17) ……………….. , but other factors such as improved (18)………………….. may also be playing a part. Increases in some other illnesses may be due to changes in personal habits and to (19) ……………….. The research establishes a link between levels of (20) ……………….. and life expectancy. It also shows the there has been a considerable reduction in the number of elderly people who are (21)……………….. , which means that the (22) ……………….. involved in supporting this section of the population may be less than previously predicted.",
+      "shared_text": "Research carried out by scientists in the United States has shown that the proportion of people over 65 suffering from the most common age-related medical problems is (14) ……………….. and that the speed of this change is (15)……………………… . It also seems that these diseases are affecting people (16) ……………….. in life than they did in the past, This is largely due to developments in (17) ……………….. , but other factors such as improved (18)………………….. may also be playing a part. Increases in some other illnesses may be due to changes in personal habits and to (19) ……………….. The research establishes a link between levels of (20) ……………….. and life expectancy. It also shows the there has been a considerable reduction in the number of elderly people who are (21)……………….. , which means that the (22) ……………….. involved in supporting this section of the population may be less than previously predicted.",
       "word_list": [
         "cost",
         "falling",
@@ -244,9 +244,9 @@
     },
     {
       "id": "group-23-26",
-      "type": "sentence-completion",
+      "type": "matching-features",
       "passage_id": "passage-2",
-      "instruction": "Questions 23-26",
+      "instruction": "Questions 23-26\nLook at the following Questions 23-26 and the list of descriptions below.\nMatch each question with the correct description, A-H.\nWrite the correct letter, A-H, in boxes 23-26 on your answer sheet.",
       "questions": [
         {
           "id": 23,
@@ -269,16 +269,16 @@
           "answer": "C"
         }
       ],
-      "shared_text": "Look at the following Questions 23-26 and the list of descriptions below.\nMatch each question with the correct description, A-H.\nWrite the correct letter, A-H, in boxes 11-13 on your answer sheet.",
+      "shared_text": null,
       "word_list": null,
       "image_url": null,
       "options": null
     },
     {
       "id": "group-27-31",
-      "type": "sentence-completion",
+      "type": "matching-sentence-endings",
       "passage_id": "passage-3",
-      "instruction": "Questions 27-31",
+      "instruction": "Questions 27-31\nComplete each sentence with the correct ending, A-G, below.\nWrite the correct letter, A-G, in boxes 27-31 on your answer sheet.",
       "questions": [
         {
           "id": 27,
@@ -306,16 +306,24 @@
           "answer": "G"
         }
       ],
-      "shared_text": "Complete each sentence with the correct ending, A-G, below.\nWrite the correct letter, A-G, in boxes 27-31 on your answer sheet.",
+      "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": {
+        "A": "was necessary in order to fulfil a civic role.",
+        "B": "was necessary when people began farming.",
+        "C": "was necessary for the development of arithmetic.",
+        "D": "persists in all societies.",
+        "E": "was used when the range of number words was restricted.",
+        "F": "can be traced back to early European languages.",
+        "G": "was a characteristic of early numeration systems."
+      }
     },
     {
       "id": "group-32-40",
       "type": "true-false-ng",
       "passage_id": "passage-3",
-      "instruction": "Questions 32-40\nTRUE\nif the statement is true according to the passage\nFALSE\nif the statement is false according to the passage\nNOT GIVEN\nif the information is not given in the passage",
+      "instruction": "Questions 32-40\nDo the following statements agree with the information given in Reading Passage 3?\nIn boxes 32-40 on your answer sheet, write\nTRUE\nif the statement is true according to the passage\nFALSE\nif the statement is false according to the passage\nNOT GIVEN\nif the information is not given in the passage",
       "questions": [
         {
           "id": 32,

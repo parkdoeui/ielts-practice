@@ -1,0 +1,7 @@
+{
+  "changes": [
+    "Corrected multiple-choice group 6-8 by moving options from the group level to individual questions, as the options were unique to each question.",
+    "Corrected multiple-choice group 15-18 by moving options from the group level to individual questions, as the options were unique to each question."
+  ],
+  "confidence": 1.0
+}

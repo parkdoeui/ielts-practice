@@ -1,0 +1,10 @@
+{
+  "changes": [
+    "Split multiple-choice group for questions 14-15 into two separate groups, as each question has a unique set of options, and adjusted instructions accordingly.",
+    "Corrected question statement 20 by removing a parsing artifact (a misplaced hyphen).",
+    "Changed question group 24-26 type from 'sentence-completion' to 'diagram-labelling' to match instructions referring to a chart.",
+    "Restructured question group 33-35 by moving a preamble from the 'instruction' field to 'shared_text' and removing extraneous newlines from the instruction.",
+    "Corrected a typo in the researcher's name in question 37 ('Bekofif' to 'Bekoff')."
+  ],
+  "confidence": 0.98
+}

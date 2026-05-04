@@ -129,7 +129,7 @@
       "id": "group-10-13",
       "type": "true-false-ng",
       "passage_id": "passage-1",
-      "instruction": "Questions 10-13\nYES\nif the statement agrees with the view of the writer\nNO\nif the statement contradicts the view of the writer\nNOT GIVEN\nif it is impossible to say what the writer thinks about this",
+      "instruction": "Questions 10-13\nDo the following statements agree with the views of the writer in the passage? In boxes 10-13 on your answer sheet write\nYES\nif the statement agrees with the view of the writer\nNO\nif the statement contradicts the view of the writer\nNOT GIVEN\nif it is impossible to say what the writer thinks about this",
       "questions": [
         {
           "id": 10,

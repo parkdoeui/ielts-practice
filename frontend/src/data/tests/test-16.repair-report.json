@@ -1,0 +1,6 @@
+{
+  "changes": [
+    "Corrected `type` for question group 38-40 from `sentence-completion` to `table-completion` to match the 'Complete the table' instruction in the source text."
+  ],
+  "confidence": 1.0
+}

@@ -1,0 +1,8 @@
+{
+  "changes": [
+    "Separated shared multiple-choice options for group 11-13 into individual question options, as they were unique to each question.",
+    "Changed question group 14-19 type from 'true-false-ng' to 'yes-no-ng' to match source instructions.",
+    "Changed question group 36-40 type from 'true-false-ng' to 'yes-no-ng' to match source instructions."
+  ],
+  "confidence": 1.0
+}

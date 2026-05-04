@@ -203,7 +203,7 @@
       "id": "group-20-21",
       "type": "multiple-choice",
       "passage_id": "passage-2",
-      "instruction": "Questions 20 and 21\nChoose\nTWO\nletters A – E. Write your answer in boxes 20 and 21 on your answer sheet.",
+      "instruction": "Questions 20 and 21\nChoose\nTWO\nletters A – E. Write your answer in boxes 20 and 21 on your answer sheet.\nThe list below gives some statements about anthropology.",
       "questions": [
         {
           "id": 20,
@@ -216,7 +216,7 @@
           "answer": "E"
         }
       ],
-      "shared_text": "The list below gives some statements about anthropology.\nWhich\nTWO\nstatements are mentioned by the writer of the text?",
+      "shared_text": "Which\nTWO\nstatements are mentioned by the writer of the text?",
       "word_list": null,
       "image_url": null,
       "options": {
@@ -231,7 +231,7 @@
       "id": "group-22-23",
       "type": "multiple-choice",
       "passage_id": "passage-2",
-      "instruction": "Questions 22 and 23\nChoose\nTWO\nletters A – E. Write your answer in boxes 22 and 23 on your answer sheet.",
+      "instruction": "Questions 22 and 23\nChoose\nTWO\nletters A – E. Write your answer in boxes 22 and 23 on your answer sheet.\nThe list below gives some of the tasks of an archaeologist.",
       "questions": [
         {
           "id": 22,
@@ -244,7 +244,7 @@
           "answer": "D"
         }
       ],
-      "shared_text": "The list below gives some of the tasks of an archaeologist.\nWhich\nTWO\nof these tasks are mentioned by the writer of the text?",
+      "shared_text": "Which\nTWO\nof these tasks are mentioned by the writer of the text?",
       "word_list": null,
       "image_url": null,
       "options": {
@@ -291,7 +291,7 @@
       "id": "group-28-31",
       "type": "matching-headings",
       "passage_id": "passage-3",
-      "instruction": "Questions 28-31\nReading Passage 3 has five sections A-E. Choose the correct heading for section A and C-E from the list of headings below.",
+      "instruction": "Questions 28-31\nReading Passage 3 has five sections A-E. Choose the correct heading for section A and C-E from the list of headings below.\nWrite the correct number i-viii in boxes 28-31 on your answer sheet.",
       "questions": [
         {
           "id": 28,

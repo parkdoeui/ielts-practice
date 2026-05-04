@@ -60,7 +60,7 @@
       "id": "group-1-3",
       "type": "multiple-choice",
       "passage_id": "passage-1",
-      "instruction": "Questions 1-3",
+      "instruction": "Questions 1-3\nChoose",
       "questions": [
         {
           "id": 1,
@@ -78,7 +78,7 @@
           "answer": "G"
         }
       ],
-      "shared_text": "Choose\nTHREE\nletters A-H. Write your answers in boxes 1-3 on your answer sheet.\nNB Your answers may be given in any order.\nWhich\nTHREE\nof the following statements are true of Johnson’s Dictionary?",
+      "shared_text": "THREE\nletters A-H. Write your answers in boxes 1-3 on your answer sheet.\nNB Your answers may be given in any order.\nWhich\nTHREE\nof the following statements are true of Johnson’s Dictionary?",
       "word_list": null,
       "image_url": null,
       "options": {
@@ -96,7 +96,7 @@
       "id": "group-4-7",
       "type": "summary-completion",
       "passage_id": "passage-1",
-      "instruction": "Questions 4-7\nNO MORE THAN TWO WORDS\nfrom the passage for each answer.\nIn 1764 Dr Johnson accepted the contract to produce a dictionary. Having rented a garret, he took on a number of (4) ……………….. , who stood at a long central desk. Johnson did not have a (5) ……………….. available to him, but eventually produced definitions of in excess of 40,000 words written down in 80 large notebooks. On publication, the Dictionary was immediately hailed in many European countries as a landmark. According to his biographer, James Boswell, Johnson’s principal achievement was to bring (6) ……………….. to the English language. As a reward for his hard work, he was granted a (7) ……………….. by the king.",
+      "instruction": "Questions 4-7\nComplete the summary. Choose\nNO MORE THAN TWO WORDS\nfrom the passage for each answer.",
       "questions": [
         {
           "id": 4,
@@ -119,7 +119,7 @@
           "answer": "pension"
         }
       ],
-      "shared_text": "Complete the summary. Choose",
+      "shared_text": "In 1764 Dr Johnson accepted the contract to produce a dictionary. Having rented a garret, he took on a number of (4) ……………….. , who stood at a long central desk. Johnson did not have a (5) ……………….. available to him, but eventually produced definitions of in excess of 40,000 words written down in 80 large notebooks. On publication, the Dictionary was immediately hailed in many European countries as a landmark. According to his biographer, James Boswell, Johnson’s principal achievement was to bring (6) ……………….. to the English language. As a reward for his hard work, he was granted a (7) ……………….. by the king.",
       "word_list": null,
       "image_url": null,
       "options": null
@@ -128,36 +128,36 @@
       "id": "group-8-13",
       "type": "true-false-ng",
       "passage_id": "passage-1",
-      "instruction": "Questions 8-13\nTRUE\nif the statement is true according to the passage\nFALSE\nif the statement is false according to the passage\nNOT GIVEN\nif the information is not given in the passage\n8) The growing importance of the middle classes led to an increased demand for dictionaries.\n9) Johnson has become more well known since his death.\n10) Johnson had been planning to write a dictionary for several years.\n11) Johnson set up an academy to help with the writing of his Dictionary.\n12) Johnson only received payment for his Dictionary on its completion.\n13) Not all of the assistants survived to see the publication of the Dictionary.",
+      "instruction": "Questions 8-13\nDo the following statements agree with the information given in Reading Passage 1? In boxes 8-13 on your answer sheet, write\nTRUE\nif the statement is true according to the passage\nFALSE\nif the statement is false according to the passage\nNOT GIVEN",
       "questions": [
         {
           "id": 8,
-          "statement": "",
+          "statement": "The growing importance of the middle classes led to an increased demand for dictionaries.",
           "answer": "true"
         },
         {
           "id": 9,
-          "statement": "",
+          "statement": "Johnson has become more well known since his death.",
           "answer": "false"
         },
         {
           "id": 10,
-          "statement": "",
+          "statement": "Johnson had been planning to write a dictionary for several years.",
           "answer": "not given"
         },
         {
           "id": 11,
-          "statement": "",
+          "statement": "Johnson set up an academy to help with the writing of his Dictionary.",
           "answer": "false"
         },
         {
           "id": 12,
-          "statement": "",
+          "statement": "Johnson only received payment for his Dictionary on its completion.",
           "answer": "false"
         },
         {
           "id": 13,
-          "statement": "",
+          "statement": "Not all of the assistants survived to see the publication of the Dictionary.",
           "answer": "true"
         }
       ],
@@ -170,7 +170,7 @@
       "id": "group-14-19",
       "type": "matching-information",
       "passage_id": "passage-2",
-      "instruction": "Questions 14-19\nReading Passage 2 has nine paragraphs, A-I. Which paragraph contains the following information?",
+      "instruction": "Questions 14-19\nReading Passage 2 has nine paragraphs, A-I. Which paragraph contains the following information?\nWrite the correct letter A-I in boxes 14-19 on your answer sheet.",
       "questions": [
         {
           "id": 14,
@@ -286,7 +286,7 @@
       "id": "group-27-32",
       "type": "true-false-ng",
       "passage_id": "passage-3",
-      "instruction": "Questions 27-32\nYES\nif the statement agrees with the writer’s claims\nNO\nif the statement contradicts the writer’s claims\nNOT GIVEN\nif there is impossible to say what the writer thinks about this",
+      "instruction": "Questions 27-32\nDo the following statements agree with the information given in Reading Passage 3?\nIn boxes 27-32 on your answer sheet, write\nYES\nif the statement agrees with the writer’s claims\nNO\nif the statement contradicts the writer’s claims\nNOT GIVEN\nif there is impossible to say what the writer thinks about this",
       "questions": [
         {
           "id": 27,
@@ -328,7 +328,7 @@
       "id": "group-33-37",
       "type": "multiple-choice",
       "passage_id": "passage-3",
-      "instruction": "Questions 33-37",
+      "instruction": "Questions 33-37\nChoose the correct letter, A, B, C or D. Write your answers in boxes 33-37 on your answer sheet.",
       "questions": [
         {
           "id": 33,
@@ -356,7 +356,7 @@
           "answer": "B"
         }
       ],
-      "shared_text": "Choose the correct letter, A, B, C or D. Write your answers in boxes 33-37 on your answer sheet.",
+      "shared_text": null,
       "word_list": null,
       "image_url": null,
       "options": {
@@ -370,7 +370,7 @@
       "id": "group-38-40",
       "type": "summary-completion",
       "passage_id": "passage-3",
-      "instruction": "Questions 38-40",
+      "instruction": "Questions 38-40\nComplete the summary with the list of words A-I below. Write the correct letter A-I in boxes 38-40 on your answer sheet.",
       "questions": [
         {
           "id": 38,
@@ -388,7 +388,7 @@
           "answer": "I"
         }
       ],
-      "shared_text": "Complete the summary with the list of words A-I below. Write the correct letter A-I in boxes 38-40 on your answer sheet.\nGLOBAL WARMING\nThe writer admits that global warming is a (38) ……………….. challenge, but says that it will not have a catastrophic impact on our future, if we deal with it in the (39) ……………….. way. If we try to reduce the levels of greenhouse gases, he believes that it would only have a minimal impact on rising temperatures. He feels it would be better to spend money on the more (40) ……………….. health problem of providing the world’s population with clean drinking water.",
+      "shared_text": "GLOBAL WARMING\nThe writer admits that global warming is a (38) ……………….. challenge, but says that it will not have a catastrophic impact on our future, if we deal with it in the (39) ……………….. way. If we try to reduce the levels of greenhouse gases, he believes that it would only have a minimal impact on rising temperatures. He feels it would be better to spend money on the more (40) ……………….. health problem of providing the world’s population with clean drinking water.",
       "word_list": [
         "unrealistic",
         "agreed",
