@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const PASSCODE_KEY = "ielts_passcode";
-const VALID_PASSCODE = "ielts2024"; // simple hardcoded passcode
+const VALID_PASSCODE = import.meta.env.VITE_VALID_PASSCODE?.trim();
 
 interface Props {
   children: React.ReactNode;
@@ -13,12 +13,21 @@ export function AccessGate({ children }: Props) {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!VALID_PASSCODE) {
+      return;
+    }
+
     const stored = localStorage.getItem(PASSCODE_KEY);
     if (stored === VALID_PASSCODE) setAuthenticated(true);
   }, []);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!VALID_PASSCODE) {
+      setError("Missing passcode configuration.");
+      return;
+    }
+
     if (input === VALID_PASSCODE) {
       localStorage.setItem(PASSCODE_KEY, input);
       setAuthenticated(true);
@@ -28,6 +37,19 @@ export function AccessGate({ children }: Props) {
   }
 
   if (authenticated) return <>{children}</>;
+
+  if (!VALID_PASSCODE) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="bg-white p-8 rounded-xl shadow-sm border border-red-200 w-full max-w-md">
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">IELTS Practice</h1>
+          <p className="text-sm text-red-600">
+            Missing `VITE_VALID_PASSCODE`. Add it to your frontend env config before using the app.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

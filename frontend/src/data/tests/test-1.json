@@ -18,14 +18,6 @@
     },
     {
       "id": "passage-2",
-      "title": "What is the writer’s purpose in Reading Passage?",
-      "text": "A\nto argue in favour of a particular approach to writing dictionaries and grammar books\nB\nto present a historical account of differing views of language\nC\nto describe the differences between spoken and written language\nD\nto show how a certain view of language has been discredited",
-      "paragraphs": [
-        "A\nto argue in favour of a particular approach to writing dictionaries and grammar books\nB\nto present a historical account of differing views of language\nC\nto describe the differences between spoken and written language\nD\nto show how a certain view of language has been discredited"
-      ]
-    },
-    {
-      "id": "passage-3",
       "title": "Tidal Power",
       "text": "A\nOperating on the same principle as wind turbines, the power in sea turbines comes from tidal currents which turn blades similar to ships’ propellers, but, unlike wind, the tides are predictable and the power input is constant. The technology raises the prospect of Britain becoming self-sufficient in renewable energy and drastically reducing its carbon dioxide emissions. If tide, wind and wave power are all developed, Britain would be able to close gas, coal and nuclear power plants and export renewable power to other parts of Europe. Unlike wind power, which Britain originally developed and then abandoned for 20 years allowing the Dutch to make it a major industry, undersea turbines could become a big export earner to island nations such as Japan and New Zealand.\n\nB\nTidal sites have already been identified that will produce one sixth or more of the UK’s power – and at prices competitive with modern gas turbines and undercutting those of the already ailing nuclear industry. One site alone, the Pentland Firth, between Orkney and mainland Scotland, could produce 10% of the country’s electricity with banks of turbines under the sea, and another at Alderney in the Channel Islands three times the 1,200 megawatts of Britain’s largest and newest nuclear plant, Sizewell B, in Suffolk. Other sites identified include the Bristol Channel and the west coast of Scotland, particularly the channel between Campbeltown and Northern Ireland.\n\nC\nWork on designs for the new turbine blades and sites are well advanced at the University of Southampton’s sustainable energy research group. The first station is expected to be installed off Lynmouth in Devon shortly to test the technology in a venture jointly funded by the department of Trade and Industry and the European Union. AbuBakr Bahaj, in charge of the Southampton research, said: The prospects for energy from tidal currents are far better than from wind because the flows of water are predictable and constant. The technology for dealing with the hostile saline environment under the sea has been developed in the North Sea oil industry and much is already known about turbine blade design, because of wind power and ship propellers. There are a few technical difficulties, but I believe in the next five to ten years we will be installing commercial marine turbine farms.’ Southampton has been awarded £215,000 over three years to develop the turbines and is working with Marine Current Turbines, a subsidiary of IT power, on the Lynmouth project. EU research has now identified 106 potential sites for tidal power, 80% round the coasts of Britain. The best sites are between islands or around heavily indented coasts where there are strong tidal currents.\n\nD\nA marine turbine blade needs to be only one third of the size of a wind generator to produce three times as much power. The blades will be about 20 metres in diameter, so around 30 metres of water is required. Unlike wind power, there are unlikely to be environmental objections. Fish and other creatures are thought unlikely to be at risk from the relatively slow-turning blades. Each turbine will be mounted on a tower which will connect to the national power supply grid via underwater cables. The towers will stick out of the water and be lit, to warn shipping, and also be designed to be lifted out of the water for maintenance and to clean seaweed from the blades.\n\nE\nDr Bahaj has done most work on the Alderney site, where there are powerful currents. The single undersea turbine farm would produce far more power than needed for the Channel Islands and most would be fed into the French Grid and be re-imported into Britain via the cable under the Channel.\n\nF\nOne technical difficulty is cavitation, where low pressure behind a turning blade causes air bubbles. These can cause vibration and damage the blades of the turbines. Dr Bahaj said: ‘We have to test a number of blade types to avoid this happening or at least make sure it does not damage the turbines or reduce performance. Another slight concern is submerged debris floating into the blades. So far we do not know how much of a problem it might be. We will have to make the turbines robust because the sea is a hostile environment, but all the signs that we can do it are good.’",
       "paragraphs": [
@@ -35,6 +27,19 @@
         "D\nA marine turbine blade needs to be only one third of the size of a wind generator to produce three times as much power. The blades will be about 20 metres in diameter, so around 30 metres of water is required. Unlike wind power, there are unlikely to be environmental objections. Fish and other creatures are thought unlikely to be at risk from the relatively slow-turning blades. Each turbine will be mounted on a tower which will connect to the national power supply grid via underwater cables. The towers will stick out of the water and be lit, to warn shipping, and also be designed to be lifted out of the water for maintenance and to clean seaweed from the blades.",
         "E\nDr Bahaj has done most work on the Alderney site, where there are powerful currents. The single undersea turbine farm would produce far more power than needed for the Channel Islands and most would be fed into the French Grid and be re-imported into Britain via the cable under the Channel.",
         "F\nOne technical difficulty is cavitation, where low pressure behind a turning blade causes air bubbles. These can cause vibration and damage the blades of the turbines. Dr Bahaj said: ‘We have to test a number of blade types to avoid this happening or at least make sure it does not damage the turbines or reduce performance. Another slight concern is submerged debris floating into the blades. So far we do not know how much of a problem it might be. We will have to make the turbines robust because the sea is a hostile environment, but all the signs that we can do it are good.’"
+      ]
+    },
+    {
+      "id": "passage-3",
+      "title": "Information Theory – The Bid Idea",
+      "text": "A\nIn April 2002 an event took place which demonstrated one of the many applications of information theory. The space probe, Voyager I, launched in 1977, had sent back spectacular images of Jupiter and Saturn and then soared out of the Solar System on a one-way mission to the stars. After 25 years of exposure to the freezing temperatures of deep space, the probe was beginning to show its age. Sensors and circuits were on the brink of failing and NASA experts realised that they had to do something or lose contact with their probe forever. The solution was to get a message to Voyager I to instruct it to use spares to change the failing parts. With the probe 12 billion kilometres from Earth, this was not an easy task. By means of a radio dish belonging to NASA’s Deep Space Network, the message was sent out into the depths of space. Even travelling at the speed of light, it took over 11 hours to reach its target, far beyond the orbit of Pluto. Yet, incredibly, the little probe managed to hear the faint call from its home planet, and successfully made the switchover.\n\nB\nIt was the longest-distance repair job in history, and a triumph for the NASA engineers. But it also highlighted the astonishing power of the techniques developed by American communications engineer Claude Shannon, who had died just a year earlier. Born in 1916 in Petoskey, Michigan, Shannon showed an early talent for maths and for building gadgets, and made breakthroughs in the foundations of computer technology when still a student. While at Bell Laboratories, Shannon developed information theory, but shunned the resulting acclaim. In the 1940s, he single-handedly created an entire science of communication which has since inveigled its way into a host of applications, from DVDs to satellite communications to bar codes – any area, in short, where data has to be conveyed rapidly yet accurately.\n\nC\nThis all seems light years away from the down-to-earth uses Shannon originally had for his work, which began when he was a 22-year-old graduate engineering student at the prestigious Massachusetts Institute of Technology in 1939. He set out with an apparently simple aim: to pin down the precise meaning of the concept of ‘information’. The most basic form of information, Shannon argued, is whether something is true or false – which can be captured in the binary unit, or ‘bit’, of the form 1 or 0. Having identified this fundamental unit, Shannon set about defining otherwise vague ideas about information and how to transmit it from place to place. In the process he discovered something surprising: it is always possible to guarantee information will get through random interference – ‘noise’ – intact.\n\nD\nNoise usually means unwanted sounds which interfere with genuine information. Information theory generalises this idea via theorems that capture the effects of noise with mathematical precision. In particular, Shannon showed that noise sets a limit on the rate at which information can pass along communication channels while remaining error-free. This rate depends on the relative strengths of the signal and noise travelling down the communication channel, and on its capacity (its ‘bandwidth’). The resulting limit, given in units of bits per second, is the absolute maximum rate of error-free communication given signal strength and noise level. The trick, Shannon showed, is to find ways of packaging up – ‘coding’ – information to cope with the ravages of noise, while staying within the information-carrying capacity – ‘bandwidth’ – of the communication system being used.\n\nE\nOver the years scientists have devised many such coding methods, and they have proved crucial in many technological feats. The Voyager spacecraft transmitted data using codes which added one extra bit for every single bit of information; the result was an error rate of just one bit in 10,000 – and stunningly clear pictures of the planets. Other codes have become part of everyday life – such as the Universal Product Code, or bar code, which uses a simple error-detecting system that ensures supermarket check-out lasers can read the price even on, say, a crumpled bag of crisps. As recently as 1993, engineers made a major breakthrough by discovering so-called turbo codes – which come very close to Shannon’s ultimate limit for the maximum rate that data can be transmitted reliably, and now play a key role in the mobile videophone revolution.\n\nF\nShannon also laid the foundations of more efficient ways of storing information, by stripping out superfluous (‘redundant’) bits from data which contributed little real information. As mobile phone text messages like ‘I CN C U’ show, it is often possible to leave out a lot of data without losing much meaning. As with error correction, however, there’s a limit beyond which messages become too ambiguous. Shannon showed how to calculate this limit, opening the way to the design of compression methods that cram maximum information into the minimum space.",
+      "paragraphs": [
+        "A\nIn April 2002 an event took place which demonstrated one of the many applications of information theory. The space probe, Voyager I, launched in 1977, had sent back spectacular images of Jupiter and Saturn and then soared out of the Solar System on a one-way mission to the stars. After 25 years of exposure to the freezing temperatures of deep space, the probe was beginning to show its age. Sensors and circuits were on the brink of failing and NASA experts realised that they had to do something or lose contact with their probe forever. The solution was to get a message to Voyager I to instruct it to use spares to change the failing parts. With the probe 12 billion kilometres from Earth, this was not an easy task. By means of a radio dish belonging to NASA’s Deep Space Network, the message was sent out into the depths of space. Even travelling at the speed of light, it took over 11 hours to reach its target, far beyond the orbit of Pluto. Yet, incredibly, the little probe managed to hear the faint call from its home planet, and successfully made the switchover.",
+        "B\nIt was the longest-distance repair job in history, and a triumph for the NASA engineers. But it also highlighted the astonishing power of the techniques developed by American communications engineer Claude Shannon, who had died just a year earlier. Born in 1916 in Petoskey, Michigan, Shannon showed an early talent for maths and for building gadgets, and made breakthroughs in the foundations of computer technology when still a student. While at Bell Laboratories, Shannon developed information theory, but shunned the resulting acclaim. In the 1940s, he single-handedly created an entire science of communication which has since inveigled its way into a host of applications, from DVDs to satellite communications to bar codes – any area, in short, where data has to be conveyed rapidly yet accurately.",
+        "C\nThis all seems light years away from the down-to-earth uses Shannon originally had for his work, which began when he was a 22-year-old graduate engineering student at the prestigious Massachusetts Institute of Technology in 1939. He set out with an apparently simple aim: to pin down the precise meaning of the concept of ‘information’. The most basic form of information, Shannon argued, is whether something is true or false – which can be captured in the binary unit, or ‘bit’, of the form 1 or 0. Having identified this fundamental unit, Shannon set about defining otherwise vague ideas about information and how to transmit it from place to place. In the process he discovered something surprising: it is always possible to guarantee information will get through random interference – ‘noise’ – intact.",
+        "D\nNoise usually means unwanted sounds which interfere with genuine information. Information theory generalises this idea via theorems that capture the effects of noise with mathematical precision. In particular, Shannon showed that noise sets a limit on the rate at which information can pass along communication channels while remaining error-free. This rate depends on the relative strengths of the signal and noise travelling down the communication channel, and on its capacity (its ‘bandwidth’). The resulting limit, given in units of bits per second, is the absolute maximum rate of error-free communication given signal strength and noise level. The trick, Shannon showed, is to find ways of packaging up – ‘coding’ – information to cope with the ravages of noise, while staying within the information-carrying capacity – ‘bandwidth’ – of the communication system being used.",
+        "E\nOver the years scientists have devised many such coding methods, and they have proved crucial in many technological feats. The Voyager spacecraft transmitted data using codes which added one extra bit for every single bit of information; the result was an error rate of just one bit in 10,000 – and stunningly clear pictures of the planets. Other codes have become part of everyday life – such as the Universal Product Code, or bar code, which uses a simple error-detecting system that ensures supermarket check-out lasers can read the price even on, say, a crumpled bag of crisps. As recently as 1993, engineers made a major breakthrough by discovering so-called turbo codes – which come very close to Shannon’s ultimate limit for the maximum rate that data can be transmitted reliably, and now play a key role in the mobile videophone revolution.",
+        "F\nShannon also laid the foundations of more efficient ways of storing information, by stripping out superfluous (‘redundant’) bits from data which contributed little real information. As mobile phone text messages like ‘I CN C U’ show, it is often possible to leave out a lot of data without losing much meaning. As with error correction, however, there’s a limit beyond which messages become too ambiguous. Shannon showed how to calculate this limit, opening the way to the design of compression methods that cram maximum information into the minimum space."
       ]
     }
   ],
@@ -145,20 +150,20 @@
           "answer": "B"
         }
       ],
-      "shared_text": null,
+      "shared_text": "What is the writer’s purpose in Reading Passage?",
       "word_list": null,
       "image_url": null,
       "options": {
-        "A": "Option A",
-        "B": "Option B",
-        "C": "Option C",
-        "D": "Option D"
+        "A": "to argue in favour of a particular approach to writing dictionaries and grammar books",
+        "B": "to present a historical account of differing views of language",
+        "C": "to describe the differences between spoken and written language",
+        "D": "to show how a certain view of language has been discredited"
       }
     },
     {
       "id": "group-14-17",
       "type": "matching-information",
-      "passage_id": "passage-3",
+      "passage_id": "passage-2",
       "instruction": "Questions 14-17\nReading Passage 2 has six paragraphs, A-F. Which paragraph contains the following information?\nNB You may use any letter more than once.",
       "questions": [
         {
@@ -197,7 +202,7 @@
     {
       "id": "group-18-22",
       "type": "multiple-choice",
-      "passage_id": "passage-3",
+      "passage_id": "passage-2",
       "instruction": "Questions 18-22\nChoose\nFIVE\nLetters A-J",
       "questions": [
         {
@@ -245,7 +250,7 @@
     {
       "id": "group-23-26",
       "type": "diagram-labeling",
-      "passage_id": "passage-3",
+      "passage_id": "passage-2",
       "instruction": "Questions 23-26\nLabel the diagram below. Choose\nNO MORE THAN TWO WORDS\nfrom the passage for each answer.",
       "questions": [
         {
@@ -271,13 +276,13 @@
       ],
       "shared_text": null,
       "word_list": null,
-      "image_url": "",
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-1-min-2.png",
       "options": null
     },
     {
       "id": "group-27-32",
       "type": "matching-information",
-      "passage_id": "passage-4",
+      "passage_id": "passage-3",
       "instruction": "Questions 27-32\nReading Passage 3 has six paragraphs, A-F. Which paragraph contains the following information?",
       "questions": [
         {
@@ -326,7 +331,7 @@
     {
       "id": "group-33-37",
       "type": "summary-completion",
-      "passage_id": "passage-4",
+      "passage_id": "passage-3",
       "instruction": "Questions 33-37\nComplete the notes below. Choose\nNO MORE THAN TWO WORDS\nfrom the passage for each answer",
       "questions": [
         {
@@ -363,7 +368,7 @@
     {
       "id": "group-38-40",
       "type": "true-false-ng",
-      "passage_id": "passage-4",
+      "passage_id": "passage-3",
       "instruction": "Questions 38-40\nDo the following statements agree with the information given in Reading Passage 3? In boxes 38-40 on your answer sheet write\nTRUE\nif the statement agrees with the information\nFALSE\nif the statement contradicts the information\nNOT GIVEN\nif there is no information on this",
       "questions": [
         {

@@ -25,23 +25,30 @@ export interface ProgressData {
   per_type_accuracy: QuestionTypeBreakdown[];
 }
 
+export interface SaveSessionResult {
+  saved: boolean;
+  conflict: boolean;
+}
+
 /**
  * POST /api/sessions — persist a completed test session to the backend.
- * Fails silently if the backend is unreachable (results are already in localStorage).
  */
-export async function saveSession(session: TestSession): Promise<void> {
-  try {
-    const res = await fetch(`${API_BASE}/api/sessions`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(session),
-    });
-    if (!res.ok && res.status !== 409) {
-      console.warn("Failed to save session to backend:", res.status);
-    }
-  } catch (err) {
-    console.warn("Backend unreachable — session saved to localStorage only:", err);
+export async function saveSession(session: TestSession): Promise<SaveSessionResult> {
+  const res = await fetch(`${API_BASE}/api/sessions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(session),
+  });
+
+  if (res.status === 409) {
+    return { saved: true, conflict: true };
   }
+
+  if (!res.ok) {
+    throw new Error(`POST /api/sessions failed: ${res.status}`);
+  }
+
+  return { saved: true, conflict: false };
 }
 
 /**

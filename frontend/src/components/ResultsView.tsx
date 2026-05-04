@@ -24,6 +24,16 @@ export function ResultsView() {
       {/* Score summary */}
       <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
         <h1 className="text-xl font-bold text-gray-900 mb-4">Test Results</h1>
+        {session.sync_status === "local-only" && (
+          <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+            Result saved on this device only. Backend sync failed{session.sync_error ? `: ${session.sync_error}` : "."}
+          </div>
+        )}
+        {session.sync_status === "synced" && (
+          <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+            Result saved to the backend.
+          </div>
+        )}
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
             <div className="text-3xl font-bold text-blue-600">{score.correct}/{score.total}</div>

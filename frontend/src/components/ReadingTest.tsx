@@ -35,6 +35,8 @@ export function ReadingTest() {
   const [startedAt] = useState(new Date().toISOString());
   const [startMs] = useState(Date.now());
   const [submitted, setSubmitted] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   // Mobile: "passage" | "questions"
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
 
@@ -43,12 +45,36 @@ export function ReadingTest() {
     if (found) setTest(found.default);
   }, [id]);
 
-  const handleSubmit = useCallback(() => {
-    if (!test || submitted) return;
+  const goToPassage = useCallback((nextIndex: number) => {
+    setCurrentPassageIndex(nextIndex);
+    setMobileView("questions");
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (!test) return;
+    goToPassage(Math.max(currentPassageIndex - 1, 0));
+  }, [currentPassageIndex, goToPassage, test]);
+
+  const handleNext = useCallback(() => {
+    if (!test) return;
+    goToPassage(Math.min(currentPassageIndex + 1, test.passages.length - 1));
+  }, [currentPassageIndex, goToPassage, test]);
+
+  const handleSubmit = useCallback(async () => {
+    if (!test || submitted || isSaving) return;
     setSubmitted(true);
+    setIsSaving(true);
+    setSubmitError("");
 
     const totalTimeMs = Date.now() - startMs;
     const passcode = localStorage.getItem("ielts_passcode") ?? "unknown";
+
+    const questionTypeById = new Map<number, ReadingTestType["question_groups"][number]["type"]>();
+    for (const group of test.question_groups) {
+      for (const question of group.questions) {
+        questionTypeById.set(question.id, group.type);
+      }
+    }
 
     // Flatten all questions from all groups for grading
     const allQuestions = test.question_groups.flatMap((g) => g.questions);
@@ -56,7 +82,13 @@ export function ReadingTest() {
     const gradedAnswers: UserAnswer[] = allQuestions.map((q) => {
       const userAnswer = answers[q.id] ?? "";
       const isCorrect = userAnswer.trim().toLowerCase() === q.answer.trim().toLowerCase();
-      return { question_id: q.id, user_answer: userAnswer, is_correct: isCorrect, time_spent_ms: 0 };
+      return {
+        question_id: q.id,
+        user_answer: userAnswer,
+        is_correct: isCorrect,
+        time_spent_ms: 0,
+        question_type: questionTypeById.get(q.id),
+      };
     });
 
     const correct = gradedAnswers.filter((a) => a.is_correct).length;
@@ -70,12 +102,26 @@ export function ReadingTest() {
       answers: gradedAnswers,
       score: { correct, total, band_estimate: estimateBand(correct, total) },
       passcode,
+      sync_status: "local-only",
     };
 
     localStorage.setItem(`ielts_session_${session.id}`, JSON.stringify(session));
-    saveSession(session);
-    navigate(`/results/${session.id}`);
-  }, [test, submitted, answers, startedAt, startMs, id, navigate]);
+
+    try {
+      await saveSession(session);
+      const syncedSession: TestSession = { ...session, sync_status: "synced", sync_error: undefined };
+      localStorage.setItem(`ielts_session_${session.id}`, JSON.stringify(syncedSession));
+      navigate(`/results/${session.id}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to save session to backend.";
+      const localOnlySession: TestSession = { ...session, sync_status: "local-only", sync_error: message };
+      localStorage.setItem(`ielts_session_${session.id}`, JSON.stringify(localOnlySession));
+      setSubmitError("Saved on this device only. Backend sync failed.");
+      navigate(`/results/${session.id}`);
+    } finally {
+      setIsSaving(false);
+    }
+  }, [test, submitted, isSaving, startMs, answers, id, startedAt, navigate]);
 
   if (!test) return <div className="p-8 text-gray-500">Loading test...</div>;
 
@@ -89,15 +135,25 @@ export function ReadingTest() {
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 md:px-6 py-3 border-b border-gray-200 bg-white shrink-0">
-        <h1 className="font-semibold text-gray-900 text-sm truncate max-w-[60%]">{test.title}</h1>
-        <button
-          onClick={handleSubmit}
-          disabled={submitted}
-          className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors shrink-0"
-        >
-          Submit
-        </button>
+      <div className="border-b border-gray-200 bg-white shrink-0">
+        <div className="flex items-center justify-between px-4 md:px-6 py-3">
+          <h1 className="font-semibold text-gray-900 text-sm truncate max-w-[60%]">{test.title}</h1>
+          <p className="text-xs text-gray-500">
+            Passage {currentPassageIndex + 1} of {test.passages.length}
+          </p>
+        </div>
+        <TimerBar
+          totalSeconds={test.time_limit_minutes * 60}
+          answeredCount={answeredCount}
+          totalCount={totalQuestions}
+          onExpire={handleSubmit}
+          paused={submitted}
+        />
+        {submitError && (
+          <div className="px-4 md:px-6 pb-3 text-xs text-amber-700">
+            {submitError}
+          </div>
+        )}
       </div>
 
       {/* Mobile toggle tabs */}
@@ -138,10 +194,7 @@ export function ReadingTest() {
           <PassagePanel
             passages={test.passages}
             currentPassageIndex={currentPassageIndex}
-            onPassageChange={(i) => {
-              setCurrentPassageIndex(i);
-              setMobileView("questions");
-            }}
+            onPassageChange={goToPassage}
           />
         </div>
 
@@ -169,15 +222,30 @@ export function ReadingTest() {
         </div>
       </div>
 
-      {/* Timer bar */}
-      <div className="shrink-0">
-        <TimerBar
-          totalSeconds={test.time_limit_minutes * 60}
-          answeredCount={answeredCount}
-          totalCount={totalQuestions}
-          onExpire={handleSubmit}
-          paused={submitted}
-        />
+      <div className="shrink-0 border-t border-gray-200 bg-white px-4 md:px-6 py-3">
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={handlePrev}
+            disabled={currentPassageIndex === 0 || isSaving}
+            className="px-3 md:px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          >
+            Prev
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={currentPassageIndex === test.passages.length - 1 || isSaving}
+            className="px-3 md:px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
+          >
+            Next
+          </button>
+          <button
+            onClick={handleSubmit}
+            disabled={submitted || isSaving}
+            className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          >
+            {isSaving ? "Saving..." : "Submit"}
+          </button>
+        </div>
       </div>
     </div>
   );

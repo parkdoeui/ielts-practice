@@ -27,7 +27,7 @@ export function TimerBar({ totalSeconds, answeredCount, totalCount, onExpire, pa
   const isWarning = secondsLeft < 5 * 60;
 
   return (
-    <div className="border-t border-gray-200 bg-white px-6 py-3">
+    <div className="bg-white px-4 md:px-6 py-3">
       <div className="flex items-center gap-4">
         <span className={`font-mono text-lg font-bold tabular-nums ${isWarning ? "text-red-600 animate-pulse" : "text-gray-900"}`}>
           {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}

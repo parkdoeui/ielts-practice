@@ -47,6 +47,7 @@ export interface UserAnswer {
   user_answer: string;
   is_correct: boolean;
   time_spent_ms: number;
+  question_type?: QuestionType;
 }
 
 export interface TestSession {
@@ -58,4 +59,6 @@ export interface TestSession {
   answers: UserAnswer[];
   score: { correct: number; total: number; band_estimate: number };
   passcode: string;
+  sync_status?: "synced" | "local-only";
+  sync_error?: string;
 }

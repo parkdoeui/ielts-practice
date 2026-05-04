@@ -92,7 +92,7 @@
     },
     {
       "id": "group-5-8",
-      "type": "sentence-completion",
+      "type": "matching-information",
       "passage_id": "passage-1",
       "instruction": "Questions 5-8\nLook at the following events (Questions 5-8) and the list of nationalities below. Match each event with the correct nationality, A-F. Write the correct letter, A-F, in boxes 5-8 on your answer sheet.",
       "questions": [
@@ -120,7 +120,14 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": {
+        "A": "Babylonians",
+        "B": "Egyptians",
+        "C": "Greeks",
+        "D": "English",
+        "E": "Germans",
+        "F": "French"
+      }
     },
     {
       "id": "group-9-13",
@@ -156,7 +163,7 @@
       ],
       "shared_text": null,
       "word_list": null,
-      "image_url": "",
+      "image_url": "/wp-content/uploads/2024/09/test-7-min-1.png",
       "options": null
     },
     {
@@ -200,11 +207,16 @@
       "word_list": null,
       "image_url": null,
       "options": {
-        "i": "i",
-        "ii": "ii",
-        "iii": "iii",
-        "iv": "iv",
-        "v": "v"
+        "i": "Disobeying FAA Regulations",
+        "ii": "Aviation disaster prompts action",
+        "iii": "Two coincidental developments",
+        "iv": "Setting Altitude Zones",
+        "v": "An oversimplified view",
+        "vi": "Controlling pilots’ licence",
+        "vii": "Defining airspace categories",
+        "viii": "Setting rules to weather conditions",
+        "ix": "Taking of Safety",
+        "x": "First step towards ATC"
       }
     },
     {
@@ -256,7 +268,7 @@
     },
     {
       "id": "group-27-30",
-      "type": "sentence-completion",
+      "type": "matching-sentence-endings",
       "passage_id": "passage-3",
       "instruction": "Questions 27-30\nComplete each sentence with the correct ending, A —G, below. Write the correct letter, A—G, in boxes 27-30 on your answer sheet.",
       "questions": [
@@ -284,7 +296,15 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": {
+        "A": "the discovery of a mechanism for telepathy.",
+        "B": "the need to create a suitable environment for telepathy.",
+        "C": "their claims of a high success rate.",
+        "D": "a solution to the problem posed by random guessing.",
+        "E": "the significance of the ganzfeld experiments.",
+        "F": "a more careful selection of subjects.",
+        "G": "a need to keep altering conditions."
+      }
     },
     {
       "id": "group-31-40",
@@ -343,7 +363,7 @@
           "answer": "big/ large enough"
         }
       ],
-      "shared_text": null,
+      "shared_text": "Telepathy Experiments\nName/ Date\nDescription\nResult\nFlas\nGanzfeld studies 1982\ninvolved a person acting as a (31)……………….who picked out one (32)……………. from a random selection of four and a (33)………………. who then tried to identify it\nhit rates were higher than with random guessing\npositive results could be produced by factors such as (34)…………. or (35)…………..\nAutoganzfeld studies 1987\n(36)…………….were used for key tasks to limit the amount of (37)…………. in carrying out the tests\nthe results were then subjected to a (38)………….\nthe (39)………….. between different test results were put down to the fact that sample groups were not (40)…………. (as with most ganzfled studies)",
       "word_list": null,
       "image_url": null,
       "options": null

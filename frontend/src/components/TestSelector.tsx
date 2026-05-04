@@ -101,7 +101,9 @@ export function TestSelector() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loaded = Object.values(testFiles).map((m) => m.default);
+    const loaded = Object.values(testFiles)
+      .map((m) => m.default)
+      .sort((a, b) => getTestNumber(a) - getTestNumber(b) || a.title.localeCompare(b.title));
     setTests(loaded);
     setSessions(getStoredSessions());
   }, []);
