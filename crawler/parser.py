@@ -457,6 +457,12 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             instruction_lines.append(line)
             continue
 
+        # If a non-structural line follows a numbered question (e.g. multi-line
+        # question split by <br>), append it to that question rather than stem.
+        if last_qnum is not None and last_qnum in numbered_questions:
+            numbered_questions[last_qnum] = (numbered_questions[last_qnum] + " " + line).strip()
+            continue
+
         stem_lines.append(line)
 
     full_instruction = header
