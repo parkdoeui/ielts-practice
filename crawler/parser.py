@@ -135,7 +135,9 @@ def _extract_image_url(element) -> str | None:
 _NOISE_SHORT_PATTERNS = [
     r"(?i)^cambridge ielts test\b",
     r"(?i)^show answers\b",
-    r"(?i)^example\b",
+    # Note: "Example Answer" lines are handled line-by-line in _parse_children_text
+    # rather than here, so that elements containing both example answers AND real
+    # question statements (e.g. "14. Paragraph B") are not discarded entirely.
 ]
 
 
