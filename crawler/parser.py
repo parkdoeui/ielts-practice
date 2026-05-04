@@ -406,6 +406,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
 
     in_instruction_block = False
     pending_option_letter = None
+    last_qnum = None  # track most recently parsed question number (for multi-line questions)
 
     for line in lines:
         line = line.strip()
@@ -415,6 +416,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         if pending_option_letter is not None:
             options[pending_option_letter] = line
             pending_option_letter = None
+            last_qnum = None
             in_instruction_block = False
             continue
 
@@ -423,8 +425,11 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             qnum = int(num_match.group(1))
             if start_q <= qnum <= end_q:
                 numbered_questions[qnum] = num_match.group(2).strip()
+                last_qnum = qnum
                 in_instruction_block = False
                 continue
+            else:
+                last_qnum = None  # out-of-range number, stop continuation
 
         if instruction_kw_pattern.match(line) or instruction_cont_pattern.match(line):
             instruction_lines.append(line)
