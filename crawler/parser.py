@@ -506,6 +506,7 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
             ))
 
         elif ("summary" in instr_lower or "notes" in instr_lower
+              or "summary" in body_lower or "notes" in body_lower
               or ("complete" in instr_lower and "using" in instr_lower)):
             word_list = list(options.values()) if options else None
             shared = _sanitize_shared_text(stem_text or children_text or None)
