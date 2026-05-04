@@ -593,7 +593,7 @@ def _build_question_groups(groups: list[dict], answers: dict) -> list[QuestionGr
                 questions=simple_questions,
             ))
 
-        elif "classif" in instr_lower:
+        elif "classif" in instr_lower or "classif" in body_lower:
             # "Classify the following statements as referring to A ... B ... C ..."
             # options are inline in the instruction (A hand collecting, B using bait, ...)
             classif_options = options if options else None
