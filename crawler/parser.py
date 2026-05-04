@@ -440,13 +440,19 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             in_instruction_block = False
             continue
 
-        # Handle "(N)..." parenthesized blanks in classification tables.
-        # The statement (row label) is on the preceding stem line.
+        # Handle "(N)..." parenthesized blanks in classification/form tables.
+        # The statement (row label) is on the preceding stem line — but only use it
+        # if it looks like a simple name label (short, letters/hyphens only, no parens).
         paren_q_match = re.match(r'^\((\d+)\)', line)
         if paren_q_match:
             qnum = int(paren_q_match.group(1))
             if start_q <= qnum <= end_q:
-                stmt = stem_lines.pop() if stem_lines else ""
+                stmt = ""
+                if stem_lines:
+                    candidate = stem_lines[-1]
+                    # Only use as statement if it's a name-like label (no digits, no parens)
+                    if re.match(r'^[A-Za-z][A-Za-z\-\s]+$', candidate) and len(candidate) <= 30:
+                        stmt = stem_lines.pop()
                 numbered_questions[qnum] = stmt
                 last_qnum = None  # next line is a new row label, not a continuation
                 in_instruction_block = False
