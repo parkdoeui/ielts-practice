@@ -100,7 +100,7 @@ RUN_API_URL="https://api.github.com/repos/$REMOTE_SLUG/actions/runs/$RUN_ID"
 for ((i=1; i<=MAX_POLLS; i++)); do
   RUN_STATE="$(
     curl -fsSL "$RUN_API_URL" \
-      | python3 -c 'import json,sys; data=json.load(sys.stdin); print(f"{data.get(\"status\")}:{data.get(\"conclusion\")}")'
+      | python3 -c 'import json,sys; data=json.load(sys.stdin); print("{}:{}".format(data.get("status"), data.get("conclusion")))'
   )"
 
   echo "Workflow state: $RUN_STATE"
@@ -119,7 +119,7 @@ done
 
 FINAL_STATE="$(
   curl -fsSL "$RUN_API_URL" \
-    | python3 -c 'import json,sys; data=json.load(sys.stdin); print(f"{data.get(\"status\")}:{data.get(\"conclusion\")}")'
+    | python3 -c 'import json,sys; data=json.load(sys.stdin); print("{}:{}".format(data.get("status"), data.get("conclusion")))'
 )"
 
 if [[ "$FINAL_STATE" != "completed:success" ]]; then
@@ -137,4 +137,3 @@ fi
 INDEX_SNIPPET="$(curl -L -s "$PAGES_URL" | sed -n '1,20p')"
 echo "Live Pages check passed."
 echo "$INDEX_SNIPPET"
-
