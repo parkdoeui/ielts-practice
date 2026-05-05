@@ -8,6 +8,20 @@ const testFiles = import.meta.glob<{ default: ReadingTest }>(
   { eager: true }
 );
 
+function isReadingTest(value: unknown): value is ReadingTest {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as Partial<ReadingTest>;
+  return (
+    typeof candidate.id === "string" &&
+    typeof candidate.title === "string" &&
+    Array.isArray(candidate.passages) &&
+    Array.isArray(candidate.question_groups)
+  );
+}
+
 type SelectorTab = "not-started" | "completed";
 
 interface CompletedTestSummary {
@@ -82,6 +96,7 @@ export function TestSelector() {
     const passcode = localStorage.getItem("ielts_passcode") ?? "";
     const loaded = Object.values(testFiles)
       .map((m) => m.default)
+      .filter(isReadingTest)
       .sort((a, b) => getTestNumber(a) - getTestNumber(b) || a.title.localeCompare(b.title));
     setTests(loaded);
 

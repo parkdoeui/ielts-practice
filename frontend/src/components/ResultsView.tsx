@@ -8,6 +8,20 @@ const testFiles = import.meta.glob<{ default: ReadingTest }>(
   { eager: true }
 );
 
+function isReadingTest(value: unknown): value is ReadingTest {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as Partial<ReadingTest>;
+  return (
+    typeof candidate.id === "string" &&
+    typeof candidate.title === "string" &&
+    Array.isArray(candidate.passages) &&
+    Array.isArray(candidate.question_groups)
+  );
+}
+
 function getVisibleSharedText(sharedText?: string) {
   const normalized = sharedText?.trim();
   if (!normalized) {
@@ -28,7 +42,11 @@ export function ResultsView() {
   const [loading, setLoading] = useState(true);
 
   const test = useMemo(
-    () => Object.values(testFiles).find((m) => m.default.id === session?.test_id)?.default ?? null,
+    () =>
+      Object.values(testFiles)
+        .map((m) => m.default)
+        .filter(isReadingTest)
+        .find((testFile) => testFile.id === session?.test_id) ?? null,
     [session]
   );
 

@@ -11,6 +11,20 @@ const testFiles = import.meta.glob<{ default: ReadingTestType }>(
   { eager: true }
 );
 
+function isReadingTest(value: unknown): value is ReadingTestType {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as Partial<ReadingTestType>;
+  return (
+    typeof candidate.id === "string" &&
+    typeof candidate.title === "string" &&
+    Array.isArray(candidate.passages) &&
+    Array.isArray(candidate.question_groups)
+  );
+}
+
 function estimateBand(correct: number, total: number): number {
   const score = Math.round((correct / total) * 40);
   if (score >= 39) return 9.0;
@@ -43,8 +57,14 @@ export function ReadingTest() {
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
 
   useEffect(() => {
-    const found = Object.values(testFiles).find((m) => m.default.id === id);
-    if (found) setTest(found.default);
+    const found = Object.values(testFiles)
+      .map((m) => m.default)
+      .filter(isReadingTest)
+      .find((testFile) => testFile.id === id);
+
+    if (found) {
+      setTest(found);
+    }
   }, [id]);
 
   useEffect(() => {
