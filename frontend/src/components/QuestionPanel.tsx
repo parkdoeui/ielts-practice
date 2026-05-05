@@ -186,6 +186,35 @@ function QuestionInput({
       );
     }
 
+    case "classification": {
+      const opts = group.options ?? {};
+      return (
+        <div className="space-y-2">
+          {question.statement && (
+            <p className="text-sm font-medium text-gray-900">{question.statement}</p>
+          )}
+          <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+            {Object.entries(opts).map(([key, text]) => (
+              <label key={key} className="flex items-center gap-2 cursor-pointer group">
+                <input
+                  type="radio"
+                  name={`q-${question.id}`}
+                  value={key}
+                  checked={value === key}
+                  onChange={() => onChange(key)}
+                  disabled={readOnly}
+                  className="h-4 w-4 text-blue-600"
+                />
+                <span className="text-sm text-gray-700 group-hover:text-gray-900">
+                  <span className="font-medium">{key}</span>
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     case "matching-information": {
       const opts = group.options ?? {};
       return (
