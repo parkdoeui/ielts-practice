@@ -113,7 +113,7 @@
       "id": "group-7-10",
       "type": "summary-completion",
       "passage_id": "passage-1",
-      "instruction": "Questions 7-10",
+      "instruction": "Questions 7-10\nComplete the summary using the list of words, A-I, below.\nWrite the correct letter, A-I, in boxes 7-10 on your answer sheet.",
       "questions": [
         {
           "id": 7,
@@ -136,7 +136,7 @@
           "answer": "D"
         }
       ],
-      "shared_text": "Complete the summary using the list of words, A-I, below.\nWrite the correct letter, A-I, in boxes 7-10 on your answer sheet.\nIn this method, a laser is used to create a line of ionisation by removing electrons from (7) ………………. This laser is then directed at (8) ………………….. in order to control electrical charges, a method which is less dangerous than using (9) ………………….. As a protection for the lasers, the beams are aimed firstly at (10) …………………..",
+      "shared_text": "In this method, a laser is used to create a line of ionisation by removing electrons from (7) ………………. This laser is then directed at (8) ………………….. in order to control electrical charges, a method which is less dangerous than using (9) ………………….. As a protection for the lasers, the beams are aimed firstly at (10) …………………..",
       "word_list": [
         "cloud-zappers",
         "atoms",

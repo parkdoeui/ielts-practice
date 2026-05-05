@@ -94,6 +94,131 @@ class ParserRegressionTests(unittest.TestCase):
         self.assertEqual(len(groups), 1)
         self.assertIsNone(groups[0].shared_text)
 
+    def test_sentence_completion_does_not_leak_instruction_text_into_shared_text(self):
+        groups = _build_question_groups(
+            [{
+                "start": 9,
+                "end": 14,
+                "instruction": "Questions 9–14",
+                "text": (
+                    "Complete the sentences below. Write\n"
+                    "NO MORE THAN TWO WORDS\n"
+                    "from the passage for each answer.\n"
+                    "9. Niel’s colleagues describe him as a………………………….. person.\n"
+                    "10. Only a small fraction of people have imagination as…………………………. as Lauren does.\n"
+                    "11. Hyperphantasia is………………………. to aphantasia.\n"
+                    "12. Many people spend their lives with……………………………. somewhere in the mind’s eye.\n"
+                    "13. Prof Zeman is………………………………. that aphantasia is not an illness.\n"
+                    "14. Prof Zeman strongly believes that aphantasia is not a………………"
+                ),
+                "passage_id": "passage-1",
+                "image_url": None,
+            }],
+            {9: "weird", 10: "vibrant", 11: "polar-opposite", 12: "imagery hovering", 13: "adamant", 14: "disorder"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].type, "sentence-completion")
+        self.assertIsNone(groups[0].shared_text)
+
+    def test_table_completion_parenthesized_blanks_stay_empty(self):
+        groups = _build_question_groups(
+            [{
+                "start": 5,
+                "end": 8,
+                "instruction": "Questions 5-8\nComplete the table below. Choose\nNO MORE THAN THREE WORDS\nfrom Reading Passage 1 for each answer.",
+                "text": (
+                    "Country\nOrganisations involved\nType of project\nSupport provided\n"
+                    "(5)……………… and ……….\n"
+                    "– S.K.I.\n"
+                    "courier service\n"
+                    "– provision of (6)…………….\n"
+                    "Dominican Republic\n"
+                    "– S.K.I\n"
+                    "– Y.W.C.A.\n"
+                    "(7)…………………\n"
+                    "– loans\n"
+                    "– storage facilities\n"
+                    "– saving plans\n"
+                    "Zambia\n"
+                    "– S.K.I.\n"
+                    "– The Red Cross\n"
+                    "– Y.W.C.A.\n"
+                    "setting up small business\n"
+                    "– business training\n"
+                    "– (8)……………. training\n"
+                    "– access to credit"
+                ),
+                "passage_id": "passage-1",
+                "image_url": None,
+            }],
+            {5: "sudan and india", 6: "bicycles", 7: "shoe shine", 8: "life skills"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].type, "sentence-completion")
+        self.assertEqual(groups[0].questions[0].statement, "")
+        self.assertIn("Support provided", groups[0].shared_text or "")
+
+    def test_paragraph_matching_is_not_summary_completion(self):
+        groups = _build_question_groups(
+            [{
+                "start": 27,
+                "end": 31,
+                "instruction": (
+                    "Questions 27-31\n"
+                    "Reading Passage 3 has seven paragraphs labeled A-G. Which paragraph contains the following information?\n"
+                    "Write the correct letter A-G in boxes 27-31 on your answer sheet. NB You may use any letter more than once."
+                ),
+                "text": (
+                    "27 the effect of recording on the way people talk\n"
+                    "28 the importance of taking notes on body language\n"
+                    "29 the fact that language is influenced by social situation\n"
+                    "30 how informants can be helped to be less self-conscious\n"
+                    "31 various methods that can be used to generate specific data"
+                ),
+                "passage_id": "passage-1",
+                "image_url": None,
+            }],
+            {27: "D", 28: "E", 29: "C", 30: "D", 31: "F"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].type, "matching-information")
+
+    def test_inline_numbered_statements_are_extracted_from_instruction(self):
+        groups = _build_question_groups(
+            [{
+                "start": 8,
+                "end": 13,
+                "instruction": (
+                    "Questions 8-13\n"
+                    "Do the following statements agree with the information given in Reading Passage 1? In boxes 8-13 on your answer sheet, write\n"
+                    "TRUE\n"
+                    "if the statement is true according to the passage\n"
+                    "FALSE\n"
+                    "if the statement is false according to the passage\n"
+                    "NOT GIVEN\n"
+                    "if the information is not given in the passage\n"
+                    "8) The growing importance of the middle classes led to an increased demand for dictionaries.\n"
+                    "9) Johnson has become more well known since his death.\n"
+                    "10) Johnson had been planning to write a dictionary for several years.\n"
+                    "11) Johnson set up an academy to help with the writing of his Dictionary.\n"
+                    "12) Johnson only received payment for his Dictionary on its completion.\n"
+                    "13) Not all of the assistants survived to see the publication of the Dictionary."
+                ),
+                "text": "",
+                "passage_id": "passage-1",
+                "image_url": None,
+            }],
+            {8: "true", 9: "false", 10: "not given", 11: "false", 12: "false", 13: "true"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].type, "true-false-ng")
+        self.assertEqual(groups[0].questions[0].statement, "The growing importance of the middle classes led to an increased demand for dictionaries.")
+        self.assertNotIn("8)", groups[0].instruction)
+
     def test_detects_passage_after_cambridge_block_without_empty_separator(self):
         html = """
         <html>

@@ -147,7 +147,7 @@
       "id": "group-14-22",
       "type": "classification",
       "passage_id": "passage-2",
-      "instruction": "Questions 14-22\nClassify the following as typical of\nA\nthe reptilian cortex\nB\nthe limbic cortex\nC\nthe neocortex",
+      "instruction": "Questions 14-22\nClassify the following as typical of\nWrite the correct letter, A, B or C, in boxes 14-22 on your answer sheet.",
       "questions": [
         {
           "id": 14,

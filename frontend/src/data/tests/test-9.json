@@ -212,7 +212,7 @@
       "id": "group-20-21",
       "type": "sentence-completion",
       "passage_id": "passage-2",
-      "instruction": "Questions 20 and 21\nThe discussion of Williams’s research indicates the periods at which early people are thought to have migrated along certain routes. There are six routes, A-F, marked on the map below.",
+      "instruction": "Questions 20 and 21\nThe discussion of Williams’s research indicates the periods at which early people are thought to have migrated along certain routes. There are six routes, A-F, marked on the map below.\nComplete the form below. Write the correct letter A-F in boxes 20 and 21 on your answer sheet.",
       "questions": [
         {
           "id": 20,
@@ -225,7 +225,7 @@
           "answer": "D"
         }
       ],
-      "shared_text": "Complete the form below. Write the correct letter A-F in boxes 20 and 21 on your answer sheet.\nRoute\nPeriod (number of years ago)\n(20)…………………..\n15,000 or more\n(21)…………………..\n600 to 700",
+      "shared_text": "Route\nPeriod (number of years ago)\n(20)…………………..\n15,000 or more\n(21)…………………..\n600 to 700",
       "word_list": null,
       "image_url": null,
       "options": null
@@ -238,22 +238,22 @@
       "questions": [
         {
           "id": 22,
-          "statement": "Inuit",
+          "statement": "",
           "answer": "C"
         },
         {
           "id": 23,
-          "statement": "Apache",
+          "statement": "",
           "answer": "B"
         },
         {
           "id": 24,
-          "statement": "Pima-Papago",
+          "statement": "",
           "answer": "A"
         },
         {
           "id": 25,
-          "statement": "Ticuna",
+          "statement": "",
           "answer": "A"
         }
       ],
@@ -270,7 +270,7 @@
       "id": "group-26-26",
       "type": "multiple-choice",
       "passage_id": "passage-2",
-      "instruction": "Question 26",
+      "instruction": "Question 26\nChoose the correct letter A, B, C or D. Write the correct letter in box 26 on your answer sheet.",
       "questions": [
         {
           "id": 26,
@@ -278,7 +278,7 @@
           "answer": "A"
         }
       ],
-      "shared_text": "Choose the correct letter A, B, C or D. Write the correct letter in box 26 on your answer sheet.",
+      "shared_text": null,
       "word_list": null,
       "image_url": null,
       "options": {

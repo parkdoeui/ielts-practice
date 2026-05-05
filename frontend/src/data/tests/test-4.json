@@ -319,7 +319,7 @@
       "id": "group-31-36",
       "type": "classification",
       "passage_id": "passage-3",
-      "instruction": "Questions 31-36\nClassify the following statements as referring to\nA\nhand collecting\nB\nusing bait\nC\nsampling ground litter\nD\nusing a pitfall trap",
+      "instruction": "Questions 31-36\nClassify the following statements as referring to\nWrite the correct letter, A, B, C or D, in boxes 31-36 on your answer sheet.",
       "questions": [
         {
           "id": 31,
@@ -391,7 +391,7 @@
       ],
       "shared_text": null,
       "word_list": null,
-      "image_url": "/wp-content/uploads/2024/09/test-4-min-2.png",
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-4-min-2.png",
       "options": null
     }
   ],

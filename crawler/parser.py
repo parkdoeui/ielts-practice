@@ -287,6 +287,25 @@ def _is_passage_title_candidate(text: str, blocks: list[Block], current_index: i
     return False
 
 
+def _append_passage_text(target: list[str], text: str, title: str = "") -> None:
+    """Append passage text, splitting blocks that contain multiple paragraphs."""
+    parts = [part.strip() for part in text.split("\n") if part.strip()]
+    if title and parts and parts[0] == title:
+        parts = parts[1:]
+    i = 0
+    while i < len(parts):
+        part = parts[i]
+        if i + 1 < len(parts) and (
+            re.fullmatch(r"[A-I]", part)
+            or (len(part) <= 60 and not re.search(r"[.!?]$", part))
+        ):
+            target.append(f"{part}\n{parts[i + 1]}")
+            i += 2
+            continue
+        target.append(part)
+        i += 1
+
+
 def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
     """Segment classified blocks into passages and raw question groups.
 
@@ -411,9 +430,9 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
                     if _is_passage_title_candidate(block.text, blocks, i):
                         current_passage_title = block.text
                     else:
-                        current_passage_text.append(block.text)
+                        _append_passage_text(current_passage_text, block.text, current_passage_title)
                 else:
-                    current_passage_text.append(block.text)
+                    _append_passage_text(current_passage_text, block.text, current_passage_title)
             continue
 
         # --- Question body (numbered line) ---
@@ -424,7 +443,7 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
 
         # --- Long paragraph and other content ---
         if state == "PASSAGE":
-            current_passage_text.append(block.text)
+            _append_passage_text(current_passage_text, block.text, current_passage_title)
         elif state == "QUESTIONS" and current_q_group is not None:
             current_q_group["text"] += "\n" + block.text
 
@@ -450,25 +469,38 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
     options = {}
     stem_lines = []
 
-    numbered_pattern = re.compile(r"^(\d+)\.?\s+(.*)")
+    numbered_pattern = re.compile(r"^(\d+)[.)]?\s+(.*)")
     option_inline_pattern = re.compile(r"^([A-Z])\s+(.*)")
     heading_option_pattern = re.compile(r"^(i{1,3}|iv|vi{0,3}|ix|x)\.?\s+(.*)")
     option_standalone_pattern = re.compile(r"^([A-Z])$")
     instruction_kw_pattern = re.compile(r"^(YES|NO|TRUE|FALSE|NOT GIVEN)\b", re.IGNORECASE)
     instruction_cont_pattern = re.compile(r"^if (the statement|there is|it is)", re.IGNORECASE)
+    instruction_line_pattern = re.compile(
+        r"(?i)^(complete|write|choose|look at|do the following|in boxes|label the diagram|match the following|classify the following|no more than|one word|two words|three words|four words|five words|six words|seven words|eight words|nine words|ten words|the list below|from the passage|from the list|use the letters|use letters)\b"
+    )
 
     in_instruction_block = False
     pending_option_letter = None
     last_qnum = None  # track most recently parsed question number (for multi-line questions)
+    header_lines = header.strip().split("\n")
+    normalized_header_lines = [header_lines[0].strip()] if header_lines else []
 
     # Pre-pass: extract options embedded in the instruction header.
     # Some groups (e.g. classification) put "A\nfirst category\nB\nsecond category" in
     # the instruction text rather than in the body.
     _pre_pending = None
-    for hline in header.strip().split("\n")[1:]:  # skip "Questions N-M" first line
+    for hline in header_lines[1:]:  # skip "Questions N-M" first line
         hline = hline.strip()
         if not hline:
             continue
+        header_q_match = re.match(r"^(\d+)\.?\)\s+(.*)", hline)
+        if not header_q_match:
+            header_q_match = re.match(r"^(\d+)\.?\s+(.*)", hline)
+        if header_q_match:
+            qnum = int(header_q_match.group(1))
+            if start_q <= qnum <= end_q:
+                numbered_questions[qnum] = header_q_match.group(2).strip()
+                continue
         if _pre_pending is not None:
             options[_pre_pending] = hline
             _pre_pending = None
@@ -483,6 +515,9 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             continue
         if option_standalone_pattern.match(hline):
             _pre_pending = hline
+            continue
+
+        normalized_header_lines.append(hline)
 
     for line in lines:
         line = line.strip()
@@ -512,17 +547,10 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         if paren_q_match:
             qnum = int(paren_q_match.group(1))
             if start_q <= qnum <= end_q:
-                stmt = ""
-                if stem_lines:
-                    candidate = stem_lines[-1]
-                    # Only use as statement if it's a name-like label (no digits, no parens)
-                    if re.match(r'^[A-Za-z][A-Za-z\-\s]+$', candidate) and len(candidate) <= 30:
-                        stmt = stem_lines.pop()
-                numbered_questions[qnum] = stmt
-                if not stmt:
-                    # No label found; preserve the blank marker in stem so
-                    # it appears in shared_text (gives form/table context to the reader)
-                    stem_lines.append(line)
+                numbered_questions[qnum] = ""
+                # Preserve the blank marker in stem so it appears in shared_text
+                # and the reader still gets the table/form context.
+                stem_lines.append(line)
                 last_qnum = None  # next line is a new row label, not a continuation
                 in_instruction_block = False
                 continue
@@ -539,6 +567,11 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
                 last_qnum = None  # out-of-range number, stop continuation
 
         if instruction_kw_pattern.match(line) or instruction_cont_pattern.match(line):
+            instruction_lines.append(line)
+            in_instruction_block = True
+            continue
+
+        if not stem_lines and instruction_line_pattern.match(line):
             instruction_lines.append(line)
             in_instruction_block = True
             continue
@@ -578,8 +611,12 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             continue
 
         if in_instruction_block:
-            instruction_lines.append(line)
-            continue
+            if (instruction_line_pattern.match(line)
+                    or instruction_kw_pattern.match(line)
+                    or instruction_cont_pattern.match(line)):
+                instruction_lines.append(line)
+                continue
+            in_instruction_block = False
 
         # If a non-structural line follows a numbered question (e.g. multi-line
         # question split by <br>), append it to that question rather than stem.
@@ -589,9 +626,9 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
 
         stem_lines.append(line)
 
-    full_instruction = header
+    full_instruction = "\n".join(normalized_header_lines) if normalized_header_lines else header
     if instruction_lines:
-        full_instruction = header + "\n" + "\n".join(instruction_lines)
+        full_instruction = full_instruction + "\n" + "\n".join(instruction_lines)
 
     stem_text = "\n".join(stem_lines) if stem_lines else ""
     return full_instruction, numbered_questions, options, stem_text
@@ -641,9 +678,9 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
             ))
 
         elif ("summary" in instr_lower or "notes" in instr_lower
-              or "summary" in body_lower or "notes" in body_lower
+              or re.search(r"(?i)complete\s+(the\s+)?(summary|notes)", instr_lower)
               or ("complete" in instr_lower and "using" in instr_lower)):
-            word_list = list(options.values()) if options else None
+            word_list = list(options.values()) if options and len(options) > 1 else None
             shared = _sanitize_shared_text(stem_text or children_text or None)
             result.append(QuestionGroup(
                 id=group_id,
@@ -694,6 +731,7 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
             ))
 
         elif ("choose" in instr_lower and "letter" in instr_lower
+              or (options and "which" in instr_lower and "following" in instr_lower)
               or "choose" in body_lower and "letter" in body_lower):
             mc_options = options if options else {chr(65 + i): f"Option {chr(65 + i)}" for i in range(4)}
             result.append(QuestionGroup(

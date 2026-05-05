@@ -96,7 +96,7 @@
       ],
       "shared_text": null,
       "word_list": null,
-      "image_url": "/wp-content/uploads/2024/09/test-6-min-2.png",
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-6-min-2.png",
       "options": null
     },
     {
@@ -229,7 +229,7 @@
       "id": "group-23-26",
       "type": "classification",
       "passage_id": "passage-2",
-      "instruction": "Questions 23-26\nClassify the following events as occurring during the",
+      "instruction": "Questions 23-26\nClassify the following events as occurring during the\nWrite the correct letter, A, B or C, in boxes 23-26 on your answer sheet.",
       "questions": [
         {
           "id": 23,
@@ -265,7 +265,7 @@
       "id": "group-27-32",
       "type": "matching-headings",
       "passage_id": "passage-3",
-      "instruction": "Questions 27-32\nReading Passage 3 has six paragraphs, A—F. Choose the correct heading for each paragraph from the list of headings below.",
+      "instruction": "Questions 27-32\nReading Passage 3 has six paragraphs, A—F. Choose the correct heading for each paragraph from the list of headings below.\nWrite the correct number, i—viii, in boxes 27-32 on your answer sheet.",
       "questions": [
         {
           "id": 27,

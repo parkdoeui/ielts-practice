@@ -27,6 +27,8 @@ def ai_validate(
     source_html: str,
     project: str,
     location: str = "us-central1",
+    model: str = "gemini-2.5-pro",
+    page_text_max_chars: int = 20000,
 ) -> dict:
     """
     Validate the parsed ReadingTest JSON against the source HTML using Gemini 2.5 Pro.
@@ -43,18 +45,18 @@ def ai_validate(
     client = genai.Client(vertexai=True, project=project, location=location)
 
     # Strip HTML down to just .entry-content text to save tokens.
-    # Use first 10000 chars + last 10000 chars to cover both passages and question sections.
     from bs4 import BeautifulSoup
     soup = BeautifulSoup(source_html, "html.parser")
     entry = soup.find("div", class_="entry-content")
     if entry:
         full_text = entry.get_text(separator="\n", strip=True)
-        if len(full_text) > 20000:
-            page_text = full_text[:10000] + "\n...[middle truncated]...\n" + full_text[-10000:]
+        if len(full_text) > page_text_max_chars:
+            half = page_text_max_chars // 2
+            page_text = full_text[:half] + "\n...[middle truncated]...\n" + full_text[-half:]
         else:
             page_text = full_text
     else:
-        page_text = source_html[:20000]
+        page_text = source_html[:page_text_max_chars]
 
     test_json = json.dumps(test.model_dump(), indent=2)
 
@@ -96,7 +98,7 @@ Respond with ONLY a JSON object (no markdown, no extra text):
 If there are no issues, return {{"valid": true, "issues": [], "confidence": 1.0}}"""
 
     response = client.models.generate_content(
-        model="gemini-2.5-pro",
+        model=model,
         contents=prompt,
     )
 

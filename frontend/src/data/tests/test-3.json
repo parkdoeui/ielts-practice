@@ -99,7 +99,7 @@
       "id": "group-8-13",
       "type": "sentence-completion",
       "passage_id": "passage-1",
-      "instruction": "Questions 8-13\nAnswer the questions below. Choose\nNO MORE THAN TWO WORDS\nfrom the passage for each answer",
+      "instruction": "Questions 8-13\nAnswer the questions below. Choose\nNO MORE THAN TWO WORDS\nfrom the passage for each answer\nWrite your answers in boxes 8-13 on your answer sheet.",
       "questions": [
         {
           "id": 8,
@@ -132,7 +132,7 @@
           "answer": "malaria"
         }
       ],
-      "shared_text": "Write your answers in boxes 8-13 on your answer sheet.",
+      "shared_text": null,
       "word_list": null,
       "image_url": null,
       "options": null

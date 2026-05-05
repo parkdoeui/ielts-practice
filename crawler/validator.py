@@ -102,3 +102,28 @@ def validate_reading_test(test: ReadingTest) -> ValidationResult:
                 warnings.append(f"Group {g.id}: summary-completion with 'from the list' instruction but no word_list extracted")
 
     return ValidationResult(valid=len(errors) == 0, errors=errors, warnings=warnings)
+
+
+def validate_repaired_reading_test(original: ReadingTest, repaired: ReadingTest) -> ValidationResult:
+    """
+    Validate a repaired test against hard rules, plus invariants that the AI repair step
+    must not violate (identity fields and question IDs).
+    """
+    base = validate_reading_test(repaired)
+    errors = list(base.errors)
+    warnings = list(base.warnings)
+
+    if repaired.id != original.id:
+        errors.append(f"AI repair changed test id: {original.id} -> {repaired.id}")
+    if repaired.source_url != original.source_url:
+        errors.append("AI repair changed source_url")
+    if repaired.test_type != original.test_type:
+        errors.append("AI repair changed test_type")
+    if repaired.time_limit_minutes != original.time_limit_minutes:
+        errors.append("AI repair changed time_limit_minutes")
+
+    repaired_ids = [q.id for g in repaired.question_groups for q in g.questions]
+    if repaired_ids != list(range(1, 41)):
+        errors.append("AI repair must preserve question ids 1..40 in order")
+
+    return ValidationResult(valid=len(errors) == 0, errors=errors, warnings=warnings)
