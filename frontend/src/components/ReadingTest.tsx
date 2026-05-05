@@ -116,6 +116,32 @@ export function ReadingTest() {
     const totalTimeMs = Date.now() - startMs;
     const passcode = localStorage.getItem("ielts_passcode") ?? "unknown";
 
+    // For "choose N" multi-question MC groups, grading is set-based (order doesn't matter).
+    // Build a map of question id → is_correct for those groups first.
+    const multiMcCorrectById = new Map<number, boolean>();
+    for (const group of test.question_groups) {
+      if (group.type === "multiple-choice" && group.questions.length > 1) {
+        // Build a frequency map of correct answers for this group
+        const correctFreq = new Map<string, number>();
+        for (const q of group.questions) {
+          const a = q.answer.trim().toLowerCase();
+          correctFreq.set(a, (correctFreq.get(a) ?? 0) + 1);
+        }
+        // Grade each question: correct if its user answer is still available in the correct set
+        const usedFreq = new Map<string, number>();
+        for (const q of group.questions) {
+          const userAnswer = (answers[q.id] ?? "").trim().toLowerCase();
+          const available = (correctFreq.get(userAnswer) ?? 0) - (usedFreq.get(userAnswer) ?? 0);
+          if (userAnswer && available > 0) {
+            multiMcCorrectById.set(q.id, true);
+            usedFreq.set(userAnswer, (usedFreq.get(userAnswer) ?? 0) + 1);
+          } else {
+            multiMcCorrectById.set(q.id, false);
+          }
+        }
+      }
+    }
+
     const questionTypeById = new Map<number, ReadingTestType["question_groups"][number]["type"]>();
     for (const group of test.question_groups) {
       for (const question of group.questions) {
@@ -128,7 +154,9 @@ export function ReadingTest() {
 
     const gradedAnswers: UserAnswer[] = allQuestions.map((q) => {
       const userAnswer = answers[q.id] ?? "";
-      const isCorrect = userAnswer.trim().toLowerCase() === q.answer.trim().toLowerCase();
+      const isCorrect = multiMcCorrectById.has(q.id)
+        ? multiMcCorrectById.get(q.id)!
+        : userAnswer.trim().toLowerCase() === q.answer.trim().toLowerCase();
       return {
         question_id: q.id,
         user_answer: userAnswer,
