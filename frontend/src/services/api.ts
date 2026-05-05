@@ -64,6 +64,20 @@ export async function saveSession(session: TestSession): Promise<SaveSessionResu
   return { saved: true, conflict: false };
 }
 
+export async function updateSession(session: TestSession): Promise<TestSession> {
+  const res = await fetch(`${API_BASE}/api/sessions/${encodeURIComponent(session.id)}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(session),
+  });
+
+  if (!res.ok) {
+    throw new Error(`PUT /api/sessions/${session.id} failed: ${res.status}`);
+  }
+
+  return res.json();
+}
+
 /**
  * GET /api/sessions — fetch all sessions for a given passcode.
  */

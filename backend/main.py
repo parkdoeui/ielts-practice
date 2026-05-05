@@ -30,6 +30,7 @@ class UserAnswerSchema(BaseModel):
     is_correct: bool
     time_spent_ms: int
     question_type: Optional[str] = None
+    self_corrected: Optional[bool] = None
 
 
 class ScoreSchema(BaseModel):
@@ -89,10 +90,45 @@ def parse_iso_datetime(value: str) -> datetime:
         value = f"{value[:-1]}+00:00"
     return datetime.fromisoformat(value)
 
+
+def estimate_band(correct: int, total: int) -> float:
+    score = round((correct / total) * 40) if total else 0
+    if score >= 39:
+        return 9.0
+    if score >= 37:
+        return 8.5
+    if score >= 35:
+        return 8.0
+    if score >= 33:
+        return 7.5
+    if score >= 30:
+        return 7.0
+    if score >= 27:
+        return 6.5
+    if score >= 23:
+        return 6.0
+    if score >= 19:
+        return 5.5
+    if score >= 15:
+        return 5.0
+    if score >= 13:
+        return 4.5
+    return 4.0
+
+
+def score_from_answers(answers: list[dict[str, Any]]) -> ScoreSchema:
+    correct = sum(1 for answer in answers if answer.get("is_correct"))
+    total = len(answers)
+    return ScoreSchema(
+        correct=correct,
+        total=total,
+        band_estimate=estimate_band(correct, total),
+    )
+
+
 def session_to_response(record: TestSessionRecord) -> SessionResponse:
     answers: list[dict[str, Any]] = record.answers_json  # type: ignore[assignment]
-    correct = sum(1 for a in answers if a.get("is_correct"))
-    total = len(answers)
+    score = score_from_answers(answers)
     return SessionResponse(
         id=record.id,
         test_id=record.test_id,
@@ -101,11 +137,7 @@ def session_to_response(record: TestSessionRecord) -> SessionResponse:
         completed_at=record.completed_at.isoformat(),
         total_time_ms=record.total_time_ms,
         answers=answers,
-        score=ScoreSchema(
-            correct=record.score_correct,
-            total=record.score_total,
-            band_estimate=record.band_estimate,
-        ),
+        score=score,
     )
 
 
@@ -124,6 +156,9 @@ def create_session(payload: SessionCreate, db: Session = Depends(get_db)):
     if existing:
         raise HTTPException(status_code=409, detail="Session already exists")
 
+    answers_json = [a.model_dump() for a in payload.answers]
+    score = score_from_answers(answers_json)
+
     record = TestSessionRecord(
         id=payload.id,
         test_id=payload.test_id,
@@ -131,12 +166,45 @@ def create_session(payload: SessionCreate, db: Session = Depends(get_db)):
         started_at=parse_iso_datetime(payload.started_at),
         completed_at=parse_iso_datetime(payload.completed_at),
         total_time_ms=payload.total_time_ms,
-        score_correct=payload.score.correct,
-        score_total=payload.score.total,
-        band_estimate=payload.score.band_estimate,
-        answers_json=[a.model_dump() for a in payload.answers],
+        score_correct=score.correct,
+        score_total=score.total,
+        band_estimate=score.band_estimate,
+        answers_json=answers_json,
     )
     db.add(record)
+    db.commit()
+    db.refresh(record)
+    return session_to_response(record)
+
+
+@app.put("/api/sessions/{session_id}", response_model=SessionResponse)
+def update_session(
+    session_id: str,
+    payload: SessionCreate,
+    db: Session = Depends(get_db),
+):
+    verify_passcode(payload.passcode)
+
+    if payload.id != session_id:
+        raise HTTPException(status_code=400, detail="Session ID mismatch")
+
+    record = db.get(TestSessionRecord, session_id)
+    if not record:
+        raise HTTPException(status_code=404, detail="Session not found")
+    if record.passcode != payload.passcode:
+        raise HTTPException(status_code=403, detail="Invalid passcode")
+
+    answers_json = [a.model_dump() for a in payload.answers]
+    score = score_from_answers(answers_json)
+
+    record.test_id = payload.test_id
+    record.started_at = parse_iso_datetime(payload.started_at)
+    record.completed_at = parse_iso_datetime(payload.completed_at)
+    record.total_time_ms = payload.total_time_ms
+    record.score_correct = score.correct
+    record.score_total = score.total
+    record.band_estimate = score.band_estimate
+    record.answers_json = answers_json
     db.commit()
     db.refresh(record)
     return session_to_response(record)

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router";
-import { getSessionById } from "../services/api";
-import { estimateBand, isCompletionType } from "../lib/grading";
-import type { ReadingTest, TestSession, UserAnswer } from "../types";
+import { getSessionById, updateSession } from "../services/api";
+import { isCompletionType } from "../lib/grading";
+import type { ReadingTest, TestSession } from "../types";
 
 const testFiles = import.meta.glob<{ default: ReadingTest }>(
   "../data/tests/*.json",
@@ -41,6 +41,8 @@ export function ResultsView() {
   const navigate = useNavigate();
   const [session, setSession] = useState<TestSession | null>(null);
   const [loading, setLoading] = useState(true);
+  const [saveError, setSaveError] = useState("");
+  const [savingQuestionId, setSavingQuestionId] = useState<number | null>(null);
 
   const test = useMemo(
     () =>
@@ -69,21 +71,6 @@ export function ResultsView() {
     );
   }, [session, test]);
 
-  const score = useMemo(() => {
-    if (!session) {
-      return null;
-    }
-
-    const correct = session.answers.filter((answer) => answer.is_correct).length;
-    const total = session.answers.length;
-
-    return {
-      correct,
-      total,
-      band_estimate: estimateBand(correct, total),
-    };
-  }, [session]);
-
   useEffect(() => {
     const passcode = localStorage.getItem("ielts_passcode") ?? "";
     if (!id || !passcode) {
@@ -97,45 +84,60 @@ export function ResultsView() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  function updateSessionAnswers(nextAnswers: UserAnswer[]) {
-    setSession((current) => {
-      if (!current) {
-        return current;
-      }
-
-      const correct = nextAnswers.filter((answer) => answer.is_correct).length;
-      const total = nextAnswers.length;
-      const updatedSession: TestSession = {
-        ...current,
-        answers: nextAnswers,
-        score: {
-          correct,
-          total,
-          band_estimate: estimateBand(correct, total),
-        },
-      };
-
-      localStorage.setItem(
-        `ielts_session_${updatedSession.id}`,
-        JSON.stringify(updatedSession),
-      );
-
-      return updatedSession;
-    });
-  }
-
-  function applySelfCorrection(questionId: number) {
+  async function applySelfCorrection(questionId: number) {
     if (!session) {
       return;
     }
 
-    updateSessionAnswers(
-      session.answers.map((answer) =>
+    setSaveError("");
+    setSavingQuestionId(questionId);
+
+    const optimisticSession: TestSession = {
+      ...session,
+      answers: session.answers.map((answer) =>
         answer.question_id === questionId
           ? { ...answer, is_correct: true, self_corrected: true }
           : answer,
       ),
+    };
+
+    setSession(optimisticSession);
+    localStorage.setItem(
+      `ielts_session_${optimisticSession.id}`,
+      JSON.stringify(optimisticSession),
     );
+
+    try {
+      const saved = await updateSession(optimisticSession);
+      const syncedSession: TestSession = {
+        ...saved,
+        sync_status: "synced",
+        sync_error: undefined,
+      };
+      setSession(syncedSession);
+      localStorage.setItem(
+        `ielts_session_${syncedSession.id}`,
+        JSON.stringify(syncedSession),
+      );
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Self-correction saved locally only. Backend sync failed.";
+      const localOnlySession: TestSession = {
+        ...optimisticSession,
+        sync_status: "local-only",
+        sync_error: message,
+      };
+      setSession(localOnlySession);
+      setSaveError("Self-correction saved locally only. Backend sync failed.");
+      localStorage.setItem(
+        `ielts_session_${localOnlySession.id}`,
+        JSON.stringify(localOnlySession),
+      );
+    } finally {
+      setSavingQuestionId(null);
+    }
   }
 
   if (loading) {
@@ -155,7 +157,7 @@ export function ResultsView() {
     );
   }
 
-  if (!score) {
+  if (!session.score) {
     return null;
   }
 
@@ -178,11 +180,11 @@ export function ResultsView() {
         )}
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
-            <div className="text-3xl font-bold text-blue-600">{score.correct}/{score.total}</div>
+            <div className="text-3xl font-bold text-blue-600">{session.score.correct}/{session.score.total}</div>
             <div className="text-xs text-gray-500 mt-1">Correct</div>
           </div>
           <div>
-            <div className="text-3xl font-bold text-green-600">{score.band_estimate.toFixed(1)}</div>
+            <div className="text-3xl font-bold text-green-600">{session.score.band_estimate.toFixed(1)}</div>
             <div className="text-xs text-gray-500 mt-1">Band Estimate</div>
           </div>
           <div>
@@ -195,6 +197,11 @@ export function ResultsView() {
       {/* Answer review */}
       <div className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-700 mb-3">Answer Review</h2>
+        {saveError && (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+            {saveError}
+          </div>
+        )}
         {reviewItems.map(({ group, question, answer }) => {
           const visibleSharedText = getVisibleSharedText(group.shared_text);
           const isCorrect = answer?.is_correct ?? false;
@@ -279,13 +286,14 @@ export function ResultsView() {
                     Self Correction
                   </p>
                   <p className="mt-1 text-sm text-blue-900">
-                    If your answer is substantively correct and only marked wrong because of answer-key brittleness, you can mark it as acceptable for this saved result on this device.
+                    If your answer is substantively correct and only marked wrong because of answer-key brittleness, you can mark it as acceptable for this saved result.
                   </p>
                   <button
                     onClick={() => applySelfCorrection(question.id)}
+                    disabled={savingQuestionId === question.id}
                     className="mt-3 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
                   >
-                    Mark as acceptable
+                    {savingQuestionId === question.id ? "Saving..." : "Mark as acceptable"}
                   </button>
                 </div>
               )}
