@@ -130,7 +130,7 @@ function QuestionInput({
 
   switch (group.type) {
     case "true-false-ng": {
-      const isYesNo = question.answer === "YES" || question.answer === "NO";
+      const isYesNo = /\byes\b/i.test(group.instruction);
       const opts = isYesNo ? ["YES", "NO", "NOT GIVEN"] : ["TRUE", "FALSE", "NOT GIVEN"];
       return (
         <div className="space-y-2">
