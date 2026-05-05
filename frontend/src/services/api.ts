@@ -70,6 +70,22 @@ export async function getSessionById(
   return sessions.find((session) => session.id === sessionId) ?? null;
 }
 
+export async function getLatestSessionForTest(
+  passcode: string,
+  testId: string
+): Promise<TestSession | null> {
+  const sessions = await getSessions(passcode);
+
+  return (
+    sessions
+      .filter((session) => session.test_id === testId)
+      .sort(
+        (a, b) =>
+          new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime()
+      )[0] ?? null
+  );
+}
+
 /**
  * GET /api/progress — fetch aggregated progress stats for a passcode.
  */

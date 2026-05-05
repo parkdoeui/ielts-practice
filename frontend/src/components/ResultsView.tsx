@@ -1,13 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { getSessionById } from "../services/api";
-import type { TestSession } from "../types";
+import type { ReadingTest, TestSession } from "../types";
+
+const testFiles = import.meta.glob<{ default: ReadingTest }>(
+  "../data/tests/*.json",
+  { eager: true }
+);
+
+function getVisibleSharedText(sharedText?: string) {
+  const normalized = sharedText?.trim();
+  if (!normalized) {
+    return null;
+  }
+
+  if (normalized.toLowerCase().startsWith("show answers")) {
+    return null;
+  }
+
+  return normalized;
+}
 
 export function ResultsView() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [session, setSession] = useState<TestSession | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const test = useMemo(
+    () => Object.values(testFiles).find((m) => m.default.id === session?.test_id)?.default ?? null,
+    [session]
+  );
+
+  const reviewItems = useMemo(() => {
+    if (!session || !test) {
+      return [];
+    }
+
+    const answerByQuestionId = new Map(
+      session.answers.map((answer) => [answer.question_id, answer])
+    );
+
+    return test.question_groups.flatMap((group) =>
+      group.questions.map((question) => ({
+        group,
+        question,
+        answer: answerByQuestionId.get(question.id) ?? null,
+      }))
+    );
+  }, [session, test]);
 
   useEffect(() => {
     const passcode = localStorage.getItem("ielts_passcode") ?? "";
@@ -39,7 +80,7 @@ export function ResultsView() {
     );
   }
 
-  const { score, answers } = session;
+  const { score } = session;
   const timeTakenMinutes = Math.round(session.total_time_ms / 60000);
 
   return (
@@ -74,35 +115,87 @@ export function ResultsView() {
       </div>
 
       {/* Answer review */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <h2 className="text-sm font-semibold text-gray-700 mb-3">Answer Review</h2>
-        {answers.map((a) => (
+        {reviewItems.map(({ group, question, answer }) => {
+          const visibleSharedText = getVisibleSharedText(group.shared_text);
+          const isCorrect = answer?.is_correct ?? false;
+          const userAnswer = answer?.user_answer?.trim() || "(blank)";
+
+          return (
           <div
-            key={a.question_id}
+            key={question.id}
             className={`flex items-start gap-3 p-3 rounded-lg border ${
-              a.is_correct ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"
+              isCorrect ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"
             }`}
           >
             <span className={`shrink-0 w-7 h-7 flex items-center justify-center rounded-full text-xs font-bold ${
-              a.is_correct ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+              isCorrect ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
             }`}>
-              {a.question_id}
+              {question.id}
             </span>
-            <div className="text-sm">
-              <span className={a.is_correct ? "text-green-700" : "text-red-700"}>
-                {a.is_correct ? "✓ Correct" : "✗ Incorrect"}
-              </span>
-              {!a.is_correct && (
-                <span className="text-gray-500 ml-2">
-                  Your answer: <span className="font-medium">{a.user_answer || "(blank)"}</span>
+            <div className="min-w-0 flex-1 space-y-2 text-sm">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className={isCorrect ? "text-green-700 font-medium" : "text-red-700 font-medium"}>
+                  {isCorrect ? "Correct" : "Incorrect"}
                 </span>
+                <span className="text-xs uppercase tracking-[0.16em] text-gray-400">
+                  {group.type}
+                </span>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
+                  Instruction
+                </p>
+                <p className="text-gray-700 whitespace-pre-line">{group.instruction}</p>
+              </div>
+
+              {visibleSharedText && (
+                <div className="space-y-1">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
+                    Shared Context
+                  </p>
+                  <p className="text-gray-700 whitespace-pre-line">{visibleSharedText}</p>
+                </div>
               )}
+
+              <div className="space-y-1">
+                <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
+                  Question
+                </p>
+                <p className="text-gray-900 whitespace-pre-line">
+                  {question.statement || `Question ${question.id}`}
+                </p>
+              </div>
+
+              <div className="grid gap-2 sm:grid-cols-2">
+                <div className="rounded-lg bg-white/70 px-3 py-2">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
+                    Your Answer
+                  </p>
+                  <p className="mt-1 font-medium text-gray-900">{userAnswer}</p>
+                </div>
+                <div className="rounded-lg bg-white/70 px-3 py-2">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
+                    Correct Answer
+                  </p>
+                  <p className="mt-1 font-medium text-gray-900">{question.answer}</p>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mt-6 flex gap-3">
+        <button
+          onClick={() => navigate(`/test/${session.test_id}`)}
+          className="px-4 py-2 border border-gray-300 text-sm rounded-lg hover:bg-gray-50"
+        >
+          Review Test
+        </button>
         <button onClick={() => navigate("/")} className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
           Take Another Test
         </button>

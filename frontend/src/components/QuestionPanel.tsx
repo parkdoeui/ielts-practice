@@ -4,9 +4,10 @@ interface Props {
   groups: QuestionGroup[];
   answers: Record<number, string>;
   onAnswer: (questionId: number, answer: string) => void;
+  readOnly?: boolean;
 }
 
-export function QuestionPanel({ groups, answers, onAnswer }: Props) {
+export function QuestionPanel({ groups, answers, onAnswer, readOnly = false }: Props) {
   return (
     <div className="h-full overflow-y-auto px-6 py-4 space-y-8">
       {groups.map((group) => (
@@ -15,6 +16,7 @@ export function QuestionPanel({ groups, answers, onAnswer }: Props) {
           group={group}
           answers={answers}
           onAnswer={onAnswer}
+          readOnly={readOnly}
         />
       ))}
     </div>
@@ -38,10 +40,12 @@ function GroupRenderer({
   group,
   answers,
   onAnswer,
+  readOnly,
 }: {
   group: QuestionGroup;
   answers: Record<number, string>;
   onAnswer: (questionId: number, answer: string) => void;
+  readOnly: boolean;
 }) {
   const visibleSharedText = getVisibleSharedText(group.shared_text);
 
@@ -96,6 +100,7 @@ function GroupRenderer({
                 question={q}
                 value={answers[q.id] ?? ""}
                 onChange={(v) => onAnswer(q.id, v)}
+                readOnly={readOnly}
               />
             </div>
           </div>
@@ -110,11 +115,13 @@ function QuestionInput({
   question,
   value,
   onChange,
+  readOnly,
 }: {
   group: QuestionGroup;
   question: SimpleQuestion;
   value: string;
   onChange: (v: string) => void;
+  readOnly: boolean;
 }) {
   const selectClass =
     "border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white";
@@ -139,6 +146,7 @@ function QuestionInput({
                   value={opt}
                   checked={value === opt}
                   onChange={() => onChange(opt)}
+                  disabled={readOnly}
                   className="h-4 w-4 text-blue-600"
                 />
                 <span className="text-sm text-gray-700 group-hover:text-gray-900">{opt}</span>
@@ -165,6 +173,7 @@ function QuestionInput({
                   value={key}
                   checked={value === key}
                   onChange={() => onChange(key)}
+                  disabled={readOnly}
                   className="h-4 w-4 text-blue-600 mt-0.5"
                 />
                 <span className="text-sm text-gray-700 group-hover:text-gray-900">
@@ -187,6 +196,7 @@ function QuestionInput({
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            disabled={readOnly}
             className={selectClass}
           >
             <option value="">Select paragraph...</option>
@@ -210,6 +220,7 @@ function QuestionInput({
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            disabled={readOnly}
             className={`w-full ${selectClass}`}
           >
             <option value="">Select heading...</option>
@@ -230,6 +241,7 @@ function QuestionInput({
             <select
               value={value}
               onChange={(e) => onChange(e.target.value)}
+              disabled={readOnly}
               className={selectClass}
             >
               <option value="">Select word...</option>
@@ -247,6 +259,7 @@ function QuestionInput({
               type="text"
               value={value}
               onChange={(e) => onChange(e.target.value)}
+              disabled={readOnly}
               placeholder="Answer..."
               className={`${inputClass} w-64`}
             />
@@ -266,6 +279,7 @@ function QuestionInput({
               type="text"
               value={value}
               onChange={(e) => onChange(e.target.value)}
+              disabled={readOnly}
               placeholder="Answer..."
               className={`${inputClass} w-64`}
             />
@@ -282,6 +296,7 @@ function QuestionInput({
                   type="text"
                   value={value}
                   onChange={(e) => onChange(e.target.value)}
+                  disabled={readOnly}
                   placeholder="..."
                   className="inline-block mx-1 border-b-2 border-blue-500 focus:outline-none text-blue-800 w-32 text-sm bg-transparent"
                 />
@@ -302,6 +317,7 @@ function QuestionInput({
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            disabled={readOnly}
             placeholder="Max 2 words from passage"
             className={`${inputClass} w-64`}
           />
@@ -315,6 +331,7 @@ function QuestionInput({
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          disabled={readOnly}
           placeholder="Answer..."
           className={`${inputClass} w-64`}
         />

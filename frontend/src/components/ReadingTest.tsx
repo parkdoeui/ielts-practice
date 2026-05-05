@@ -4,7 +4,7 @@ import type { ReadingTest as ReadingTestType, UserAnswer, TestSession } from "..
 import { PassagePanel } from "./PassagePanel";
 import { QuestionPanel } from "./QuestionPanel";
 import { TimerBar } from "./TimerBar";
-import { saveSession } from "../services/api";
+import { getLatestSessionForTest, saveSession } from "../services/api";
 
 const testFiles = import.meta.glob<{ default: ReadingTestType }>(
   "../data/tests/*.json",
@@ -37,12 +37,39 @@ export function ReadingTest() {
   const [submitted, setSubmitted] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [isCheckingCompletion, setIsCheckingCompletion] = useState(true);
+  const [reviewSession, setReviewSession] = useState<TestSession | null>(null);
   // Mobile: "passage" | "questions"
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
 
   useEffect(() => {
     const found = Object.values(testFiles).find((m) => m.default.id === id);
     if (found) setTest(found.default);
+  }, [id]);
+
+  useEffect(() => {
+    const passcode = localStorage.getItem("ielts_passcode") ?? "";
+
+    if (!id || !passcode) {
+      setReviewSession(null);
+      setIsCheckingCompletion(false);
+      return;
+    }
+
+    setIsCheckingCompletion(true);
+    getLatestSessionForTest(passcode, id)
+      .then((latest) => {
+        setReviewSession(latest);
+        if (latest) {
+          setAnswers(
+            Object.fromEntries(
+              latest.answers.map((answer) => [answer.question_id, answer.user_answer])
+            )
+          );
+        }
+      })
+      .catch(() => setReviewSession(null))
+      .finally(() => setIsCheckingCompletion(false));
   }, [id]);
 
   const goToPassage = useCallback((nextIndex: number) => {
@@ -123,7 +150,11 @@ export function ReadingTest() {
     }
   }, [test, submitted, isSaving, startMs, answers, id, startedAt, navigate]);
 
-  if (!test) return <div className="p-8 text-gray-500">Loading test...</div>;
+  if (!test || isCheckingCompletion) {
+    return <div className="p-8 text-gray-500">Loading test...</div>;
+  }
+
+  const isReviewMode = reviewSession !== null;
 
   const currentPassageId = test.passages[currentPassageIndex]?.id;
   const groupsForPassage = test.question_groups.filter(
@@ -142,13 +173,21 @@ export function ReadingTest() {
             Passage {currentPassageIndex + 1} of {test.passages.length}
           </p>
         </div>
-        <TimerBar
-          totalSeconds={test.time_limit_minutes * 60}
-          answeredCount={answeredCount}
-          totalCount={totalQuestions}
-          onExpire={handleSubmit}
-          paused={submitted}
-        />
+        {isReviewMode ? (
+          <div className="px-4 md:px-6 pb-3">
+            <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-800">
+              Completed test review. Answers are locked. Open the result page for right and wrong grading.
+            </div>
+          </div>
+        ) : (
+          <TimerBar
+            totalSeconds={test.time_limit_minutes * 60}
+            answeredCount={answeredCount}
+            totalCount={totalQuestions}
+            onExpire={handleSubmit}
+            paused={submitted}
+          />
+        )}
         {submitError && (
           <div className="px-4 md:px-6 pb-3 text-xs text-amber-700">
             {submitError}
@@ -217,6 +256,7 @@ export function ReadingTest() {
               groups={groupsForPassage}
               answers={answers}
               onAnswer={(qId, answer) => setAnswers((prev) => ({ ...prev, [qId]: answer }))}
+              readOnly={isReviewMode}
             />
           </div>
         </div>
@@ -238,13 +278,22 @@ export function ReadingTest() {
           >
             Next
           </button>
-          <button
-            onClick={handleSubmit}
-            disabled={submitted || isSaving}
-            className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
-          >
-            {isSaving ? "Saving..." : "Submit"}
-          </button>
+          {isReviewMode ? (
+            <button
+              onClick={() => navigate(`/results/${reviewSession.id}`)}
+              className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              View Results
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              disabled={submitted || isSaving}
+              className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            >
+              {isSaving ? "Saving..." : "Submit"}
+            </button>
+          )}
         </div>
       </div>
     </div>

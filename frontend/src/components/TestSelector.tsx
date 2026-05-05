@@ -160,7 +160,11 @@ export function TestSelector() {
             return (
               <button
                 key={test.id}
-                onClick={() => navigate(`/test/${test.id}`)}
+                onClick={() =>
+                  completion
+                    ? navigate(`/results/${completion.sessionId}`)
+                    : navigate(`/test/${test.id}`)
+                }
                 className="text-left bg-white border border-gray-200 rounded-xl p-5 hover:border-blue-400 hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between gap-4">
