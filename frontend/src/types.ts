@@ -3,6 +3,9 @@ export type QuestionType =
   | "multiple-choice"
   | "matching-headings"
   | "matching-information"
+  | "matching-features"
+  | "matching-sentence-endings"
+  | "classification"
   | "sentence-completion"
   | "summary-completion"
   | "diagram-labeling";
@@ -18,6 +21,7 @@ export interface SimpleQuestion {
   id: number;
   statement: string;
   answer: string;
+  accepted_answers?: string[];
 }
 
 export interface QuestionGroup {
@@ -48,6 +52,7 @@ export interface UserAnswer {
   is_correct: boolean;
   time_spent_ms: number;
   question_type?: QuestionType;
+  self_corrected?: boolean;
 }
 
 export interface TestSession {

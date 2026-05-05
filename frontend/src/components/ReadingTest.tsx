@@ -5,6 +5,7 @@ import { PassagePanel } from "./PassagePanel";
 import { QuestionPanel } from "./QuestionPanel";
 import { TimerBar } from "./TimerBar";
 import { getLatestSessionForTest, saveSession } from "../services/api";
+import { estimateBand, isAnswerCorrect } from "../lib/grading";
 
 const testFiles = import.meta.glob<{ default: ReadingTestType }>(
   "../data/tests/*.json",
@@ -23,21 +24,6 @@ function isReadingTest(value: unknown): value is ReadingTestType {
     Array.isArray(candidate.passages) &&
     Array.isArray(candidate.question_groups)
   );
-}
-
-function estimateBand(correct: number, total: number): number {
-  const score = Math.round((correct / total) * 40);
-  if (score >= 39) return 9.0;
-  if (score >= 37) return 8.5;
-  if (score >= 35) return 8.0;
-  if (score >= 33) return 7.5;
-  if (score >= 30) return 7.0;
-  if (score >= 27) return 6.5;
-  if (score >= 23) return 6.0;
-  if (score >= 19) return 5.5;
-  if (score >= 15) return 5.0;
-  if (score >= 13) return 4.5;
-  return 4.0;
 }
 
 export function ReadingTest() {
@@ -154,15 +140,17 @@ export function ReadingTest() {
 
     const gradedAnswers: UserAnswer[] = allQuestions.map((q) => {
       const userAnswer = answers[q.id] ?? "";
+      const questionType = questionTypeById.get(q.id)!;
+      const acceptedAnswers = [q.answer, ...(q.accepted_answers ?? [])];
       const isCorrect = multiMcCorrectById.has(q.id)
         ? multiMcCorrectById.get(q.id)!
-        : userAnswer.trim().toLowerCase() === q.answer.trim().toLowerCase();
+        : isAnswerCorrect(questionType, userAnswer, acceptedAnswers);
       return {
         question_id: q.id,
         user_answer: userAnswer,
         is_correct: isCorrect,
         time_spent_ms: 0,
-        question_type: questionTypeById.get(q.id),
+        question_type: questionType,
       };
     });
 

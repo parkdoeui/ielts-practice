@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { getSessionById } from "../services/api";
-import type { ReadingTest, TestSession } from "../types";
+import { estimateBand, isCompletionType } from "../lib/grading";
+import type { ReadingTest, TestSession, UserAnswer } from "../types";
 
 const testFiles = import.meta.glob<{ default: ReadingTest }>(
   "../data/tests/*.json",
@@ -68,6 +69,21 @@ export function ResultsView() {
     );
   }, [session, test]);
 
+  const score = useMemo(() => {
+    if (!session) {
+      return null;
+    }
+
+    const correct = session.answers.filter((answer) => answer.is_correct).length;
+    const total = session.answers.length;
+
+    return {
+      correct,
+      total,
+      band_estimate: estimateBand(correct, total),
+    };
+  }, [session]);
+
   useEffect(() => {
     const passcode = localStorage.getItem("ielts_passcode") ?? "";
     if (!id || !passcode) {
@@ -80,6 +96,47 @@ export function ResultsView() {
       .catch(() => setSession(null))
       .finally(() => setLoading(false));
   }, [id]);
+
+  function updateSessionAnswers(nextAnswers: UserAnswer[]) {
+    setSession((current) => {
+      if (!current) {
+        return current;
+      }
+
+      const correct = nextAnswers.filter((answer) => answer.is_correct).length;
+      const total = nextAnswers.length;
+      const updatedSession: TestSession = {
+        ...current,
+        answers: nextAnswers,
+        score: {
+          correct,
+          total,
+          band_estimate: estimateBand(correct, total),
+        },
+      };
+
+      localStorage.setItem(
+        `ielts_session_${updatedSession.id}`,
+        JSON.stringify(updatedSession),
+      );
+
+      return updatedSession;
+    });
+  }
+
+  function applySelfCorrection(questionId: number) {
+    if (!session) {
+      return;
+    }
+
+    updateSessionAnswers(
+      session.answers.map((answer) =>
+        answer.question_id === questionId
+          ? { ...answer, is_correct: true, self_corrected: true }
+          : answer,
+      ),
+    );
+  }
 
   if (loading) {
     return (
@@ -98,7 +155,10 @@ export function ResultsView() {
     );
   }
 
-  const { score } = session;
+  if (!score) {
+    return null;
+  }
+
   const timeTakenMinutes = Math.round(session.total_time_ms / 60000);
 
   return (
@@ -139,6 +199,12 @@ export function ResultsView() {
           const visibleSharedText = getVisibleSharedText(group.shared_text);
           const isCorrect = answer?.is_correct ?? false;
           const userAnswer = answer?.user_answer?.trim() || "(blank)";
+          const canSelfCorrect =
+            answer !== null &&
+            isCompletionType(group.type) &&
+            !answer.is_correct &&
+            answer.user_answer.trim().length > 0 &&
+            !answer.self_corrected;
 
           return (
           <div
@@ -157,6 +223,11 @@ export function ResultsView() {
                 <span className={isCorrect ? "text-green-700 font-medium" : "text-red-700 font-medium"}>
                   {isCorrect ? "Correct" : "Incorrect"}
                 </span>
+                {answer?.self_corrected && (
+                  <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">
+                    Self-corrected
+                  </span>
+                )}
                 <span className="text-xs uppercase tracking-[0.16em] text-gray-400">
                   {group.type}
                 </span>
@@ -201,6 +272,23 @@ export function ResultsView() {
                   <p className="mt-1 font-medium text-gray-900">{question.answer}</p>
                 </div>
               </div>
+
+              {canSelfCorrect && (
+                <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-3">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-blue-700">
+                    Self Correction
+                  </p>
+                  <p className="mt-1 text-sm text-blue-900">
+                    If your answer is substantively correct and only marked wrong because of answer-key brittleness, you can mark it as acceptable for this saved result on this device.
+                  </p>
+                  <button
+                    onClick={() => applySelfCorrection(question.id)}
+                    className="mt-3 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                  >
+                    Mark as acceptable
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           );

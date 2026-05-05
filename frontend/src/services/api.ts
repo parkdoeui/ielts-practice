@@ -30,6 +30,19 @@ export interface SaveSessionResult {
   conflict: boolean;
 }
 
+export function getStoredSessionById(sessionId: string): TestSession | null {
+  const raw = localStorage.getItem(`ielts_session_${sessionId}`);
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as TestSession;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * POST /api/sessions — persist a completed test session to the backend.
  */
@@ -66,6 +79,11 @@ export async function getSessionById(
   passcode: string,
   sessionId: string
 ): Promise<TestSession | null> {
+  const stored = getStoredSessionById(sessionId);
+  if (stored && stored.passcode === passcode) {
+    return stored;
+  }
+
   const sessions = await getSessions(passcode);
   return sessions.find((session) => session.id === sessionId) ?? null;
 }

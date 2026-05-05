@@ -194,7 +194,7 @@ function QuestionInput({
             <p className="text-sm font-medium text-gray-900">{question.statement}</p>
           )}
           <div className="flex flex-wrap gap-x-4 gap-y-1.5">
-            {Object.entries(opts).map(([key, text]) => (
+            {Object.keys(opts).map((key) => (
               <label key={key} className="flex items-center gap-2 cursor-pointer group">
                 <input
                   type="radio"
