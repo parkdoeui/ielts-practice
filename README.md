@@ -42,12 +42,53 @@ The frontend works **without** the backend — sessions are still saved to local
 
 ```bash
 cd crawler
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 playwright install chromium
-python main.py crawl <url> --output ../frontend/src/data/tests/
 ```
 
-Then rebuild the frontend (`npm run build`) to include the new test JSON.
+Generate one test JSON file:
+
+```bash
+python3 main.py crawl "<test-url>" --output ../frontend/src/data/tests
+```
+
+Example:
+
+```bash
+python3 main.py crawl "https://practicepteonline.com/ielts-reading-test-21/" --output ../frontend/src/data/tests
+```
+
+Generate a range of tests:
+
+```bash
+python3 crawl_range.py 3 10 --output ../frontend/src/data/tests
+```
+
+Use AI-assisted validation/repair during crawl:
+
+```bash
+python3 main.py crawl "<test-url>" --output ../frontend/src/data/tests --ai-auto --project <your-gcp-project>
+python3 crawl_range.py 11 20 --output ../frontend/src/data/tests --ai-auto --project <your-gcp-project> --workers 4
+```
+
+AI mode notes:
+
+- `--ai-validate` runs AI validation only and fails the crawl if Gemini finds structural issues.
+- `--ai-repair` always runs AI repair before saving.
+- `--ai-auto` validates first and only repairs if needed. This is the recommended mode.
+- AI modes require a Vertex AI GCP project via `--project`.
+
+Output:
+
+- Test JSON files are written to `frontend/src/data/tests/test-<n>.json`.
+- AI repairs also write `frontend/src/data/tests/test-<n>.repair-report.json`.
+
+After generating new test files, rebuild the frontend:
+
+```bash
+cd ../frontend
+npm run build
+```
 
 ## Features
 
