@@ -11,6 +11,13 @@ class WritingGraderError(Exception):
     pass
 
 
+def _provider_error_message(exc: Exception) -> str:
+    message = str(exc).strip()
+    if not message:
+        return exc.__class__.__name__
+    return message[:500]
+
+
 class WritingCriteriaSchema(BaseModel):
     task_response: float = 0.0
     coherence_cohesion: float = 0.0
@@ -105,7 +112,9 @@ def grade_writing_submission(
         else:
             raise WritingGraderError("Writing grader is not configured")
     except Exception as exc:  # pragma: no cover - SDK/env failures
-        raise WritingGraderError("Failed to initialize writing grader client") from exc
+        raise WritingGraderError(
+            f"Failed to initialize writing grader client: {_provider_error_message(exc)}"
+        ) from exc
     prompt = f"""You are an IELTS Writing examiner assistant.
 Grade the submission using IELTS writing criteria and return STRICT JSON.
 
@@ -164,7 +173,9 @@ Return only JSON with this shape:
             ),
         )
     except Exception as exc:  # pragma: no cover - network/provider failures
-        raise WritingGraderError("Writing grader request failed") from exc
+        raise WritingGraderError(
+            f"Writing grader request failed: {_provider_error_message(exc)}"
+        ) from exc
 
     raw = _strip_json_fence(_extract_text_from_response(response))
     try:

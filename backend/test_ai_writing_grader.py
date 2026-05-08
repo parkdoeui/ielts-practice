@@ -177,3 +177,26 @@ def test_grade_writing_submission_raises_for_blocked_response(monkeypatch) -> No
         assert "blocked" in str(exc).lower()
     else:  # pragma: no cover - defensive assertion
         raise AssertionError("Expected WritingGraderError")
+
+
+def test_grade_writing_submission_includes_provider_request_error(monkeypatch) -> None:
+    class FakeModels:
+        def generate_content(self, **kwargs):
+            raise RuntimeError("model not found")
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            self.models = FakeModels()
+
+    monkeypatch.setattr(genai, "Client", FakeClient)
+
+    try:
+        grade_writing_submission(
+            test=_sample_test(),
+            answers=_sample_answers(),
+            api_key="vertex-api-key",
+        )
+    except WritingGraderError as exc:
+        assert "model not found" in str(exc)
+    else:  # pragma: no cover - defensive assertion
+        raise AssertionError("Expected WritingGraderError")
