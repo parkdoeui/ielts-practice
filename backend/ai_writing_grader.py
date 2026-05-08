@@ -18,6 +18,23 @@ def _provider_error_message(exc: Exception) -> str:
     return message[:500]
 
 
+def _load_vertex_credentials(credentials_json: str | None) -> Any:
+    if not credentials_json:
+        return None
+
+    from google.oauth2 import service_account
+
+    try:
+        info = json.loads(credentials_json)
+    except json.JSONDecodeError as exc:
+        raise WritingGraderError("VERTEX_CREDENTIALS_JSON is not valid JSON") from exc
+
+    return service_account.Credentials.from_service_account_info(
+        info,
+        scopes=["https://www.googleapis.com/auth/cloud-platform"],
+    )
+
+
 class WritingCriteriaSchema(BaseModel):
     task_response: float = 0.0
     coherence_cohesion: float = 0.0
@@ -92,16 +109,19 @@ def grade_writing_submission(
     location: str = "us-central1",
     model: str = "gemini-2.5-pro",
     api_key: str | None = None,
+    credentials_json: str | None = None,
 ) -> dict[str, Any]:
     from google import genai
     from google.genai import types
 
     try:
         if project:
+            credentials = _load_vertex_credentials(credentials_json)
             client = genai.Client(
                 vertexai=True,
                 project=project,
                 location=location,
+                credentials=credentials,
                 http_options=types.HttpOptions(api_version="v1"),
             )
         elif api_key:

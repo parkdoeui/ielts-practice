@@ -454,6 +454,7 @@ def create_writing_session(
             test=sanitize_test_for_grading(payload.test),
             answers=payload.answers,
             api_key=settings.writing_grader_api_key,
+            credentials_json=settings.vertex_credentials_json,
             project=settings.vertex_project,
             location=settings.vertex_location,
             model=settings.writing_grader_model,

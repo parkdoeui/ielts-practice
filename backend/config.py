@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     cookie_samesite: str = "lax"
     gemini_api_key: Optional[str] = None
     vertex_api_key: Optional[str] = None
+    vertex_credentials_json: Optional[str] = None
     vertex_project: Optional[str] = None
     vertex_location: str = "us-central1"
     writing_grader_model: str = "gemini-2.5-pro"

@@ -124,6 +124,58 @@ def test_grade_writing_submission_prefers_project_over_api_key(monkeypatch) -> N
     assert "api_key" not in captured["client"]
 
 
+def test_grade_writing_submission_uses_vertex_credentials_json(monkeypatch) -> None:
+    captured: dict = {}
+    fake_credentials = object()
+
+    class FakeModels:
+        def generate_content(self, **kwargs):
+            return SimpleNamespace(text=_sample_response_json())
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            captured["client"] = kwargs
+            self.models = FakeModels()
+
+    class FakeServiceAccountCredentials:
+        @staticmethod
+        def from_service_account_info(info, scopes):
+            captured["service_account_info"] = info
+            captured["scopes"] = scopes
+            return fake_credentials
+
+    monkeypatch.setattr(genai, "Client", FakeClient)
+
+    import ai_writing_grader
+
+    monkeypatch.setattr(
+        ai_writing_grader,
+        "service_account",
+        SimpleNamespace(Credentials=FakeServiceAccountCredentials),
+        raising=False,
+    )
+
+    # Patch the import target inside _load_vertex_credentials.
+    import google.oauth2.service_account
+
+    monkeypatch.setattr(
+        google.oauth2.service_account,
+        "Credentials",
+        FakeServiceAccountCredentials,
+    )
+
+    grade_writing_submission(
+        test=_sample_test(),
+        answers=_sample_answers(),
+        project="test-project",
+        credentials_json='{"client_email":"svc@example.com","private_key":"secret"}',
+    )
+
+    assert captured["client"]["credentials"] is fake_credentials
+    assert captured["service_account_info"]["client_email"] == "svc@example.com"
+    assert captured["scopes"] == ["https://www.googleapis.com/auth/cloud-platform"]
+
+
 def test_grade_writing_submission_reads_candidate_parts_when_text_missing(monkeypatch) -> None:
     class FakePart:
         def __init__(self, text: str):
