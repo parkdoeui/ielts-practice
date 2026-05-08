@@ -17,7 +17,7 @@ app = FastAPI(title="IELTS Practice API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_origin],
+    allow_origins=settings.allowed_frontend_origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT"],
     allow_headers=["Content-Type"],
@@ -279,7 +279,7 @@ def login(payload: LoginRequest, response: Response):
         key="ielts_passcode",
         value=settings.valid_passcode,
         httponly=True,
-        samesite="lax",
+        samesite=settings.cookie_samesite,
         secure=settings.cookie_secure,
     )
 
