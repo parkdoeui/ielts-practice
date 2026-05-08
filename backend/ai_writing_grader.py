@@ -97,17 +97,17 @@ def grade_writing_submission(
     from google.genai import types
 
     try:
-        if api_key:
-            client = genai.Client(
-                api_key=api_key,
-                http_options=types.HttpOptions(api_version="v1alpha"),
-            )
-        elif project:
+        if project:
             client = genai.Client(
                 vertexai=True,
                 project=project,
                 location=location,
                 http_options=types.HttpOptions(api_version="v1"),
+            )
+        elif api_key:
+            client = genai.Client(
+                api_key=api_key,
+                http_options=types.HttpOptions(api_version="v1alpha"),
             )
         else:
             raise WritingGraderError("Writing grader is not configured")
