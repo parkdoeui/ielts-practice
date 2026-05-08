@@ -70,7 +70,7 @@ def _sample_response_json() -> str:
     }"""
 
 
-def test_grade_writing_submission_uses_vertex_ai_for_api_key(monkeypatch) -> None:
+def test_grade_writing_submission_uses_gemini_api_for_api_key(monkeypatch) -> None:
     captured: dict = {}
 
     class FakeModels:
@@ -91,14 +91,14 @@ def test_grade_writing_submission_uses_vertex_ai_for_api_key(monkeypatch) -> Non
         api_key="vertex-api-key",
     )
 
-    assert captured["client"]["vertexai"] is True
     assert captured["client"]["api_key"] == "vertex-api-key"
-    assert captured["client"]["http_options"].api_version == "v1"
+    assert "vertexai" not in captured["client"]
+    assert captured["client"]["http_options"].api_version == "v1alpha"
     assert captured["generate_content"]["config"].response_mime_type == "application/json"
     assert result["overall_band"] == 6.5
 
 
-def test_grade_writing_submission_prefers_project_over_api_key(monkeypatch) -> None:
+def test_grade_writing_submission_prefers_api_key_over_project(monkeypatch) -> None:
     captured: dict = {}
 
     class FakeModels:
@@ -119,8 +119,8 @@ def test_grade_writing_submission_prefers_project_over_api_key(monkeypatch) -> N
         api_key="vertex-api-key",
     )
 
-    assert captured["client"]["project"] == "test-project"
-    assert "api_key" not in captured["client"]
+    assert captured["client"]["api_key"] == "vertex-api-key"
+    assert "project" not in captured["client"]
 
 
 def test_grade_writing_submission_reads_candidate_parts_when_text_missing(monkeypatch) -> None:

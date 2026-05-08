@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     frontend_origins: str = ""
     cookie_secure: bool = False
     cookie_samesite: str = "lax"
+    gemini_api_key: Optional[str] = None
     vertex_api_key: Optional[str] = None
     vertex_project: Optional[str] = None
     vertex_location: str = "us-central1"
@@ -33,6 +34,10 @@ class Settings(BaseSettings):
         if self.frontend_origin and self.frontend_origin not in configured:
             configured.append(self.frontend_origin)
         return configured
+
+    @property
+    def writing_grader_api_key(self) -> Optional[str]:
+        return self.gemini_api_key or self.vertex_api_key
 
     model_config = SettingsConfigDict(
         env_file=".env",
