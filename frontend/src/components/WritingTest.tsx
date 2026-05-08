@@ -83,6 +83,27 @@ export function WritingTest() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
+      {submitting && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/45 px-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="writing-grading-title"
+        >
+          <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-xl">
+            <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-blue-100 border-t-blue-600" />
+            <h2 id="writing-grading-title" className="text-lg font-semibold text-gray-900">
+              Grading your writing
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              Your Task 1 and Task 2 responses are being reviewed. This usually takes about 3 minutes.
+            </p>
+            <p className="mt-3 text-xs text-gray-500">
+              Keep this tab open while feedback is generated.
+            </p>
+          </div>
+        </div>
+      )}
       <div className="border-b border-gray-200 bg-white px-4 md:px-6 py-3">
         <div className="flex items-center justify-between">
           <h1 className="font-semibold text-gray-900 text-sm md:text-base">{test.title}</h1>
