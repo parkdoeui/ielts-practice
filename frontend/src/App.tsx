@@ -3,7 +3,7 @@ import { AccessGate } from "./components/AccessGate";
 
 function NavBar() {
   const { pathname } = useLocation();
-  const isTestRoute = pathname.startsWith("/test/");
+  const isTestRoute = pathname.startsWith("/test/") || pathname.startsWith("/writing/");
 
   if (isTestRoute) return null; // test view manages its own header
 
@@ -25,6 +25,14 @@ function NavBar() {
         }`}
       >
         Progress
+      </Link>
+      <Link
+        to="/writing"
+        className={`text-sm font-medium ${
+          pathname.startsWith("/writing") ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
+        }`}
+      >
+        Writing
       </Link>
     </nav>
   );

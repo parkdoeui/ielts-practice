@@ -1,9 +1,5 @@
 import os
 from pathlib import Path
-
-os.environ["VALID_PASSCODE"] = "test-passcode"
-os.environ["DATABASE_URL"] = f"sqlite:///{Path(__file__).with_name('test_sessions_api.db')}"
-
 from fastapi.testclient import TestClient
 
 from main import app
@@ -11,14 +7,17 @@ from models import Base
 from database import engine
 
 
-client = TestClient(app)
+def authed_client() -> TestClient:
+    c = TestClient(app)
+    res = c.post("/api/auth/login", json={"passcode": "test-passcode"})
+    assert res.status_code == 204
+    return c
 
 
 def _session_payload() -> dict:
     return {
         "id": "session-1",
         "test_id": "test-1",
-        "passcode": "test-passcode",
         "started_at": "2026-05-05T00:00:00Z",
         "completed_at": "2026-05-05T01:00:00Z",
         "total_time_ms": 1000,
@@ -51,13 +50,14 @@ def setup_function() -> None:
     Base.metadata.create_all(bind=engine)
 
 
-def teardown_module() -> None:
-    db_path = Path(__file__).with_name("test_sessions_api.db")
-    if db_path.exists():
-        db_path.unlink()
+def test_list_sessions_requires_auth_cookie() -> None:
+    unauth = TestClient(app)
+    response = unauth.get("/api/sessions")
+    assert response.status_code == 403
 
 
 def test_create_session_recomputes_score_from_answers() -> None:
+    client = authed_client()
     response = client.post("/api/sessions", json=_session_payload())
 
     assert response.status_code == 201
@@ -68,6 +68,7 @@ def test_create_session_recomputes_score_from_answers() -> None:
 
 
 def test_update_session_persists_self_correction_and_recomputes_score() -> None:
+    client = authed_client()
     create_response = client.post("/api/sessions", json=_session_payload())
     assert create_response.status_code == 201
 
@@ -88,7 +89,7 @@ def test_update_session_persists_self_correction_and_recomputes_score() -> None:
     assert update_body["score"]["total"] == 2
     assert update_body["answers"][1]["self_corrected"] is True
 
-    list_response = client.get("/api/sessions", params={"passcode": "test-passcode"})
+    list_response = client.get("/api/sessions")
     assert list_response.status_code == 200
     list_body = list_response.json()
     assert list_body[0]["score"]["correct"] == 2
@@ -96,6 +97,7 @@ def test_update_session_persists_self_correction_and_recomputes_score() -> None:
 
 
 def test_update_session_rejects_mismatched_session_id() -> None:
+    client = authed_client()
     create_response = client.post("/api/sessions", json=_session_payload())
     assert create_response.status_code == 201
 

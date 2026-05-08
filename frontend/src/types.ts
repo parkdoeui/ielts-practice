@@ -63,7 +63,58 @@ export interface TestSession {
   total_time_ms: number;
   answers: UserAnswer[];
   score: { correct: number; total: number; band_estimate: number };
-  passcode: string;
+  sync_status?: "synced" | "local-only";
+  sync_error?: string;
+}
+
+export interface WritingTask {
+  task_number: 1 | 2;
+  task_type: "academic-task-1" | "essay";
+  prompt: string;
+  instructions: string[];
+  min_words: number;
+  image_url?: string;
+}
+
+export interface WritingTest {
+  id: string;
+  title: string;
+  test_type: "academic" | "general";
+  tasks: WritingTask[];
+  time_limit_minutes: number;
+  source_url: string;
+}
+
+export interface WritingCriteria {
+  task_response: number;
+  coherence_cohesion: number;
+  lexical_resource: number;
+  grammar_accuracy: number;
+}
+
+export interface WritingTaskFeedback {
+  band: number;
+  criteria: WritingCriteria;
+  strengths: string[];
+  improvements: string[];
+  sample_answer: string;
+}
+
+export interface WritingGradingResult {
+  overall_band: number;
+  task_1: WritingTaskFeedback;
+  task_2: WritingTaskFeedback;
+  action_points: string[];
+}
+
+export interface WritingSession {
+  id: string;
+  test_id: string;
+  started_at: string;
+  completed_at: string;
+  total_time_ms: number;
+  answers: Record<string, string>;
+  grading: WritingGradingResult;
   sync_status?: "synced" | "local-only";
   sync_error?: string;
 }

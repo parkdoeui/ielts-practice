@@ -47,9 +47,7 @@ export function ProgressDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const passcode = localStorage.getItem("ielts_passcode") ?? "";
-
-    getProgress(passcode)
+    getProgress()
       .then((data) => setProgress(data))
       .catch(() => setProgress(null))
       .finally(() => setLoading(false));

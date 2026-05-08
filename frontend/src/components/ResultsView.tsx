@@ -72,13 +72,12 @@ export function ResultsView() {
   }, [session, test]);
 
   useEffect(() => {
-    const passcode = localStorage.getItem("ielts_passcode") ?? "";
-    if (!id || !passcode) {
+    if (!id) {
       setLoading(false);
       return;
     }
 
-    getSessionById(passcode, id)
+    getSessionById(id)
       .then(setSession)
       .catch(() => setSession(null))
       .finally(() => setLoading(false));

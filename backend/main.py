@@ -1,14 +1,15 @@
 from datetime import datetime
 from typing import Any, Optional
 
-from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi import FastAPI, Depends, HTTPException, Response, Cookie
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.orm import Session
 
 from config import settings
 from database import engine, get_db
-from models import Base, TestSessionRecord
+from models import Base, TestSessionRecord, WritingSessionRecord
+from ai_writing_grader import grade_writing_submission, WritingGraderError
 
 Base.metadata.create_all(bind=engine)
 
@@ -16,13 +17,22 @@ app = FastAPI(title="IELTS Practice API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[settings.frontend_origin],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT"],
+    allow_headers=["Content-Type"],
 )
 
 
 # ---------- Pydantic request / response models ----------
+
+class LoginRequest(BaseModel):
+    passcode: str
+
+
+class AuthSessionResponse(BaseModel):
+    authenticated: bool
+
 
 class UserAnswerSchema(BaseModel):
     question_id: int
@@ -42,7 +52,6 @@ class ScoreSchema(BaseModel):
 class SessionCreate(BaseModel):
     id: str
     test_id: str
-    passcode: str
     started_at: str   # ISO 8601
     completed_at: str  # ISO 8601
     total_time_ms: int
@@ -53,7 +62,6 @@ class SessionCreate(BaseModel):
 class SessionResponse(BaseModel):
     id: str
     test_id: str
-    passcode: str
     started_at: str
     completed_at: str
     total_time_ms: int
@@ -78,11 +86,95 @@ class ProgressResponse(BaseModel):
     per_type_accuracy: list[QuestionTypeBreakdown]
 
 
+class WritingTaskInput(BaseModel):
+    task_number: int
+    task_type: str
+    prompt: str = Field(min_length=10, max_length=5000)
+    instructions: list[str] = Field(default_factory=list, max_length=12)
+    min_words: int
+    image_url: Optional[str] = Field(default=None, max_length=2048)
+
+    @field_validator("instructions")
+    @classmethod
+    def validate_instructions(cls, value: list[str]) -> list[str]:
+        cleaned = [item.strip() for item in value if item and item.strip()]
+        return cleaned[:12]
+
+
+class WritingTestInput(BaseModel):
+    id: str = Field(pattern=r"^writing-test-\d+$")
+    title: str = Field(min_length=1, max_length=300)
+    test_type: str
+    tasks: list[WritingTaskInput] = Field(min_length=2, max_length=2)
+    time_limit_minutes: int = Field(ge=1, le=240)
+    source_url: str = Field(max_length=2048)
+
+
+class WritingSubmitRequest(BaseModel):
+    id: str = Field(min_length=1, max_length=120)
+    test: WritingTestInput
+    started_at: str
+    completed_at: str
+    total_time_ms: int
+    answers: dict[str, str] = Field(default_factory=dict)
+
+    @field_validator("answers")
+    @classmethod
+    def validate_answers(cls, value: dict[str, str]) -> dict[str, str]:
+        keys = set(value.keys())
+        if keys != {"1", "2"}:
+            raise ValueError("answers must contain exactly keys '1' and '2'")
+        task_1 = value.get("1", "").strip()
+        task_2 = value.get("2", "").strip()
+        if len(task_1) > 12000 or len(task_2) > 20000:
+            raise ValueError("answers exceed maximum allowed length")
+        return {"1": task_1, "2": task_2}
+
+
+class WritingTaskCriteria(BaseModel):
+    task_response: float
+    coherence_cohesion: float
+    lexical_resource: float
+    grammar_accuracy: float
+
+
+class WritingTaskFeedback(BaseModel):
+    band: float
+    criteria: WritingTaskCriteria
+    strengths: list[str]
+    improvements: list[str]
+    sample_answer: str
+
+
+class WritingGradingResponse(BaseModel):
+    overall_band: float
+    task_1: WritingTaskFeedback
+    task_2: WritingTaskFeedback
+    action_points: list[str]
+
+
+class WritingSessionResponse(BaseModel):
+    id: str
+    test_id: str
+    started_at: str
+    completed_at: str
+    total_time_ms: int
+    answers: dict[str, str]
+    grading: WritingGradingResponse
+
+
 # ---------- Helper ----------
 
 def verify_passcode(passcode: str) -> None:
     if passcode != settings.valid_passcode:
         raise HTTPException(status_code=403, detail="Invalid passcode")
+
+
+def require_authenticated(
+    passcode_cookie: Optional[str] = Cookie(default=None, alias="ielts_passcode"),
+) -> None:
+    if passcode_cookie != settings.valid_passcode:
+        raise HTTPException(status_code=403, detail="Authentication required")
 
 
 def parse_iso_datetime(value: str) -> datetime:
@@ -132,13 +224,45 @@ def session_to_response(record: TestSessionRecord) -> SessionResponse:
     return SessionResponse(
         id=record.id,
         test_id=record.test_id,
-        passcode=record.passcode,
         started_at=record.started_at.isoformat(),
         completed_at=record.completed_at.isoformat(),
         total_time_ms=record.total_time_ms,
         answers=answers,
         score=score,
     )
+
+
+def writing_session_to_response(record: WritingSessionRecord) -> WritingSessionResponse:
+    return WritingSessionResponse(
+        id=record.id,
+        test_id=record.test_id,
+        started_at=record.started_at.isoformat(),
+        completed_at=record.completed_at.isoformat(),
+        total_time_ms=record.total_time_ms,
+        answers=record.answers_json,  # type: ignore[arg-type]
+        grading=record.grading_json,  # type: ignore[arg-type]
+    )
+
+
+def sanitize_test_for_grading(test: WritingTestInput) -> dict[str, Any]:
+    return {
+        "id": test.id,
+        "title": test.title,
+        "test_type": test.test_type,
+        "time_limit_minutes": test.time_limit_minutes,
+        "source_url": test.source_url,
+        "tasks": [
+            {
+                "task_number": task.task_number,
+                "task_type": task.task_type,
+                "prompt": task.prompt,
+                "instructions": task.instructions,
+                "min_words": task.min_words,
+                "image_url": task.image_url,
+            }
+            for task in test.tasks
+        ],
+    }
 
 
 # ---------- Routes ----------
@@ -148,9 +272,29 @@ def health():
     return {"status": "ok"}
 
 
-@app.post("/api/sessions", response_model=SessionResponse, status_code=201)
-def create_session(payload: SessionCreate, db: Session = Depends(get_db)):
+@app.post("/api/auth/login", status_code=204)
+def login(payload: LoginRequest, response: Response):
     verify_passcode(payload.passcode)
+    response.set_cookie(
+        key="ielts_passcode",
+        value=settings.valid_passcode,
+        httponly=True,
+        samesite="lax",
+        secure=settings.cookie_secure,
+    )
+
+
+@app.get("/api/auth/session", response_model=AuthSessionResponse)
+def auth_session(passcode_cookie: Optional[str] = Cookie(default=None, alias="ielts_passcode")):
+    return AuthSessionResponse(authenticated=(passcode_cookie == settings.valid_passcode))
+
+
+@app.post("/api/sessions", response_model=SessionResponse, status_code=201)
+def create_session(
+    payload: SessionCreate,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
 
     existing = db.get(TestSessionRecord, payload.id)
     if existing:
@@ -162,7 +306,7 @@ def create_session(payload: SessionCreate, db: Session = Depends(get_db)):
     record = TestSessionRecord(
         id=payload.id,
         test_id=payload.test_id,
-        passcode=payload.passcode,
+        passcode=settings.valid_passcode,
         started_at=parse_iso_datetime(payload.started_at),
         completed_at=parse_iso_datetime(payload.completed_at),
         total_time_ms=payload.total_time_ms,
@@ -182,16 +326,15 @@ def update_session(
     session_id: str,
     payload: SessionCreate,
     db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
 ):
-    verify_passcode(payload.passcode)
-
     if payload.id != session_id:
         raise HTTPException(status_code=400, detail="Session ID mismatch")
 
     record = db.get(TestSessionRecord, session_id)
     if not record:
         raise HTTPException(status_code=404, detail="Session not found")
-    if record.passcode != payload.passcode:
+    if record.passcode != settings.valid_passcode:
         raise HTTPException(status_code=403, detail="Invalid passcode")
 
     answers_json = [a.model_dump() for a in payload.answers]
@@ -212,14 +355,12 @@ def update_session(
 
 @app.get("/api/sessions", response_model=list[SessionResponse])
 def list_sessions(
-    passcode: str = Query(..., description="User passcode"),
     db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
 ):
-    verify_passcode(passcode)
-
     records = (
         db.query(TestSessionRecord)
-        .filter(TestSessionRecord.passcode == passcode)
+        .filter(TestSessionRecord.passcode == settings.valid_passcode)
         .order_by(TestSessionRecord.completed_at.desc())
         .all()
     )
@@ -228,14 +369,12 @@ def list_sessions(
 
 @app.get("/api/progress", response_model=ProgressResponse)
 def get_progress(
-    passcode: str = Query(..., description="User passcode"),
     db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
 ):
-    verify_passcode(passcode)
-
     records = (
         db.query(TestSessionRecord)
-        .filter(TestSessionRecord.passcode == passcode)
+        .filter(TestSessionRecord.passcode == settings.valid_passcode)
         .order_by(TestSessionRecord.completed_at.asc())
         .all()
     )
@@ -295,3 +434,75 @@ def get_progress(
         score_history=score_history,
         per_type_accuracy=per_type,
     )
+
+
+@app.post("/api/writing-sessions", response_model=WritingSessionResponse, status_code=201)
+def create_writing_session(
+    payload: WritingSubmitRequest,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    if not settings.vertex_api_key and not settings.vertex_project:
+        raise HTTPException(status_code=503, detail="Writing grader is not configured")
+
+    existing = db.get(WritingSessionRecord, payload.id)
+    if existing:
+        raise HTTPException(status_code=409, detail="Writing session already exists")
+
+    try:
+        grading = grade_writing_submission(
+            test=sanitize_test_for_grading(payload.test),
+            answers=payload.answers,
+            api_key=settings.vertex_api_key,
+            project=settings.vertex_project,
+            location=settings.vertex_location,
+            model=settings.writing_grader_model,
+        )
+    except WritingGraderError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+    except Exception as exc:  # pragma: no cover - defensive fallback
+        raise HTTPException(status_code=502, detail="Writing grader unavailable") from exc
+
+    test_id = payload.test.id
+    record = WritingSessionRecord(
+        id=payload.id,
+        test_id=test_id,
+        passcode=settings.valid_passcode,
+        started_at=parse_iso_datetime(payload.started_at),
+        completed_at=parse_iso_datetime(payload.completed_at),
+        total_time_ms=payload.total_time_ms,
+        answers_json=payload.answers,
+        grading_json=grading,
+    )
+    db.add(record)
+    db.commit()
+    db.refresh(record)
+    return writing_session_to_response(record)
+
+
+@app.get("/api/writing-sessions", response_model=list[WritingSessionResponse])
+def list_writing_sessions(
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    records = (
+        db.query(WritingSessionRecord)
+        .filter(WritingSessionRecord.passcode == settings.valid_passcode)
+        .order_by(WritingSessionRecord.completed_at.desc())
+        .all()
+    )
+    return [writing_session_to_response(r) for r in records]
+
+
+@app.get("/api/writing-sessions/{session_id}", response_model=WritingSessionResponse)
+def get_writing_session(
+    session_id: str,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    record = db.get(WritingSessionRecord, session_id)
+    if not record:
+        raise HTTPException(status_code=404, detail="Writing session not found")
+    if record.passcode != settings.valid_passcode:
+        raise HTTPException(status_code=403, detail="Authentication required")
+    return writing_session_to_response(record)

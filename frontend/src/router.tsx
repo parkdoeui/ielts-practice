@@ -4,6 +4,9 @@ import { TestSelector } from "./components/TestSelector";
 import { ReadingTest } from "./components/ReadingTest";
 import { ResultsView } from "./components/ResultsView";
 import { ProgressDashboard } from "./components/ProgressDashboard";
+import { WritingTestSelector } from "./components/WritingTestSelector";
+import { WritingTest } from "./components/WritingTest";
+import { WritingResultsView } from "./components/WritingResultsView";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +17,9 @@ export const router = createBrowserRouter([
       { path: "test/:id", element: <ReadingTest /> },
       { path: "results/:id", element: <ResultsView /> },
       { path: "progress", element: <ProgressDashboard /> },
+      { path: "writing", element: <WritingTestSelector /> },
+      { path: "writing/:id", element: <WritingTest /> },
+      { path: "writing-results/:id", element: <WritingResultsView /> },
     ],
   },
 ], {

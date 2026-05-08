@@ -16,3 +16,15 @@ class TestSessionRecord(Base):
     score_total = Column(Integer, nullable=False)
     band_estimate = Column(Float, nullable=False)
     answers_json = Column(JSON, nullable=False)
+
+
+class WritingSessionRecord(Base):
+    __tablename__ = "writing_sessions"
+    id = Column(String, primary_key=True)
+    test_id = Column(String, nullable=False, index=True)
+    passcode = Column(String, nullable=False, index=True)
+    started_at = Column(DateTime, nullable=False)
+    completed_at = Column(DateTime, nullable=False)
+    total_time_ms = Column(Integer, nullable=False)
+    answers_json = Column(JSON, nullable=False)
+    grading_json = Column(JSON, nullable=False)

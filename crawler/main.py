@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-IELTS Reading Test Crawler
+IELTS Test Crawler
 
 Usage:
-  python main.py crawl <url> --output <path>
+  python main.py crawl <url> --output <path>                         # reading
+  python main.py crawl-writing <url> --output <path>                 # writing
   python main.py crawl <url> --output <path> --ai-validate --project <gcp-project>
-  python main.py crawl <url> --output <path> --ai-auto --project <gcp-project>
+  python main.py crawl-writing <url> --output <path> --ai-validate --project <gcp-project>
   python main.py inspect <url>              # Print raw HTML for debugging
 """
 import json
@@ -17,10 +18,25 @@ from typing import Optional
 from scraper import fetch_test_page
 from parser import parse_reading_test
 from validator import validate_reading_test
+from writing_parser import parse_writing_test
+from writing_validator import validate_writing_test
 
 
 def _validate_or_exit(test, label: str = "Validation") -> None:
     result = validate_reading_test(test)
+    if result.warnings:
+        for w in result.warnings:
+            print(f"  ⚠ {w}")
+    if not result.valid:
+        print(f"{label} FAILED — aborting save:")
+        for e in result.errors:
+            print(f"  ✗ {e}")
+        sys.exit(1)
+    print(f"{label}: OK")
+
+
+def _validate_writing_or_exit(test, label: str = "Writing validation") -> None:
+    result = validate_writing_test(test)
     if result.warnings:
         for w in result.warnings:
             print(f"  ⚠ {w}")
@@ -178,6 +194,56 @@ def cmd_crawl(
     print(f"Passages: {len(test.passages)}, Groups: {len(test.question_groups)}, Questions: {total_qs}")
 
 
+def cmd_crawl_writing(
+    url: str,
+    output_dir: str,
+    ai_validate: bool = False,
+    project: Optional[str] = None,
+    ai_validate_model: str = "gemini-2.5-pro",
+    page_text_max_chars: int = 12000,
+) -> None:
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    print(f"Fetching: {url}")
+    html = fetch_test_page(url)
+
+    print("Parsing writing test...")
+    test = parse_writing_test(html, url)
+
+    _validate_writing_or_exit(test)
+
+    if ai_validate:
+        if not project:
+            print("Error: --project is required when using --ai-validate")
+            sys.exit(1)
+        print("Running AI writing validation...")
+        from ai_writing_validator import ai_validate_writing
+
+        ai_result = ai_validate_writing(
+            test,
+            html,
+            project=project,
+            model=ai_validate_model,
+            page_text_max_chars=page_text_max_chars,
+        )
+        conf = ai_result.get("confidence", 0.0)
+        if not ai_result.get("valid", False):
+            print(f"AI writing validation FAILED (confidence: {conf:.2f}) — aborting save:")
+            for issue in ai_result.get("issues", []):
+                print(f"  ✗ {issue}")
+            sys.exit(1)
+        print(f"AI writing validation: OK (confidence: {conf:.2f})")
+
+    filename = f"{test.id}.json"
+    filepath = output_path / filename
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(test.model_dump(), f, indent=2, ensure_ascii=False)
+
+    print(f"Saved: {filepath}")
+    print(f"Tasks: {len(test.tasks)}")
+
+
 def cmd_inspect(url: str) -> None:
     """Print page HTML for debugging parser selectors."""
     print(f"Fetching: {url}")
@@ -187,7 +253,7 @@ def cmd_inspect(url: str) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="IELTS Reading Test Crawler")
+    parser = argparse.ArgumentParser(description="IELTS Test Crawler")
     subparsers = parser.add_subparsers(dest="command")
 
     crawl_cmd = subparsers.add_parser("crawl", help="Crawl and save a test")
@@ -213,6 +279,19 @@ def main():
     inspect_cmd = subparsers.add_parser("inspect", help="Print raw HTML for debugging")
     inspect_cmd.add_argument("url", help="URL to inspect")
 
+    crawl_writing_cmd = subparsers.add_parser("crawl-writing", help="Crawl and save a writing test")
+    crawl_writing_cmd.add_argument("url", help="URL of the IELTS writing test page")
+    crawl_writing_cmd.add_argument("--output", default="../frontend/src/data/writing-tests/",
+                                   help="Output directory for writing JSON files")
+    crawl_writing_cmd.add_argument("--ai-validate", action="store_true",
+                                   help="Run AI writing validation via Vertex AI")
+    crawl_writing_cmd.add_argument("--project", default=None,
+                                   help="GCP project ID for Vertex AI (required with --ai-validate)")
+    crawl_writing_cmd.add_argument("--ai-validate-model", default="gemini-2.5-pro",
+                                   help="Vertex model for AI writing validation (default: gemini-2.5-pro)")
+    crawl_writing_cmd.add_argument("--page-text-max-chars", type=int, default=12000,
+                                   help="Max chars of page text to send to AI (default: 12000)")
+
     args = parser.parse_args()
 
     if args.command == "crawl":
@@ -229,6 +308,15 @@ def main():
         )
     elif args.command == "inspect":
         cmd_inspect(args.url)
+    elif args.command == "crawl-writing":
+        cmd_crawl_writing(
+            args.url,
+            args.output,
+            ai_validate=args.ai_validate,
+            project=args.project,
+            ai_validate_model=args.ai_validate_model,
+            page_text_max_chars=args.page_text_max_chars,
+        )
     else:
         parser.print_help()
 

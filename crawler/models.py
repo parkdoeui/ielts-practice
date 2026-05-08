@@ -38,3 +38,21 @@ class ReadingTest(BaseModel):
     question_groups: list[QuestionGroup]
     time_limit_minutes: int
     source_url: str
+
+
+class WritingTask(BaseModel):
+    task_number: Literal[1, 2]
+    task_type: Literal["academic-task-1", "essay"]
+    prompt: str
+    instructions: list[str]
+    min_words: int
+    image_url: Optional[str] = None
+
+
+class WritingTest(BaseModel):
+    id: str
+    title: str
+    test_type: Literal["academic", "general"]
+    tasks: list[WritingTask]
+    time_limit_minutes: int
+    source_url: str

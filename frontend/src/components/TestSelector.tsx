@@ -93,19 +93,13 @@ export function TestSelector() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const passcode = localStorage.getItem("ielts_passcode") ?? "";
     const loaded = Object.values(testFiles)
       .map((m) => m.default)
       .filter(isReadingTest)
       .sort((a, b) => getTestNumber(a) - getTestNumber(b) || a.title.localeCompare(b.title));
     setTests(loaded);
 
-    if (!passcode) {
-      setSessions([]);
-      return;
-    }
-
-    getSessions(passcode)
+    getSessions()
       .then((serverSessions) => setSessions(serverSessions))
       .catch(() => setSessions([]));
   }, []);

@@ -54,16 +54,14 @@ export function ReadingTest() {
   }, [id]);
 
   useEffect(() => {
-    const passcode = localStorage.getItem("ielts_passcode") ?? "";
-
-    if (!id || !passcode) {
+    if (!id) {
       setReviewSession(null);
       setIsCheckingCompletion(false);
       return;
     }
 
     setIsCheckingCompletion(true);
-    getLatestSessionForTest(passcode, id)
+    getLatestSessionForTest(id)
       .then((latest) => {
         setReviewSession(latest);
         if (latest) {
@@ -100,7 +98,6 @@ export function ReadingTest() {
     setSubmitError("");
 
     const totalTimeMs = Date.now() - startMs;
-    const passcode = localStorage.getItem("ielts_passcode") ?? "unknown";
 
     // For "choose N" multi-question MC groups, grading is set-based (order doesn't matter).
     // Build a map of question id → is_correct for those groups first.
@@ -164,7 +161,6 @@ export function ReadingTest() {
       total_time_ms: totalTimeMs,
       answers: gradedAnswers,
       score: { correct, total, band_estimate: estimateBand(correct, total) },
-      passcode,
       sync_status: "local-only",
     };
 
