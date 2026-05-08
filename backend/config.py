@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     cookie_samesite: str = "lax"
     gemini_api_key: Optional[str] = None
     vertex_api_key: Optional[str] = None
+    gcp_project: Optional[str] = None
+    gcp_location: Optional[str] = None
+    gcp_credentials_json: Optional[str] = None
     vertex_credentials_json: Optional[str] = None
     vertex_project: Optional[str] = None
     vertex_location: str = "us-central1"
@@ -39,6 +42,18 @@ class Settings(BaseSettings):
     @property
     def writing_grader_api_key(self) -> Optional[str]:
         return self.gemini_api_key or self.vertex_api_key
+
+    @property
+    def effective_vertex_project(self) -> Optional[str]:
+        return self.vertex_project or self.gcp_project
+
+    @property
+    def effective_vertex_location(self) -> str:
+        return self.gcp_location or self.vertex_location
+
+    @property
+    def effective_vertex_credentials_json(self) -> Optional[str]:
+        return self.vertex_credentials_json or self.gcp_credentials_json
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -37,3 +37,33 @@ def test_writing_grader_api_key_falls_back_to_legacy_vertex_key() -> None:
     settings = Settings(valid_passcode="test", vertex_api_key="legacy-key")
 
     assert settings.writing_grader_api_key == "legacy-key"
+
+
+def test_effective_vertex_settings_support_fin_agent_gcp_names(monkeypatch) -> None:
+    monkeypatch.delenv("VERTEX_PROJECT", raising=False)
+    monkeypatch.delenv("VERTEX_CREDENTIALS_JSON", raising=False)
+    settings = Settings(
+        _env_file=None,
+        valid_passcode="test",
+        gcp_project="fin-agent-project",
+        gcp_location="us-east5",
+        gcp_credentials_json='{"type":"service_account"}',
+    )
+
+    assert settings.effective_vertex_project == "fin-agent-project"
+    assert settings.effective_vertex_location == "us-east5"
+    assert settings.effective_vertex_credentials_json == '{"type":"service_account"}'
+
+
+def test_effective_vertex_settings_prefer_vertex_names_over_gcp_aliases() -> None:
+    settings = Settings(
+        _env_file=None,
+        valid_passcode="test",
+        vertex_project="vertex-project",
+        gcp_project="gcp-project",
+        vertex_credentials_json='{"source":"vertex"}',
+        gcp_credentials_json='{"source":"gcp"}',
+    )
+
+    assert settings.effective_vertex_project == "vertex-project"
+    assert settings.effective_vertex_credentials_json == '{"source":"vertex"}'

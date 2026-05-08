@@ -442,7 +442,7 @@ def create_writing_session(
     db: Session = Depends(get_db),
     _: None = Depends(require_authenticated),
 ):
-    if not settings.writing_grader_api_key and not settings.vertex_project:
+    if not settings.writing_grader_api_key and not settings.effective_vertex_project:
         raise HTTPException(status_code=503, detail="Writing grader is not configured")
 
     existing = db.get(WritingSessionRecord, payload.id)
@@ -454,9 +454,9 @@ def create_writing_session(
             test=sanitize_test_for_grading(payload.test),
             answers=payload.answers,
             api_key=settings.writing_grader_api_key,
-            credentials_json=settings.vertex_credentials_json,
-            project=settings.vertex_project,
-            location=settings.vertex_location,
+            credentials_json=settings.effective_vertex_credentials_json,
+            project=settings.effective_vertex_project,
+            location=settings.effective_vertex_location,
             model=settings.writing_grader_model,
         )
     except WritingGraderError as exc:

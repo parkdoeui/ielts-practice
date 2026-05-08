@@ -131,10 +131,13 @@ COOKIE_SECURE=false
 VERTEX_PROJECT=your-gcp-project
 VERTEX_CREDENTIALS_JSON={"type":"service_account",...}
 VERTEX_LOCATION=us-central1
+GCP_PROJECT=your-gcp-project
+GCP_CREDENTIALS_JSON={"type":"service_account",...}
+GCP_LOCATION=us-central1
 WRITING_GRADER_MODEL=gemini-2.5-pro
 ```
 
-For hosted backend deployments, `VERTEX_PROJECT` should be paired with either platform-provided Google Application Default Credentials or `VERTEX_CREDENTIALS_JSON` containing a service account JSON. This matches the crawler's Vertex AI path. `GEMINI_API_KEY`/`VERTEX_API_KEY` are fallback API-key modes and use Gemini Developer API quota instead of Vertex AI quota.
+For hosted backend deployments, `GCP_PROJECT` should be paired with either platform-provided Google Application Default Credentials or `GCP_CREDENTIALS_JSON` containing a service account JSON. `VERTEX_PROJECT` / `VERTEX_CREDENTIALS_JSON` are also supported, but the `GCP_*` names match the working `fin-agent-v2` Vertex setup. `GEMINI_API_KEY`/`VERTEX_API_KEY` are fallback API-key modes and use Gemini Developer API quota instead of Vertex AI quota.
 
 Architecture:
 
