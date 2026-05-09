@@ -2,6 +2,7 @@ import type { TestSession, WritingSession, WritingTest } from "../types";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 const FETCH_OPTS: RequestInit = { credentials: "include" };
+const PASSCODE_STORAGE_KEY = "ielts_passcode";
 
 export interface AuthSession {
   authenticated: boolean;
@@ -66,6 +67,23 @@ export function getStoredSessionById(sessionId: string): TestSession | null {
   }
 }
 
+function storePasscode(passcode: string): void {
+  localStorage.setItem(PASSCODE_STORAGE_KEY, passcode);
+}
+
+function getStoredPasscode(): string | null {
+  return localStorage.getItem(PASSCODE_STORAGE_KEY);
+}
+
+function authHeaders(extra?: HeadersInit): HeadersInit {
+  const headers = new Headers(extra);
+  const passcode = getStoredPasscode();
+  if (passcode) {
+    headers.set("X-IELTS-Passcode", passcode);
+  }
+  return headers;
+}
+
 export async function login(passcode: string): Promise<void> {
   const res = await fetch(`${API_BASE}/api/auth/login`, {
     ...FETCH_OPTS,
@@ -76,10 +94,14 @@ export async function login(passcode: string): Promise<void> {
   if (!res.ok) {
     throw new Error(`POST /api/auth/login failed: ${res.status}`);
   }
+  storePasscode(passcode);
 }
 
 export async function getAuthSession(): Promise<AuthSession> {
-  const res = await fetch(`${API_BASE}/api/auth/session`, FETCH_OPTS);
+  const res = await fetch(`${API_BASE}/api/auth/session`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
   if (!res.ok) throw new Error(`GET /api/auth/session failed: ${res.status}`);
   return res.json();
 }
@@ -91,7 +113,7 @@ export async function saveSession(session: TestSession): Promise<SaveSessionResu
   const res = await fetch(`${API_BASE}/api/sessions`, {
     ...FETCH_OPTS,
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: authHeaders({ "Content-Type": "application/json" }),
     body: JSON.stringify(session),
   });
 
@@ -110,7 +132,7 @@ export async function updateSession(session: TestSession): Promise<TestSession> 
   const res = await fetch(`${API_BASE}/api/sessions/${encodeURIComponent(session.id)}`, {
     ...FETCH_OPTS,
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: authHeaders({ "Content-Type": "application/json" }),
     body: JSON.stringify(session),
   });
 
@@ -125,7 +147,10 @@ export async function updateSession(session: TestSession): Promise<TestSession> 
  * GET /api/sessions — fetch all sessions for the authenticated user (cookie auth).
  */
 export async function getSessions(): Promise<TestSession[]> {
-  const res = await fetch(`${API_BASE}/api/sessions`, FETCH_OPTS);
+  const res = await fetch(`${API_BASE}/api/sessions`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
   if (!res.ok) throw new Error(`GET /api/sessions failed: ${res.status}`);
   return res.json();
 }
@@ -159,7 +184,10 @@ export async function getLatestSessionForTest(
  * GET /api/progress — fetch aggregated progress stats for the authenticated user (cookie auth).
  */
 export async function getProgress(): Promise<ProgressData> {
-  const res = await fetch(`${API_BASE}/api/progress`, FETCH_OPTS);
+  const res = await fetch(`${API_BASE}/api/progress`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
   if (!res.ok) throw new Error(`GET /api/progress failed: ${res.status}`);
   return res.json();
 }
@@ -178,7 +206,7 @@ export async function submitWritingSession(payload: WritingSubmitPayload): Promi
   const res = await fetch(`${API_BASE}/api/writing-sessions`, {
     ...FETCH_OPTS,
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: authHeaders({ "Content-Type": "application/json" }),
     body: JSON.stringify(payload),
   });
   if (!res.ok) {
@@ -188,7 +216,10 @@ export async function submitWritingSession(payload: WritingSubmitPayload): Promi
 }
 
 export async function getWritingSessions(): Promise<WritingSession[]> {
-  const res = await fetch(`${API_BASE}/api/writing-sessions`, FETCH_OPTS);
+  const res = await fetch(`${API_BASE}/api/writing-sessions`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
   if (!res.ok) throw new Error(`GET /api/writing-sessions failed: ${res.status}`);
   return res.json();
 }
@@ -196,7 +227,10 @@ export async function getWritingSessions(): Promise<WritingSession[]> {
 export async function getWritingSessionById(sessionId: string): Promise<WritingSession | null> {
   const stored = getStoredWritingSessionById(sessionId);
   if (stored) return stored;
-  const res = await fetch(`${API_BASE}/api/writing-sessions/${encodeURIComponent(sessionId)}`, FETCH_OPTS);
+  const res = await fetch(`${API_BASE}/api/writing-sessions/${encodeURIComponent(sessionId)}`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`GET /api/writing-sessions/${sessionId} failed: ${res.status}`);
   return res.json();

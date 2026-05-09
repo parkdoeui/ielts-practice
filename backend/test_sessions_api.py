@@ -93,6 +93,43 @@ def test_legacy_session_endpoint_accepts_auth_cookie() -> None:
     assert response.json() == {"authenticated": True}
 
 
+def test_auth_session_accepts_passcode_header() -> None:
+    client = TestClient(app)
+    response = client.get(
+        "/api/auth/session",
+        headers={"X-IELTS-Passcode": "test-passcode"},
+    )
+
+    assert response.status_code == 200
+    assert response.json() == {"authenticated": True}
+
+
+def test_list_sessions_accepts_passcode_header() -> None:
+    client = TestClient(app)
+    response = client.get(
+        "/api/sessions",
+        headers={"X-IELTS-Passcode": "test-passcode"},
+    )
+
+    assert response.status_code == 200
+    assert response.json() == []
+
+
+def test_cors_preflight_allows_passcode_header() -> None:
+    client = TestClient(app)
+    response = client.options(
+        "/api/sessions",
+        headers={
+            "Origin": "http://localhost:5173",
+            "Access-Control-Request-Method": "GET",
+            "Access-Control-Request-Headers": "x-ielts-passcode",
+        },
+    )
+
+    assert response.status_code == 200
+    assert "x-ielts-passcode" in response.headers["access-control-allow-headers"].lower()
+
+
 def test_create_session_recomputes_score_from_answers() -> None:
     client = authed_client()
     response = client.post("/api/sessions", json=_session_payload())

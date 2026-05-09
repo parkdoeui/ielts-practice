@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Optional
 
-from fastapi import FastAPI, Depends, HTTPException, Response, Cookie, Request
+from fastapi import FastAPI, Depends, HTTPException, Response, Cookie, Request, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.orm import Session
@@ -20,7 +20,7 @@ app.add_middleware(
     allow_origins=settings.allowed_frontend_origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", "X-IELTS-Passcode"],
 )
 
 
@@ -172,8 +172,9 @@ def verify_passcode(passcode: str) -> None:
 
 def require_authenticated(
     passcode_cookie: Optional[str] = Cookie(default=None, alias="ielts_passcode"),
+    passcode_header: Optional[str] = Header(default=None, alias="X-IELTS-Passcode"),
 ) -> None:
-    if passcode_cookie != settings.valid_passcode:
+    if settings.valid_passcode not in {passcode_cookie, passcode_header}:
         raise HTTPException(status_code=403, detail="Authentication required")
 
 
@@ -291,8 +292,13 @@ def login(payload: LoginRequest, request: Request, response: Response):
 
 
 @app.get("/api/auth/session", response_model=AuthSessionResponse)
-def auth_session(passcode_cookie: Optional[str] = Cookie(default=None, alias="ielts_passcode")):
-    return AuthSessionResponse(authenticated=(passcode_cookie == settings.valid_passcode))
+def auth_session(
+    passcode_cookie: Optional[str] = Cookie(default=None, alias="ielts_passcode"),
+    passcode_header: Optional[str] = Header(default=None, alias="X-IELTS-Passcode"),
+):
+    return AuthSessionResponse(
+        authenticated=(settings.valid_passcode in {passcode_cookie, passcode_header})
+    )
 
 
 @app.get("/api/session", response_model=AuthSessionResponse)
