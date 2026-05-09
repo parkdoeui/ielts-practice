@@ -56,6 +56,30 @@ def test_list_sessions_requires_auth_cookie() -> None:
     assert response.status_code == 403
 
 
+def test_login_uses_local_cookie_settings_without_https_origin() -> None:
+    client = TestClient(app)
+    response = client.post("/api/auth/login", json={"passcode": "test-passcode"})
+
+    assert response.status_code == 204
+    cookie = response.headers["set-cookie"].lower()
+    assert "samesite=lax" in cookie
+    assert "secure" not in cookie
+
+
+def test_login_uses_cross_site_cookie_settings_for_https_origin() -> None:
+    client = TestClient(app)
+    response = client.post(
+        "/api/auth/login",
+        json={"passcode": "test-passcode"},
+        headers={"Origin": "https://parkdoeui.github.io"},
+    )
+
+    assert response.status_code == 204
+    cookie = response.headers["set-cookie"].lower()
+    assert "samesite=none" in cookie
+    assert "secure" in cookie
+
+
 def test_legacy_session_endpoint_requires_auth_cookie() -> None:
     unauth = TestClient(app)
     response = unauth.get("/api/session")

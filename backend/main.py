@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Any, Optional
 
-from fastapi import FastAPI, Depends, HTTPException, Response, Cookie
+from fastapi import FastAPI, Depends, HTTPException, Response, Cookie, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.orm import Session
@@ -177,6 +177,13 @@ def require_authenticated(
         raise HTTPException(status_code=403, detail="Authentication required")
 
 
+def cookie_settings_for_request(request: Request) -> dict[str, Any]:
+    origin = request.headers.get("origin", "")
+    if origin.startswith("https://"):
+        return {"samesite": "none", "secure": True}
+    return {"samesite": settings.cookie_samesite, "secure": settings.cookie_secure}
+
+
 def parse_iso_datetime(value: str) -> datetime:
     if value.endswith("Z"):
         value = f"{value[:-1]}+00:00"
@@ -273,14 +280,13 @@ def health():
 
 
 @app.post("/api/auth/login", status_code=204)
-def login(payload: LoginRequest, response: Response):
+def login(payload: LoginRequest, request: Request, response: Response):
     verify_passcode(payload.passcode)
     response.set_cookie(
         key="ielts_passcode",
         value=settings.valid_passcode,
         httponly=True,
-        samesite=settings.cookie_samesite,
-        secure=settings.cookie_secure,
+        **cookie_settings_for_request(request),
     )
 
 
