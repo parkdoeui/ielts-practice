@@ -1,0 +1,33 @@
+{
+  "id": "writing-test-4",
+  "title": "IELTS Writing Test 4",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The plans below show the layout of a university’s sports centre now, and how it will look after redevelopment.",
+      "instructions": [
+        "Summarize the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-4-min-1.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "In spite of the advances made in agriculture, many people around the world still go hungry. Why is this the case? What can be done about this problem?",
+      "instructions": [
+        "Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-4/"
+}

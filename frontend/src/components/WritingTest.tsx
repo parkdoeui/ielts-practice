@@ -137,6 +137,32 @@ export function WritingTest() {
                   className="w-full rounded-lg border border-gray-200"
                 />
               )}
+              {task.table && task.table.length > 0 && (
+                <div className="overflow-x-auto rounded-lg border border-gray-200">
+                  <table className="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        {task.table[0].map((cell, idx) => (
+                          <th key={idx} scope="col" className="px-3 py-2 text-left font-semibold text-gray-700">
+                            {cell}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 bg-white">
+                      {task.table.slice(1).map((row, rowIdx) => (
+                        <tr key={rowIdx}>
+                          {row.map((cell, cellIdx) => (
+                            <td key={cellIdx} className="px-3 py-2 text-gray-800">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
               <div className="space-y-1">
                 {task.instructions.map((item, idx) => (
                   <p key={idx} className="text-sm text-gray-700">{item}</p>

@@ -62,9 +62,15 @@ def validate_writing_test(test: WritingTest) -> ValidationResult:
         warnings.append(f"Task 1 min_words expected 150, got {task_1.min_words}")
     if task_2.min_words != 250:
         warnings.append(f"Task 2 min_words expected 250, got {task_2.min_words}")
-    if not task_1.image_url:
-        errors.append("Task 1 image_url is missing")
+    if not task_1.image_url and not task_1.table:
+        errors.append("Task 1 visual data is missing")
     if task_1.image_url and task_1.image_url.startswith("data:"):
         errors.append("Task 1 image_url is data URI")
+    if task_1.table:
+        row_width = len(task_1.table[0])
+        if row_width < 2 or len(task_1.table) < 2:
+            errors.append("Task 1 table must include at least 2 rows and 2 columns")
+        elif any(len(row) != row_width for row in task_1.table):
+            errors.append("Task 1 table rows have inconsistent column counts")
 
     return ValidationResult(valid=len(errors) == 0, errors=errors, warnings=warnings)

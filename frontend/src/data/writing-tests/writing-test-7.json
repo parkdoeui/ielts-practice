@@ -1,0 +1,33 @@
+{
+  "id": "writing-test-7",
+  "title": "IELTS Writing Test 7",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The table below shows the numbers of visitors to Ashdown Museum during the year before and the year after it was refurbished. The charts show the result of surveys asking visitors how satisfied they were with their visit, during the same two periods.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-7-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Nowadays, many medical research projects are funded by private companies. In your opinion, do you think that research should be carried by private companies, individuals or government?",
+      "instructions": [
+        "Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-7/"
+}

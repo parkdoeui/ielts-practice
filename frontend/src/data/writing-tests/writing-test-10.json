@@ -1,0 +1,75 @@
+{
+  "id": "writing-test-10",
+  "title": "IELTS Writing Test 10",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The take below gives information about the underground railway systems in six cities.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+        "underground railway systems"
+      ],
+      "min_words": 150,
+      "image_url": null,
+      "table": [
+        [
+          "City",
+          "Date opened",
+          "Kilometers of route",
+          "Passengers per year (in millions)"
+        ],
+        [
+          "London",
+          "1863",
+          "394",
+          "775"
+        ],
+        [
+          "Paris",
+          "1900",
+          "199",
+          "1191"
+        ],
+        [
+          "Tokyo",
+          "1927",
+          "155",
+          "1927"
+        ],
+        [
+          "Washington DC",
+          "1976",
+          "126",
+          "144"
+        ],
+        [
+          "Kyoto",
+          "1981",
+          "11",
+          "45"
+        ],
+        [
+          "Los Angeles",
+          "2001",
+          "28",
+          "50"
+        ]
+      ]
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some say that the most important thing about being rich is that one has the opportunity to help others. To what extent do you agree or disagree?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-10/"
+}

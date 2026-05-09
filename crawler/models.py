@@ -47,6 +47,7 @@ class WritingTask(BaseModel):
     instructions: list[str]
     min_words: int
     image_url: Optional[str] = None
+    table: Optional[list[list[str]]] = None
 
 
 class WritingTest(BaseModel):

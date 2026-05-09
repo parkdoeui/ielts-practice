@@ -74,6 +74,7 @@ export interface WritingTask {
   instructions: string[];
   min_words: number;
   image_url?: string;
+  table?: string[][];
 }
 
 export interface WritingTest {

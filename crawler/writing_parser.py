@@ -74,18 +74,33 @@ def _extract_image_url(element, base_url: str) -> str | None:
     return urljoin(base_url, url.strip())
 
 
+def _extract_table(element) -> list[list[str]] | None:
+    table = element if getattr(element, "name", None) == "table" else element.find("table")
+    if not table:
+        return None
+    rows: list[list[str]] = []
+    for tr in table.find_all("tr"):
+        cells = [_normalize_text(cell.get_text(" ", strip=True)) for cell in tr.find_all(["th", "td"])]
+        if any(cells):
+            rows.append(cells)
+    return rows or None
+
+
 def _collect_entry_blocks(entry, base_url: str) -> list[dict]:
     blocks: list[dict] = []
-    for element in entry.find_all(["p", "h1", "h2", "h3", "h4", "h5", "h6", "figure", "img"], recursive=True):
+    for element in entry.find_all(["p", "h1", "h2", "h3", "h4", "h5", "h6", "figure", "img", "table"], recursive=True):
+        if element.find_parent("figure") and element.name == "table":
+            continue
         text = _normalize_text(element.get_text(" ", strip=True))
         image_url = _extract_image_url(element, base_url)
-        if not text and not image_url:
+        table = _extract_table(element)
+        if not text and not image_url and not table:
             continue
         if text.lower().startswith("sample answer"):
             break
         if text.lower().startswith("comments are closed"):
             break
-        blocks.append({"text": text, "image_url": image_url})
+        blocks.append({"text": text, "image_url": image_url, "table": table})
     return blocks
 
 
@@ -105,10 +120,12 @@ def parse_writing_test(html: str, url: str) -> WritingTest:
     instructions: dict[int, list[str]] = {1: [], 2: []}
     min_words: dict[int, int | None] = {1: None, 2: None}
     task_1_image_url: str | None = None
+    task_1_table: list[list[str]] | None = None
 
     for block in blocks:
         text = block["text"]
         image_url = block["image_url"]
+        table = block["table"]
         normalized = text.lower()
 
         if "task 1" in normalized and normalized.startswith("task"):
@@ -126,6 +143,10 @@ def parse_writing_test(html: str, url: str) -> WritingTest:
 
         if image_url and task_index == 1 and not task_1_image_url:
             task_1_image_url = image_url
+
+        if table and task_index == 1 and not task_1_table:
+            task_1_table = table
+            continue
 
         if task_index not in (1, 2):
             continue
@@ -168,6 +189,7 @@ def parse_writing_test(html: str, url: str) -> WritingTest:
                 instructions=instructions[1],
                 min_words=min_words[1] or 150,
                 image_url=task_1_image_url,
+                table=task_1_table,
             ),
             WritingTask(
                 task_number=2,
