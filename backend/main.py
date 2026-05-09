@@ -289,6 +289,11 @@ def auth_session(passcode_cookie: Optional[str] = Cookie(default=None, alias="ie
     return AuthSessionResponse(authenticated=(passcode_cookie == settings.valid_passcode))
 
 
+@app.get("/api/session", response_model=AuthSessionResponse)
+def legacy_auth_session(_: None = Depends(require_authenticated)):
+    return AuthSessionResponse(authenticated=True)
+
+
 @app.post("/api/sessions", response_model=SessionResponse, status_code=201)
 def create_session(
     payload: SessionCreate,

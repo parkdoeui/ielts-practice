@@ -56,6 +56,19 @@ def test_list_sessions_requires_auth_cookie() -> None:
     assert response.status_code == 403
 
 
+def test_legacy_session_endpoint_requires_auth_cookie() -> None:
+    unauth = TestClient(app)
+    response = unauth.get("/api/session")
+    assert response.status_code == 403
+
+
+def test_legacy_session_endpoint_accepts_auth_cookie() -> None:
+    client = authed_client()
+    response = client.get("/api/session")
+    assert response.status_code == 200
+    assert response.json() == {"authenticated": True}
+
+
 def test_create_session_recomputes_score_from_answers() -> None:
     client = authed_client()
     response = client.post("/api/sessions", json=_session_payload())

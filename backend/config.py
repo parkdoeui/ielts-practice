@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql://ielts:ielts@localhost:5432/ielts"
     valid_passcode: str
     frontend_origin: str = "http://localhost:5173"
-    frontend_origins: str = ""
+    frontend_origins: str = "http://localhost:5174"
     cookie_secure: bool = False
     cookie_samesite: str = "lax"
     gemini_api_key: Optional[str] = None

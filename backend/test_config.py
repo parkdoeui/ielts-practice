@@ -18,6 +18,13 @@ def test_allowed_frontend_origins_supports_comma_separated_values() -> None:
     ]
 
 
+def test_allowed_frontend_origins_include_vite_fallback_port_by_default() -> None:
+    settings = Settings(valid_passcode="test")
+
+    assert "http://localhost:5173" in settings.allowed_frontend_origins
+    assert "http://localhost:5174" in settings.allowed_frontend_origins
+
+
 def test_cookie_samesite_must_be_supported_value() -> None:
     with pytest.raises(ValidationError):
         Settings(valid_passcode="test", cookie_samesite="invalid")

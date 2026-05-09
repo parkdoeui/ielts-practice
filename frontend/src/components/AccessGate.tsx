@@ -28,6 +28,11 @@ export function AccessGate({ children }: Props) {
     setError("");
     try {
       await login(input);
+      const session = await getAuthSession();
+      if (!session.authenticated) {
+        setError("Login succeeded, but the browser did not keep the session cookie.");
+        return;
+      }
       setAuthenticated(true);
       setBackendUnavailable(false);
     } catch (e) {
