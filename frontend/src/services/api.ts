@@ -31,6 +31,19 @@ export interface ProgressData {
   per_type_accuracy: QuestionTypeBreakdown[];
 }
 
+export interface WritingScoreHistory {
+  date: string;
+  test_id: string;
+  band: number;
+}
+
+export interface WritingProgressData {
+  total_tests: number;
+  average_band: number;
+  best_band: number;
+  score_history: WritingScoreHistory[];
+}
+
 export interface SaveSessionResult {
   saved: boolean;
   conflict: boolean;

@@ -1,7 +1,30 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import type { ProgressData } from "../services/api";
-import { getProgress } from "../services/api";
+import type {
+  ProgressData,
+  ScoreHistory,
+  WritingProgressData,
+  WritingScoreHistory,
+} from "../services/api";
+import { getProgress, getWritingSessions } from "../services/api";
+import type { WritingSession } from "../types";
+
+type ProgressTab = "reading" | "writing";
+
+const EMPTY_READING_PROGRESS: ProgressData = {
+  total_tests: 0,
+  average_band: 0,
+  best_band: 0,
+  score_history: [],
+  per_type_accuracy: [],
+};
+
+const EMPTY_WRITING_PROGRESS: WritingProgressData = {
+  total_tests: 0,
+  average_band: 0,
+  best_band: 0,
+  score_history: [],
+};
 
 function bandColor(band: number): string {
   if (band >= 8) return "#10b981"; // green
@@ -41,16 +64,67 @@ function formatQType(type: string): string {
   return labels[type] ?? type;
 }
 
+function buildWritingProgress(sessions: WritingSession[]): WritingProgressData {
+  if (sessions.length === 0) {
+    return EMPTY_WRITING_PROGRESS;
+  }
+
+  const sorted = [...sessions].sort(
+    (a, b) => new Date(a.completed_at).getTime() - new Date(b.completed_at).getTime(),
+  );
+  const bands = sorted.map((session) => session.grading.overall_band);
+  const totalBand = bands.reduce((sum, band) => sum + band, 0);
+
+  return {
+    total_tests: sorted.length,
+    average_band: roundBand(totalBand / sorted.length),
+    best_band: Math.max(...bands),
+    score_history: sorted.map((session) => ({
+      date: session.completed_at,
+      test_id: session.test_id,
+      band: session.grading.overall_band,
+    })),
+  };
+}
+
+function roundBand(value: number): number {
+  return Math.round(value * 100) / 100;
+}
+
+function isReadingScoreHistory(
+  entry: ScoreHistory | WritingScoreHistory,
+): entry is ScoreHistory {
+  return "correct" in entry && "total" in entry;
+}
+
 export function ProgressDashboard() {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState<ProgressData | null>(null);
+  const [tab, setTab] = useState<ProgressTab>("reading");
+  const [readingProgress, setReadingProgress] = useState<ProgressData>(EMPTY_READING_PROGRESS);
+  const [writingProgress, setWritingProgress] = useState<WritingProgressData>(EMPTY_WRITING_PROGRESS);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProgress()
-      .then((data) => setProgress(data))
-      .catch(() => setProgress(null))
-      .finally(() => setLoading(false));
+    async function loadProgress() {
+      const [readingResult, writingResult] = await Promise.allSettled([
+        getProgress(),
+        getWritingSessions(),
+      ]);
+
+      setReadingProgress(
+        readingResult.status === "fulfilled"
+          ? readingResult.value
+          : EMPTY_READING_PROGRESS,
+      );
+      setWritingProgress(
+        writingResult.status === "fulfilled"
+          ? buildWritingProgress(writingResult.value)
+          : EMPTY_WRITING_PROGRESS,
+      );
+      setLoading(false);
+    }
+
+    loadProgress();
   }, []);
 
   if (loading) {
@@ -63,7 +137,10 @@ export function ProgressDashboard() {
     );
   }
 
-  if (!progress || progress.total_tests === 0) {
+  const totalTaken = readingProgress.total_tests + writingProgress.total_tests;
+  const activeProgress = tab === "reading" ? readingProgress : writingProgress;
+
+  if (totalTaken === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
         <div className="text-5xl mb-4">📊</div>
@@ -71,14 +148,22 @@ export function ProgressDashboard() {
           No tests yet
         </h1>
         <p className="text-gray-500 text-sm mb-6">
-          Take your first reading test to see your progress here.
+          Take your first reading or writing test to see your progress here.
         </p>
-        <button
-          onClick={() => navigate("/")}
-          className="px-5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          ← Browse tests
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={() => navigate("/")}
+            className="px-5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Reading tests
+          </button>
+          <button
+            onClick={() => navigate("/writing")}
+            className="px-5 py-2 border border-gray-200 bg-white text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            Writing tests
+          </button>
+        </div>
       </div>
     );
   }
@@ -95,8 +180,8 @@ export function ProgressDashboard() {
               Progress Dashboard
             </h1>
             <p className="text-sm text-gray-400 mt-0.5">
-              Synced from backend · {progress.total_tests} test
-              {progress.total_tests !== 1 ? "s" : ""} taken
+              Synced from backend · {totalTaken} total test
+              {totalTaken !== 1 ? "s" : ""} taken
             </p>
           </div>
           <button
@@ -107,11 +192,42 @@ export function ProgressDashboard() {
           </button>
         </div>
 
+        <div className="flex gap-2 mb-6 rounded-xl bg-gray-100 p-1 w-full sm:w-fit">
+          <button
+            onClick={() => setTab("reading")}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              tab === "reading"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Reading ({readingProgress.total_tests})
+          </button>
+          <button
+            onClick={() => setTab("writing")}
+            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+              tab === "writing"
+                ? "bg-white text-gray-900 shadow-sm"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
+          >
+            Writing ({writingProgress.total_tests})
+          </button>
+        </div>
+
+        {activeProgress.total_tests === 0 ? (
+          <div className="bg-white border border-gray-100 rounded-xl p-6 text-sm text-gray-500 shadow-sm">
+            {tab === "reading"
+              ? "No reading tests completed yet."
+              : "No writing tests completed yet."}
+          </div>
+        ) : (
+          <>
         {/* Stat cards */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div className="bg-white rounded-xl border border-gray-100 p-5 text-center shadow-sm">
             <div className="text-3xl font-bold text-gray-900">
-              {progress.total_tests}
+              {activeProgress.total_tests}
             </div>
             <div className="text-xs text-gray-400 mt-1 uppercase tracking-wide">
               Tests Taken
@@ -122,9 +238,9 @@ export function ProgressDashboard() {
           >
             <div
               className="text-3xl font-bold"
-              style={{ color: bandColor(progress.average_band) }}
+              style={{ color: bandColor(activeProgress.average_band) }}
             >
-              {progress.average_band.toFixed(1)}
+              {activeProgress.average_band.toFixed(1)}
             </div>
             <div className="text-xs text-gray-400 mt-1 uppercase tracking-wide">
               Avg Band
@@ -135,12 +251,12 @@ export function ProgressDashboard() {
           >
             <div
               className="text-3xl font-bold"
-              style={{ color: bandColor(progress.best_band) }}
+              style={{ color: bandColor(activeProgress.best_band) }}
             >
-              {progress.best_band.toFixed(1)}
+              {activeProgress.best_band.toFixed(1)}
             </div>
             <div className="text-xs text-gray-400 mt-1 uppercase tracking-wide">
-              Best Band · {bandLabel(progress.best_band)}
+              Best Band · {bandLabel(activeProgress.best_band)}
             </div>
           </div>
         </div>
@@ -149,11 +265,11 @@ export function ProgressDashboard() {
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm mb-6">
           <div className="px-6 py-4 border-b border-gray-50">
             <h2 className="font-semibold text-gray-800 text-sm">
-              Score History
+              {tab === "reading" ? "Reading Score History" : "Writing Band History"}
             </h2>
           </div>
           <div className="divide-y divide-gray-50">
-            {progress.score_history.map((entry, i) => (
+            {activeProgress.score_history.map((entry, i) => (
               <div
                 key={i}
                 className="flex items-center justify-between px-6 py-3 hover:bg-gray-50 transition-colors"
@@ -167,19 +283,22 @@ export function ProgressDashboard() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  {/* Mini bar */}
-                  <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{
-                        width: `${(entry.correct / entry.total) * 100}%`,
-                        backgroundColor: bandColor(entry.band),
-                      }}
-                    />
-                  </div>
-                  <div className="text-xs text-gray-500 w-16 text-right">
-                    {entry.correct}/{entry.total}
-                  </div>
+                  {isReadingScoreHistory(entry) && (
+                    <>
+                      <div className="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all"
+                          style={{
+                            width: `${(entry.correct / entry.total) * 100}%`,
+                            backgroundColor: bandColor(entry.band),
+                          }}
+                        />
+                      </div>
+                      <div className="text-xs text-gray-500 w-16 text-right">
+                        {entry.correct}/{entry.total}
+                      </div>
+                    </>
+                  )}
                   <div
                     className="text-sm font-bold w-10 text-right"
                     style={{ color: bandColor(entry.band) }}
@@ -193,13 +312,13 @@ export function ProgressDashboard() {
         </div>
 
         {/* Band gauge */}
-        {progress.score_history.length > 0 && (
+        {activeProgress.score_history.length > 0 && (
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm mb-6 px-6 py-5">
             <h2 className="font-semibold text-gray-800 text-sm mb-4">
               Band Trend
             </h2>
             <div className="flex items-end gap-2 h-20">
-              {progress.score_history.map((entry, i) => (
+              {activeProgress.score_history.map((entry, i) => (
                 <div
                   key={i}
                   className="flex-1 flex flex-col items-center gap-1"
@@ -223,7 +342,7 @@ export function ProgressDashboard() {
         )}
 
         {/* Per-type accuracy (only if backend data has it) */}
-        {progress.per_type_accuracy.length > 0 && (
+        {tab === "reading" && readingProgress.per_type_accuracy.length > 0 && (
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
             <div className="px-6 py-4 border-b border-gray-50">
               <h2 className="font-semibold text-gray-800 text-sm">
@@ -231,7 +350,7 @@ export function ProgressDashboard() {
               </h2>
             </div>
             <div className="divide-y divide-gray-50">
-              {progress.per_type_accuracy.map((item, i) => (
+              {readingProgress.per_type_accuracy.map((item, i) => (
                 <div
                   key={i}
                   className="flex items-center gap-4 px-6 py-3"
@@ -257,6 +376,8 @@ export function ProgressDashboard() {
               ))}
             </div>
           </div>
+        )}
+          </>
         )}
       </div>
     </div>
