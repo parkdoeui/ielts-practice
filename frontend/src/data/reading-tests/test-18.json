@@ -1,6 +1,6 @@
 {
   "id": "test-18",
-  "title": "IELTS Reading Test 18",
+  "title": "IELTS  Reading Test 18",
   "test_type": "academic",
   "passages": [
     {
@@ -58,22 +58,25 @@
       "id": "group-1-3",
       "type": "matching-headings",
       "passage_id": "passage-1",
-      "instruction": "Questions 1-3\nReading Passage 1 has six paragraphs, A-C.\nChoose the correct heading for each section from the list of headings below.",
+      "instruction": "Questions 1-3\nReading Passage 1 has three sections, A-C.\nChoose the correct heading for each section from the list of headings below.",
       "questions": [
         {
           "id": 1,
           "statement": "Section A",
-          "answer": "iii"
+          "answer": "iii",
+          "options": null
         },
         {
           "id": 2,
           "statement": "Section B",
-          "answer": "v"
+          "answer": "v",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Section C",
-          "answer": "ii"
+          "answer": "ii",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -90,32 +93,38 @@
         {
           "id": 4,
           "statement": "The low financial cost of setting up wilderness tourism makes it attractive to many countries.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 5,
           "statement": "Deserts, mountains and Arctic regions are examples of environments that are both ecologically and culturally fragile.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 6,
           "statement": "Wilderness tourism operates throughout the year in fragile areas.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 7,
           "statement": "The spread of tourism in certain hill-regions has resulted in a fall in the amount of food produced locally.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 8,
           "statement": "Traditional food-gathering in desert societies was distributed evenly over the year.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 9,
           "statement": "Government handouts do more damage than tourism does to traditional patterns of food-gathering.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -131,55 +140,63 @@
       "questions": [
         {
           "id": 10,
-          "statement": "",
-          "answer": "cheese"
+          "statement": "Swiss Pays d’Enhaut: revived production of ……………….",
+          "answer": "cheese",
+          "options": null
         },
         {
           "id": 11,
-          "statement": "",
-          "answer": "tourism"
+          "statement": "Arctic communities: operate …………………. businesses.",
+          "answer": "tourism",
+          "options": null
         },
         {
           "id": 12,
-          "statement": "",
-          "answer": "pottery"
+          "statement": "Acoma and San Ildefonso: produce and sell ………………….",
+          "answer": "pottery",
+          "options": null
         },
         {
           "id": 13,
-          "statement": "",
-          "answer": "jewellery"
+          "statement": "Navajo and Hopi: produce and sell …………………..",
+          "answer": "jewellery",
+          "options": null
         }
       ],
-      "shared_text": "The positive ways in which some local communities have responded to tourism\nPeople/ Location\nActivity\nSwiss Pays d’Enhaut\nrevived production of (10)………………..\nArctic communities\noperate (11)………………….businesses\nAcoma and San Ildefonso\nproduce and sell (12)…………………..\nNavajo and Hopi\nproduce and sell (13)…………………..",
+      "shared_text": "The positive ways in which some local communities have responded to tourism.",
       "word_list": null,
       "image_url": null,
       "options": null
     },
     {
       "id": "group-14-17",
-      "type": "matching-features",
+      "type": "matching-information",
       "passage_id": "passage-2",
       "instruction": "Questions 14-17\nLook at the following people and the list of statements below.",
       "questions": [
         {
           "id": 14,
           "statement": "Brian Waldron",
-          "answer": "G"
+          "answer": "G",
+          "options": null
         },
         {
           "id": 15,
           "statement": "Trevor Ford",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 16,
           "statement": "Graham Dodd",
-          "answer": "H"
+          "answer": "H",
+          "options": null
         },
         {
           "id": 17,
           "statement": "John Barry",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -204,33 +221,39 @@
       "questions": [
         {
           "id": 18,
-          "statement": "",
-          "answer": "sharp"
+          "statement": "Toughened glass is favoured by architects because it is much stronger than ordinary glass, and the fragments are not as (18) ……………….. when it breaks.",
+          "answer": "sharp",
+          "options": null
         },
         {
           "id": 19,
-          "statement": "",
-          "answer": "unexpectedly"
+          "statement": "However, it has one disadvantage: it can shatter (19) ………………..",
+          "answer": "unexpectedly",
+          "options": null
         },
         {
           "id": 20,
-          "statement": "",
-          "answer": "quickly"
+          "statement": "Ordinary glass is first heated, then cooled very (20) ……………….. .",
+          "answer": "quickly",
+          "options": null
         },
         {
           "id": 21,
-          "statement": "",
-          "answer": "contracts"
+          "statement": "The outer layer (21) ……………….. before the inner layer, and the tension between the two layers which is created because of this makes the glass stronger.",
+          "answer": "contracts",
+          "options": null
         },
         {
           "id": 22,
-          "statement": "",
-          "answer": "warm"
+          "statement": "These are unstable, and can expand suddenly, particularly if the weather is (22)……………………..",
+          "answer": "warm",
+          "options": null
         },
         {
           "id": 23,
-          "statement": "",
-          "answer": "disputed"
+          "statement": "The frequency with which such problems occur is (23) ……………….. by glass experts.",
+          "answer": "disputed",
+          "options": null
         }
       ],
       "shared_text": "Toughened Glass\nToughened glass is favoured by architects because it is much stronger than ordinary glass, and the fragments are not as (18) ……………….. when it breaks. However, it has one disadvantage: it can shatter (19) ……………….. This fault is a result of the manufacturing process. Ordinary glass is first heated, then cooled very (20) ……………….. .\nThe outer layer (21) ……………….. before the inner layer, and the tension between the two layers which is created because of this makes the glass stronger. However, if the glass contains nickel sulphide impurities, crystals of nickel sulphide are formed. These are unstable, and can expand suddenly, particularly if the weather is (22)…………………….. If this happens, the pane of glass may break. The frequency with which such problems occur is (23) ……………….. by glass experts. Furthermore, the crystals cannot be detected without sophisticated equipment.",
@@ -245,7 +268,7 @@
         "slowly",
         "unexpectedly",
         "removed",
-        "contracts",
+        "contacts",
         "disputed",
         "cold",
         "moved",
@@ -264,17 +287,20 @@
         {
           "id": 24,
           "statement": "Little doubt was expressed about the reason for the Bishops Walk accident.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 25,
           "statement": "Toughened glass has the same appearance as ordinary glass.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 26,
           "statement": "There is plenty of documented evidence available about the incident of nickel sulphide failure.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -291,37 +317,44 @@
         {
           "id": 27,
           "statement": "There is plenty of scientific evidence to support photoperiodism.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 28,
           "statement": "Some types of bird can be encouraged to breed out of season.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Photoperiodism is restricted to certain geographic areas.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 30,
           "statement": "Desert annuals are examples of long-day plants.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 31,
           "statement": "Bamboos flower several times during their life cycle.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 32,
           "statement": "Scientists have yet to determine the cue for Chusquea abietifolia’s seasonal rhythm.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 33,
           "statement": "Eastern hemlock is a fast-growing plant.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -338,37 +371,44 @@
         {
           "id": 34,
           "statement": "Day length is a useful cue for breeding in areas where …………………………………. are unpredictable.",
-          "answer": "temperatures"
+          "answer": "temperatures",
+          "options": null
         },
         {
           "id": 35,
           "statement": "Plants which do not respond to light levels are referred to as …………………………………..",
-          "answer": "day-neutral plants"
+          "answer": "day-neutral plants",
+          "options": null
         },
         {
           "id": 36,
           "statement": "Birds in temperate climates associate longer days with nesting and the availability of ………………………………….",
-          "answer": "food resources"
+          "answer": "food resources",
+          "options": null
         },
         {
           "id": 37,
           "statement": "Plants that Bower when days are long often depend on …………………………………. to help them reproduce.",
-          "answer": "insects"
+          "answer": "insects",
+          "options": null
         },
         {
           "id": 38,
           "statement": "Desert annuals respond to …………………………………. as a signal for reproduction.",
-          "answer": "suitable rainfall"
+          "answer": "suitable rainfall",
+          "options": null
         },
         {
           "id": 39,
           "statement": "There is no limit to the photosynthetic rate in plants such as …………………………………..",
-          "answer": "sugarcane"
+          "answer": "sugarcane",
+          "options": null
         },
         {
           "id": 40,
           "statement": "Tolerance to shade is one criterion for the …………………………………. of plants in forestry and horticulture.",
-          "answer": "classification"
+          "answer": "classification",
+          "options": null
         }
       ],
       "shared_text": null,

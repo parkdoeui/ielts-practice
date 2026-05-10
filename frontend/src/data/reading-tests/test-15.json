@@ -65,17 +65,20 @@
         {
           "id": 1,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 2,
           "statement": "",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 3,
           "statement": "",
-          "answer": "G"
+          "answer": "G",
+          "options": null
         }
       ],
       "shared_text": "THREE\nletters A-H. Write your answers in boxes 1-3 on your answer sheet.\nNB Your answers may be given in any order.\nWhich\nTHREE\nof the following statements are true of Johnson’s Dictionary?",
@@ -101,22 +104,26 @@
         {
           "id": 4,
           "statement": "",
-          "answer": "copying clerks"
+          "answer": "copying clerks",
+          "options": null
         },
         {
           "id": 5,
           "statement": "",
-          "answer": "library"
+          "answer": "library",
+          "options": null
         },
         {
           "id": 6,
           "statement": "",
-          "answer": "stability"
+          "answer": "stability",
+          "options": null
         },
         {
           "id": 7,
           "statement": "",
-          "answer": "pension"
+          "answer": "pension",
+          "options": null
         }
       ],
       "shared_text": "In 1764 Dr Johnson accepted the contract to produce a dictionary. Having rented a garret, he took on a number of (4) ……………….. , who stood at a long central desk. Johnson did not have a (5) ……………….. available to him, but eventually produced definitions of in excess of 40,000 words written down in 80 large notebooks. On publication, the Dictionary was immediately hailed in many European countries as a landmark. According to his biographer, James Boswell, Johnson’s principal achievement was to bring (6) ……………….. to the English language. As a reward for his hard work, he was granted a (7) ……………….. by the king.",
@@ -133,32 +140,38 @@
         {
           "id": 8,
           "statement": "The growing importance of the middle classes led to an increased demand for dictionaries.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 9,
           "statement": "Johnson has become more well known since his death.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 10,
           "statement": "Johnson had been planning to write a dictionary for several years.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 11,
           "statement": "Johnson set up an academy to help with the writing of his Dictionary.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 12,
           "statement": "Johnson only received payment for his Dictionary on its completion.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 13,
           "statement": "Not all of the assistants survived to see the publication of the Dictionary.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -175,32 +188,38 @@
         {
           "id": 14,
           "statement": "a biological explanation of the teacher-subjects’ behaviour",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 15,
           "statement": "the explanation Milgram gave the teacher-subjects for the experiment",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 16,
           "statement": "the identity of the pupils",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 17,
           "statement": "the expected statistical outcome",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 18,
           "statement": "the general aim of sociobiological study",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 19,
           "statement": "the way Milgram persuaded the teacher-subjects to continue",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -227,28 +246,41 @@
         {
           "id": 20,
           "statement": "The teacher-subjects were told that they were testing whether",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "a 450-volt shock was dangerous",
+            "B": "punishment helps learning",
+            "C": "the pupils were honest",
+            "D": "they were suited to teaching"
+          }
         },
         {
           "id": 21,
           "statement": "The teacher-subjects were instructed to",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "stop when a pupil asked them to",
+            "B": "denounce pupils who made mistakes",
+            "C": "reduce the shock level after a correct answer",
+            "D": "give punishment according to a rule"
+          }
         },
         {
           "id": 22,
           "statement": "Before the experiment took place the psychiatrists",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "believed that a shock of 150 volts was too dangerous",
+            "B": "failed to agree on how the teacher-subjects would respond to instructions",
+            "C": "underestimated the teacher-subjects’ willingness to comply with experimental procedure",
+            "D": "thought that many of the teacher-subjects would administer a shock of 450 volts"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "believed that a shock of 150 volts was too dangerous",
-        "B": "failed to agree on how the teacher-subjects would respond to instructions",
-        "C": "underestimated the teacher-subjects’ willingness to comply with experimental procedure",
-        "D": "thought that many of the teacher-subjects would administer a shock of 450 volts"
-      }
+      "options": null
     },
     {
       "id": "group-23-26",
@@ -259,22 +291,26 @@
         {
           "id": 23,
           "statement": "Several of the subjects were psychology students at Yale University.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 24,
           "statement": "Some people may believe that the teacher-subjects’ behaviour could be explained as a positive survival mechanism.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 25,
           "statement": "In a sociological explanation, personal values are more powerful than authority.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 26,
           "statement": "Milgram’s experiment solves an important question in sociobiology.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -291,32 +327,38 @@
         {
           "id": 27,
           "statement": "Environmentalists take a pessimistic view of the world for a number of reasons.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 28,
           "statement": "Data on the Earth’s natural resources has only been collected since 1972.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 29,
           "statement": "The number of starving people in the world has increased in recent years.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 30,
           "statement": "Extinct species are being replaced by new species.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 31,
           "statement": "Some pollution problems have been correctly linked to industrialisation.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 32,
           "statement": "It would be best to attempt to slow down economic growth.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -333,38 +375,63 @@
         {
           "id": 33,
           "statement": "What aspect of scientific research does the writer express concern about in paragraph 4?",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "the need to produce results",
+            "B": "the lack of financial support",
+            "C": "the selection of areas to research",
+            "D": "the desire to solve every research problem"
+          }
         },
         {
           "id": 34,
           "statement": "The writer quotes from the Worldwide Fund for Nature to illustrate how",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "influential the mass media can be",
+            "B": "effective environmental groups can be",
+            "C": "the mass media can help groups raise funds",
+            "D": "environmental groups can exaggerate their claims"
+          }
         },
         {
           "id": 35,
           "statement": "What is the writer’s main point about lobby groups in paragraph 6?",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "Some are more active than others",
+            "B": "Some are better organised than others",
+            "C": "Some receive more criticism than others",
+            "D": "Some support more important issues than others"
+          }
         },
         {
           "id": 36,
           "statement": "The writer suggests that newspapers print items that are intended to",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "educate readers",
+            "B": "meet their readers’ expectations",
+            "C": "encourage feedback from readers",
+            "D": "mislead readers"
+          }
         },
         {
           "id": 37,
           "statement": "What does the writer say about America’s waste problem?",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "It will increase in line with population growth",
+            "B": "It is not as important as we have been led to believe",
+            "C": "It has been reduced through public awareness of the issues",
+            "D": "It is only significant in certain areas of the country"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "It will increase in line with population growth",
-        "B": "It is not as important as we have been led to believe",
-        "C": "It has been reduced through public awareness of the issues",
-        "D": "It is only significant in certain areas of the country"
-      }
+      "options": null
     },
     {
       "id": "group-38-40",
@@ -375,17 +442,20 @@
         {
           "id": 38,
           "statement": "",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 39,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 40,
           "statement": "",
-          "answer": "I"
+          "answer": "I",
+          "options": null
         }
       ],
       "shared_text": "GLOBAL WARMING\nThe writer admits that global warming is a (38) ……………….. challenge, but says that it will not have a catastrophic impact on our future, if we deal with it in the (39) ……………….. way. If we try to reduce the levels of greenhouse gases, he believes that it would only have a minimal impact on rising temperatures. He feels it would be better to spend money on the more (40) ……………….. health problem of providing the world’s population with clean drinking water.",

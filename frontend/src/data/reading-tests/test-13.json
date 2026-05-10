@@ -73,33 +73,52 @@
         {
           "id": 1,
           "statement": "The quotations in the box at the beginning of the article",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "exemplify the effects of S.K.I.",
+            "B": "explain why S.K.I. was set up",
+            "C": "outline the problems of street children",
+            "D": "highlight the benefits to society of S.K.I."
+          }
         },
         {
           "id": 2,
           "statement": "The main purpose of S.K.I. is to",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "draw the attention of governments to the problem of street children.",
+            "B": "provide schools and social support for street children.",
+            "C": "encourage the public to give money to street children.",
+            "D": "give business training and loans to street children."
+          }
         },
         {
           "id": 3,
           "statement": "Which of the following is mentioned by the writer as a reason why children end up living on the streets?",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "unemployment",
+            "B": "war",
+            "C": "poverty",
+            "D": "crime"
+          }
         },
         {
           "id": 4,
           "statement": "In order to become more independent, street children may",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "reject paid employment",
+            "B": "leave their families",
+            "C": "set up their own business",
+            "D": "employ other children"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "reject paid employment",
-        "B": "leave their families",
-        "C": "set up their own business",
-        "D": "employ other children"
-      }
+      "options": null
     },
     {
       "id": "group-5-8",
@@ -110,22 +129,26 @@
         {
           "id": 5,
           "statement": "",
-          "answer": "sudan and india"
+          "answer": "sudan and india",
+          "options": null
         },
         {
           "id": 6,
           "statement": "",
-          "answer": "bicycles"
+          "answer": "bicycles",
+          "options": null
         },
         {
           "id": 7,
           "statement": "",
-          "answer": "shoe shine"
+          "answer": "shoe shine",
+          "options": null
         },
         {
           "id": 8,
           "statement": "",
-          "answer": "life skills"
+          "answer": "life skills",
+          "options": null
         }
       ],
       "shared_text": "Country\nOrganisations involved\nType of project\nSupport provided\n(5)……………… and ………….\n– S.K.I.\ncourier service\n– provision of (6)…………….\nDominican Republic\n– S.K.I\n– Y.W.C.A.\n(7)…………………\n– loans\n– storage facilities\n– saving plans\nZambia\n– S.K.I.\n– The Red Cross\n– Y.W.C.A.\nsetting up small business\n– business training\n– (8)……………. training\n– access to credit",
@@ -142,22 +165,26 @@
         {
           "id": 9,
           "statement": "Any street child can set up their own small business if given enough support.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 10,
           "statement": "In some cases, the families of street children may need financial support from S.K.I.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 11,
           "statement": "Only one fixed loan should be given to each child.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 12,
           "statement": "The children have to pay back slightly more money than they borrowed.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -174,7 +201,8 @@
         {
           "id": 13,
           "statement": "",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         }
       ],
       "shared_text": "The writers conclude that money should only be lent to street children",
@@ -196,22 +224,26 @@
         {
           "id": 14,
           "statement": "Section A",
-          "answer": "iii"
+          "answer": "iii",
+          "options": null
         },
         {
           "id": 15,
           "statement": "Section B",
-          "answer": "i"
+          "answer": "i",
+          "options": null
         },
         {
           "id": 16,
           "statement": "Section C",
-          "answer": "iv"
+          "answer": "iv",
+          "options": null
         },
         {
           "id": 17,
           "statement": "Section D",
-          "answer": "vi"
+          "answer": "vi",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -235,22 +267,26 @@
         {
           "id": 18,
           "statement": "What are the sections of the earth’s crust, often associated with volcanic activity, called?",
-          "answer": "(tectonic) plates"
+          "answer": "(tectonic) plates",
+          "options": null
         },
         {
           "id": 19,
           "statement": "What is the name given to molten rock from the mantle?",
-          "answer": "magma"
+          "answer": "magma",
+          "options": null
         },
         {
           "id": 20,
           "statement": "What is the earthquake zone on the Pacific Ocean called?",
-          "answer": "ring of fire"
+          "answer": "ring of fire",
+          "options": null
         },
         {
           "id": 21,
           "statement": "For how many years did Mount Pinatubo remain inactive?",
-          "answer": "600"
+          "answer": "600",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -267,27 +303,32 @@
         {
           "id": 22,
           "statement": "",
-          "answer": "water/ oceans"
+          "answer": "water/ oceans",
+          "options": null
         },
         {
           "id": 23,
           "statement": "",
-          "answer": "lava/ magma"
+          "answer": "lava/ magma",
+          "options": null
         },
         {
           "id": 24,
           "statement": "",
-          "answer": "(western) india"
+          "answer": "(western) india",
+          "options": null
         },
         {
           "id": 25,
           "statement": "",
-          "answer": "explodes"
+          "answer": "explodes",
+          "options": null
         },
         {
           "id": 26,
           "statement": "",
-          "answer": "(trapped) gases"
+          "answer": "(trapped) gases",
+          "options": null
         }
       ],
       "shared_text": "Volcanic eruptions have shaped the earth’s land surface. They may also have produced the world’s atmosphere and (22) …………………. Eruptions occur when molten rocks from the earth’s mantle rise and expand. When they become liquid, they move more quickly through cracks in the surface. There are different types of eruption. Sometimes the (23) …………………… moves slowly and forms outcrops of granite on the earth’s surface. When it moves more quickly it may flow out in thick horizontal sheets. Examples of this type of eruption can be found in Northern Ireland, Wales, South Africa and (24) …………………… A third type of eruption occurs when the lava emerges very quickly and (25) ………………. violently. This happens because the magma moves so suddenly that (26) ……………….. are emitted.",
@@ -304,27 +345,32 @@
         {
           "id": 27,
           "statement": "the effect of recording on the way people talk",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 28,
           "statement": "the importance of taking notes on body language",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 29,
           "statement": "the fact that language is influenced by social situation",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 30,
           "statement": "how informants can be helped to be less self-conscious",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 31,
           "statement": "various methods that can be used to generate specific data",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -349,27 +395,32 @@
         {
           "id": 32,
           "statement": "",
-          "answer": "linguistic (acts)"
+          "answer": "linguistic (acts)",
+          "options": null
         },
         {
           "id": 33,
           "statement": "",
-          "answer": "foreign languages"
+          "answer": "foreign languages",
+          "options": null
         },
         {
           "id": 34,
           "statement": "",
-          "answer": "(poor) quality"
+          "answer": "(poor) quality",
+          "options": null
         },
         {
           "id": 35,
           "statement": "",
-          "answer": "facial expressions"
+          "answer": "facial expressions",
+          "options": null
         },
         {
           "id": 36,
           "statement": "",
-          "answer": "camera/ recording"
+          "answer": "camera/ recording",
+          "options": null
         }
       ],
       "shared_text": "Methods of obtaining linguistic data\nAdvantages\nDisadvantages\n(32)………………as informant\nconvenient\nmethod of enquiry not objective enough\nNon-linguistic as informant\nnecessary with (33)…………….. and child speech\nthe number of factors to be considered\nRecording as informant\nallows linguistics’ claims to be checked\n(34)…………………. of sound\nVideoing as informant\nallows speakers’ (35)………………to be observed\n(36)………………might miss certain things",
@@ -386,22 +437,26 @@
         {
           "id": 37,
           "statement": "",
-          "answer": "frequency of usage"
+          "answer": "frequency of usage",
+          "options": null
         },
         {
           "id": 38,
           "statement": "",
-          "answer": "particular linguistic feature"
+          "answer": "particular linguistic feature",
+          "options": null
         },
         {
           "id": 39,
           "statement": "",
-          "answer": "size"
+          "answer": "size",
+          "options": null
         },
         {
           "id": 40,
           "statement": "",
-          "answer": "intuitions"
+          "answer": "intuitions",
+          "options": null
         }
       ],
       "shared_text": "A linguist can use a corpus to comment objectively on (37)…………….. Some corpora include a wide range of language while others are used to focus on a (38)……..…….…. The length of time the process takes will affect the (39)……….…..… of the corpus. No corpus can ever cover the whole language and so linguists often find themselves relying on the additional information that can be gained from the (40)…….…….…of those who speak the language concerned.",

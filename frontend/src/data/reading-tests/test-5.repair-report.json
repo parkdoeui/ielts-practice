@@ -1,0 +1,7 @@
+{
+  "changes": [
+    "In matching headings group 27-32, added the 'List of Headings' title and the 'Example' line to the instruction text to match the source.",
+    "In note completion group 33-36, moved the note text from the 'instruction' field to the 'shared_text' field and reformatted the remaining instruction."
+  ],
+  "confidence": 1.0
+}

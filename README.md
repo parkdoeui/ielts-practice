@@ -49,13 +49,13 @@ playwright install chromium
 Generate one test JSON file:
 
 ```bash
-python3 main.py crawl "<test-url>" --output ../frontend/src/data/tests
+python3 main.py crawl "<test-url>" --output ../frontend/src/data/reading-tests
 ```
 
 Example:
 
 ```bash
-python3 main.py crawl "https://practicepteonline.com/ielts-reading-test-21/" --output ../frontend/src/data/tests
+python3 main.py crawl "https://practicepteonline.com/ielts-reading-test-21/" --output ../frontend/src/data/reading-tests
 ```
 
 Generate one writing test JSON file:
@@ -67,14 +67,14 @@ python3 main.py crawl-writing "https://practicepteonline.com/ielts-writing-test-
 Generate a range of tests:
 
 ```bash
-python3 crawl_range.py 3 10 --output ../frontend/src/data/tests
+python3 crawl_range.py 3 10 --output ../frontend/src/data/reading-tests
 ```
 
 Use AI-assisted validation/repair during crawl:
 
 ```bash
-python3 main.py crawl "<test-url>" --output ../frontend/src/data/tests --ai-auto --project <your-gcp-project>
-python3 crawl_range.py 11 20 --output ../frontend/src/data/tests --ai-auto --project <your-gcp-project> --workers 4
+python3 main.py crawl "<test-url>" --output ../frontend/src/data/reading-tests --ai-auto --project <your-gcp-project>
+python3 crawl_range.py 11 20 --output ../frontend/src/data/reading-tests --ai-auto --project <your-gcp-project> --workers 4
 ```
 
 Use AI-assisted validation for writing crawl:
@@ -92,8 +92,8 @@ AI mode notes:
 
 Output:
 
-- Test JSON files are written to `frontend/src/data/tests/test-<n>.json`.
-- AI repairs also write `frontend/src/data/tests/test-<n>.repair-report.json`.
+- Test JSON files are written to `frontend/src/data/reading-tests/test-<n>.json`.
+- AI repairs also write `frontend/src/data/reading-tests/test-<n>.repair-report.json`.
 - Writing test JSON files are written to `frontend/src/data/writing-tests/writing-test-<n>.json`.
 
 After generating new test files, rebuild the frontend:

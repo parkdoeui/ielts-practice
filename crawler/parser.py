@@ -460,6 +460,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
     - full_instruction: header + explanation text (e.g. YES/NO/NOT GIVEN definitions)
     - individual_questions: dict mapping question number -> statement text
     - options: dict mapping option letter -> option text (for MC questions)
+    - question_options: dict mapping question number -> per-question option dict
     - stem_text: question stem or passage text (for MC stems, summary passages, etc.)
     """
     lines = children_text.strip().split("\n")
@@ -467,6 +468,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
     instruction_lines = []
     numbered_questions = {}
     options = {}
+    question_options = {}
     stem_lines = []
 
     numbered_pattern = re.compile(r"^(\d+)[.)]?\s+(.*)")
@@ -481,6 +483,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
 
     in_instruction_block = False
     pending_option_letter = None
+    pending_option_owner = None
     last_qnum = None  # track most recently parsed question number (for multi-line questions)
     header_lines = header.strip().split("\n")
     normalized_header_lines = [header_lines[0].strip()] if header_lines else []
@@ -534,9 +537,14 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             continue
 
         if pending_option_letter is not None:
-            options[pending_option_letter] = line
+            if pending_option_owner is not None:
+                question_options.setdefault(pending_option_owner, {})[pending_option_letter] = line
+                last_qnum = pending_option_owner
+            else:
+                options[pending_option_letter] = line
+                last_qnum = None
             pending_option_letter = None
-            last_qnum = None
+            pending_option_owner = None
             in_instruction_block = False
             continue
 
@@ -599,15 +607,17 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
                     last_qnum = qnum2
                     in_instruction_block = False
                     continue
-            options[opt_match.group(1)] = opt_match.group(2).strip()
-            last_qnum = None
+            if last_qnum is not None:
+                question_options.setdefault(last_qnum, {})[opt_match.group(1)] = opt_match.group(2).strip()
+            else:
+                options[opt_match.group(1)] = opt_match.group(2).strip()
             in_instruction_block = False
             continue
 
         opt_standalone = option_standalone_pattern.match(line)
         if opt_standalone:
             pending_option_letter = opt_standalone.group(1)
-            last_qnum = None
+            pending_option_owner = last_qnum if last_qnum in numbered_questions else None
             continue
 
         if in_instruction_block:
@@ -631,7 +641,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         full_instruction = full_instruction + "\n" + "\n".join(instruction_lines)
 
     stem_text = "\n".join(stem_lines) if stem_lines else ""
-    return full_instruction, numbered_questions, options, stem_text
+    return full_instruction, numbered_questions, options, question_options, stem_text
 
 
 def _build_question_groups(groups: list[dict], answers: dict, base_url: str = "") -> list[QuestionGroup]:
@@ -652,7 +662,7 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
             continue
         seen_ids.add(group_id)
 
-        full_instruction, numbered_qs, options, stem_text = _parse_children_text(
+        full_instruction, numbered_qs, options, question_options, stem_text = _parse_children_text(
             header, children_text, start_q, end_q
         )
 
@@ -660,7 +670,12 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
         for qid in range(start_q, end_q + 1):
             ans = answers.get(qid, "UNKNOWN")
             statement = numbered_qs.get(qid, "")
-            simple_questions.append(SimpleQuestion(id=qid, statement=statement, answer=ans))
+            simple_questions.append(SimpleQuestion(
+                id=qid,
+                statement=statement,
+                answer=ans,
+                options=question_options.get(qid),
+            ))
 
         instr_lower = full_instruction.lower()
         # Also search the body text for type signals when instruction is minimal (e.g. "Question 26")
@@ -732,8 +747,10 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
 
         elif ("choose" in instr_lower and "letter" in instr_lower
               or (options and "which" in instr_lower and "following" in instr_lower)
+              or (options and "which" in stem_lower and "following" in stem_lower)
               or "choose" in body_lower and "letter" in body_lower):
-            mc_options = options if options else {chr(65 + i): f"Option {chr(65 + i)}" for i in range(4)}
+            has_question_options = any(q.options for q in simple_questions)
+            mc_options = options if options else (None if has_question_options else {chr(65 + i): f"Option {chr(65 + i)}" for i in range(4)})
             result.append(QuestionGroup(
                 id=group_id,
                 type="multiple-choice",
@@ -769,14 +786,18 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
 
         elif re.search(r"correct ending", instr_lower):
             # "Complete each sentence with the correct ending, A-G, below"
-            ending_options = options if options else None
+            ending_options = dict(options)
+            for q in simple_questions:
+                if q.options:
+                    ending_options.update(q.options)
+                    q.options = None
             result.append(QuestionGroup(
                 id=group_id,
                 type="matching-sentence-endings",
                 passage_id=passage_id,
                 instruction=full_instruction,
                 questions=simple_questions,
-                options=ending_options,
+                options=ending_options if ending_options else None,
             ))
 
         else:
@@ -787,6 +808,7 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
                 instruction=full_instruction,
                 questions=simple_questions,
                 shared_text=_sanitize_shared_text(stem_text or None),
+                image_url=image_url,
             ))
 
     return result

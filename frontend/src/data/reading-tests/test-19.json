@@ -1,6 +1,6 @@
 {
   "id": "test-19",
-  "title": "IELTS Reading Test 19",
+  "title": "IELTS  Reading Test 19",
   "test_type": "academic",
   "passages": [
     {
@@ -53,42 +53,49 @@
       "id": "group-1-7",
       "type": "matching-information",
       "passage_id": "passage-1",
-      "instruction": "Questions 1-7",
+      "instruction": "Reading Passage 1 has six sections, A-F. Which paragraph contains the following information?\n\nWrite the correct letter A-F in boxes 1-7 on your answer sheet.\n\nNB You may use any letter more than once.",
       "questions": [
         {
           "id": 1,
           "statement": "a reference to the exchange of expertise between different sports",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 2,
           "statement": "an explanation of how visual imaging is employed in investigations",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 3,
           "statement": "a reason for narrowing the scope of research activity",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 4,
           "statement": "how some AIS ideas have been reproduced",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 5,
           "statement": "how obstacles to optimum achievement can be investigated",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 6,
           "statement": "an overview of the funded support of athletes",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 7,
           "statement": "how performance requirements are calculated before an event",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -107,27 +114,31 @@
       "id": "group-8-11",
       "type": "classification",
       "passage_id": "passage-1",
-      "instruction": "Questions 8-11\nClassify the following techniques according to whether the writer states they\nWrite the correct letter A, B, C or D in boxes 8-11 on your answer sheet.",
+      "instruction": "Questions 8-11\nClassify the following techniques according to whether the writer states they\nWrite the correct letter A, B or C in boxes 8-11 on your answer sheet.",
       "questions": [
         {
           "id": 8,
           "statement": "cameras",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 9,
           "statement": "sensors",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 10,
           "statement": "protein tests",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 11,
           "statement": "altitude tents",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -141,19 +152,21 @@
     },
     {
       "id": "group-12-13",
-      "type": "short-answer",
+      "type": "sentence-completion",
       "passage_id": "passage-1",
       "instruction": "Questions 12 and 13\nChoose\nNO MORE THAN THREE WORDS AND/OR A NUMBER\nfrom the Reading Passage 1 for each answer.\nWrite your answers in boxes 12 and 13 on your answer sheet.",
       "questions": [
         {
           "id": 12,
           "statement": "What is produced to help an athlete plan their performance in an event?",
-          "answer": "competition model"
+          "answer": "competition model",
+          "options": null
         },
         {
           "id": 13,
           "statement": "By how much did some cyclists’ performance improve at the 1996 Olympic Games?",
-          "answer": "2%"
+          "answer": "2%",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -170,22 +183,26 @@
         {
           "id": 14,
           "statement": "a suggestion for improving trade in the future",
-          "answer": "I"
+          "answer": "I",
+          "options": null
         },
         {
           "id": 15,
           "statement": "the effects of the introduction of electronic delivery",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 16,
           "statement": "the similar cost involved in transporting a product from abroad or from a local supplier",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 17,
           "statement": "the weakening relationship between the value of goods and the cost of their delivery",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -212,27 +229,32 @@
         {
           "id": 18,
           "statement": "International trade is increasing at a greater rate than the world economy.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 19,
           "statement": "Cheap labour guarantees effective trade conditions.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 20,
           "statement": "Japan imports more meat and steel than France.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 21,
           "statement": "Most countries continue to prefer to trade with nearby nations.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 22,
           "statement": "Small computer components are manufactured in Germany.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -249,22 +271,26 @@
         {
           "id": 23,
           "statement": "",
-          "answer": "trade"
+          "answer": "trade",
+          "options": null
         },
         {
           "id": 24,
           "statement": "",
-          "answer": "components"
+          "answer": "components",
+          "options": null
         },
         {
           "id": 25,
           "statement": "",
-          "answer": "container ships"
+          "answer": "container ships",
+          "options": null
         },
         {
           "id": 26,
           "statement": "",
-          "answer": "tariffs"
+          "answer": "tariffs",
+          "options": null
         }
       ],
       "shared_text": "THE TRANSPORT REVOLUTION\nModern cargo-handling methods have had a significant effect on (23) ……………….. as the business of moving freight around the world becomes increasingly streamlined. Manufacturers of computers, for instance, are able to import (24) ……………….. from overseas, rather than having to rely on a local supplier. The introduction of (25)………………….. has meant that bulk cargo can be safely and efficiently moved over long distances. While international shipping is now efficient, there is still a need for governments to reduce (26) ……………….. in order to free up the domestic cargo sector.",
@@ -288,51 +314,47 @@
       "id": "group-27-32",
       "type": "matching-headings",
       "passage_id": "passage-3",
-      "instruction": "Questions 27-32\nChoose the correct heading for paragraphs B-G from the list of headings below.",
+      "instruction": "Questions 27-32\nChoose the correct heading for paragraphs B-G from the list of headings below.\n\nList of Headings",
       "questions": [
         {
           "id": 27,
           "statement": "Paragraph B",
-          "answer": "i"
+          "answer": "i",
+          "options": null
         },
         {
           "id": 28,
           "statement": "Paragraph C",
-          "answer": "vi"
+          "answer": "vi",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Paragraph D",
-          "answer": "iii"
+          "answer": "iii",
+          "options": null
         },
         {
           "id": 30,
           "statement": "Paragraph E",
-          "answer": "vii"
+          "answer": "vii",
+          "options": null
         },
         {
           "id": 31,
           "statement": "Paragraph F",
-          "answer": "iv"
+          "answer": "iv",
+          "options": null
         },
         {
           "id": 32,
           "statement": "Paragraph G",
-          "answer": "ii"
+          "answer": "ii",
+          "options": null
         }
       ],
       "shared_text": null,
-      "word_list": [
-        "The reaction of the Inuit community to climate change",
-        "Understanding of climate change remains limited",
-        "Alternative sources of essential supplies",
-        "Respect for Inuit opinion grows",
-        "A healthier choice of food",
-        "A difficult landscape",
-        "Negative effects on well-being",
-        "Alarm caused by unprecedented events in the Arctic",
-        "The benefits of an easier existence"
-      ],
+      "word_list": null,
       "image_url": null,
       "options": {
         "i": "The reaction of the Inuit community to climate change",
@@ -355,42 +377,50 @@
         {
           "id": 33,
           "statement": "",
-          "answer": "farming"
+          "answer": "farming",
+          "options": null
         },
         {
           "id": 34,
           "statement": "",
-          "answer": "sea mammals"
+          "answer": "sea mammals",
+          "options": null
         },
         {
           "id": 35,
           "statement": "",
-          "answer": "fish"
+          "answer": "fish",
+          "options": null
         },
         {
           "id": 36,
           "statement": "",
-          "answer": "thule"
+          "answer": "thule",
+          "options": null
         },
         {
           "id": 37,
           "statement": "",
-          "answer": "islands"
+          "answer": "islands",
+          "options": null
         },
         {
           "id": 38,
           "statement": "",
-          "answer": "nomadic"
+          "answer": "nomadic",
+          "options": null
         },
         {
           "id": 39,
           "statement": "",
-          "answer": "nature"
+          "answer": "nature",
+          "options": null
         },
         {
           "id": 40,
           "statement": "",
-          "answer": "imported"
+          "answer": "imported",
+          "options": null
         }
       ],
       "shared_text": "If you visit the Canadian Arctic, you immediately appreciate the problems faced by people for whom this is home. It would clearly be impossible for the people to engage in (33) ……………….. as a means of supporting themselves. For thousands of years they have had to rely on catching (34) ……………….. and (35) ……………….. as a means of sustenance. The harsh surroundings saw many who tried to settle there pushed to their limits, although some were successful. The (36) ……………….. people were an example of the latter and for them the environment did not prove unmanageable. For the present inhabitants, life continues to be a struggle. The territory of Nunavut consists of little more than ice, rock and a few (37) ……………….. . In recent years, many of them have been obliged to give up their (38) ……………….. lifestyle, but they continue to depend mainly on (39) ……………….. their food and clothes. (40) ……………….. produce is particularly expensive.",

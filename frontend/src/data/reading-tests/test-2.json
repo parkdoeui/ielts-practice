@@ -60,32 +60,38 @@
         {
           "id": 1,
           "statement": "an account of a national policy initiative",
-          "answer": "H"
+          "answer": "H",
+          "options": null
         },
         {
           "id": 2,
           "statement": "a description of a global team effort",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 3,
           "statement": "a hypothesis as to one reason behind the growth in classroom noise",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 4,
           "statement": "a demand for suitable worldwide regulations",
-          "answer": "I"
+          "answer": "I",
+          "options": null
         },
         {
           "id": 5,
           "statement": "a list of medical conditions which place some children more at risk from noise than others",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 6,
           "statement": "the estimated proportion of children in New Zealand with auditory problems",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -112,22 +118,26 @@
         {
           "id": 7,
           "statement": "For what period of time has hearing loss in schoolchildren been studied in New Zealand?",
-          "answer": "two decades"
+          "answer": "two decades",
+          "options": null
         },
         {
           "id": 8,
           "statement": "In addition to machinery noise, what other type of noise can upset children with autism?",
-          "answer": "crowd (noise)"
+          "answer": "crowd (noise)",
+          "options": null
         },
         {
           "id": 9,
           "statement": "What term is used to describe the hearing problems of schoolchildren which have not been diagnosed?",
-          "answer": "invisible (disabilities)"
+          "answer": "invisible (disabilities)",
+          "options": null
         },
         {
           "id": 10,
           "statement": "What part of the New Zealand Disability Strategy aims to give schoolchildren equal opportunity?",
-          "answer": "objective 3"
+          "answer": "objective 3",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -139,20 +149,22 @@
       "id": "group-11-12",
       "type": "multiple-choice",
       "passage_id": "passage-1",
-      "instruction": "Questions 11 and 12\nChoose TWO letters, A-F. Write the correct letters in boxes 11 and 12 on your answer sheet.",
+      "instruction": "Questions 11 and 12\nChoose TWO letters, A-F. Write the correct letters in boxes 11 and 12 on your answer sheet.\nThe list below includes factors contributing to classroom noise.",
       "questions": [
         {
           "id": 11,
           "statement": "",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 12,
           "statement": "",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
-      "shared_text": "The list below includes factors contributing to classroom noise.\nWhich\nTWO\nare mentioned by the writer of the passage?",
+      "shared_text": "Which\nTWO\nare mentioned by the writer of the passage?",
       "word_list": null,
       "image_url": null,
       "options": {
@@ -173,7 +185,8 @@
         {
           "id": 13,
           "statement": "",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": "What is the writer’s overall purpose in writing this article?",
@@ -195,22 +208,26 @@
         {
           "id": 14,
           "statement": "examples of different ways in which the parallax principle has been applied",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 15,
           "statement": "a description of an event which prevented a transit observation",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 16,
           "statement": "a statement about potential future discoveries leading on from transit observations",
-          "answer": "G"
+          "answer": "G",
+          "options": null
         },
         {
           "id": 17,
           "statement": "a description of physical states connected with Venus which early astronomical instruments failed to overcome",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -235,22 +252,26 @@
         {
           "id": 18,
           "statement": "He calculated the distance of the Sun from the Earth based on observations of Venus with a fair degree of accuracy.",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 19,
           "statement": "He understood that the distance of the Sun from the Earth could be worked out by comparing observations of a transit.",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 20,
           "statement": "He realised that the time taken by a planet to go round the Sun depends on its distance from the Sun.",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 21,
           "statement": "He witnessed a Venus transit but was unable to make any calculations.",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -272,27 +293,32 @@
         {
           "id": 22,
           "statement": "Halley observed one transit of the planet Venus.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 23,
           "statement": "Le Gentil managed to observe a second Venus transit.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 24,
           "statement": "The shape of Venus appears distorted when it starts to pass in front of the Sun.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 25,
           "statement": "Early astronomers suspected that the atmosphere on Venus was toxic.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 26,
           "statement": "The parallax principle allows astronomers to work out how far away distant stars are from the Earth.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -309,38 +335,63 @@
         {
           "id": 27,
           "statement": "Neuroeconomics is a field of study which seeks to",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "cause a change in how scientists understand brain chemistry.",
+            "B": "understand how good decisions are made in the brain.",
+            "C": "understand how the brain is linked to achievement in competitive fields.",
+            "D": "trace the specific firing patterns of neurons in different areas of the brain."
+          }
         },
         {
           "id": 28,
           "statement": "According to the writer, iconoclasts are distinctive because",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "they create unusual brain circuits",
+            "B": "their brains function differently",
+            "C": "their personalities are distinctive",
+            "D": "they make decisions easily"
+          }
         },
         {
           "id": 29,
           "statement": "According to the writer, the brain works efficiently because",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "it uses the eyes quickly",
+            "B": "it interprets data logically",
+            "C": "it generates its own energy",
+            "D": "it relies on previous events"
+          }
         },
         {
           "id": 30,
           "statement": "The writer says that perception is",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "a combination of photons and sound waves",
+            "B": "a reliable product of what your senses transmit",
+            "C": "a result of brain processes",
+            "D": "a process we are usually conscious of"
+          }
         },
         {
           "id": 31,
           "statement": "According to the writer, an iconoclastic thinker",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "centralises perceptual thinking in one part of the brain",
+            "B": "avoids cognitive traps",
+            "C": "has a brain that is hardwired for learning",
+            "D": "has more opportunities than the average person"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "centralises perceptual thinking in one part of the brain",
-        "B": "avoids cognitive traps",
-        "C": "has a brain that is hardwired for learning",
-        "D": "has more opportunities than the average person"
-      }
+      "options": null
     },
     {
       "id": "group-32-37",
@@ -351,32 +402,38 @@
         {
           "id": 32,
           "statement": "Exposure to different events forces the brain to think differently.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 33,
           "statement": "Iconoclasts are unusually receptive to new experiences.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 34,
           "statement": "Most people are too shy to try different things.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 35,
           "statement": "If you think in an iconoclastic way, you can easily overcome fear.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 36,
           "statement": "When concern about embarrassment matters less, other fears become irrelevant.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 37,
           "statement": "Fear of public speaking is a psychological illness.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -393,29 +450,32 @@
         {
           "id": 38,
           "statement": "Thinking like a successful iconoclast is demanding because it",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 39,
           "statement": "The concept of the social brain is useful to iconoclasts because it",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 40,
           "statement": "Iconoclasts are generally an asset because their way of thinking",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "requires both perceptual and social intelligence skills.",
+            "B": "focuses on how groups decide on an action.",
+            "C": "works in many fields, both artistic and scientific.",
+            "D": "leaves one open to criticism and rejection.",
+            "E": "involves understanding how organisations manage people."
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "requires both perceptual and social intelligence skills.",
-        "B": "focuses on how groups decide on an action.",
-        "C": "works in many fields, both artistic and scientific.",
-        "D": "leaves one open to criticism and rejection.",
-        "E": "involves understanding how organisations manage people."
-      }
+      "options": null
     }
   ],
   "time_limit_minutes": 60,

@@ -53,42 +53,50 @@
         {
           "id": 1,
           "statement": "There are understandable reasons why arguments occur about language.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 2,
           "statement": "People feel more strongly about language education than about small differences in language usage.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Our assessment of a person’s intelligence is affected by the way he or she uses language.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 4,
           "statement": "Prescriptive grammar books cost a lot of money to buy in the 18th century.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 5,
           "statement": "Prescriptivism still exists today.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 6,
           "statement": "According to descriptivists it is pointless to try to stop language change.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 7,
           "statement": "Descriptivism only appeared after the 18th century.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 8,
           "statement": "Both descriptivists and prescriptivists have been misrepresented.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -105,22 +113,26 @@
         {
           "id": 9,
           "statement": "",
-          "answer": "H"
+          "answer": "H",
+          "options": null
         },
         {
           "id": 10,
           "statement": "",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 11,
           "statement": "",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 12,
           "statement": "",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": "The language debate\nAccording to (9) …………. there is only one correct form of language. Linguists who take this approach to language place great importance on grammatical (10) ……………………. Conversely, the view of (11) ………….., such as Joseph Priestley, is that grammar should be based on (12) ………………….",
@@ -147,7 +159,8 @@
         {
           "id": 13,
           "statement": "",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         }
       ],
       "shared_text": "What is the writer’s purpose in Reading Passage?",
@@ -169,22 +182,26 @@
         {
           "id": 14,
           "statement": "the location of the first test site",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 15,
           "statement": "a way of bringing the power produced on one site back into Britain",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 16,
           "statement": "a reference to a previous attempt by Britain to find an alternative source of energy",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 17,
           "statement": "mention of the possibility of applying technology from another industry",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -208,27 +225,32 @@
         {
           "id": 18,
           "statement": "",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 19,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 20,
           "statement": "",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 21,
           "statement": "",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 22,
           "statement": "",
-          "answer": "J"
+          "answer": "J",
+          "options": null
         }
       ],
       "shared_text": "Which\nFIVE\nof the following claims about tidal power are made by the writer?",
@@ -256,22 +278,26 @@
         {
           "id": 23,
           "statement": "",
-          "answer": "maintenance"
+          "answer": "maintenance",
+          "options": null
         },
         {
           "id": 24,
           "statement": "",
-          "answer": "slow (turning)"
+          "answer": "slow (turning)",
+          "options": null
         },
         {
           "id": 25,
           "statement": "",
-          "answer": "low pressure"
+          "answer": "low pressure",
+          "options": null
         },
         {
           "id": 26,
           "statement": "",
-          "answer": "cavitation"
+          "answer": "cavitation",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -288,32 +314,38 @@
         {
           "id": 27,
           "statement": "an explanation of the factors affecting the transmission of information",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 28,
           "statement": "an example of how unnecessary information can be omitted",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 29,
           "statement": "a reference to Shannon`s attitude to fame",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 30,
           "statement": "details of a machine capable of interpreting incomplete information",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 31,
           "statement": "a detailed account of an incident involving information theory",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 32,
           "statement": "a reference to what Shannon initially intended to achieve in his research",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -337,27 +369,32 @@
         {
           "id": 33,
           "statement": "",
-          "answer": "jupiter and saturn"
+          "answer": "jupiter and saturn",
+          "options": null
         },
         {
           "id": 34,
           "statement": "",
-          "answer": "solar system"
+          "answer": "solar system",
+          "options": null
         },
         {
           "id": 35,
           "statement": "",
-          "answer": "sensors and circuits"
+          "answer": "sensors and circuits",
+          "options": null
         },
         {
           "id": 36,
           "statement": "",
-          "answer": "spares"
+          "answer": "spares",
+          "options": null
         },
         {
           "id": 37,
           "statement": "",
-          "answer": "radio dish"
+          "answer": "radio dish",
+          "options": null
         }
       ],
       "shared_text": "The Voyager l Space Probe\nThe probe transmitted pictures of both (33) ……………….,and ……………. , then left the (34) ……………. The freezing temperatures were found to have a negative effect on parts of the space probe. Scientists feared that both the (35)……………….. and ………………… were about to stop working. The only hope was to tell the probe to replace them with (36)…………………….. – but distance made communication with the probe difficult. A (37)………………….. was used to transmit the message at the speed of light. The message was picked up by the probe and the switchover took place.",
@@ -374,17 +411,20 @@
         {
           "id": 38,
           "statement": "The concept of describing something as true or false was the starting point for Shannon in his attempts to send messages over distances.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 39,
           "statement": "The amount of information that can be sent in a given time period is determined with reference to the signal strength and noise level.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 40,
           "statement": "Products have now been developed which can convey more information than Shannon had anticipated as possible.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,

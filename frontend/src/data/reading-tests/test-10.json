@@ -58,37 +58,44 @@
         {
           "id": 1,
           "statement": "Chronobiology is the study of how living things have evolved over time.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 2,
           "statement": "The rise and fall of sea levels affects how sea creatures behave.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Most animals are active during the daytime.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 4,
           "statement": "Circadian rhythms identify how we do different things on different days.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 5,
           "statement": "A ‘night person’ can still have a healthy circadian rhythm.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 6,
           "statement": "New therapies can permanently change circadian rhythms without causing harm.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 7,
           "statement": "Naturally-produced vegetables have more nutritional value.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -105,43 +112,74 @@
         {
           "id": 8,
           "statement": "What did researchers identify as the ideal time to wake up in the morning?",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "6.04",
+            "B": "7.00",
+            "C": "7.22",
+            "D": "7.30"
+          }
         },
         {
           "id": 9,
           "statement": "In order to lose weight, we should",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "avoid eating breakfast",
+            "B": "eat a low carbohydrate breakfast",
+            "C": "exercise before breakfast",
+            "D": "exercise after breakfast"
+          }
         },
         {
           "id": 10,
           "statement": "Which is NOT mentioned as a way to improve supplement absorption?",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "avoiding drinks containing caffeine while taking supplements",
+            "B": "taking supplements at breakfast",
+            "C": "taking supplements with foods that can dissolve them",
+            "D": "storing supplements in a cool, dry environment"
+          }
         },
         {
           "id": 11,
           "statement": "The best time to stop drinking coffee is",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "mid-afternoon",
+            "B": "10 p.m.",
+            "C": "only when feeling anxious",
+            "D": "after dinner"
+          }
         },
         {
           "id": 12,
           "statement": "In the evening, we should",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "stay away from carbohydrates",
+            "B": "stop exercising",
+            "C": "eat as much as possible",
+            "D": "eat a light meal"
+          }
         },
         {
           "id": 13,
           "statement": "Which of the following phrases best describes the main aim of Reading Passage 1?",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "to suggest healthier ways of eating, sleeping and exercising",
+            "B": "to describe how modern life has made chronobiology largely irrelevant",
+            "C": "to introduce chronobiology and describe some practical applications",
+            "D": "to plan a daily schedule that can alter our natural chronobiological rhythms"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "to suggest healthier ways of eating, sleeping and exercising",
-        "B": "to describe how modern life has made chronobiology largely irrelevant",
-        "C": "to introduce chronobiology and describe some practical applications",
-        "D": "to plan a daily schedule that can alter our natural chronobiological rhythms"
-      }
+      "options": null
     },
     {
       "id": "group-14-22",
@@ -152,47 +190,56 @@
         {
           "id": 14,
           "statement": "giving up short-term happiness for future gains",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 15,
           "statement": "maintaining the bodily functions necessary for life",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 16,
           "statement": "experiencing the pain of losing another",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 17,
           "statement": "forming communities and social groups",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 18,
           "statement": "making a decision and carrying it out",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 19,
           "statement": "guarding areas of land",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 20,
           "statement": "developing explanations for things",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 21,
           "statement": "looking after one’s young",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 22,
           "statement": "responding quickly to sudden movement and noise",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -213,22 +260,26 @@
         {
           "id": 23,
           "statement": "A person with only a functioning reptilian cortex is known as…………………",
-          "answer": "brain dead"
+          "answer": "brain dead",
+          "options": null
         },
         {
           "id": 24,
           "statement": "…………………………in humans is associated with limbic disruption.",
-          "answer": "sociopath behaviour"
+          "answer": "sociopath behaviour",
+          "options": null
         },
         {
           "id": 25,
           "statement": "An industrial accident caused Phineas Gage to lose part of his……………………….",
-          "answer": "neocortex"
+          "answer": "neocortex",
+          "options": null
         },
         {
           "id": 26,
           "statement": "After his accident, co-workers noticed an imbalance between Gage’s…………………………….and higher-order thinking.",
-          "answer": "animal propensities"
+          "answer": "animal propensities",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -245,27 +296,32 @@
         {
           "id": 27,
           "statement": "a use for helium which makes an activity safer",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 28,
           "statement": "the possibility of creating an alternative to helium",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 29,
           "statement": "a term which describes the process of how helium is taken out of the ground",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 30,
           "statement": "a reason why users of helium do not make efforts to conserve it",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 31,
           "statement": "a contrast between helium’s chemical properties and how non-scientists think about it",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -289,22 +345,26 @@
         {
           "id": 32,
           "statement": "Helium chooses to be on its own.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 33,
           "statement": "Helium is a very cold substance.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 34,
           "statement": "High-tech industries in Asia use more helium than laboratories and manufacturers in other parts of the world.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 35,
           "statement": "The US Congress understood the possible consequences of the HPA.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -321,27 +381,32 @@
         {
           "id": 36,
           "statement": "",
-          "answer": "prudent practice"
+          "answer": "prudent practice",
+          "options": null
         },
         {
           "id": 37,
           "statement": "",
-          "answer": "privatization policy"
+          "answer": "privatization policy",
+          "options": null
         },
         {
           "id": 38,
           "statement": "",
-          "answer": "incentives"
+          "answer": "incentives",
+          "options": null
         },
         {
           "id": 39,
           "statement": "",
-          "answer": "permit"
+          "answer": "permit",
+          "options": null
         },
         {
           "id": 40,
           "statement": "",
-          "answer": "regulatory agency"
+          "answer": "regulatory agency",
+          "options": null
         }
       ],
       "shared_text": "Sobotka argues that big business and users of helium need to help look after helium stocks because (36)………………… will not be encouraged through buying and selling alone. Richardson believes that the (37)………………………….needs to be withdrawn, as the U.S. provides most of the world’s helium. He argues that higher costs would mean people have (38)…………………………. to use the resource many times over.\nPeople should need a (39)……………………………… to access helium that we still have. Furthermore, a (40)………………………….. should ensure that helium is used carefully.",

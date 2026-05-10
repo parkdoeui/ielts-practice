@@ -60,32 +60,38 @@
         {
           "id": 1,
           "statement": "Modern official athletic records date from about 1900.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 2,
           "statement": "There was little improvement in athletic performance before the twentieth century,",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Performance has improved most greatly in events requiring an intensive burst of energy.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 4,
           "statement": "Improvements in athletic performance can be fully explained by genetics.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 5,
           "statement": "The parents of top athletes have often been successful athletes themselves.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 6,
           "statement": "The growing international importance of athletics means that gifted athletes can be recognised at a younger age.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -102,22 +108,26 @@
         {
           "id": 7,
           "statement": "According to Professor Yessis, American runners are relying for their current success on………………..",
-          "answer": "genetics"
+          "answer": "genetics",
+          "options": null
         },
         {
           "id": 8,
           "statement": "Yessis describes a training approach from the former Soviet Union that aims to develop an athlete’s…………",
-          "answer": "power"
+          "answer": "power",
+          "options": null
         },
         {
           "id": 9,
           "statement": "Yessis links an inadequate diet to…………………",
-          "answer": "injuries"
+          "answer": "injuries",
+          "options": null
         },
         {
           "id": 10,
           "statement": "Yessis claims that the key to setting new records is better……………..",
-          "answer": "training"
+          "answer": "training",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -134,28 +144,41 @@
         {
           "id": 11,
           "statement": "Biomechanics films are proving particularly useful because they enable trainers to",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "highlight areas for improvement in athletes",
+            "B": "assess the fitness levels of athletes",
+            "C": "select top athletes",
+            "D": "predict the success of athletes"
+          }
         },
         {
           "id": 12,
           "statement": "Biomechanics specialists used theoretical models to",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "soften the Fosbury flop",
+            "B": "create the Fosbury flop",
+            "C": "correct the Fosbury flo",
+            "D": "explain the Fosbury flop."
+          }
         },
         {
           "id": 13,
           "statement": "John S. Raglin believes our current knowledge of athletics is",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "mistaken",
+            "B": "basic",
+            "C": "diverse",
+            "D": "theoretical"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "mistaken",
-        "B": "basic",
-        "C": "diverse",
-        "D": "theoretical"
-      }
+      "options": null
     },
     {
       "id": "group-14-19",
@@ -166,32 +189,38 @@
         {
           "id": 14,
           "statement": "Archaeology involves creativity as well as investigative work.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 15,
           "statement": "Archaeologist must be able to translate texts from ancient languages.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 16,
           "statement": "Movies give a realistic picture of the work of archaeologists.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 17,
           "statement": "Anthropologist define culture in more than one way.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 18,
           "statement": "Archaeology is a more demanding field of study than anthropology.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 19,
           "statement": "The history of Europe has been documented since 3,000 BC.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -208,12 +237,14 @@
         {
           "id": 20,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 21,
           "statement": "",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         }
       ],
       "shared_text": "Which\nTWO\nstatements are mentioned by the writer of the text?",
@@ -236,12 +267,14 @@
         {
           "id": 22,
           "statement": "",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 23,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         }
       ],
       "shared_text": "Which\nTWO\nof these tasks are mentioned by the writer of the text?",
@@ -264,22 +297,26 @@
         {
           "id": 24,
           "statement": "",
-          "answer": "oral histories"
+          "answer": "oral histories",
+          "options": null
         },
         {
           "id": 25,
           "statement": "",
-          "answer": "humanistic study"
+          "answer": "humanistic study",
+          "options": null
         },
         {
           "id": 26,
           "statement": "",
-          "answer": "historical discipline"
+          "answer": "historical discipline",
+          "options": null
         },
         {
           "id": 27,
           "statement": "",
-          "answer": "scientist"
+          "answer": "scientist",
+          "options": null
         }
       ],
       "shared_text": "Much of the work of archaeologists can be done using written records, but they find (24) ………………………… equally valuable. The writer describes archaeology as both a (25) …………………………. and a (26) …………………… However, as archaeologists do not try to influence human behaviour, the writer compares their style of working to that of a (27) ……………..",
@@ -296,22 +333,26 @@
         {
           "id": 28,
           "statement": "Section A",
-          "answer": "iv"
+          "answer": "iv",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Section C",
-          "answer": "i"
+          "answer": "i",
+          "options": null
         },
         {
           "id": 30,
           "statement": "Section D",
-          "answer": "iii"
+          "answer": "iii",
+          "options": null
         },
         {
           "id": 31,
           "statement": "Section E",
-          "answer": "v"
+          "answer": "v",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -337,22 +378,26 @@
         {
           "id": 32,
           "statement": "the realisation that the resources of the national health system were limited",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 33,
           "statement": "a sharp rise in the cost of health-care.",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 34,
           "statement": "a belief that all the health-care resources the community needed would be produced by economic growth",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 35,
           "statement": "an acceptance of the role of the state in guaranteeing the provision of health-care.",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -373,27 +418,32 @@
         {
           "id": 36,
           "statement": "Personal liberty and independence have never been regarded as directly linked to health-care.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 37,
           "statement": "Health-care came to be seen as a right at about the same time that the limits of health-care resources became evident.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 38,
           "statement": "IN OECD countries population changes have had an impact on health-care costs in recent years.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 39,
           "statement": "OECD governments have consistently underestimated the level of health-care provision needed.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 40,
           "statement": "In most economically developed countries the elderly will to make special provision for their health-care in the future.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         }
       ],
       "shared_text": null,

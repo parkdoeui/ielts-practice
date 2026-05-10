@@ -60,6 +60,9 @@ Hard rules:
 Fix ONLY these kinds of issues when clearly provable:
 - Wrong question group `type` given the instruction (e.g. multiple-choice vs sentence-completion).
 - Missing group context (`shared_text`, `word_list`, `options`, `image_url`) when it exists in the source.
+- Multiple-choice questions with unique A/B/C/D choices per numbered question: move those choices into each question's `options` object instead of using one shared group `options` object.
+- Matching-sentence-ending questions with one shared endings list: put the ending choices in group-level `options`, not in a single question's `options`.
+- Classification questions with A/B/C/D category labels in the header: preserve those labels in group-level `options`, not only in the instruction text and not in individual question options.
 - Broken `image_url`: if the source has a relative path, make it absolute using base `https://practicepteonline.com/`.
 - Instruction text incorrectly leaked into question statements, or vice versa.
 - Missing question statements when the source clearly shows numbered statements.

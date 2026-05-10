@@ -57,37 +57,44 @@
         {
           "id": 1,
           "statement": "Michael Faraday was the first person to recognize Perkin’s ability as a student of chemistry.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 2,
           "statement": "Michael Faraday suggested Perkin should enroll in the Royal College of Chemistry.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Perkin employed August Wilhelm Hofmann as his assistant.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 4,
           "statement": "Perkin was still young when he made the discovery that made him rich and famous.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 5,
           "statement": "The trees from which quinine is derived grow only in South America.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 6,
           "statement": "Perkin hoped to manufacture a drug from a coal tar waste product.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 7,
           "statement": "Perkin was inspired by the discoveries of the famous scientist Louis Pasteur.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -104,32 +111,38 @@
         {
           "id": 8,
           "statement": "Before Perkin’s discovery, with what group in society was the colour purple associated?",
-          "answer": "rich"
+          "answer": "rich",
+          "options": null
         },
         {
           "id": 9,
           "statement": "What potential did Perkin immediately understand that his new dye had?",
-          "answer": "commercial"
+          "answer": "commercial",
+          "options": null
         },
         {
           "id": 10,
           "statement": "What was the name finally used to refer to the first color Perkin invented?",
-          "answer": "mauve"
+          "answer": "mauve",
+          "options": null
         },
         {
           "id": 11,
           "statement": "What was the name of the person Perkin consulted before setting up his own dye works?",
-          "answer": "Robert Pullar"
+          "answer": "Robert Pullar",
+          "options": null
         },
         {
           "id": 12,
           "statement": "In what country did Perkins newly invented colour first become fashionable?",
-          "answer": "France"
+          "answer": "France",
+          "options": null
         },
         {
           "id": 13,
           "statement": "According to the passage, which disease is now being targeted by researchers using synthetic dyes?",
-          "answer": "malaria"
+          "answer": "malaria",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -146,22 +159,26 @@
         {
           "id": 14,
           "statement": "Paragraph B",
-          "answer": "iv"
+          "answer": "iv",
+          "options": null
         },
         {
           "id": 15,
           "statement": "Paragraph C",
-          "answer": "vii"
+          "answer": "vii",
+          "options": null
         },
         {
           "id": 16,
           "statement": "Paragraph D",
-          "answer": "i"
+          "answer": "i",
+          "options": null
         },
         {
           "id": 17,
           "statement": "Paragraph E",
-          "answer": "ii"
+          "answer": "ii",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -186,17 +203,20 @@
         {
           "id": 18,
           "statement": "What is the life expectancy of Earth?",
-          "answer": "several billion years"
+          "answer": "several billion years",
+          "options": null
         },
         {
           "id": 19,
           "statement": "What kind of signals from other intelligent civilizations are SETI scientists searching for?",
-          "answer": "radio (waves)"
+          "answer": "radio (waves)",
+          "options": null
         },
         {
           "id": 20,
           "statement": "How many stars are the world’s most powerful radio telescopes searching?",
-          "answer": "1000 (stars)"
+          "answer": "1000 (stars)",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -213,32 +233,38 @@
         {
           "id": 21,
           "statement": "Alien civilizations may be able to help the human race to overcome serious problems.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 22,
           "statement": "SETI scientists are trying to find a life form that resembles humans in many ways.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 23,
           "statement": "The Americans and Australians have co-operated on joint research projects.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 24,
           "statement": "So far SETI scientists have picked up radio signals from several stars.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 25,
           "statement": "The NASA project attracted criticism from some members of Congress.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 26,
           "statement": "If a signal from outer space is received, it will be important to respond promptly.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -255,22 +281,26 @@
         {
           "id": 27,
           "statement": "What had to transfer from sea to land before any animals could migrate?",
-          "answer": "plants"
+          "answer": "plants",
+          "options": null
         },
         {
           "id": 28,
           "statement": "Which TWO processes are mentioned as those in which animals had to make big changes as they moved onto land?",
-          "answer": "breathing and reproduction"
+          "answer": "breathing and reproduction",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Which physical feature. possessed by their ancestors, do whales lack?",
-          "answer": "gills"
+          "answer": "gills",
+          "options": null
         },
         {
           "id": 30,
           "statement": "Which animals might ichthyosaurs have resembled?",
-          "answer": "dolphins"
+          "answer": "dolphins",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -287,17 +317,20 @@
         {
           "id": 31,
           "statement": "Turtles were among the first group of animals to migrate back to the sea.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 32,
           "statement": "It is always difficult to determine where an animal lived when its fossilized remains are incomplete.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 33,
           "statement": "The habitat of ichthyosaurs can be determined by the appearance of their fossilized remains.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -314,32 +347,38 @@
         {
           "id": 34,
           "statement": "",
-          "answer": "3 measurements"
+          "answer": "3 measurements",
+          "options": null
         },
         {
           "id": 35,
           "statement": "",
-          "answer": "(triangular) graph"
+          "answer": "(triangular) graph",
+          "options": null
         },
         {
           "id": 36,
           "statement": "",
-          "answer": "cluster"
+          "answer": "cluster",
+          "options": null
         },
         {
           "id": 37,
           "statement": "",
-          "answer": "amphibious"
+          "answer": "amphibious",
+          "options": null
         },
         {
           "id": 38,
           "statement": "",
-          "answer": "half way"
+          "answer": "half way",
+          "options": null
         },
         {
           "id": 39,
           "statement": "",
-          "answer": "dry land tortoises"
+          "answer": "dry land tortoises",
+          "options": null
         }
       ],
       "shared_text": "Method of determining where the ancestors of turtles and tortoises come from\nStep 1: 71 species of living turtles and tortoises were examined and a total of (34) …………….were taken from the bones of their forelimbs.\nStep 2: The data was recorded on a (35) ………………. (necessary for comparing the information).\nOutcome: Land tortoises were represented by a dense (36) ……………… of points towards the top. Sea turtles were grouped together in the bottom part.\nStep 3: The same data was collected from some living (37) ……………… species and added to the other results. Outcome: The points for these species turned out to be positioned about (38) ……………… up the triangle between the land tortoises and the sea turtles.\nStep 4: Bones of R quenstedti and P talampayensis were examined in a similar way and the results added.\nOutcome: The position of the points indicated that both these ancient creatures were (39)………………….",
@@ -356,7 +395,8 @@
         {
           "id": 40,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         }
       ],
       "shared_text": "According to the writer, the most significant thing about tortoises is that",

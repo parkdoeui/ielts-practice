@@ -1,0 +1,7 @@
+{
+  "changes": [
+    "Corrected incomplete instruction text for question group 34-39 to match the source.",
+    "Changed question group 34-39 type from 'matching-information' to 'matching-features' for better accuracy given the instruction and structure."
+  ],
+  "confidence": 0.9
+}

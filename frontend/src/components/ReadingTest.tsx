@@ -8,7 +8,7 @@ import { getLatestSessionForTest, saveSession } from "../services/api";
 import { estimateBand, isAnswerCorrect } from "../lib/grading";
 
 const testFiles = import.meta.glob<{ default: ReadingTestType }>(
-  "../data/tests/*.json",
+  "../data/reading-tests/*.json",
   { eager: true }
 );
 
@@ -103,7 +103,15 @@ export function ReadingTest() {
     // Build a map of question id → is_correct for those groups first.
     const multiMcCorrectById = new Map<number, boolean>();
     for (const group of test.question_groups) {
-      if (group.type === "multiple-choice" && group.questions.length > 1) {
+      const hasPerQuestionOptions = group.questions.some((question) => question.options);
+      const isSharedMultiAnswerMc =
+        group.type === "multiple-choice" &&
+        group.questions.length > 1 &&
+        !hasPerQuestionOptions &&
+        /\b(choose|which)\s+(two|three|four|five|six|\d+)\b/i.test(
+          `${group.instruction}\n${group.shared_text ?? ""}`
+        );
+      if (isSharedMultiAnswerMc) {
         // Build a frequency map of correct answers for this group
         const correctFreq = new Map<string, number>();
         for (const q of group.questions) {

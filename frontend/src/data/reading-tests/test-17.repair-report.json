@@ -1,0 +1,11 @@
+{
+  "changes": [
+    "Added missing categories B and C to the options for the classification task in group 5-10, as inferred from answers and passage context.",
+    "Completed the truncated TRUE/FALSE/NOT GIVEN instruction for group 11-13 based on the standard format visible elsewhere.",
+    "Corrected the question type for group 14-17 from 'matching-information' to 'matching-headings' to match the task format.",
+    "Corrected the question type for group 18-23 from 'true-false-ng' to 'yes-no-ng' to align with instructions and answers.",
+    "Completed the instruction for group 27-31 using source text and added the missing paragraph 'G' to its options.",
+    "Completed the truncated TRUE/FALSE/NOT GIVEN instruction for group 32-37 using the full text provided in the source."
+  ],
+  "confidence": 0.95
+}

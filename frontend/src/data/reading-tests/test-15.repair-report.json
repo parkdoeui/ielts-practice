@@ -1,0 +1,10 @@
+{
+  "changes": [
+    "Re-structured fragmented instruction and shared text for question group 1-3 to correctly separate the group instruction from the shared question prompt.",
+    "Completed the 'NOT GIVEN' instruction text for question group 8-13 based on standard IELTS format, as it was missing in the original parse.",
+    "Corrected the answer for question 18 from 'E' to 'I' based on the provided source answer key and passage text.",
+    "Changed question group 27-32 type from 'true-false-ng' to 'yes-no-ng' to match the YES/NO instructions in the source text.",
+    "Moved word choices for group 38-40 from 'word_list' to 'options' to preserve the crucial A-I labels, and set 'word_list' to null."
+  ],
+  "confidence": 0.98
+}

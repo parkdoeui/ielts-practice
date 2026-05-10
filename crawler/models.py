@@ -14,6 +14,7 @@ class SimpleQuestion(BaseModel):
     id: int
     statement: str
     answer: str
+    options: Optional[dict[str, str]] = None  # per-question MC choices when not shared by the group
 
 
 class QuestionGroup(BaseModel):

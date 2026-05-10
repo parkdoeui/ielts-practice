@@ -1,8 +1,0 @@
-{
-  "changes": [
-    "Changed question group 11-13 type to 'matching-features' and merged the instruction which was split across 'instruction' and 'shared_text' fields.",
-    "Changed question group 23-26 type to 'matching-features', merged the split instruction, and corrected an erroneous box number reference from '11-13' to '23-26'.",
-    "Corrected the instruction for question group 32-40 to match the exact wording provided in the source text."
-  ],
-  "confidence": 0.95
-}

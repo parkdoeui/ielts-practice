@@ -16,15 +16,7 @@ function NavBar() {
           pathname === "/" ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
         }`}
       >
-        Tests
-      </Link>
-      <Link
-        to="/progress"
-        className={`text-sm font-medium ${
-          pathname === "/progress" ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
-        }`}
-      >
-        Progress
+        Reading
       </Link>
       <Link
         to="/writing"
@@ -33,6 +25,14 @@ function NavBar() {
         }`}
       >
         Writing
+      </Link>
+      <Link
+        to="/progress"
+        className={`text-sm font-medium ${
+          pathname === "/progress" ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
+        }`}
+      >
+        Progress
       </Link>
     </nav>
   );

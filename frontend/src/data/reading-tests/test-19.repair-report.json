@@ -1,0 +1,11 @@
+{
+  "changes": [
+    "Completed instruction for question group 1-7 based on source text.",
+    "Corrected instruction for question group 8-11 to refer to 3 options (A, B, C) instead of 4, matching the provided options list.",
+    "Expanded options for matching question group 14-17 to include all paragraphs (A-I) from the passage, as required by an answer.",
+    "Corrected a typo in the word list for summary completion group 23-26 ('tarrifs' to 'tariffs') to match the provided answer key.",
+    "Added 'List of Headings' preamble to the instruction for matching headings group 27-32, as seen in the source text.",
+    "Moved leaked instruction text from the shared text block to the instruction field for summary completion group 33-40."
+  ],
+  "confidence": 0.95
+}

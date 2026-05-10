@@ -22,6 +22,7 @@ export interface SimpleQuestion {
   statement: string;
   answer: string;
   accepted_answers?: string[];
+  options?: Record<string, string>;  // per-question MC choices when not shared by the group
 }
 
 export interface QuestionGroup {

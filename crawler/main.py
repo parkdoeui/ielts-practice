@@ -258,7 +258,7 @@ def main():
 
     crawl_cmd = subparsers.add_parser("crawl", help="Crawl and save a test")
     crawl_cmd.add_argument("url", help="URL of the IELTS test page")
-    crawl_cmd.add_argument("--output", default="../frontend/src/data/tests/",
+    crawl_cmd.add_argument("--output", default="../frontend/src/data/reading-tests/",
                           help="Output directory for JSON files")
     ai_mode = crawl_cmd.add_mutually_exclusive_group()
     ai_mode.add_argument("--ai-validate", action="store_true",

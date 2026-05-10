@@ -8,9 +8,9 @@ Supports:
 - Timeouts and retries around slow AI calls
 
 Examples:
-  python crawl_range.py 11 20 --output ../frontend/src/data/tests
-  python crawl_range.py 11 20 --output ../frontend/src/data/tests --ai-repair --project <gcp-project>
-  python crawl_range.py 11 20 --output ../frontend/src/data/tests --ai-auto --project <gcp-project> --workers 4
+  python crawl_range.py 11 20 --output ../frontend/src/data/reading-tests
+  python crawl_range.py 11 20 --output ../frontend/src/data/reading-tests --ai-repair --project <gcp-project>
+  python crawl_range.py 11 20 --output ../frontend/src/data/reading-tests --ai-auto --project <gcp-project> --workers 4
 """
 
 from __future__ import annotations
@@ -206,7 +206,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Batch crawl IELTS reading tests")
     parser.add_argument("start", type=int, help="Start test number (inclusive)")
     parser.add_argument("end", type=int, help="End test number (inclusive)")
-    parser.add_argument("--output", default="../frontend/src/data/tests/",
+    parser.add_argument("--output", default="../frontend/src/data/reading-tests/",
                         help="Output directory for JSON files")
 
     ai_mode = parser.add_mutually_exclusive_group()
@@ -278,4 +278,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -1,0 +1,8 @@
+{
+  "changes": [
+    "Added standard 'In boxes...' instruction line to question group 24-27 for consistency, as the source for this group was not provided.",
+    "Corrected the question range in the instruction for question group 28-35 from '28-32' to '28-35' to match the actual questions in the group.",
+    "Added standard 'Write the correct letter...' instruction line to question group 40 for consistency with other multiple-choice groups."
+  ],
+  "confidence": 0.95
+}

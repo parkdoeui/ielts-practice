@@ -158,7 +158,7 @@ function QuestionInput({
     }
 
     case "multiple-choice": {
-      const opts = group.options ?? {};
+      const opts = question.options ?? group.options ?? {};
       return (
         <div className="space-y-2">
           {question.statement && (
@@ -194,7 +194,7 @@ function QuestionInput({
             <p className="text-sm font-medium text-gray-900">{question.statement}</p>
           )}
           <div className="flex flex-wrap gap-x-4 gap-y-1.5">
-            {Object.keys(opts).map((key) => (
+            {Object.entries(opts).map(([key, text]) => (
               <label key={key} className="flex items-center gap-2 cursor-pointer group">
                 <input
                   type="radio"
@@ -206,7 +206,7 @@ function QuestionInput({
                   className="h-4 w-4 text-blue-600"
                 />
                 <span className="text-sm text-gray-700 group-hover:text-gray-900">
-                  <span className="font-medium">{key}</span>
+                  <span className="font-medium">{key}.</span> {text}
                 </span>
               </label>
             ))}
@@ -256,6 +256,30 @@ function QuestionInput({
             {Object.entries(opts).map(([key, text]) => (
               <option key={key} value={key}>
                 {key !== text ? `${key}. ${text}` : key}
+              </option>
+            ))}
+          </select>
+        </div>
+      );
+    }
+
+    case "matching-sentence-endings": {
+      const opts = group.options ?? {};
+      return (
+        <div className="space-y-2">
+          {question.statement && (
+            <p className="text-sm font-medium text-gray-900">{question.statement}</p>
+          )}
+          <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            disabled={readOnly}
+            className={`w-full ${selectClass}`}
+          >
+            <option value="">Select ending...</option>
+            {Object.entries(opts).map(([key, text]) => (
+              <option key={key} value={key}>
+                {key}. {text}
               </option>
             ))}
           </select>

@@ -1,0 +1,8 @@
+{
+  "changes": [
+    "Moved the list of people for matching questions 5-9 from an individual question's options to the group-level options object.",
+    "Combined instruction text for questions 33-35 that was incorrectly split between the `instruction` and `shared_text` fields, and cleaned up extraneous newlines.",
+    "Corrected a parser-garbled name 'Bekofif' to 'Bekoff' in question 37's statement."
+  ],
+  "confidence": 0.95
+}

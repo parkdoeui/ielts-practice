@@ -1,6 +1,9 @@
 import unittest
 from pathlib import Path
 
+from ai_repair import _build_repair_prompt
+from ai_validator import _build_validation_prompt
+from models import Passage, QuestionGroup, ReadingTest, SimpleQuestion
 from parser import _build_question_groups, parse_reading_test
 from validator import validate_reading_test
 
@@ -60,6 +63,235 @@ HTML = """
 
 
 class ParserRegressionTests(unittest.TestCase):
+    def test_per_question_multiple_choice_options_do_not_overwrite_siblings(self):
+        groups = _build_question_groups(
+            [{
+                "start": 1,
+                "end": 3,
+                "instruction": (
+                    "Questions 1-3\n"
+                    "Choose the correct letter, A, B, C or D. Write the correct letter in boxes 1-3 on your answer sheet."
+                ),
+                "text": (
+                    "1 The main topic discussed in the text is\n"
+                    "A\n"
+                    "the damage caused to US golf courses and golf players by lightning strikes.\n"
+                    "B\n"
+                    "the effect of lightning on power supplies in the US and in Japan.\n"
+                    "C\n"
+                    "a variety of methods used in trying to control lightning strikes.\n"
+                    "D\n"
+                    "a laser technique used in trying to control lightning strikes.\n"
+                    "2 According to the text, every year lightning\n"
+                    "A\n"
+                    "does considerable damage to buildings during thunderstorms.\n"
+                    "B\n"
+                    "kills or injures mainly golfers in the United States.\n"
+                    "C\n"
+                    "kills or injures around 500 people throughout the world.\n"
+                    "D\n"
+                    "damages more than 100 American power companies.\n"
+                    "3 Researchers at the University of Florida and at the University of New Mexico\n"
+                    "A\n"
+                    "receive funds from the same source\n"
+                    "B\n"
+                    "are using the same techniques\n"
+                    "C\n"
+                    "are employed by commercial companies\n"
+                    "D\n"
+                    "are in opposition to each other"
+                ),
+                "passage_id": "passage-1",
+                "image_url": None,
+            }],
+            {1: "D", 2: "A", 3: "A"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        group = groups[0]
+        self.assertEqual(group.type, "multiple-choice")
+        self.assertIsNone(group.options)
+        self.assertEqual(group.questions[0].options["A"], "the damage caused to US golf courses and golf players by lightning strikes.")
+        self.assertEqual(group.questions[1].options["A"], "does considerable damage to buildings during thunderstorms.")
+        self.assertEqual(group.questions[2].options["A"], "receive funds from the same source")
+
+    def test_shared_multi_answer_multiple_choice_options_remain_group_level(self):
+        groups = _build_question_groups(
+            [{
+                "start": 14,
+                "end": 18,
+                "instruction": (
+                    "Questions 14-18\n"
+                    "Choose\n"
+                    "FIVE\n"
+                    "letters, A-K. Write the correct letters in boxes 14-18 on your answer sheet."
+                ),
+                "text": (
+                    "Which FIVE of these beliefs are reported by the writer of the text?\n"
+                    "A Truly gifted people are talented in all areas.\n"
+                    "B The talents of geniuses are soon exhausted.\n"
+                    "C Gifted people should use their gifts.\n"
+                    "D A genius appears once in every generation.\n"
+                    "E Genius can be easily measured."
+                ),
+                "passage_id": "passage-2",
+                "image_url": None,
+            }],
+            {14: "B", 15: "C", 16: "D", 17: "E", 18: "A"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        group = groups[0]
+        self.assertEqual(group.type, "multiple-choice")
+        self.assertEqual(group.options["A"], "Truly gifted people are talented in all areas.")
+        self.assertTrue(all(q.options is None for q in group.questions))
+
+    def test_which_two_option_list_is_multiple_choice(self):
+        groups = _build_question_groups(
+            [{
+                "start": 9,
+                "end": 10,
+                "instruction": "Questions 9-10",
+                "text": (
+                    "Write your answers in boxes 9 and 10 on your answer sheet.\n"
+                    "Which\n"
+                    "TWO\n"
+                    "of the following factors influencing the design of Bakelite objects are mentioned in the text?\n"
+                    "A\n"
+                    "the function which the object would serve\n"
+                    "B\n"
+                    "the ease with which the resin could fill the mould\n"
+                    "C\n"
+                    "the facility with which the object could be removed from the mould\n"
+                    "D\n"
+                    "the limitations of the materials used to manufacture the mould\n"
+                    "E\n"
+                    "the fashionable styles of the period"
+                ),
+                "passage_id": "passage-1",
+                "image_url": None,
+            }],
+            {9: "B", 10: "C"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        group = groups[0]
+        self.assertEqual(group.type, "multiple-choice")
+        self.assertEqual(group.shared_text, "Which\nTWO\nof the following factors influencing the design of Bakelite objects are mentioned in the text?")
+        self.assertEqual(group.options["A"], "the function which the object would serve")
+        self.assertEqual(group.options["E"], "the fashionable styles of the period")
+        self.assertTrue(all(q.options is None for q in group.questions))
+
+    def test_sentence_completion_preserves_group_image(self):
+        groups = _build_question_groups(
+            [{
+                "start": 4,
+                "end": 8,
+                "instruction": "Questions 4-8",
+                "text": (
+                    "Complete the flow-chart. Choose\n"
+                    "ONE WORD ONLY\n"
+                    "from the passage for each answer.\n"
+                    "Write your answers in boxes 4-8 on your answer sheet."
+                ),
+                "passage_id": "passage-1",
+                "image_url": "/wp-content/uploads/2024/09/test-16-min.png",
+            }],
+            {4: "Novalak", 5: "fillers", 6: "hexa", 7: "raw", 8: "pressure"},
+            base_url="https://practicepteonline.com/ielts-reading-test-16/",
+        )
+
+        self.assertEqual(len(groups), 1)
+        group = groups[0]
+        self.assertEqual(group.type, "sentence-completion")
+        self.assertEqual(
+            group.image_url,
+            "https://practicepteonline.com/wp-content/uploads/2024/09/test-16-min.png",
+        )
+
+    def test_matching_sentence_endings_options_remain_group_level_after_stems(self):
+        groups = _build_question_groups(
+            [{
+                "start": 22,
+                "end": 26,
+                "instruction": "Questions 22-26\nComplete each sentence with the correct ending, A-I, below.",
+                "text": (
+                    "22 Disapene scale insects feed on\n"
+                    "23 Neodumetia sangawani ate\n"
+                    "24 Leaf-mining hispides blighted\n"
+                    "25 An Argentinian weevil may be successful in wiping out\n"
+                    "26 Salvinia molesta plagues\n"
+                    "A\n"
+                    "forage grass\n"
+                    "B\n"
+                    "rice fields\n"
+                    "C\n"
+                    "coconut trees\n"
+                    "D\n"
+                    "fruit trees\n"
+                    "E\n"
+                    "water hyacinth\n"
+                    "F\n"
+                    "parthenium weed\n"
+                    "G\n"
+                    "Brazilian beetles\n"
+                    "H\n"
+                    "grass-scale insects\n"
+                    "I\n"
+                    "larval parasites"
+                ),
+                "passage_id": "passage-2",
+                "image_url": None,
+            }],
+            {22: "D", 23: "H", 24: "C", 25: "E", 26: "B"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        group = groups[0]
+        self.assertEqual(group.type, "matching-sentence-endings")
+        self.assertEqual(group.options["A"], "forage grass")
+        self.assertEqual(group.options["I"], "larval parasites")
+        self.assertTrue(all(q.options is None for q in group.questions))
+
+    def test_classification_header_options_are_group_level(self):
+        groups = _build_question_groups(
+            [{
+                "start": 31,
+                "end": 36,
+                "instruction": (
+                    "Questions 31-36\n"
+                    "Classify the following statements as referring to\n"
+                    "A\n"
+                    "hand collecting\n"
+                    "B\n"
+                    "using bait\n"
+                    "C\n"
+                    "sampling ground litter\n"
+                    "D\n"
+                    "using a pitfall trap"
+                ),
+                "text": (
+                    "Write the correct letter, A, B, C or D, in boxes 31-36 on your answer sheet.\n"
+                    "31 It is preferable to take specimens from groups of ants.\n"
+                    "32 It is particularly effective for wet habitats.\n"
+                    "33 It is a good method for species which are hard to find.\n"
+                    "34 Little time and effort is required.\n"
+                    "35 Separate containers are used for individual specimens.\n"
+                    "36 Non-alcoholic preservative should be used."
+                ),
+                "passage_id": "passage-3",
+                "image_url": None,
+            }],
+            {31: "A", 32: "C", 33: "B", 34: "D", 35: "A", 36: "D"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        group = groups[0]
+        self.assertEqual(group.type, "classification")
+        self.assertEqual(group.options["A"], "hand collecting")
+        self.assertEqual(group.options["D"], "using a pitfall trap")
+        self.assertTrue(all(q.options is None for q in group.questions))
+
     def test_detects_passage_after_interstitial_noise_and_em_dash_question_range(self):
         test = parse_reading_test(HTML, "https://practicepteonline.com/ielts-reading-test-3/")
 
@@ -309,6 +541,144 @@ class FixtureRegressionTests(unittest.TestCase):
     def test_fixture_08(self): self._assert_fixture_valid(8)
     def test_fixture_09(self): self._assert_fixture_valid(9)
     def test_fixture_10(self): self._assert_fixture_valid(10)
+
+
+def _minimal_reading_test(groups: list[QuestionGroup]) -> ReadingTest:
+    passages = [
+        Passage(
+            id=f"passage-{idx}",
+            title=f"Passage {idx}",
+            text="This is a sufficiently long passage paragraph for validation. " * 3,
+            paragraphs=["This is a sufficiently long passage paragraph for validation. " * 3],
+        )
+        for idx in range(1, 4)
+    ]
+    return ReadingTest(
+        id="test-x",
+        title="Test X",
+        test_type="academic",
+        passages=passages,
+        question_groups=groups,
+        time_limit_minutes=60,
+        source_url="https://practicepteonline.com/ielts-reading-test-x/",
+    )
+
+
+def _filler_group(start: int) -> QuestionGroup:
+    return QuestionGroup(
+        id=f"group-{start}-40",
+        type="sentence-completion",
+        passage_id="passage-3",
+        instruction=f"Questions {start}-40\nComplete the sentences.",
+        questions=[
+            SimpleQuestion(id=qid, statement=f"Question {qid}", answer="answer")
+            for qid in range(start, 41)
+        ],
+    )
+
+
+class ValidationRegressionTests(unittest.TestCase):
+    def test_validator_flags_overwritten_unique_multiple_choice_options(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-3",
+                type="multiple-choice",
+                passage_id="passage-1",
+                instruction="Questions 1-3\nChoose the correct letter, A, B, C or D.",
+                questions=[
+                    SimpleQuestion(id=1, statement="First MC question", answer="A"),
+                    SimpleQuestion(id=2, statement="Second MC question", answer="B"),
+                    SimpleQuestion(id=3, statement="Third MC question", answer="C"),
+                ],
+                options={"A": "last A", "B": "last B", "C": "last C", "D": "last D"},
+            ),
+            _filler_group(4),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertFalse(result.valid)
+        self.assertTrue(any("likely overwritten multiple-choice options" in error for error in result.errors))
+
+    def test_validator_allows_shared_multi_answer_multiple_choice_options(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-5",
+                type="multiple-choice",
+                passage_id="passage-1",
+                instruction="Questions 1-5\nChoose FIVE letters, A-G.",
+                questions=[
+                    SimpleQuestion(id=1, statement="", answer="A"),
+                    SimpleQuestion(id=2, statement="", answer="B"),
+                    SimpleQuestion(id=3, statement="", answer="C"),
+                    SimpleQuestion(id=4, statement="", answer="D"),
+                    SimpleQuestion(id=5, statement="", answer="E"),
+                ],
+                options={"A": "Alpha", "B": "Beta", "C": "Gamma", "D": "Delta", "E": "Epsilon", "F": "Zeta", "G": "Eta"},
+            ),
+            _filler_group(6),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertTrue(result.valid, msg=result.report())
+
+    def test_validator_flags_matching_sentence_endings_attached_to_question(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-3",
+                type="matching-sentence-endings",
+                passage_id="passage-1",
+                instruction="Questions 1-3\nComplete each sentence with the correct ending, A-C, below.",
+                questions=[
+                    SimpleQuestion(id=1, statement="First stem", answer="A"),
+                    SimpleQuestion(id=2, statement="Second stem", answer="B"),
+                    SimpleQuestion(id=3, statement="Third stem", answer="C", options={"A": "Alpha", "B": "Beta", "C": "Gamma"}),
+                ],
+                options=None,
+            ),
+            _filler_group(4),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertFalse(result.valid)
+        self.assertTrue(any("matching-sentence-endings group has no ending options" in error for error in result.errors))
+        self.assertTrue(any("options should be group-level" in error for error in result.errors))
+
+
+class AiPromptRegressionTests(unittest.TestCase):
+    def test_ai_validation_prompt_flags_unique_multiple_choice_option_loss(self):
+        test = _minimal_reading_test([_filler_group(1)])
+        prompt = _build_validation_prompt(test, "Questions 1-3\n1 First\nA one\nB two")
+
+        self.assertIn("each numbered question has its own visible A/B/C/D option block", prompt)
+        self.assertIn("each question must have its own `options` object", prompt)
+        self.assertNotIn("Do NOT flag this at all", prompt)
+
+    def test_ai_validation_prompt_flags_misplaced_sentence_endings(self):
+        test = _minimal_reading_test([_filler_group(1)])
+        prompt = _build_validation_prompt(test, "Questions 22-26\nComplete each sentence with the correct ending")
+
+        self.assertIn("Matching-sentence-ending groups", prompt)
+        self.assertIn("instead of `group.options`", prompt)
+        self.assertIn("The numbered stems should stay as `questions[].statement`", prompt)
+        self.assertIn("`sentence-completion` is valid for those instructions", prompt)
+
+    def test_ai_validation_prompt_flags_missing_classification_options(self):
+        test = _minimal_reading_test([_filler_group(1)])
+        prompt = _build_validation_prompt(test, "Questions 31-36\nClassify the following statements as referring to")
+
+        self.assertIn("Classification groups", prompt)
+        self.assertIn("The category labels must be preserved as shared group options", prompt)
+
+    def test_ai_repair_prompt_allows_per_question_multiple_choice_repair(self):
+        test = _minimal_reading_test([_filler_group(1)])
+        prompt = _build_repair_prompt(test, "Questions 1-3\n1 First\nA one\nB two")
+
+        self.assertIn("move those choices into each question's `options` object", prompt)
+        self.assertIn("put the ending choices in group-level `options`", prompt)
+        self.assertIn("preserve those labels in group-level `options`", prompt)
 
 if __name__ == "__main__":
     unittest.main()

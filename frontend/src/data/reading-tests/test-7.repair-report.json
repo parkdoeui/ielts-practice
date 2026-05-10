@@ -1,0 +1,7 @@
+{
+  "changes": [
+    "For question group 5-8, moved the shared list of nationalities from an individual question's options to the group's options, correcting a structural error.",
+    "For question group 31-40, changed the question type from 'sentence-completion' to 'table-completion' to match the instruction 'Complete the table below'."
+  ],
+  "confidence": 1.0
+}

@@ -68,27 +68,32 @@
         {
           "id": 1,
           "statement": "Aphantasia is a condition, which describes people, for whom it is hard to see images in their imagination.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 2,
           "statement": "Niel Kenmuir was unable to count sheep in his head.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Many people with aphantasia struggle to remember personal traits of different people.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 4,
           "statement": "The author met Lauren Beard when she was working on a scene in her next book.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 5,
           "statement": "Different people expressed their satisfaction that the problem of aphantasia and hyperphantasia has finally been recognized.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -105,28 +110,41 @@
         {
           "id": 6,
           "statement": "People with aphantasia are generally good at:",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "Remembering faces",
+            "B": "Remembering facts",
+            "C": "Remembering traits",
+            "D": "This condition has no advantages"
+          }
         },
         {
           "id": 7,
           "statement": "Unlike Niel, Lauren:",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "Can visualise different objects",
+            "B": "Can write books",
+            "C": "Has aphantasia",
+            "D": "Has no conditions"
+          }
         },
         {
           "id": 8,
           "statement": "Adam Zeman wants to:",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "Cure aphantasia",
+            "B": "Compare people with different conditions",
+            "C": "Do researches",
+            "D": "Learn more about aphantasia and hyperphantasia"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "Cure aphantasia",
-        "B": "Compare people with different conditions",
-        "C": "Do researches",
-        "D": "Learn more about aphantasia and hyperphantasia"
-      }
+      "options": null
     },
     {
       "id": "group-9-14",
@@ -137,32 +155,38 @@
         {
           "id": 9,
           "statement": "Niel’s colleagues describe him as a………………………….. person.",
-          "answer": "weird"
+          "answer": "weird",
+          "options": null
         },
         {
           "id": 10,
           "statement": "Only a small fraction of people have imagination as…………………………. as Lauren does.",
-          "answer": "vibrant"
+          "answer": "vibrant",
+          "options": null
         },
         {
           "id": 11,
           "statement": "Hyperphantasia is………………………. to aphantasia.",
-          "answer": "polar-opposite"
+          "answer": "polar-opposite",
+          "options": null
         },
         {
           "id": 12,
           "statement": "Many people spend their lives with……………………………. somewhere in the mind’s eye.",
-          "answer": "imagery hovering"
+          "answer": "imagery hovering",
+          "options": null
         },
         {
           "id": 13,
           "statement": "Prof Zeman is………………………………. that aphantasia is not an illness.",
-          "answer": "adamant"
+          "answer": "adamant",
+          "options": null
         },
         {
           "id": 14,
           "statement": "Prof Zeman strongly believes that aphantasia is not a………………",
-          "answer": "disorder"
+          "answer": "disorder",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -179,33 +203,52 @@
         {
           "id": 15,
           "statement": "How much funds would you gain by now, if you had invested 1000$ in the Amazon in 1997?",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "$250,000",
+            "B": "close to $500,000",
+            "C": "it is not stated in the text",
+            "D": "no funds"
+          }
         },
         {
           "id": 16,
           "statement": "Nowadays founders talk about going public as a:",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "necessity",
+            "B": "benefit",
+            "C": "possibility",
+            "D": "profit"
+          }
         },
         {
           "id": 17,
           "statement": "In which time period was the biggest number of companies going public?",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "early 1990s",
+            "B": "late 1900s and 2000s",
+            "C": "1980s",
+            "D": "late 1990s"
+          }
         },
         {
           "id": 18,
           "statement": "According to the text, which of the following is true?",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "Private valuations may be forever higher than public ones.",
+            "B": "Public valuations eventually will become even less valuable.",
+            "C": "The main question is whether the public market increase or the private market decrease.",
+            "D": "The pressure might last for a long time."
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "Private valuations may be forever higher than public ones.",
-        "B": "Public valuations eventually will become even less valuable.",
-        "C": "The main question is whether the public market increase or the private market decrease.",
-        "D": "The pressure might last for a long time."
-      }
+      "options": null
     },
     {
       "id": "group-19-23",
@@ -216,27 +259,32 @@
         {
           "id": 19,
           "statement": "Skepticism was always expected by the………………………….of tech industry.",
-          "answer": "luminaries"
+          "answer": "luminaries",
+          "options": null
         },
         {
           "id": 20,
           "statement": "The new aversion to initial offerings has its………………….",
-          "answer": "downside"
+          "answer": "downside",
+          "options": null
         },
         {
           "id": 21,
           "statement": "Selling shares on a secondary market is considered a………………………….mechanism.",
-          "answer": "novel"
+          "answer": "novel",
+          "options": null
         },
         {
           "id": 22,
           "statement": "Workers’ compensation might be an…………………………",
-          "answer": "issue"
+          "answer": "issue",
+          "options": null
         },
         {
           "id": 23,
           "statement": "The public investors who failed to participate in the next big thing might be the ones wearing the…………….",
-          "answer": "frown"
+          "answer": "frown",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -253,22 +301,26 @@
         {
           "id": 24,
           "statement": "Private investors are bearing most of the risk.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 25,
           "statement": "Not many investors were willing to speak on the record.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 26,
           "statement": "The typical tech company hitting the markets in 1990s was 5 years old.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 27,
           "statement": "Marc Andreessen, the firm’s co-founder, expressed amazement with divergency in how investors treat public.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -285,42 +337,50 @@
         {
           "id": 28,
           "statement": "Both Easter and Wester societies presume that kissing is essential for any part of the world.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Our ancestors were not likely to kiss.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 30,
           "statement": "Chimpanzees and bonbons kiss not for the romance.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 31,
           "statement": "There are other animal, rather than apes, that kiss.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 32,
           "statement": "Scent might be important in choosing your partner.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 33,
           "statement": "Wlodarski surveyed several men to figure out the importance of kissing.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 34,
           "statement": "Majority of the microorganisms passed by kissing are beneficial for the body.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 35,
           "statement": "According to a Hindu text, kissing is a means to exchange souls.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -337,22 +397,26 @@
         {
           "id": 36,
           "statement": "According to the Mehinaku tribe, kissing is……………………….",
-          "answer": "gross"
+          "answer": "gross",
+          "options": null
         },
         {
           "id": 37,
           "statement": "Human tradition is to……………………when they meet.",
-          "answer": "shake hands"
+          "answer": "shake hands",
+          "options": null
         },
         {
           "id": 38,
           "statement": "A male black widow will mate with the female if only she is……………………….",
-          "answer": "not hungry"
+          "answer": "not hungry",
+          "options": null
         },
         {
           "id": 39,
           "statement": "Humans benefit from getting close due to the fact that we have an………………….of smell.",
-          "answer": "atrocious sense"
+          "answer": "atrocious sense",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -369,18 +433,19 @@
         {
           "id": 40,
           "statement": "Passage 3 can be described as:",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "Strictly scientific text",
+            "B": "Historical article",
+            "C": "Article from a magazine",
+            "D": "Dystopian sketch"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "Strictly scientific text",
-        "B": "Historical article",
-        "C": "Article from a magazine",
-        "D": "Dystopian sketch"
-      }
+      "options": null
     }
   ],
   "time_limit_minutes": 60,

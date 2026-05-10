@@ -60,27 +60,32 @@
         {
           "id": 1,
           "statement": "Section B",
-          "answer": "vii"
+          "answer": "vii",
+          "options": null
         },
         {
           "id": 2,
           "statement": "Section C",
-          "answer": "i"
+          "answer": "i",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Section D",
-          "answer": "v"
+          "answer": "v",
+          "options": null
         },
         {
           "id": 4,
           "statement": "Section E",
-          "answer": "ii"
+          "answer": "ii",
+          "options": null
         },
         {
           "id": 5,
           "statement": "Section F",
-          "answer": "viii"
+          "answer": "viii",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -107,22 +112,26 @@
         {
           "id": 6,
           "statement": "There is a wider range of achievement amongst English pupils studying maths than amongst their Japanese counterparts.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 7,
           "statement": "The percentage of Gross National Product spent on education generally reflects the level of attainment in mathematics.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 8,
           "statement": "Private schools in Japan are more modern and spacious than state-run lower secondary schools.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 9,
           "statement": "Teachers mark homework in Japanese schools.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -139,33 +148,52 @@
         {
           "id": 10,
           "statement": "Maths textbooks in Japanese schools are",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "cheap for pupils to buy.",
+            "B": "well organised and adapted to the needs of the pupils.",
+            "C": "written to be used in conjunction with TV programmes.",
+            "D": "not very popular with many Japanese teachers."
+          }
         },
         {
           "id": 11,
           "statement": "When a new maths topic is introduced,",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "students answer questions on the board.",
+            "B": "students rely entirely on the textbook.",
+            "C": "it is carefully and patiently explained to the students.",
+            "D": "it is usual for students to use extra worksheets."
+          }
         },
         {
           "id": 12,
           "statement": "How do schools deal with students who experience difficulties?",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "They are given appropriate supplementary tuition.",
+            "B": "They are encouraged to copy from other pupils.",
+            "C": "They are forced to explain their slow progress.",
+            "D": "They are placed in a mixed-ability class."
+          }
         },
         {
           "id": 13,
           "statement": "Why do Japanese students tend to achieve relatively high rates of success in maths?",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "It is a compulsory subject in Japan.",
+            "B": "They are used to working without help from others.",
+            "C": "Much effort is made and correct answers are emphasised.",
+            "D": "There is a strong emphasis on repetitive learning"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "It is a compulsory subject in Japan.",
-        "B": "They are used to working without help from others.",
-        "C": "Much effort is made and correct answers are emphasised.",
-        "D": "There is a strong emphasis on repetitive learning"
-      }
+      "options": null
     },
     {
       "id": "group-14-17",
@@ -176,33 +204,52 @@
         {
           "id": 14,
           "statement": "The use of pesticides has contributed to",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "a change in the way ecologies are classified by agroecologists.",
+            "B": "an imbalance in many ecologies around the world.",
+            "C": "the prevention of ecological disasters in some parts of the world.",
+            "D": "an increase in the range of ecologies which can be usefully farmed."
+          }
         },
         {
           "id": 15,
           "statement": "The Food and Agriculture Organisation has counted more than 300 agricultural pests which",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "are no longer responding to most pesticides in use",
+            "B": "can be easily controlled through the use of pesticides.",
+            "C": "continue to spread disease in a wide range of crops.",
+            "D": "may be used as part of bio-control’s replacement of pesticides."
+          }
         },
         {
           "id": 16,
           "statement": "Cotton farmers in Central America began to use pesticides",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "because of an intensive government advertising campaign.",
+            "B": "in response to the appearance of new varieties of pest.",
+            "C": "as a result of changes in the seasons and the climate.",
+            "D": "to ensure more cotton was harvested from each crop."
+          }
         },
         {
           "id": 17,
           "statement": "By the mid-1960s, cotton farmers in Central America found that pesticides",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "were wiping out 50% of the pests plaguing the crops.",
+            "B": "were destroying 50% of the crops they were meant to protect.",
+            "C": "were causing a 50% increase in the number of new pests reported.",
+            "D": "were costing 50% of the total amount they spent on their crops."
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "were wiping out 50% of the pests plaguing the crops.",
-        "B": "were destroying 50% of the crops they were meant to protect.",
-        "C": "were causing a 50% increase in the number of new pests reported.",
-        "D": "were costing 50% of the total amount they spent on their crops."
-      }
+      "options": null
     },
     {
       "id": "group-18-21",
@@ -213,22 +260,26 @@
         {
           "id": 18,
           "statement": "Disease-spreading pests respond more quickly to pesticides than agricultural pests do.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 19,
           "statement": "A number of pests are now born with an innate immunity to some pesticides.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         },
         {
           "id": 20,
           "statement": "Biological control entails using synthetic chemicals to try and change the genetic make-up of the pests’ offspring.",
-          "answer": "no"
+          "answer": "no",
+          "options": null
         },
         {
           "id": 21,
           "statement": "Bio-control is free from danger under certain circumstances.",
-          "answer": "yes"
+          "answer": "yes",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -245,27 +296,32 @@
         {
           "id": 22,
           "statement": "Disapene scale insects feed on",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 23,
           "statement": "Neodumetia sangawani ate",
-          "answer": "H"
+          "answer": "H",
+          "options": null
         },
         {
           "id": 24,
           "statement": "Leaf-mining hispides blighted",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 25,
           "statement": "An Argentinian weevil may be successful in wiping out",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 26,
           "statement": "Salvinia molesta plagues",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -292,22 +348,26 @@
         {
           "id": 27,
           "statement": "Taxonomic research involves comparing members of one group of ants.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 28,
           "statement": "New species of ant are frequently identified by taxonomists.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Range is the key criterion for ecological collections.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 30,
           "statement": "A single collection of ants can generally be used for both taxonomic and ecological purposes.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -324,32 +384,38 @@
         {
           "id": 31,
           "statement": "It is preferable to take specimens from groups of ants.",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 32,
           "statement": "It is particularly effective for wet habitats.",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 33,
           "statement": "It is a good method for species which are hard to find.",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 34,
           "statement": "Little time and effort is required.",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 35,
           "statement": "Separate containers are used for individual specimens.",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 36,
           "statement": "Non-alcoholic preservative should be used.",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -371,22 +437,26 @@
         {
           "id": 37,
           "statement": "",
-          "answer": "heat"
+          "answer": "heat",
+          "options": null
         },
         {
           "id": 38,
           "statement": "",
-          "answer": "leaf litter"
+          "answer": "leaf litter",
+          "options": null
         },
         {
           "id": 39,
           "statement": "",
-          "answer": "screen"
+          "answer": "screen",
+          "options": null
         },
         {
           "id": 40,
           "statement": "",
-          "answer": "alcohol"
+          "answer": "alcohol",
+          "options": null
         }
       ],
       "shared_text": null,

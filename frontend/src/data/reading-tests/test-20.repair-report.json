@@ -1,0 +1,11 @@
+{
+  "changes": [
+    "Corrected type for group 11-13 from 'sentence-completion' to 'matching-features'.",
+    "Consolidated instruction text for group 11-13 from 'shared_text' into 'instruction'.",
+    "Corrected type for group 23-26 from 'sentence-completion' to 'matching-features'.",
+    "Consolidated and corrected instruction text for group 23-26, including fixing incorrect box number references.",
+    "Completed the 'NOT GIVEN' instruction for group 32-40, which was truncated.",
+    "Removed paragraph labels 'A', 'B', 'C', 'D', 'E' from the beginning of paragraphs in passage 1 text, as they are part of the question structure, not the passage content."
+  ],
+  "confidence": 1.0
+}

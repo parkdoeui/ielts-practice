@@ -22,6 +22,52 @@ import re
 from models import ReadingTest
 
 
+def _build_validation_prompt(test: ReadingTest, page_text: str) -> str:
+    test_json = json.dumps(test.model_dump(), indent=2)
+
+    return f"""You are validating a parsed IELTS Academic Reading test JSON against its source page.
+Focus ONLY on structural parsing failures — things the parser got wrong. Do NOT flag issues that are in the source HTML itself (typos in source text, answers that exceed word limits as written in source, Cyrillic/encoding quirks in source).
+
+SOURCE PAGE TEXT (first 10000 + last 10000 chars if long):
+{page_text}
+
+PARSED JSON:
+{test_json}
+
+Flag ONLY these structural parsing failures:
+1. Wrong number of passages (should be 3) — only if clearly provable from the visible source
+2. Passage text is garbled or empty (blank passages, truncated mid-word)
+3. Questions assigned to wrong passage
+4. Question type label is completely wrong given the instruction (e.g. labelled "true-false-ng" but instruction clearly says "complete the summary with NO MORE THAN TWO WORDS")
+5. A word_list or shared_text is clearly present in the source but completely absent in JSON (null when it should have content)
+6. Question statements are all empty when the source clearly shows numbered question text
+7. Multiple-choice groups where each numbered question has its own visible A/B/C/D option block in the source, but the JSON only preserves one shared option set or omits options for earlier questions. In this case, each question must have its own `options` object.
+8. Matching-sentence-ending groups where the source shows one shared endings list below the numbered sentence stems, but JSON attaches that list to only one question instead of `group.options`. The numbered stems should stay as `questions[].statement`; the A-I/A-G endings should be shared group options.
+9. Classification groups where the source header says "Classify the following statements as referring to" followed by A/B/C/D labels, but those labels are absent from `group.options` or attached to individual questions. The category labels must be preserved as shared group options so users can see what each letter means.
+
+Do NOT flag:
+- Typos or encoding issues in the source HTML (those get copied faithfully)
+- Answers that exceed word limits (the source answer key may have verbose answers)
+- YES/NO/NOT GIVEN vs TRUE/FALSE/NOT GIVEN distinction (treat as equivalent)
+- Shared-option multiple-choice lists where the instruction asks for multiple answers from one common list (for example, "Choose TWO letters" or "Choose FIVE letters")
+- Matching-sentence-ending questions having short unfinished sentence stems (for example, "X feeds on") — this is expected when the endings list is present in `group.options`
+- Minor type classification differences (e.g. "sentence-completion" vs "short-answer" — only flag if completely wrong)
+- Completion subtype naming differences. This schema does not have separate `flow-chart-completion`, `table-completion`, or `form-completion` types, so `sentence-completion` is valid for those instructions when the question IDs, answers, and shared context are otherwise preserved.
+- Issues with portions of the source page that are truncated/not visible in the excerpt above — trust the JSON for sections you cannot see
+- The `paragraphs` array: it is a raw list of HTML paragraph elements. Multiple items without paragraph labels is ALWAYS correct and expected — never flag paragraph splitting
+- Minor inconsistencies in whether instruction text appears in `instruction` vs `shared_text` field
+- Form/table completion questions (where blanks are marked as (20)… etc.) having empty question statements — this is expected when the form context is captured in shared_text or instruction
+
+Respond with ONLY a JSON object (no markdown, no extra text):
+{{
+  "valid": true or false,
+  "issues": ["description of issue 1", "description of issue 2"],
+  "confidence": 0.0 to 1.0
+}}
+
+If there are no issues, return {{"valid": true, "issues": [], "confidence": 1.0}}"""
+
+
 def ai_validate(
     test: ReadingTest,
     source_html: str,
@@ -58,44 +104,7 @@ def ai_validate(
     else:
         page_text = source_html[:page_text_max_chars]
 
-    test_json = json.dumps(test.model_dump(), indent=2)
-
-    prompt = f"""You are validating a parsed IELTS Academic Reading test JSON against its source page.
-Focus ONLY on structural parsing failures — things the parser got wrong. Do NOT flag issues that are in the source HTML itself (typos in source text, answers that exceed word limits as written in source, Cyrillic/encoding quirks in source).
-
-SOURCE PAGE TEXT (first 10000 + last 10000 chars if long):
-{page_text}
-
-PARSED JSON:
-{test_json}
-
-Flag ONLY these structural parsing failures:
-1. Wrong number of passages (should be 3) — only if clearly provable from the visible source
-2. Passage text is garbled or empty (blank passages, truncated mid-word)
-3. Questions assigned to wrong passage
-4. Question type label is completely wrong given the instruction (e.g. labelled "true-false-ng" but instruction clearly says "complete the summary with NO MORE THAN TWO WORDS")
-5. A word_list or shared_text is clearly present in the source but completely absent in JSON (null when it should have content)
-6. Question statements are all empty when the source clearly shows numbered question text
-
-Do NOT flag:
-- Typos or encoding issues in the source HTML (those get copied faithfully)
-- Answers that exceed word limits (the source answer key may have verbose answers)
-- YES/NO/NOT GIVEN vs TRUE/FALSE/NOT GIVEN distinction (treat as equivalent)
-- Multiple MC questions within a single group having unique A/B/C/D options each — the model only captures one shared options dict, so options for earlier questions may be absent. Do NOT flag this at all.
-- Minor type classification differences (e.g. "sentence-completion" vs "short-answer" — only flag if completely wrong)
-- Issues with portions of the source page that are truncated/not visible in the excerpt above — trust the JSON for sections you cannot see
-- The `paragraphs` array: it is a raw list of HTML paragraph elements. Multiple items without paragraph labels is ALWAYS correct and expected — never flag paragraph splitting
-- Minor inconsistencies in whether instruction text appears in `instruction` vs `shared_text` field
-- Form/table completion questions (where blanks are marked as (20)… etc.) having empty question statements — this is expected when the form context is captured in shared_text or instruction
-
-Respond with ONLY a JSON object (no markdown, no extra text):
-{{
-  "valid": true or false,
-  "issues": ["description of issue 1", "description of issue 2"],
-  "confidence": 0.0 to 1.0
-}}
-
-If there are no issues, return {{"valid": true, "issues": [], "confidence": 1.0}}"""
+    prompt = _build_validation_prompt(test, page_text)
 
     response = client.models.generate_content(
         model=model,

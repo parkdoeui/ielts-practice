@@ -59,32 +59,38 @@
         {
           "id": 1,
           "statement": "Ants use the same channels of communication as humans do.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 2,
           "statement": "City life is one factor that encourages the development of intelligence.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Ants can build large cities more quickly than humans do.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 4,
           "statement": "Some ants can find their way by making calculations based on distance and position.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 5,
           "statement": "In one experiment, foraging teams were able to use their sense of smell to find food.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 6,
           "statement": "The essay. ‘In the company of ants’ explores ant communication.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -101,37 +107,44 @@
         {
           "id": 7,
           "statement": "",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 8,
           "statement": "",
-          "answer": "M"
+          "answer": "M",
+          "options": null
         },
         {
           "id": 9,
           "statement": "",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 10,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 11,
           "statement": "",
-          "answer": "N"
+          "answer": "N",
+          "options": null
         },
         {
           "id": 12,
           "statement": "",
-          "answer": "O"
+          "answer": "O",
+          "options": null
         },
         {
           "id": 13,
           "statement": "",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         }
       ],
       "shared_text": "Ants as farmers\nAnts have sophisticated methods of farming, including herding livestock and growing crops, which are in many ways similar to those used in human agriculture. The ants cultivate a large number of different species of edible fungi which convert (7)………………… into a form which they can digest. They use their own natural (8)………………… as weed-killers and also use unwanted materials as (9)…………………… Genetic analysis shows they constantly upgrade these fungi by developing new species and by (10)………………… species with neighboring ant colonies. In fact, the farming methods of ants could be said to be more advanced than human agribusiness, since they use (11)………………… methods, they do not affect the (12)……………… and do not waste (13)……………………",
@@ -164,32 +177,38 @@
         {
           "id": 14,
           "statement": "Passage A",
-          "answer": "iv"
+          "answer": "iv",
+          "options": null
         },
         {
           "id": 15,
           "statement": "Passage B",
-          "answer": "vii"
+          "answer": "vii",
+          "options": null
         },
         {
           "id": 16,
           "statement": "Passage C",
-          "answer": "x"
+          "answer": "x",
+          "options": null
         },
         {
           "id": 17,
           "statement": "Passage D",
-          "answer": "i"
+          "answer": "i",
+          "options": null
         },
         {
           "id": 18,
           "statement": "Passage E",
-          "answer": "vi"
+          "answer": "vi",
+          "options": null
         },
         {
           "id": 19,
           "statement": "Passage F",
-          "answer": "ii"
+          "answer": "ii",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -217,17 +236,19 @@
         {
           "id": 20,
           "statement": "",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 21,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         }
       ],
       "shared_text": "Route\nPeriod (number of years ago)\n(20)…………………..\n15,000 or more\n(21)…………………..\n600 to 700",
       "word_list": null,
-      "image_url": null,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-9-min-1.png",
       "options": null
     },
     {
@@ -239,22 +260,26 @@
         {
           "id": 22,
           "statement": "",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         },
         {
           "id": 23,
           "statement": "",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 24,
           "statement": "",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 25,
           "statement": "",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -275,18 +300,19 @@
         {
           "id": 26,
           "statement": "Christy Turner’s research involved the examination of",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "teeth from both prehistoric and modern Americans and Asians",
+            "B": "thousands of people who live in either the New of the Old World",
+            "C": "dental specimens from the majority of prehistoric Americans",
+            "D": "the eating habits of American and Asian populations"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "teeth from both prehistoric and modern Americans and Asians",
-        "B": "thousands of people who live in either the New of the Old World",
-        "C": "dental specimens from the majority of prehistoric Americans",
-        "D": "the eating habits of American and Asian populations"
-      }
+      "options": null
     },
     {
       "id": "group-27-33",
@@ -297,37 +323,44 @@
         {
           "id": 27,
           "statement": "Forest problems of Mediterranean countries are to be discussed at the next meeting of experts.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 28,
           "statement": "Problems in Nordic countries were excluded because they are outside the European Economic Community.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Forests are a renewable source of raw material.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 30,
           "statement": "The biological functions of forests were recognised only in the twentieth century.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 31,
           "statement": "Natural forests still exist in parts of Europe.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 32,
           "statement": "Forest policy should be limited by national boundaries.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 33,
           "statement": "The Strasbourg conference decided that a forest policy must allow for the possibility of change.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -337,39 +370,45 @@
     },
     {
       "id": "group-34-39",
-      "type": "matching-information",
+      "type": "matching-features",
       "passage_id": "passage-3",
-      "instruction": "Questions 34-39\nLook at the following statements issued by the conference.\nWhich\nSIX\nof the following statements. A-J, refer to the resolutions that were issued?",
+      "instruction": "Questions 34-39\nLook at the following statements issued by the conference.\nWhich SIX of the following statements. A-J, refer to the resolutions that were issued?\nMatch the statements with the appropriate resolutions (Questions 34-39).",
       "questions": [
         {
           "id": 34,
           "statement": "Resolution 1",
-          "answer": "J"
+          "answer": "J",
+          "options": null
         },
         {
           "id": 35,
           "statement": "Resolution 2",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 36,
           "statement": "Resolution 3",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 37,
           "statement": "Resolution 4",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 38,
           "statement": "Resolution 5",
-          "answer": "G"
+          "answer": "G",
+          "options": null
         },
         {
           "id": 39,
           "statement": "Resolution 6",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -397,18 +436,19 @@
         {
           "id": 40,
           "statement": "What is the best title for Reading Passage 3?",
-          "answer": "B"
+          "answer": "B",
+          "options": {
+            "A": "The biological, economic and recreational role of forests",
+            "B": "Plans to protect the forests of Europe",
+            "C": "The priority of European research into ecosystems",
+            "D": "Proposals for a world-wide policy on forest management"
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "The biological, economic and recreational role of forests",
-        "B": "Plans to protect the forests of Europe",
-        "C": "The priority of European research into ecosystems",
-        "D": "Proposals for a world-wide policy on forest management"
-      }
+      "options": null
     }
   ],
   "time_limit_minutes": 60,

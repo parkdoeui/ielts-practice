@@ -5,7 +5,7 @@ import { isCompletionType } from "../lib/grading";
 import type { ReadingTest, TestSession } from "../types";
 
 const testFiles = import.meta.glob<{ default: ReadingTest }>(
-  "../data/tests/*.json",
+  "../data/reading-tests/*.json",
   { eager: true }
 );
 

@@ -74,6 +74,41 @@ def validate_reading_test(test: ReadingTest) -> ValidationResult:
             if not re.match(r"^https?://", url):
                 errors.append(f"Group {g.id}: diagram-labeling group has no valid image_url (got: '{url[:40]}')")
 
+    for g in test.question_groups:
+        if g.type != "multiple-choice" or len(g.questions) <= 1:
+            continue
+        instr = g.instruction or ""
+        is_shared_multi_answer = bool(re.search(r"\bchoose\s+(two|three|four|five|six|\d+)\b", instr, re.IGNORECASE))
+        questions_with_statements = [q for q in g.questions if q.statement.strip()]
+        questions_with_options = [q for q in g.questions if q.options]
+        group_option_keys = set((g.options or {}).keys())
+        group_has_plain_abcd = group_option_keys == {"A", "B", "C", "D"}
+
+        if is_shared_multi_answer:
+            continue
+
+        if questions_with_options and len(questions_with_options) != len(questions_with_statements):
+            missing = [q.id for q in questions_with_statements if not q.options]
+            errors.append(f"Group {g.id}: multiple-choice questions missing per-question options: {missing}")
+
+        if not questions_with_options and len(questions_with_statements) > 1 and group_has_plain_abcd:
+            errors.append(
+                f"Group {g.id}: likely overwritten multiple-choice options; "
+                "each numbered question should carry its own A-D options"
+            )
+
+    for g in test.question_groups:
+        if g.type != "matching-sentence-endings":
+            continue
+        if not g.options:
+            errors.append(f"Group {g.id}: matching-sentence-endings group has no ending options")
+        question_option_ids = [q.id for q in g.questions if q.options]
+        if question_option_ids:
+            errors.append(
+                f"Group {g.id}: matching-sentence-endings options should be group-level, "
+                f"not attached to questions {question_option_ids}"
+            )
+
     for p in test.passages:
         if len(p.text.strip()) < 100:
             errors.append(f"Passage '{p.id}' has trivially short text ({len(p.text)} chars) — likely parsing failure")

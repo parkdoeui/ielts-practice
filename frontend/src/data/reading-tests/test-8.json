@@ -58,37 +58,44 @@
         {
           "id": 1,
           "statement": "It is generally believed that large numbers of people were needed to build the pyramids.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 2,
           "statement": "Clemmons found a strange hieroglyph on the wall of an Egyptian monument.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 3,
           "statement": "Gharib had previously done experiments on bird flight.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 4,
           "statement": "Gharib and Graff tested their theory before applying it.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 5,
           "statement": "The success of the actual experiment was due to the high speed of the wind.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 6,
           "statement": "They found that, as the kite flew higher, the wind force got stronger.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 7,
           "statement": "The team decided that it was possible to use kites to raise very heavy stones.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -105,32 +112,38 @@
         {
           "id": 8,
           "statement": "",
-          "answer": "(wooden) pulleys"
+          "answer": "(wooden) pulleys",
+          "options": null
         },
         {
           "id": 9,
           "statement": "",
-          "answer": "stone"
+          "answer": "stone",
+          "options": null
         },
         {
           "id": 10,
           "statement": "",
-          "answer": "(accomplished) sailors"
+          "answer": "(accomplished) sailors",
+          "options": null
         },
         {
           "id": 11,
           "statement": "",
-          "answer": "(modern) glider"
+          "answer": "(modern) glider",
+          "options": null
         },
         {
           "id": 12,
           "statement": "",
-          "answer": "flight"
+          "answer": "flight",
+          "options": null
         },
         {
           "id": 13,
           "statement": "",
-          "answer": "messages"
+          "answer": "messages",
+          "options": null
         }
       ],
       "shared_text": "Addition evidence for theory of kite lifting\nThe Egyptians had (8)………………, which could lift large pieces of (9)……………….., and they knew how to use the energy of the wind from their skill as (10)………………. The discovery on one pyramid of an object which resembled a (11)…………….. suggests they may have experimented with (12) …………… In addition, over two thousand years ago kites used in china as weapons, as well as for sending (13)………………",
@@ -147,37 +160,44 @@
         {
           "id": 14,
           "statement": "The inhabitants of the Aleutian islands renamed their islands Aleyska",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 15,
           "statement": "Alaska’s fisheries are owned by some of the world’s largest companies.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 16,
           "statement": "Life in Alaska is dependent on salmon.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 17,
           "statement": "Ninety per cent of all Pacific salmon caught are sockeye or pink salmon.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 18,
           "statement": "More than 320,000 tonnes of salmon were caught in Alaska in 2000.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 19,
           "statement": "Between 1940 and 1959, there was a sharp decrease in Alaska’s salmon population.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 20,
           "statement": "During the 1990s, the average number of salmon caught each year was 100 million.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -194,32 +214,38 @@
         {
           "id": 21,
           "statement": "In Alaska, biologists keep a check on adult fish",
-          "answer": "G"
+          "answer": "G",
+          "options": null
         },
         {
           "id": 22,
           "statement": "Biologists have the authority",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 23,
           "statement": "In-Season Abundance-Based Management has allowed the Alaska salmon fisheries",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 24,
           "statement": "The Marine Stewardship Council (MSC) was established",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 25,
           "statement": "As a result of the collapse of the salmon runs in 1999, the state decided",
-          "answer": "K"
+          "answer": "K",
+          "options": null
         },
         {
           "id": 26,
           "statement": "In September 2000, the MSC allowed seven Alaska salmon companies",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -248,28 +274,41 @@
         {
           "id": 27,
           "statement": "The writer suggests that people may have difficulty sleeping in the mountains because",
-          "answer": "D"
+          "answer": "D",
+          "options": {
+            "A": "humans do not prefer peace and quiet to noise.",
+            "B": "they may be exposed to short bursts of very strange sounds.",
+            "C": "humans prefer to hear a certain amount of noise while they sleep.",
+            "D": "they may have adapted to a higher noise level in the city."
+          }
         },
         {
           "id": 28,
           "statement": "In noise experiments, Glass and Singer found that",
-          "answer": "C"
+          "answer": "C",
+          "options": {
+            "A": "problem-solving is much easier under quiet conditions.",
+            "B": "physiological arousal prevents the ability to work.",
+            "C": "bursts of noise do not seriously disrupt problem-solving in the long term.",
+            "D": "the physiological arousal of control subjects declined quickly."
+          }
         },
         {
           "id": 29,
           "statement": "Researchers discovered that high noise levels are not likely to interfere with the",
-          "answer": "A"
+          "answer": "A",
+          "options": {
+            "A": "successful performance of a single task.",
+            "B": "tasks of pilots or air traffic controllers.",
+            "C": "ability to repeal numbers while tracking moving lines.",
+            "D": "ability to monitor three dials at once."
+          }
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": {
-        "A": "successful performance of a single task.",
-        "B": "tasks of pilots or air traffic controllers.",
-        "C": "ability to repeal numbers while tracking moving lines.",
-        "D": "ability to monitor three dials at once."
-      }
+      "options": null
     },
     {
       "id": "group-30-34",
@@ -280,27 +319,32 @@
         {
           "id": 30,
           "statement": "",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 31,
           "statement": "",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 32,
           "statement": "",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 33,
           "statement": "",
-          "answer": "I"
+          "answer": "I",
+          "options": null
         },
         {
           "id": 34,
           "statement": "",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         }
       ],
       "shared_text": "Glass and Singer (1972) showed that situations in which there is intense noise have less effect on performance than circumstances in which (30)……………………….. noise occurs. Subjects were divided into groups to perform a task. Some heard loud bursts of noise, others sort. For some subjects, the noise was predictable, while for others its occurrence was random. All groups were exposed to (31)……………………. noise. The predictable noise group (32)……………………. the unpredictable noise group on this task. In the second part of the experiment, the four groups were given a proofreading task to complete under conditions of no noise. They were required to check written material for errors. The group which had been exposed to unpredictable noise (33)……………… the group which had been exposed to predictable noise. The group which had been exposed to loud predictable noise performed better than those who” had heard soft, unpredictable bursts. The results suggest that (34)………………………… noise produces fatigue but that this manifests itself later.",
@@ -328,32 +372,38 @@
         {
           "id": 35,
           "statement": "Subjects exposed to noise find it difficult at first to concentrate on problem-solving tasks.",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 36,
           "statement": "Long-term exposure to noise can produce changes in behavior which can still be observed a year later.",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 37,
           "statement": "The problems associated with exposure to noise do not arise if the subject knows they can make it stop.",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 38,
           "statement": "Exposure to high-pitched noise results in more errors than exposure to low-pitched noise",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 39,
           "statement": "Subjects find it difficult to perform three tasks at the same time when exposed to noise",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 40,
           "statement": "Noise affects a subject’s capacity to repeat numbers while carrying out another task.",
-          "answer": "C"
+          "answer": "C",
+          "options": null
         }
       ],
       "shared_text": null,

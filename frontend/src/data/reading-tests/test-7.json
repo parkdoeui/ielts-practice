@@ -58,22 +58,26 @@
         {
           "id": 1,
           "statement": "a description of an early timekeeping invention affected by cold temperatures",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 2,
           "statement": "an explanation of the importance of geography in the development of the calendar in farming communities",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 3,
           "statement": "a description of the origins of the pendulum clock",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 4,
           "statement": "details of the simultaneous efforts of different societies to calculate time using uniform hours",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -99,22 +103,26 @@
         {
           "id": 5,
           "statement": "They devised a civil calendar in which the months were equal in length.",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 6,
           "statement": "They divided the day into two equal halves.",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         },
         {
           "id": 7,
           "statement": "They developed a new cabinet shape for a type of timekeeper.",
-          "answer": "D"
+          "answer": "D",
+          "options": null
         },
         {
           "id": 8,
           "statement": "They created a calendar to organise public events and work schedules.",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -138,27 +146,32 @@
         {
           "id": 9,
           "statement": "",
-          "answer": "(ships’s) anchor"
+          "answer": "(ships’s) anchor",
+          "options": null
         },
         {
           "id": 10,
           "statement": "",
-          "answer": "(escape) wheel"
+          "answer": "(escape) wheel",
+          "options": null
         },
         {
           "id": 11,
           "statement": "",
-          "answer": "tooth"
+          "answer": "tooth",
+          "options": null
         },
         {
           "id": 12,
           "statement": "",
-          "answer": "(long) pendulum"
+          "answer": "(long) pendulum",
+          "options": null
         },
         {
           "id": 13,
           "statement": "",
-          "answer": "second"
+          "answer": "second",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -175,32 +188,38 @@
         {
           "id": 14,
           "statement": "Paragraph A",
-          "answer": "ii"
+          "answer": "ii",
+          "options": null
         },
         {
           "id": 15,
           "statement": "Paragraph C",
-          "answer": "iii"
+          "answer": "iii",
+          "options": null
         },
         {
           "id": 16,
           "statement": "Paragraph D",
-          "answer": "v"
+          "answer": "v",
+          "options": null
         },
         {
           "id": 17,
           "statement": "Paragraph E",
-          "answer": "iv"
+          "answer": "iv",
+          "options": null
         },
         {
           "id": 18,
           "statement": "Paragraph F",
-          "answer": "viii"
+          "answer": "viii",
+          "options": null
         },
         {
           "id": 19,
           "statement": "Paragraph G",
-          "answer": "vii"
+          "answer": "vii",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -228,37 +247,44 @@
         {
           "id": 20,
           "statement": "The FAA was created as a result of the introduction of the jet engine.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 21,
           "statement": "Air traffic control started after the Grand Canyon crash in 1956.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 22,
           "statement": "Beacons and flashing lights are still used by the ATC today.",
-          "answer": "not given"
+          "answer": "not given",
+          "options": null
         },
         {
           "id": 23,
           "statement": "Some improvements were made in radio communication during World War II.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 24,
           "statement": "Class F airspace is airspace which is below 365m and not near airports.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         },
         {
           "id": 25,
           "statement": "All aircraft in class E airspace must use IFR.",
-          "answer": "false"
+          "answer": "false",
+          "options": null
         },
         {
           "id": 26,
           "statement": "A pilot entering class C airspace is flying over an average-sized city.",
-          "answer": "true"
+          "answer": "true",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -275,22 +301,26 @@
         {
           "id": 27,
           "statement": "Researchers with differing attitudes towards telepathy agree on",
-          "answer": "E"
+          "answer": "E",
+          "options": null
         },
         {
           "id": 28,
           "statement": "Reports of experiences during meditation indicated",
-          "answer": "B"
+          "answer": "B",
+          "options": null
         },
         {
           "id": 29,
           "statement": "Attitudes to parapsychology would alter drastically with",
-          "answer": "A"
+          "answer": "A",
+          "options": null
         },
         {
           "id": 30,
           "statement": "Recent autoganzfeld trials suggest that success rates will improve with",
-          "answer": "F"
+          "answer": "F",
+          "options": null
         }
       ],
       "shared_text": null,
@@ -308,59 +338,69 @@
     },
     {
       "id": "group-31-40",
-      "type": "sentence-completion",
+      "type": "table-completion",
       "passage_id": "passage-3",
       "instruction": "Questions 31-40\nComplete the table below. Choose\nNO MORE THAN THREE WORDS\nfrom the passage for each answer.\nWrite your answers in boxes 31-40 on your answer sheet.",
       "questions": [
         {
           "id": 31,
           "statement": "",
-          "answer": "sender"
+          "answer": "sender",
+          "options": null
         },
         {
           "id": 32,
           "statement": "",
-          "answer": "picture/ image"
+          "answer": "picture/ image",
+          "options": null
         },
         {
           "id": 33,
           "statement": "",
-          "answer": "receiver"
+          "answer": "receiver",
+          "options": null
         },
         {
           "id": 34,
           "statement": "",
-          "answer": "sensory leakage"
+          "answer": "sensory leakage",
+          "options": null
         },
         {
           "id": 35,
           "statement": "",
-          "answer": "fraud"
+          "answer": "fraud",
+          "options": null
         },
         {
           "id": 36,
           "statement": "",
-          "answer": "computers"
+          "answer": "computers",
+          "options": null
         },
         {
           "id": 37,
           "statement": "",
-          "answer": "human involvement"
+          "answer": "human involvement",
+          "options": null
         },
         {
           "id": 38,
           "statement": "",
-          "answer": "meta-analysis"
+          "answer": "meta-analysis",
+          "options": null
         },
         {
           "id": 39,
           "statement": "",
-          "answer": "lack of consistency"
+          "answer": "lack of consistency",
+          "options": null
         },
         {
           "id": 40,
           "statement": "",
-          "answer": "big/ large enough"
+          "answer": "big/ large enough",
+          "options": null
         }
       ],
       "shared_text": "Telepathy Experiments\nName/ Date\nDescription\nResult\nFlas\nGanzfeld studies 1982\ninvolved a person acting as a (31)……………….who picked out one (32)……………. from a random selection of four and a (33)………………. who then tried to identify it\nhit rates were higher than with random guessing\npositive results could be produced by factors such as (34)…………. or (35)…………..\nAutoganzfeld studies 1987\n(36)…………….were used for key tasks to limit the amount of (37)…………. in carrying out the tests\nthe results were then subjected to a (38)………….\nthe (39)………….. between different test results were put down to the fact that sample groups were not (40)…………. (as with most ganzfled studies)",
