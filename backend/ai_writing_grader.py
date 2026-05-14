@@ -49,11 +49,21 @@ class WritingCriterionEvidenceSchema(BaseModel):
     grammar_accuracy: str = ""
 
 
+class WritingDetailedImprovementPointsSchema(BaseModel):
+    task_response: list[str] = Field(default_factory=list)
+    coherence_cohesion: list[str] = Field(default_factory=list)
+    lexical_resource: list[str] = Field(default_factory=list)
+    grammar_accuracy: list[str] = Field(default_factory=list)
+
+
 class WritingTaskGradeSchema(BaseModel):
     band: float = 0.0
     criteria: WritingCriteriaSchema = Field(default_factory=WritingCriteriaSchema)
     criterion_evidence: WritingCriterionEvidenceSchema = Field(
         default_factory=WritingCriterionEvidenceSchema
+    )
+    detailed_improvement_points: WritingDetailedImprovementPointsSchema = Field(
+        default_factory=WritingDetailedImprovementPointsSchema
     )
     current_state: str = ""
     primary_goal: str = ""
@@ -86,6 +96,17 @@ def _normalize_criterion_evidence(payload: dict[str, Any]) -> dict[str, str]:
     result: dict[str, str] = {}
     for key in keys:
         result[key] = str(payload.get(key, "")).strip()
+    return result
+
+
+def _normalize_detailed_improvement_points(payload: dict[str, Any]) -> dict[str, list[str]]:
+    keys = ["task_response", "coherence_cohesion", "lexical_resource", "grammar_accuracy"]
+    result: dict[str, list[str]] = {}
+    for key in keys:
+        values = payload.get(key, [])
+        if not isinstance(values, list):
+            values = [values]
+        result[key] = [str(value).strip() for value in values if str(value).strip()][:3]
     return result
 
 
@@ -167,6 +188,7 @@ Rules:
 - Return overall band where Task 2 has double weight.
 - Use the IELTS Writing Evaluation Scorecard structure for each task.
 - For each criterion, provide one concise "primary evidence / key lapse" sentence.
+- For each criterion, provide 2 or 3 detailed, task-specific improvement points that directly reference the submitted answer where possible.
 - Provide a brief current-state summary and one specific primary goal for the next writing.
 - Provide exactly 3 or 4 action points.
 
@@ -187,6 +209,12 @@ Return only JSON with this shape:
       "lexical_resource": "...",
       "grammar_accuracy": "..."
     }},
+    "detailed_improvement_points": {{
+      "task_response": ["...", "..."],
+      "coherence_cohesion": ["...", "..."],
+      "lexical_resource": ["...", "..."],
+      "grammar_accuracy": ["...", "..."]
+    }},
     "current_state": "...",
     "primary_goal": "..."
   }},
@@ -203,6 +231,12 @@ Return only JSON with this shape:
       "coherence_cohesion": "...",
       "lexical_resource": "...",
       "grammar_accuracy": "..."
+    }},
+    "detailed_improvement_points": {{
+      "task_response": ["...", "..."],
+      "coherence_cohesion": ["...", "..."],
+      "lexical_resource": ["...", "..."],
+      "grammar_accuracy": ["...", "..."]
     }},
     "current_state": "...",
     "primary_goal": "..."
@@ -250,6 +284,9 @@ Return only JSON with this shape:
             "criterion_evidence": _normalize_criterion_evidence(
                 task_1.get("criterion_evidence", {})
             ),
+            "detailed_improvement_points": _normalize_detailed_improvement_points(
+                task_1.get("detailed_improvement_points", {})
+            ),
             "current_state": str(task_1.get("current_state", "")).strip(),
             "primary_goal": str(task_1.get("primary_goal", "")).strip(),
         },
@@ -258,6 +295,9 @@ Return only JSON with this shape:
             "criteria": _normalize_band(task_2.get("criteria", {})),
             "criterion_evidence": _normalize_criterion_evidence(
                 task_2.get("criterion_evidence", {})
+            ),
+            "detailed_improvement_points": _normalize_detailed_improvement_points(
+                task_2.get("detailed_improvement_points", {})
             ),
             "current_state": str(task_2.get("current_state", "")).strip(),
             "primary_goal": str(task_2.get("primary_goal", "")).strip(),

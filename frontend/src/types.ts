@@ -102,10 +102,18 @@ export interface WritingCriterionEvidence {
   grammar_accuracy: string;
 }
 
+export interface WritingDetailedImprovementPoints {
+  task_response: string[];
+  coherence_cohesion: string[];
+  lexical_resource: string[];
+  grammar_accuracy: string[];
+}
+
 export interface WritingTaskFeedback {
   band: number;
   criteria: WritingCriteria;
   criterion_evidence: WritingCriterionEvidence;
+  detailed_improvement_points: WritingDetailedImprovementPoints;
   current_state: string;
   primary_goal: string;
 }

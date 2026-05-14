@@ -69,6 +69,24 @@ def _fake_grade() -> dict:
                 "lexical_resource": "Vocabulary is understandable but lacks precision.",
                 "grammar_accuracy": "Sentence control is mixed with several article errors.",
             },
+            "detailed_improvement_points": {
+                "task_response": [
+                    "Write a specific overview that names the biggest trend before describing details.",
+                    "Keep unsupported explanations out of Task 1 reports.",
+                ],
+                "coherence_cohesion": [
+                    "Group related figures together before moving to contrasts.",
+                    "Use precise comparison links instead of repeating basic sequence markers.",
+                ],
+                "lexical_resource": [
+                    "Use accurate chart collocations such as 'number of households'.",
+                    "Check word forms before using less common vocabulary.",
+                ],
+                "grammar_accuracy": [
+                    "Review preposition patterns such as 'between X and Y'.",
+                    "Proofread article and plural choices in data descriptions.",
+                ],
+            },
             "current_state": "A clear Band 6 report with basic control of the task.",
             "primary_goal": "Write a more specific overview before adding detail.",
         },
@@ -85,6 +103,24 @@ def _fake_grade() -> dict:
                 "coherence_cohesion": "Paragraphing is solid with minor overuse of simple transitions.",
                 "lexical_resource": "Range is adequate, though collocations are occasionally awkward.",
                 "grammar_accuracy": "Complex sentences are attempted with some punctuation slips.",
+            },
+            "detailed_improvement_points": {
+                "task_response": [
+                    "Develop each body paragraph with one concrete example.",
+                    "Make sure every paragraph directly supports the same position.",
+                ],
+                "coherence_cohesion": [
+                    "Use clearer topic sentences to signal each paragraph's purpose.",
+                    "Replace repeated transitions with logical connectors.",
+                ],
+                "lexical_resource": [
+                    "Revise awkward collocations in argument sentences.",
+                    "Use topic-specific vocabulary only where meaning stays precise.",
+                ],
+                "grammar_accuracy": [
+                    "Check punctuation around dependent clauses.",
+                    "Proofread verb forms in complex sentences.",
+                ],
             },
             "current_state": "A reasonably coherent essay with a consistent position.",
             "primary_goal": "Support each main point with one concrete example or consequence.",
@@ -118,6 +154,7 @@ def test_create_writing_session_persists_ai_grade(monkeypatch) -> None:
     body = response.json()
     assert body["grading"]["overall_band"] == 6.5
     assert body["grading"]["task_1"]["criterion_evidence"]["task_response"]
+    assert body["grading"]["task_1"]["detailed_improvement_points"]["task_response"][0].startswith("Write a specific")
     assert body["grading"]["task_2"]["primary_goal"] == "Support each main point with one concrete example or consequence."
 
 

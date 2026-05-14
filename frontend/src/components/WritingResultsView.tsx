@@ -116,29 +116,6 @@ const CHECKLISTS = {
   },
 } as const;
 
-const IMPROVEMENT_POINTS = {
-  task_response: [
-    "Depth of Extension. Avoid just listing points. For Band 7+, each main idea must be extended with a specific example or a logical consequence.",
-    "The Big Picture Overview. For Task 1, summarise the major trends without relying on raw data. For Task 2, make your position clear from the introduction to the conclusion.",
-    "Prompt Nuance. Address every part of the question. If the prompt asks \"To what extent,\" evaluate the degree of agreement instead of only stating agreement.",
-  ],
-  coherence_cohesion: [
-    "Logical Linking. Move beyond \"Firstly, Secondly.\" Use logical bridges such as \"This trend is further evidenced by...\" or \"Conversely, in the professional sector...\".",
-    "Referencing Mastery. Use pronouns and substitution such as \"it,\" \"they,\" \"the former,\" and \"the latter\" to link ideas without repeating nouns.",
-    "Paragraph Unity. Start each paragraph with a topic sentence that clearly controls the sentences that follow.",
-  ],
-  lexical_resource: [
-    "Collocation Accuracy. Focus on words that naturally go together. Inaccurate collocations often cap writing at Band 6.",
-    "Topic-Specific Vocabulary. Use less common items that fit the exact prompt instead of general-purpose academic words.",
-    "Word Formation. Watch suffixes and part-of-speech choices carefully because adjective/noun form mistakes count as inaccuracy.",
-  ],
-  grammar_accuracy: [
-    "Complex Structure Variety. Use relative clauses, conditionals, and passive forms accurately to demonstrate range.",
-    "Error-Free Frequency. To reach Band 7, more than half of your sentences need to be fully error-free.",
-    "Punctuation Control. Use commas correctly to separate clauses because punctuation issues affect both Grammar and Coherence.",
-  ],
-} as const;
-
 function isWritingTest(value: unknown): value is WritingTest {
   if (!value || typeof value !== "object") return false;
   const candidate = value as Partial<WritingTest>;
@@ -210,6 +187,13 @@ function getPrimaryGoal(task: WritingTaskFeedback, fallbackAction: string): stri
     fallbackAction ||
     "No primary goal provided."
   );
+}
+
+function getDetailedImprovementPoints(
+  task: WritingTaskFeedback,
+  key: keyof WritingTaskFeedback["detailed_improvement_points"],
+): string[] {
+  return task.detailed_improvement_points?.[key]?.filter((point) => point.trim()) ?? [];
 }
 
 function ChecklistSection({
@@ -473,25 +457,28 @@ export function WritingResultsView() {
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">Detailed Improvement Points</h3>
               <div className="grid gap-4 xl:grid-cols-2">
-                {(
-                  Object.entries(IMPROVEMENT_POINTS) as Array<
-                    [
-                      keyof typeof IMPROVEMENT_POINTS,
-                      readonly string[],
-                    ]
-                  >
-                ).map(([key, points]) => (
-                  <div key={key} className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-                    <h4 className="text-sm font-semibold text-gray-900">
-                      {CHECKLISTS[key].label}
-                    </h4>
-                    <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-700">
-                      {points.map((point) => (
-                        <li key={point}>{point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                {criteriaRows.map((row) => {
+                  const points = getDetailedImprovementPoints(task, row.key);
+
+                  return (
+                    <div key={row.key} className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+                      <h4 className="text-sm font-semibold text-gray-900">
+                        {CHECKLISTS[row.key].label}
+                      </h4>
+                      {points.length > 0 ? (
+                        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-700">
+                          {points.map((point) => (
+                            <li key={point}>{point}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="mt-3 text-sm text-gray-500">
+                          No generated improvement points were saved for this criterion.
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 

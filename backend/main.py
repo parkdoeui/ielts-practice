@@ -145,10 +145,20 @@ class WritingCriterionEvidence(BaseModel):
     grammar_accuracy: str = ""
 
 
+class WritingDetailedImprovementPoints(BaseModel):
+    task_response: list[str] = Field(default_factory=list)
+    coherence_cohesion: list[str] = Field(default_factory=list)
+    lexical_resource: list[str] = Field(default_factory=list)
+    grammar_accuracy: list[str] = Field(default_factory=list)
+
+
 class WritingTaskFeedback(BaseModel):
     band: float = 0.0
     criteria: WritingTaskCriteria = Field(default_factory=WritingTaskCriteria)
     criterion_evidence: WritingCriterionEvidence = Field(default_factory=WritingCriterionEvidence)
+    detailed_improvement_points: WritingDetailedImprovementPoints = Field(
+        default_factory=WritingDetailedImprovementPoints
+    )
     current_state: str = ""
     primary_goal: str = ""
 

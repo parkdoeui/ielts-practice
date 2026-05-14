@@ -52,6 +52,24 @@ def _sample_response_json() -> str:
           "lexical_resource": "Meaning is clear but vocabulary stays fairly repetitive.",
           "grammar_accuracy": "Uses a mix of simple and complex clauses with noticeable article slips."
         },
+        "detailed_improvement_points": {
+          "task_response": [
+            "Write one overview sentence that names the two most important trends before describing figures.",
+            "Remove speculation about why the data changed unless the chart explicitly provides that reason."
+          ],
+          "coherence_cohesion": [
+            "Group similar trends into the same paragraph instead of moving back and forth between categories.",
+            "Replace inaccurate linking words with precise comparisons such as 'by contrast' or 'whereas'."
+          ],
+          "lexical_resource": [
+            "Use accurate collocations such as 'number of households' instead of 'amount of households'.",
+            "Replace malformed words such as 'dramatical' with the correct adjective or adverb form."
+          ],
+          "grammar_accuracy": [
+            "Use 'between X and Y' rather than 'between X to Y'.",
+            "Check time references carefully so the century and year range agree."
+          ]
+        },
         "current_state": "A controlled Band 6 response with clear structure but limited precision.",
         "primary_goal": "Write a sharper overview and extend each comparison with one specific detail."
       },
@@ -68,6 +86,24 @@ def _sample_response_json() -> str:
           "coherence_cohesion": "Ideas progress logically across paragraphs with minor repetition in transitions.",
           "lexical_resource": "Shows some flexibility, though collocations are not always natural.",
           "grammar_accuracy": "Sentence range is adequate, but there are recurring agreement and punctuation errors."
+        },
+        "detailed_improvement_points": {
+          "task_response": [
+            "Develop each main idea with a concrete example or direct consequence.",
+            "Keep the position consistent from the introduction through the conclusion."
+          ],
+          "coherence_cohesion": [
+            "Use topic sentences that state the paragraph's role in the argument.",
+            "Avoid repeating the same transition at the start of each paragraph."
+          ],
+          "lexical_resource": [
+            "Revise awkward collocations so they sound natural in an academic essay.",
+            "Use topic-specific vocabulary only when it precisely fits the point."
+          ],
+          "grammar_accuracy": [
+            "Proofread subject-verb agreement in every complex sentence.",
+            "Use commas to separate dependent clauses from main clauses."
+          ]
         },
         "current_state": "A coherent mid-Band 6 essay with a clear position and partially developed support.",
         "primary_goal": "Develop each body paragraph with one concrete example or consequence."
@@ -107,6 +143,7 @@ def test_grade_writing_submission_uses_gemini_api_for_api_key(monkeypatch) -> No
     assert captured["generate_content"]["config"].response_mime_type == "application/json"
     assert result["overall_band"] == 6.5
     assert result["task_1"]["criterion_evidence"]["task_response"]
+    assert result["task_1"]["detailed_improvement_points"]["task_response"][0].startswith("Write one overview")
     assert result["task_2"]["primary_goal"]
 
 
