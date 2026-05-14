@@ -87,8 +87,18 @@ def _normalize_band(payload: dict[str, Any]) -> dict[str, float]:
     keys = ["task_response", "coherence_cohesion", "lexical_resource", "grammar_accuracy"]
     result: dict[str, float] = {}
     for key in keys:
-        result[key] = float(payload.get(key, 0.0))
+        result[key] = _normalize_band_score(payload.get(key, 5.0))
     return result
+
+
+def _normalize_band_score(value: Any, default: float = 5.0) -> float:
+    try:
+        raw = float(value)
+    except (TypeError, ValueError):
+        raw = default
+
+    rounded = int(raw * 2 + 0.5) / 2
+    return max(5.0, min(9.0, rounded))
 
 
 def _normalize_criterion_evidence(payload: dict[str, Any]) -> dict[str, str]:
@@ -186,6 +196,7 @@ Rules:
 - Use IELTS writing criteria: Task Response/Achievement, Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy.
 - Return separate criterion scores for Task 1 and Task 2.
 - Return overall band where Task 2 has double weight.
+- All band scores must be between 5.0 and 9.0, using .0 or .5 increments only.
 - Use the IELTS Writing Evaluation Scorecard structure for each task.
 - For each criterion, provide one concise "primary evidence / key lapse" sentence.
 - For each criterion, provide 2 or 3 detailed, task-specific improvement points that directly reference the submitted answer where possible.
@@ -276,10 +287,12 @@ Return only JSON with this shape:
 
     task_1 = payload.get("task_1", {})
     task_2 = payload.get("task_2", {})
+    task_1_band = _normalize_band_score(task_1.get("band", 5.0))
+    task_2_band = _normalize_band_score(task_2.get("band", 5.0))
     result = {
-        "overall_band": float(payload.get("overall_band", 0.0)),
+        "overall_band": _normalize_band_score((task_1_band + task_2_band * 2) / 3),
         "task_1": {
-            "band": float(task_1.get("band", 0.0)),
+            "band": task_1_band,
             "criteria": _normalize_band(task_1.get("criteria", {})),
             "criterion_evidence": _normalize_criterion_evidence(
                 task_1.get("criterion_evidence", {})
@@ -291,7 +304,7 @@ Return only JSON with this shape:
             "primary_goal": str(task_1.get("primary_goal", "")).strip(),
         },
         "task_2": {
-            "band": float(task_2.get("band", 0.0)),
+            "band": task_2_band,
             "criteria": _normalize_band(task_2.get("criteria", {})),
             "criterion_evidence": _normalize_criterion_evidence(
                 task_2.get("criterion_evidence", {})

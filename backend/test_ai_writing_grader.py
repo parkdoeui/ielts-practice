@@ -116,6 +116,63 @@ def _sample_response_json() -> str:
     }"""
 
 
+def _below_range_response_json() -> str:
+    return """{
+      "overall_band": 4.5,
+      "task_1": {
+        "band": 5.0,
+        "criteria": {
+          "task_response": 5.0,
+          "coherence_cohesion": 5.0,
+          "lexical_resource": 5.0,
+          "grammar_accuracy": 5.0
+        },
+        "criterion_evidence": {
+          "task_response": "Evidence.",
+          "coherence_cohesion": "Evidence.",
+          "lexical_resource": "Evidence.",
+          "grammar_accuracy": "Evidence."
+        },
+        "detailed_improvement_points": {
+          "task_response": ["Improve the overview."],
+          "coherence_cohesion": ["Improve paragraph progression."],
+          "lexical_resource": ["Improve collocation accuracy."],
+          "grammar_accuracy": ["Improve verb forms."]
+        },
+        "current_state": "Current state.",
+        "primary_goal": "Primary goal."
+      },
+      "task_2": {
+        "band": 4.5,
+        "criteria": {
+          "task_response": 4.0,
+          "coherence_cohesion": 5.0,
+          "lexical_resource": 5.0,
+          "grammar_accuracy": 5.0
+        },
+        "criterion_evidence": {
+          "task_response": "Evidence.",
+          "coherence_cohesion": "Evidence.",
+          "lexical_resource": "Evidence.",
+          "grammar_accuracy": "Evidence."
+        },
+        "detailed_improvement_points": {
+          "task_response": ["Write at least 250 words."],
+          "coherence_cohesion": ["Improve logical progression."],
+          "lexical_resource": ["Avoid repetition."],
+          "grammar_accuracy": ["Proofread verb forms."]
+        },
+        "current_state": "Current state.",
+        "primary_goal": "Primary goal."
+      },
+      "action_points": [
+        "Plan before writing.",
+        "Develop each idea.",
+        "Proofread grammar."
+      ]
+    }"""
+
+
 def test_grade_writing_submission_uses_gemini_api_for_api_key(monkeypatch) -> None:
     captured: dict = {}
 
@@ -145,6 +202,28 @@ def test_grade_writing_submission_uses_gemini_api_for_api_key(monkeypatch) -> No
     assert result["task_1"]["criterion_evidence"]["task_response"]
     assert result["task_1"]["detailed_improvement_points"]["task_response"][0].startswith("Write one overview")
     assert result["task_2"]["primary_goal"]
+
+
+def test_grade_writing_submission_clamps_scores_to_scorecard_floor(monkeypatch) -> None:
+    class FakeModels:
+        def generate_content(self, **kwargs):
+            return SimpleNamespace(text=_below_range_response_json())
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            self.models = FakeModels()
+
+    monkeypatch.setattr(genai, "Client", FakeClient)
+
+    result = grade_writing_submission(
+        test=_sample_test(),
+        answers=_sample_answers(),
+        api_key="vertex-api-key",
+    )
+
+    assert result["overall_band"] == 5.0
+    assert result["task_2"]["band"] == 5.0
+    assert result["task_2"]["criteria"]["task_response"] == 5.0
 
 
 def test_grade_writing_submission_prefers_project_over_api_key(monkeypatch) -> None:
