@@ -8,6 +8,7 @@ export type QuestionType =
   | "classification"
   | "sentence-completion"
   | "summary-completion"
+  | "table-completion"
   | "diagram-labeling";
 
 export interface Passage {

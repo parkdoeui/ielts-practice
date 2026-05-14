@@ -57,6 +57,7 @@ function formatQType(type: string): string {
     "matching-information": "Matching Info",
     "sentence-completion": "Sentence Completion",
     "summary-completion": "Summary Completion",
+    "table-completion": "Table Completion",
     "note-completion": "Note Completion",
     "diagram-labeling": "Diagram Labeling",
     unknown: "Other",

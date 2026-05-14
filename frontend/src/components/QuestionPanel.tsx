@@ -360,6 +360,24 @@ function QuestionInput({
       );
     }
 
+    case "table-completion": {
+      return (
+        <div className="space-y-2">
+          {question.statement && (
+            <p className="text-sm text-gray-900 whitespace-pre-line">{question.statement}</p>
+          )}
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            disabled={readOnly}
+            placeholder="Answer..."
+            className={`${inputClass} w-64`}
+          />
+        </div>
+      );
+    }
+
     case "diagram-labeling": {
       return (
         <div className="space-y-2">

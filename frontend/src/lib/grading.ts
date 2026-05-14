@@ -1,5 +1,12 @@
 import type { QuestionType } from "../types";
 
+const COMPLETION_TYPES: QuestionType[] = [
+  "sentence-completion",
+  "summary-completion",
+  "table-completion",
+  "diagram-labeling",
+];
+
 export function estimateBand(correct: number, total: number): number {
   const score = Math.round((correct / total) * 40);
   if (score >= 39) return 9.0;
@@ -16,10 +23,7 @@ export function estimateBand(correct: number, total: number): number {
 }
 
 export function isCompletionType(questionType: QuestionType): boolean {
-  return (
-    questionType === "sentence-completion" ||
-    questionType === "summary-completion"
-  );
+  return COMPLETION_TYPES.includes(questionType);
 }
 
 export function normalizeCompletionAnswer(value: string): string {
