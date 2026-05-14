@@ -13,107 +13,11 @@ const writingFiles = import.meta.glob<{ default: WritingTest }>(
   { eager: true },
 );
 
-const CHECKLISTS = {
-  task_response: {
-    label: "Task Achievement / Task Response",
-    items: [
-      {
-        band: 9,
-        text: "Requirements fully satisfied; message followed effortlessly; rare lapses in content.",
-      },
-      {
-        band: 8,
-        text: "Requirements sufficiently covered; key features skillfully selected and illustrated.",
-      },
-      {
-        band: 7,
-        text: "Clear overview/purpose; relevant and accurate; format is appropriate.",
-      },
-      {
-        band: 6,
-        text: "Focuses on task; relevant overview attempted; may have some irrelevant or missing detail.",
-      },
-      {
-        band: 5,
-        text: "Addresses task but format may be inappropriate; detail is mechanical; lacks a \"big picture\" overview; includes irrelevant or inaccurate material.",
-      },
-    ],
-  },
-  coherence_cohesion: {
-    label: "Coherence & Cohesion",
-    items: [
-      {
-        band: 9,
-        text: "Seamless cohesion; skillful paragraphing; message followed without effort.",
-      },
-      {
-        band: 8,
-        text: "Logically sequenced; well-managed cohesion; occasional minor lapses.",
-      },
-      {
-        band: 7,
-        text: "Clear progression throughout; variety of cohesive devices used (though some inaccuracies).",
-      },
-      {
-        band: 6,
-        text: "Generally coherent with clear progression; cohesive devices may be mechanical or faulty.",
-      },
-      {
-        band: 5,
-        text: "Organisation is evident but not wholly logical; sentences are not fluently linked; repetitive due to inadequate use of reference/substitution.",
-      },
-    ],
-  },
-  lexical_resource: {
-    label: "Lexical Resource",
-    items: [
-      {
-        band: 9,
-        text: "Sophisticated and natural use of lexical features; errors are extremely rare.",
-      },
-      {
-        band: 8,
-        text: "Fluently used to convey precise meanings; skillful use of uncommon/idiomatic items.",
-      },
-      {
-        band: 7,
-        text: "Sufficient flexibility and precision; awareness of style and collocation is evident.",
-      },
-      {
-        band: 6,
-        text: "Meaning is clear; restricted range or lack of precision; errors do not impede communication.",
-      },
-      {
-        band: 5,
-        text: "Limited/simple vocabulary; frequent lapses in word choice; spelling/formation errors may cause difficulty for the reader.",
-      },
-    ],
-  },
-  grammar_accuracy: {
-    label: "Grammatical Range & Accuracy",
-    items: [
-      {
-        band: 9,
-        text: "Full flexibility and control; punctuation and grammar are used appropriately throughout.",
-      },
-      {
-        band: 8,
-        text: "Wide range of structures used accurately; majority of sentences are error-free.",
-      },
-      {
-        band: 7,
-        text: "Variety of complex structures; frequent error-free sentences; grammar well-controlled.",
-      },
-      {
-        band: 6,
-        text: "Mix of simple and complex forms; limited flexibility; errors rarely impede communication.",
-      },
-      {
-        band: 5,
-        text: "Range is limited and repetitive; complex sentences are attempted but tend to be faulty; errors cause difficulty for the reader.",
-      },
-    ],
-  },
+const CRITERION_LABELS = {
+  task_response: "Task Achievement / Task Response",
+  coherence_cohesion: "Coherence & Cohesion",
+  lexical_resource: "Lexical Resource",
+  grammar_accuracy: "Grammatical Range & Accuracy",
 } as const;
 
 function isWritingTest(value: unknown): value is WritingTest {
@@ -133,10 +37,6 @@ function summarizePrompt(prompt: string): string {
     return normalized;
   }
   return `${normalized.slice(0, 177).trimEnd()}...`;
-}
-
-function bandBucket(score: number): number {
-  return Math.max(5, Math.min(9, Math.floor(score || 0)));
 }
 
 function getLegacyTaskFields(task: WritingTaskFeedback): {
@@ -194,39 +94,6 @@ function getDetailedImprovementPoints(
   key: keyof WritingTaskFeedback["detailed_improvement_points"],
 ): string[] {
   return task.detailed_improvement_points?.[key]?.filter((point) => point.trim()) ?? [];
-}
-
-function ChecklistSection({
-  label,
-  score,
-  items,
-}: {
-  label: string;
-  score: number;
-  items: ReadonlyArray<{ band: number; text: string }>;
-}) {
-  const selectedBand = bandBucket(score);
-
-  return (
-    <div className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-4">
-      <h4 className="text-sm font-semibold text-gray-900">{label}</h4>
-      <div className="space-y-2 text-sm text-gray-700">
-        {items.map((item) => (
-          <label key={item.band} className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              checked={item.band === selectedBand}
-              readOnly
-              className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600"
-            />
-            <span>
-              <span className="font-medium">Band {item.band}:</span> {item.text}
-            </span>
-          </label>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 export function WritingResultsView() {
@@ -429,32 +296,6 @@ export function WritingResultsView() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Evaluation Checklist (Bands 5-9)</h3>
-              <div className="grid gap-4 xl:grid-cols-2">
-                <ChecklistSection
-                  label={CHECKLISTS.task_response.label}
-                  score={task.criteria.task_response}
-                  items={CHECKLISTS.task_response.items}
-                />
-                <ChecklistSection
-                  label={CHECKLISTS.coherence_cohesion.label}
-                  score={task.criteria.coherence_cohesion}
-                  items={CHECKLISTS.coherence_cohesion.items}
-                />
-                <ChecklistSection
-                  label={CHECKLISTS.lexical_resource.label}
-                  score={task.criteria.lexical_resource}
-                  items={CHECKLISTS.lexical_resource.items}
-                />
-                <ChecklistSection
-                  label={CHECKLISTS.grammar_accuracy.label}
-                  score={task.criteria.grammar_accuracy}
-                  items={CHECKLISTS.grammar_accuracy.items}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-4">
               <h3 className="text-lg font-semibold text-gray-900">Detailed Improvement Points</h3>
               <div className="grid gap-4 xl:grid-cols-2">
                 {criteriaRows.map((row) => {
@@ -463,7 +304,7 @@ export function WritingResultsView() {
                   return (
                     <div key={row.key} className="rounded-xl border border-gray-200 bg-gray-50 p-4">
                       <h4 className="text-sm font-semibold text-gray-900">
-                        {CHECKLISTS[row.key].label}
+                        {CRITERION_LABELS[row.key]}
                       </h4>
                       {points.length > 0 ? (
                         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-700">
