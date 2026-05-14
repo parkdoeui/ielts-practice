@@ -36,6 +36,10 @@ function getVisibleSharedText(sharedText?: string) {
   return normalized;
 }
 
+function getAcceptedAnswerText(question: ReadingTest["question_groups"][number]["questions"][number]) {
+  return [question.answer, ...(question.accepted_answers ?? [])].join(" · ");
+}
+
 export function ResultsView() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -205,6 +209,7 @@ export function ResultsView() {
           const visibleSharedText = getVisibleSharedText(group.shared_text);
           const isCorrect = answer?.is_correct ?? false;
           const userAnswer = answer?.user_answer?.trim() || "(blank)";
+          const acceptedAnswerText = getAcceptedAnswerText(question);
           const canSelfCorrect =
             answer !== null &&
             isCompletionType(group.type) &&
@@ -265,17 +270,27 @@ export function ResultsView() {
               </div>
 
               <div className="grid gap-2 sm:grid-cols-2">
-                <div className="rounded-lg bg-white/70 px-3 py-2">
+                <div
+                  className={`rounded-lg border px-3 py-2 ${
+                    isCorrect
+                      ? "border-gray-200 bg-white/80"
+                      : "border-red-200 bg-red-50/70"
+                  }`}
+                >
                   <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
                     Your Answer
                   </p>
-                  <p className="mt-1 font-medium text-gray-900">{userAnswer}</p>
-                </div>
-                <div className="rounded-lg bg-white/70 px-3 py-2">
-                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
-                    Correct Answer
+                  <p className={`mt-1 font-medium ${isCorrect ? "text-gray-900" : "text-red-900"}`}>
+                    {userAnswer}
                   </p>
-                  <p className="mt-1 font-medium text-gray-900">{question.answer}</p>
+                </div>
+                <div className="rounded-lg border border-emerald-200 bg-emerald-50/80 px-3 py-2">
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
+                    Accepted Answer{question.accepted_answers?.length ? "s" : ""}
+                  </p>
+                  <p className="mt-1 font-medium text-emerald-900 whitespace-pre-line">
+                    {acceptedAnswerText}
+                  </p>
                 </div>
               </div>
 
