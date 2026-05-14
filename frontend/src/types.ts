@@ -95,12 +95,19 @@ export interface WritingCriteria {
   grammar_accuracy: number;
 }
 
+export interface WritingCriterionEvidence {
+  task_response: string;
+  coherence_cohesion: string;
+  lexical_resource: string;
+  grammar_accuracy: string;
+}
+
 export interface WritingTaskFeedback {
   band: number;
   criteria: WritingCriteria;
-  strengths: string[];
-  improvements: string[];
-  sample_answer: string;
+  criterion_evidence: WritingCriterionEvidence;
+  current_state: string;
+  primary_goal: string;
 }
 
 export interface WritingGradingResult {

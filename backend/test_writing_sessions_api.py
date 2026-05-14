@@ -63,9 +63,14 @@ def _fake_grade() -> dict:
                 "lexical_resource": 6.0,
                 "grammar_accuracy": 6.0,
             },
-            "strengths": ["Good structure."],
-            "improvements": ["Use more precise vocabulary."],
-            "sample_answer": "Sample answer for task 1.",
+            "criterion_evidence": {
+                "task_response": "Addresses the task but the overview is too broad.",
+                "coherence_cohesion": "Progression is clear, though linking is repetitive.",
+                "lexical_resource": "Vocabulary is understandable but lacks precision.",
+                "grammar_accuracy": "Sentence control is mixed with several article errors.",
+            },
+            "current_state": "A clear Band 6 report with basic control of the task.",
+            "primary_goal": "Write a more specific overview before adding detail.",
         },
         "task_2": {
             "band": 6.5,
@@ -75,9 +80,14 @@ def _fake_grade() -> dict:
                 "lexical_resource": 6.5,
                 "grammar_accuracy": 6.5,
             },
-            "strengths": ["Clear argument."],
-            "improvements": ["Develop examples in detail."],
-            "sample_answer": "Sample answer for task 2.",
+            "criterion_evidence": {
+                "task_response": "Position is clear, but examples need deeper extension.",
+                "coherence_cohesion": "Paragraphing is solid with minor overuse of simple transitions.",
+                "lexical_resource": "Range is adequate, though collocations are occasionally awkward.",
+                "grammar_accuracy": "Complex sentences are attempted with some punctuation slips.",
+            },
+            "current_state": "A reasonably coherent essay with a consistent position.",
+            "primary_goal": "Support each main point with one concrete example or consequence.",
         },
         "action_points": [
             "Plan ideas before writing.",
@@ -107,7 +117,8 @@ def test_create_writing_session_persists_ai_grade(monkeypatch) -> None:
     assert response.status_code == 201
     body = response.json()
     assert body["grading"]["overall_band"] == 6.5
-    assert body["grading"]["task_1"]["sample_answer"] == "Sample answer for task 1."
+    assert body["grading"]["task_1"]["criterion_evidence"]["task_response"]
+    assert body["grading"]["task_2"]["primary_goal"] == "Support each main point with one concrete example or consequence."
 
 
 def test_get_writing_session_by_id() -> None:

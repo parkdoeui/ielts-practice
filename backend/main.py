@@ -132,25 +132,32 @@ class WritingSubmitRequest(BaseModel):
 
 
 class WritingTaskCriteria(BaseModel):
-    task_response: float
-    coherence_cohesion: float
-    lexical_resource: float
-    grammar_accuracy: float
+    task_response: float = 0.0
+    coherence_cohesion: float = 0.0
+    lexical_resource: float = 0.0
+    grammar_accuracy: float = 0.0
+
+
+class WritingCriterionEvidence(BaseModel):
+    task_response: str = ""
+    coherence_cohesion: str = ""
+    lexical_resource: str = ""
+    grammar_accuracy: str = ""
 
 
 class WritingTaskFeedback(BaseModel):
-    band: float
-    criteria: WritingTaskCriteria
-    strengths: list[str]
-    improvements: list[str]
-    sample_answer: str
+    band: float = 0.0
+    criteria: WritingTaskCriteria = Field(default_factory=WritingTaskCriteria)
+    criterion_evidence: WritingCriterionEvidence = Field(default_factory=WritingCriterionEvidence)
+    current_state: str = ""
+    primary_goal: str = ""
 
 
 class WritingGradingResponse(BaseModel):
-    overall_band: float
-    task_1: WritingTaskFeedback
-    task_2: WritingTaskFeedback
-    action_points: list[str]
+    overall_band: float = 0.0
+    task_1: WritingTaskFeedback = Field(default_factory=WritingTaskFeedback)
+    task_2: WritingTaskFeedback = Field(default_factory=WritingTaskFeedback)
+    action_points: list[str] = Field(default_factory=list)
 
 
 class WritingSessionResponse(BaseModel):

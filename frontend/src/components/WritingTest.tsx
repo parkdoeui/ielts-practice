@@ -65,8 +65,30 @@ export function WritingTest() {
         test_id: test.id,
         grading: {
           overall_band: 0,
-          task_1: { band: 0, criteria: { task_response: 0, coherence_cohesion: 0, lexical_resource: 0, grammar_accuracy: 0 }, strengths: [], improvements: ["Submission failed."], sample_answer: "" },
-          task_2: { band: 0, criteria: { task_response: 0, coherence_cohesion: 0, lexical_resource: 0, grammar_accuracy: 0 }, strengths: [], improvements: ["Submission failed."], sample_answer: "" },
+          task_1: {
+            band: 0,
+            criteria: { task_response: 0, coherence_cohesion: 0, lexical_resource: 0, grammar_accuracy: 0 },
+            criterion_evidence: {
+              task_response: "Submission failed.",
+              coherence_cohesion: "Submission failed.",
+              lexical_resource: "Submission failed.",
+              grammar_accuracy: "Submission failed.",
+            },
+            current_state: "Feedback unavailable because backend grading failed.",
+            primary_goal: "Retry submission when backend grading is available.",
+          },
+          task_2: {
+            band: 0,
+            criteria: { task_response: 0, coherence_cohesion: 0, lexical_resource: 0, grammar_accuracy: 0 },
+            criterion_evidence: {
+              task_response: "Submission failed.",
+              coherence_cohesion: "Submission failed.",
+              lexical_resource: "Submission failed.",
+              grammar_accuracy: "Submission failed.",
+            },
+            current_state: "Feedback unavailable because backend grading failed.",
+            primary_goal: "Retry submission when backend grading is available.",
+          },
           action_points: ["Retry submission when backend is available."],
         },
         sync_status: "local-only",

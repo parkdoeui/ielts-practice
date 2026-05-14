@@ -42,12 +42,21 @@ class WritingCriteriaSchema(BaseModel):
     grammar_accuracy: float = 0.0
 
 
+class WritingCriterionEvidenceSchema(BaseModel):
+    task_response: str = ""
+    coherence_cohesion: str = ""
+    lexical_resource: str = ""
+    grammar_accuracy: str = ""
+
+
 class WritingTaskGradeSchema(BaseModel):
     band: float = 0.0
     criteria: WritingCriteriaSchema = Field(default_factory=WritingCriteriaSchema)
-    strengths: list[str] = Field(default_factory=list)
-    improvements: list[str] = Field(default_factory=list)
-    sample_answer: str = ""
+    criterion_evidence: WritingCriterionEvidenceSchema = Field(
+        default_factory=WritingCriterionEvidenceSchema
+    )
+    current_state: str = ""
+    primary_goal: str = ""
 
 
 class WritingGradeSchema(BaseModel):
@@ -69,6 +78,14 @@ def _normalize_band(payload: dict[str, Any]) -> dict[str, float]:
     result: dict[str, float] = {}
     for key in keys:
         result[key] = float(payload.get(key, 0.0))
+    return result
+
+
+def _normalize_criterion_evidence(payload: dict[str, Any]) -> dict[str, str]:
+    keys = ["task_response", "coherence_cohesion", "lexical_resource", "grammar_accuracy"]
+    result: dict[str, str] = {}
+    for key in keys:
+        result[key] = str(payload.get(key, "")).strip()
     return result
 
 
@@ -148,8 +165,9 @@ Rules:
 - Use IELTS writing criteria: Task Response/Achievement, Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy.
 - Return separate criterion scores for Task 1 and Task 2.
 - Return overall band where Task 2 has double weight.
-- Provide concise, specific feedback.
-- Provide sample answers for both tasks.
+- Use the IELTS Writing Evaluation Scorecard structure for each task.
+- For each criterion, provide one concise "primary evidence / key lapse" sentence.
+- Provide a brief current-state summary and one specific primary goal for the next writing.
 - Provide exactly 3 or 4 action points.
 
 Return only JSON with this shape:
@@ -163,9 +181,14 @@ Return only JSON with this shape:
       "lexical_resource": 0.0,
       "grammar_accuracy": 0.0
     }},
-    "strengths": ["..."],
-    "improvements": ["..."],
-    "sample_answer": "..."
+    "criterion_evidence": {{
+      "task_response": "...",
+      "coherence_cohesion": "...",
+      "lexical_resource": "...",
+      "grammar_accuracy": "..."
+    }},
+    "current_state": "...",
+    "primary_goal": "..."
   }},
   "task_2": {{
     "band": 0.0,
@@ -175,9 +198,14 @@ Return only JSON with this shape:
       "lexical_resource": 0.0,
       "grammar_accuracy": 0.0
     }},
-    "strengths": ["..."],
-    "improvements": ["..."],
-    "sample_answer": "..."
+    "criterion_evidence": {{
+      "task_response": "...",
+      "coherence_cohesion": "...",
+      "lexical_resource": "...",
+      "grammar_accuracy": "..."
+    }},
+    "current_state": "...",
+    "primary_goal": "..."
   }},
   "action_points": ["...", "...", "..."]
 }}"""
@@ -219,16 +247,20 @@ Return only JSON with this shape:
         "task_1": {
             "band": float(task_1.get("band", 0.0)),
             "criteria": _normalize_band(task_1.get("criteria", {})),
-            "strengths": list(task_1.get("strengths", [])),
-            "improvements": list(task_1.get("improvements", [])),
-            "sample_answer": str(task_1.get("sample_answer", "")),
+            "criterion_evidence": _normalize_criterion_evidence(
+                task_1.get("criterion_evidence", {})
+            ),
+            "current_state": str(task_1.get("current_state", "")).strip(),
+            "primary_goal": str(task_1.get("primary_goal", "")).strip(),
         },
         "task_2": {
             "band": float(task_2.get("band", 0.0)),
             "criteria": _normalize_band(task_2.get("criteria", {})),
-            "strengths": list(task_2.get("strengths", [])),
-            "improvements": list(task_2.get("improvements", [])),
-            "sample_answer": str(task_2.get("sample_answer", "")),
+            "criterion_evidence": _normalize_criterion_evidence(
+                task_2.get("criterion_evidence", {})
+            ),
+            "current_state": str(task_2.get("current_state", "")).strip(),
+            "primary_goal": str(task_2.get("primary_goal", "")).strip(),
         },
         "action_points": action_points,
     }

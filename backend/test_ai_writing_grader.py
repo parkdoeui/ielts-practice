@@ -46,9 +46,14 @@ def _sample_response_json() -> str:
           "lexical_resource": 6.0,
           "grammar_accuracy": 6.0
         },
-        "strengths": ["Good structure."],
-        "improvements": ["Use more precise vocabulary."],
-        "sample_answer": "Sample answer for task 1."
+        "criterion_evidence": {
+          "task_response": "Addresses the chart requirements but the overview is too generic.",
+          "coherence_cohesion": "Paragraphing is clear, though some links feel mechanical.",
+          "lexical_resource": "Meaning is clear but vocabulary stays fairly repetitive.",
+          "grammar_accuracy": "Uses a mix of simple and complex clauses with noticeable article slips."
+        },
+        "current_state": "A controlled Band 6 response with clear structure but limited precision.",
+        "primary_goal": "Write a sharper overview and extend each comparison with one specific detail."
       },
       "task_2": {
         "band": 6.5,
@@ -58,9 +63,14 @@ def _sample_response_json() -> str:
           "lexical_resource": 6.5,
           "grammar_accuracy": 6.5
         },
-        "strengths": ["Clear argument."],
-        "improvements": ["Develop examples in detail."],
-        "sample_answer": "Sample answer for task 2."
+        "criterion_evidence": {
+          "task_response": "Position is clear, but supporting examples need more depth.",
+          "coherence_cohesion": "Ideas progress logically across paragraphs with minor repetition in transitions.",
+          "lexical_resource": "Shows some flexibility, though collocations are not always natural.",
+          "grammar_accuracy": "Sentence range is adequate, but there are recurring agreement and punctuation errors."
+        },
+        "current_state": "A coherent mid-Band 6 essay with a clear position and partially developed support.",
+        "primary_goal": "Develop each body paragraph with one concrete example or consequence."
       },
       "action_points": [
         "Plan ideas before writing.",
@@ -96,6 +106,8 @@ def test_grade_writing_submission_uses_gemini_api_for_api_key(monkeypatch) -> No
     assert captured["client"]["http_options"].api_version == "v1alpha"
     assert captured["generate_content"]["config"].response_mime_type == "application/json"
     assert result["overall_band"] == 6.5
+    assert result["task_1"]["criterion_evidence"]["task_response"]
+    assert result["task_2"]["primary_goal"]
 
 
 def test_grade_writing_submission_prefers_project_over_api_key(monkeypatch) -> None:
@@ -206,7 +218,7 @@ def test_grade_writing_submission_reads_candidate_parts_when_text_missing(monkey
         api_key="vertex-api-key",
     )
 
-    assert result["task_1"]["sample_answer"] == "Sample answer for task 1."
+    assert result["task_1"]["criterion_evidence"]["lexical_resource"]
 
 
 def test_grade_writing_submission_raises_for_blocked_response(monkeypatch) -> None:
