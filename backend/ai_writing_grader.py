@@ -67,6 +67,7 @@ class WritingTaskGradeSchema(BaseModel):
     )
     current_state: str = ""
     primary_goal: str = ""
+    sample_answer: str = ""
 
 
 class WritingGradeSchema(BaseModel):
@@ -201,6 +202,10 @@ Rules:
 - For each criterion, provide one concise "primary evidence / key lapse" sentence.
 - For each criterion, provide 2 or 3 detailed, task-specific improvement points that directly reference the submitted answer where possible.
 - Provide a brief current-state summary and one specific primary goal for the next writing.
+- Keep the overall tone constructive, hopeful, and encouraging. Be honest about weaknesses, but phrase feedback as achievable next steps rather than harsh criticism.
+- Avoid dismissive or overly negative wording. Point out what is already working before describing what needs to improve when that is supported by the submission.
+- For each task, provide a "sample_answer" that is an enhanced rewrite of the student's own response, aiming for roughly one IELTS band higher than the awarded band for that task, capped at Band 9.0.
+- The sample answer must stay realistic as a next-step model: preserve the student's core position or main observations where possible, fix the most important weaknesses, and avoid sounding like a perfect Band 9 template when the student is currently far below that level.
 - Provide exactly 3 or 4 action points.
 
 Return only JSON with this shape:
@@ -227,7 +232,8 @@ Return only JSON with this shape:
       "grammar_accuracy": ["...", "..."]
     }},
     "current_state": "...",
-    "primary_goal": "..."
+    "primary_goal": "...",
+    "sample_answer": "..."
   }},
   "task_2": {{
     "band": 0.0,
@@ -250,7 +256,8 @@ Return only JSON with this shape:
       "grammar_accuracy": ["...", "..."]
     }},
     "current_state": "...",
-    "primary_goal": "..."
+    "primary_goal": "...",
+    "sample_answer": "..."
   }},
   "action_points": ["...", "...", "..."]
 }}"""
@@ -302,6 +309,7 @@ Return only JSON with this shape:
             ),
             "current_state": str(task_1.get("current_state", "")).strip(),
             "primary_goal": str(task_1.get("primary_goal", "")).strip(),
+            "sample_answer": str(task_1.get("sample_answer", "")).strip(),
         },
         "task_2": {
             "band": task_2_band,
@@ -314,6 +322,7 @@ Return only JSON with this shape:
             ),
             "current_state": str(task_2.get("current_state", "")).strip(),
             "primary_goal": str(task_2.get("primary_goal", "")).strip(),
+            "sample_answer": str(task_2.get("sample_answer", "")).strip(),
         },
         "action_points": action_points,
     }

@@ -15,6 +15,11 @@ function isWritingTest(value: unknown): value is WritingTestType {
   return typeof candidate.id === "string" && Array.isArray(candidate.tasks);
 }
 
+function countWords(value: string): number {
+  const words = value.trim().match(/\b[\w'-]+\b/g);
+  return words ? words.length : 0;
+}
+
 export function WritingTest() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -82,6 +87,7 @@ export function WritingTest() {
             },
             current_state: "Feedback unavailable because backend grading failed.",
             primary_goal: "Retry submission when backend grading is available.",
+            sample_answer: "",
           },
           task_2: {
             band: 0,
@@ -100,6 +106,7 @@ export function WritingTest() {
             },
             current_state: "Feedback unavailable because backend grading failed.",
             primary_goal: "Retry submission when backend grading is available.",
+            sample_answer: "",
           },
           action_points: ["Retry submission when backend is available."],
         },
@@ -207,17 +214,32 @@ export function WritingTest() {
           ))}
         </div>
         <div className="overflow-y-auto p-4 md:p-6 space-y-5">
-          {test.tasks.map((task) => (
-            <section key={task.task_number} className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Task {task.task_number} answer</label>
-              <textarea
-                value={answers[String(task.task_number)] ?? ""}
-                onChange={(e) => setAnswers((prev) => ({ ...prev, [String(task.task_number)]: e.target.value }))}
-                className="w-full min-h-[220px] rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder={`Write your Task ${task.task_number} response here...`}
-              />
-            </section>
-          ))}
+          {test.tasks.map((task) => {
+            const wordCount = countWords(answers[String(task.task_number)] ?? "");
+            return (
+              <section key={task.task_number} className="space-y-2">
+                <div className="flex items-center justify-between gap-3">
+                  <label className="text-sm font-medium text-gray-700">Task {task.task_number} answer</label>
+                  <p className="rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-xs font-medium tabular-nums text-gray-700">
+                    {wordCount} words
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <textarea
+                    value={answers[String(task.task_number)] ?? ""}
+                    onChange={(e) => setAnswers((prev) => ({ ...prev, [String(task.task_number)]: e.target.value }))}
+                    className="w-full min-h-[220px] rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder={`Write your Task ${task.task_number} response here...`}
+                  />
+                  <div className="flex justify-end">
+                    <p className="text-xs tabular-nums text-gray-500">
+                      Minimum {task.min_words} words
+                    </p>
+                  </div>
+                </div>
+              </section>
+            );
+          })}
         </div>
       </div>
     </div>

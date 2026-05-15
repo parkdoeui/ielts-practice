@@ -116,6 +116,7 @@ export interface WritingTaskFeedback {
   detailed_improvement_points: WritingDetailedImprovementPoints;
   current_state: string;
   primary_goal: string;
+  sample_answer: string;
 }
 
 export interface WritingGradingResult {

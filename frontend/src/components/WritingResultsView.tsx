@@ -26,11 +26,6 @@ function isWritingTest(value: unknown): value is WritingTest {
   return typeof candidate.id === "string" && Array.isArray(candidate.tasks);
 }
 
-function countWords(value: string): number {
-  const words = value.trim().match(/\b[\w'-]+\b/g);
-  return words ? words.length : 0;
-}
-
 function summarizePrompt(prompt: string): string {
   const normalized = prompt.replace(/\s+/g, " ").trim();
   if (normalized.length <= 180) {
@@ -87,6 +82,11 @@ function getPrimaryGoal(task: WritingTaskFeedback, fallbackAction: string): stri
     fallbackAction ||
     "No primary goal provided."
   );
+}
+
+function getSampleAnswer(task: WritingTaskFeedback): string {
+  const candidate = (task as WritingTaskFeedback & { sample_answer?: string }).sample_answer?.trim();
+  return candidate || "";
 }
 
 function getDetailedImprovementPoints(
@@ -194,8 +194,8 @@ export function WritingResultsView() {
 
       {taskSections.map(({ label, task, answerKey, taskDef }) => {
         const answer = session.answers[answerKey] ?? "";
-        const wordCount = countWords(answer);
         const fallbackAction = session.grading.action_points[0] ?? "";
+        const sampleAnswer = getSampleAnswer(task);
         const criteriaRows = [
           {
             key: "task_response" as const,
@@ -221,21 +221,15 @@ export function WritingResultsView() {
 
         return (
           <section key={label} className="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="flex flex-wrap items-end justify-between gap-3">
+            <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">{label}</h2>
                 <p className="text-sm text-gray-600">Band {task.band.toFixed(1)}</p>
               </div>
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-3">
+            <div className="grid gap-4">
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-                <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
-                  Task Type
-                </p>
-                <p className="mt-1 text-sm font-medium text-gray-900">{label}</p>
-              </div>
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 lg:col-span-2">
                 <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
                   Prompt Summary
                 </p>
@@ -244,12 +238,6 @@ export function WritingResultsView() {
                 </p>
               </div>
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
-                <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
-                  Word Count
-                </p>
-                <p className="mt-1 text-sm font-medium text-gray-900">{wordCount}</p>
-              </div>
-              <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 lg:col-span-2">
                 <p className="text-xs font-medium uppercase tracking-[0.16em] text-gray-500">
                   Your Response
                 </p>
@@ -338,6 +326,18 @@ export function WritingResultsView() {
                   {getPrimaryGoal(task, fallbackAction)}
                 </p>
               </div>
+            </div>
+
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-emerald-700">
+                Enhanced Sample Answer
+              </p>
+              <p className="mt-1 text-xs text-emerald-800">
+                Target: about one band above this task's current score.
+              </p>
+              <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-gray-800">
+                {sampleAnswer || "No sample answer was generated for this task."}
+              </p>
             </div>
           </section>
         );

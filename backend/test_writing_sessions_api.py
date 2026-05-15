@@ -89,6 +89,7 @@ def _fake_grade() -> dict:
             },
             "current_state": "A clear Band 6 report with basic control of the task.",
             "primary_goal": "Write a more specific overview before adding detail.",
+            "sample_answer": "The map comparison shows how access to the city hospital changed from 2007 to 2010. Overall, the area became more organised and convenient because traffic circulation was improved and separate facilities were added for different users.\n\nIn 2007, Hospital Road connected City Road and Ring Road through two ordinary junctions. There was also one shared car park used by both staff and visitors.\n\nBy 2010, two roundabouts had replaced the previous junctions, which likely made movement along the road easier. In addition, a bus station was added to the west of the hospital, with bus stops on either side of Hospital Road. Parking was also reorganised: the former shared car park was replaced by a public car park, and a separate staff car park was built near Ring Road.\n\nOverall, the main changes involved better road management, improved public transport access, and more clearly divided parking areas.",
         },
         "task_2": {
             "band": 6.5,
@@ -124,6 +125,7 @@ def _fake_grade() -> dict:
             },
             "current_state": "A reasonably coherent essay with a consistent position.",
             "primary_goal": "Support each main point with one concrete example or consequence.",
+            "sample_answer": "Living in a country where people must use a foreign language can create both practical and social problems. I agree with this statement because communication difficulties affect daily tasks and can also make people feel isolated.\n\nFirst, practical problems are common when someone cannot use the local language well. It may be hard to speak to doctors, understand official documents, or solve problems at work and school. Even simple situations such as renting a flat or opening a bank account can become stressful if a person cannot explain what they need clearly.\n\nSecond, social problems can be just as serious. People who lack confidence in the local language may avoid conversations and struggle to build friendships. As a result, they may feel lonely or remain disconnected from the wider community. This can also reduce their confidence and make adaptation slower.\n\nHowever, these issues can become less severe over time as language skills improve. With enough practice and support, many people are able to integrate successfully.\n\nIn conclusion, I believe that living in a foreign-language environment can cause major practical and social difficulties, especially at first, although these challenges can gradually be overcome.",
         },
         "action_points": [
             "Plan ideas before writing.",
@@ -156,6 +158,7 @@ def test_create_writing_session_persists_ai_grade(monkeypatch) -> None:
     assert body["grading"]["task_1"]["criterion_evidence"]["task_response"]
     assert body["grading"]["task_1"]["detailed_improvement_points"]["task_response"][0].startswith("Write a specific")
     assert body["grading"]["task_2"]["primary_goal"] == "Support each main point with one concrete example or consequence."
+    assert body["grading"]["task_1"]["sample_answer"].startswith("The map comparison shows")
 
 
 def test_get_writing_session_by_id() -> None:

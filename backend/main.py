@@ -161,6 +161,7 @@ class WritingTaskFeedback(BaseModel):
     )
     current_state: str = ""
     primary_goal: str = ""
+    sample_answer: str = ""
 
 
 class WritingGradingResponse(BaseModel):
