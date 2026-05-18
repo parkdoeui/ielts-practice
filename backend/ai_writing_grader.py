@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import pathlib
 import re
 from typing import Any
 
@@ -184,83 +185,17 @@ def grade_writing_submission(
         raise WritingGraderError(
             f"Failed to initialize writing grader client: {_provider_error_message(exc)}"
         ) from exc
-    prompt = f"""You are an IELTS Writing examiner assistant.
-Grade the submission using IELTS writing criteria and return STRICT JSON.
 
-Test JSON:
-{json.dumps(test, ensure_ascii=False)}
+    prompt_path = pathlib.Path(__file__).parent / "prompts" / "writing_grader.txt"
+    try:
+        prompt_template = prompt_path.read_text(encoding="utf-8")
+    except Exception as exc:
+        raise WritingGraderError(f"Failed to load prompt template: {exc}") from exc
 
-Student answers JSON:
-{json.dumps(answers, ensure_ascii=False)}
-
-Rules:
-- Use IELTS writing criteria: Task Response/Achievement, Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy.
-- Return separate criterion scores for Task 1 and Task 2.
-- Return overall band where Task 2 has double weight.
-- All band scores must be between 5.0 and 9.0, using .0 or .5 increments only.
-- Use the IELTS Writing Evaluation Scorecard structure for each task.
-- For each criterion, provide one concise "primary evidence / key lapse" sentence.
-- For each criterion, provide 2 or 3 detailed, task-specific improvement points that directly reference the submitted answer where possible.
-- Provide a brief current-state summary and one specific primary goal for the next writing.
-- Keep the overall tone constructive, hopeful, and encouraging. Be honest about weaknesses, but phrase feedback as achievable next steps rather than harsh criticism.
-- Avoid dismissive or overly negative wording. Point out what is already working before describing what needs to improve when that is supported by the submission.
-- For each task, provide a "sample_answer" that is an enhanced rewrite of the student's own response, aiming for roughly one IELTS band higher than the awarded band for that task, capped at Band 9.0.
-- The sample answer must stay realistic as a next-step model: preserve the student's core position or main observations where possible, fix the most important weaknesses, and avoid sounding like a perfect Band 9 template when the student is currently far below that level.
-- Provide exactly 3 or 4 action points.
-
-Return only JSON with this shape:
-{{
-  "overall_band": 0.0,
-  "task_1": {{
-    "band": 0.0,
-    "criteria": {{
-      "task_response": 0.0,
-      "coherence_cohesion": 0.0,
-      "lexical_resource": 0.0,
-      "grammar_accuracy": 0.0
-    }},
-    "criterion_evidence": {{
-      "task_response": "...",
-      "coherence_cohesion": "...",
-      "lexical_resource": "...",
-      "grammar_accuracy": "..."
-    }},
-    "detailed_improvement_points": {{
-      "task_response": ["...", "..."],
-      "coherence_cohesion": ["...", "..."],
-      "lexical_resource": ["...", "..."],
-      "grammar_accuracy": ["...", "..."]
-    }},
-    "current_state": "...",
-    "primary_goal": "...",
-    "sample_answer": "..."
-  }},
-  "task_2": {{
-    "band": 0.0,
-    "criteria": {{
-      "task_response": 0.0,
-      "coherence_cohesion": 0.0,
-      "lexical_resource": 0.0,
-      "grammar_accuracy": 0.0
-    }},
-    "criterion_evidence": {{
-      "task_response": "...",
-      "coherence_cohesion": "...",
-      "lexical_resource": "...",
-      "grammar_accuracy": "..."
-    }},
-    "detailed_improvement_points": {{
-      "task_response": ["...", "..."],
-      "coherence_cohesion": ["...", "..."],
-      "lexical_resource": ["...", "..."],
-      "grammar_accuracy": ["...", "..."]
-    }},
-    "current_state": "...",
-    "primary_goal": "...",
-    "sample_answer": "..."
-  }},
-  "action_points": ["...", "...", "..."]
-}}"""
+    prompt = prompt_template.format(
+        test_json=json.dumps(test, ensure_ascii=False),
+        answers_json=json.dumps(answers, ensure_ascii=False),
+    )
 
     try:
         response = client.models.generate_content(
