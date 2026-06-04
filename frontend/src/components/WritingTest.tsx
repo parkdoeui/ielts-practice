@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { submitWritingSession } from "../services/api";
+import { getWritingSessions, submitWritingSession } from "../services/api";
 import { TimerBar } from "./TimerBar";
 import type { WritingAnswersJson, WritingSession, WritingTest as WritingTestType } from "../types";
 
@@ -40,22 +40,73 @@ function buildWritingAnswersJson(
   };
 }
 
+interface PreviousWritingAttempt {
+  completedAt: string;
+  overallBand: number;
+  actionPoints: string[];
+}
+
+function formatCompletedDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 export function WritingTest() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [test, setTest] = useState<WritingTestType | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({ "1": "", "2": "" });
-  const [startedAt] = useState(new Date().toISOString());
-  const [startMs] = useState(Date.now());
+  const [startedAt] = useState(() => new Date().toISOString());
+  const [startMs] = useState(() => Date.now());
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [previousAttempt, setPreviousAttempt] = useState<PreviousWritingAttempt | null>(null);
 
-  useEffect(() => {
-    const found = Object.values(writingFiles)
+  const test = useMemo(
+    () =>
+      Object.values(writingFiles)
       .map((m) => m.default)
       .filter(isWritingTest)
-      .find((file) => file.id === id);
-    setTest(found ?? null);
+        .find((file) => file.id === id) ?? null,
+    [id],
+  );
+
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+
+    let cancelled = false;
+    getWritingSessions()
+      .then((sessions) => {
+        if (cancelled) return;
+        const latest = sessions
+          .filter((session) => session.test_id === id)
+          .sort(
+            (a, b) =>
+              new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime(),
+          )[0];
+
+        const actionPoints = latest?.grading.action_points?.filter((point) => point.trim()) ?? [];
+        setPreviousAttempt(
+          latest && actionPoints.length > 0
+            ? {
+                completedAt: latest.completed_at,
+                overallBand: latest.grading.overall_band,
+                actionPoints,
+              }
+            : null,
+        );
+      })
+      .catch(() => {
+        if (!cancelled) setPreviousAttempt(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   const answeredCount = useMemo(() => {
@@ -185,6 +236,30 @@ export function WritingTest() {
         onExpire={handleSubmit}
         paused={submitting}
       />
+      {previousAttempt && (
+        <section className="border-b border-blue-100 bg-blue-50 px-4 py-3 md:px-6">
+          <div className="mx-auto max-w-6xl">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">
+                  Previous Attempt Action Points
+                </p>
+                <p className="mt-1 text-xs text-blue-900">
+                  Latest result: Band {previousAttempt.overallBand.toFixed(1)} ·{" "}
+                  {formatCompletedDate(previousAttempt.completedAt)}
+                </p>
+              </div>
+            </div>
+            <ul className="mt-3 grid gap-2 text-sm text-blue-950 md:grid-cols-3">
+              {previousAttempt.actionPoints.map((point) => (
+                <li key={point} className="rounded-lg border border-blue-200 bg-white/70 px-3 py-2">
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
       {error && <div className="px-4 md:px-6 py-2 text-sm text-amber-700">{error}</div>}
       <div className="grid md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] flex-1 min-h-0">
         <div className="overflow-y-auto border-r border-gray-200 bg-white p-4 md:p-6 space-y-6">

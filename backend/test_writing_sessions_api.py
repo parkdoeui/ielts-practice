@@ -1,3 +1,5 @@
+import copy
+
 from fastapi.testclient import TestClient
 
 import main
@@ -186,6 +188,25 @@ def test_get_writing_session_by_id() -> None:
     assert response.status_code == 200
     assert response.json()["id"] == "writing-session-1"
     assert response.json()["answers"] == {"1": "Task 1 answer", "2": "Task 2 answer"}
+
+
+def test_create_writing_session_allows_retake_same_test_id(monkeypatch) -> None:
+    monkeypatch.setattr(main, "grade_writing_submission", lambda **kwargs: _fake_grade())
+    client = authed_client()
+    first = _payload()
+    second = copy.deepcopy(first)
+    second["id"] = "writing-session-2"
+
+    first_response = client.post("/api/writing-sessions", json=first)
+    second_response = client.post("/api/writing-sessions", json=second)
+
+    assert first_response.status_code == 201
+    assert second_response.status_code == 201
+
+    list_response = client.get("/api/writing-sessions")
+    assert list_response.status_code == 200
+    session_ids = {item["id"] for item in list_response.json()}
+    assert {"writing-session-1", "writing-session-2"} <= session_ids
 
 
 def test_get_legacy_writing_session_answers_shape() -> None:

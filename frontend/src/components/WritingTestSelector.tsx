@@ -75,33 +75,31 @@ function sortWritingTestsAscending(a: WritingListItem, b: WritingListItem) {
   return a.test.title.localeCompare(b.test.title);
 }
 
+const loadedWritingTests = Object.values(writingFiles)
+  .map((m) => m.default)
+  .filter(isWritingTest)
+  .sort((a, b) => getTestNumber(a) - getTestNumber(b));
+
 export function WritingTestSelector() {
   const navigate = useNavigate();
-  const [tests, setTests] = useState<WritingTest[]>([]);
   const [tab, setTab] = useState<SelectorTab>("not-started");
   const [sessions, setSessions] = useState<WritingSession[]>([]);
 
   useEffect(() => {
-    const loaded = Object.values(writingFiles)
-      .map((m) => m.default)
-      .filter(isWritingTest)
-      .sort((a, b) => getTestNumber(a) - getTestNumber(b));
-    setTests(loaded);
-
     getWritingSessions().then(setSessions).catch(() => setSessions([]));
   }, []);
 
   const testItems = useMemo(() => {
     const latestByTest = buildLatestWritingSessionMap(sessions);
 
-    return tests
+    return loadedWritingTests
       .map((test) => ({
         test,
         completion: latestByTest.get(test.id) ?? null,
         testNumber: getTestNumber(test),
       }))
       .sort(sortWritingTestsAscending);
-  }, [tests, sessions]);
+  }, [sessions]);
 
   const notStartedTests = testItems.filter((item) => item.completion === null);
   const completedTests = testItems.filter((item) => item.completion !== null);
@@ -149,14 +147,9 @@ export function WritingTestSelector() {
         <div className="grid gap-4">
           {visibleTests.map(({ test, completion, testNumber }) => {
             return (
-              <button
+              <article
                 key={test.id}
-                onClick={() =>
-                  completion
-                    ? navigate(`/writing-results/${completion.sessionId}`)
-                    : navigate(`/writing/${test.id}`)
-                }
-                className="text-left bg-white border border-gray-200 rounded-xl p-5 hover:border-blue-400 hover:shadow-md transition-all"
+                className="bg-white border border-gray-200 rounded-xl p-5 transition-all hover:border-blue-400 hover:shadow-md"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -184,7 +177,35 @@ export function WritingTestSelector() {
                     {test.test_type}
                   </span>
                 </div>
-              </button>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {completion ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/writing-results/${completion.sessionId}`)}
+                        className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:border-blue-400 hover:text-blue-700"
+                      >
+                        View result
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/writing/${test.id}`)}
+                        className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                      >
+                        Retake
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/writing/${test.id}`)}
+                      className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                    >
+                      Start
+                    </button>
+                  )}
+                </div>
+              </article>
             );
           })}
         </div>
