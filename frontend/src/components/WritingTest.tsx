@@ -41,17 +41,13 @@ function buildWritingAnswersJson(
 }
 
 interface PreviousWritingAttempt {
-  completedAt: string;
-  overallBand: number;
   actionPoints: string[];
 }
 
-function formatCompletedDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+function getActionPointsForTask(points: string[], taskNumber: 1 | 2): string[] {
+  if (points.length <= 1) return taskNumber === 2 ? points : [];
+  const midpoint = Math.ceil(points.length / 2);
+  return taskNumber === 1 ? points.slice(0, midpoint) : points.slice(midpoint);
 }
 
 export function WritingTest() {
@@ -93,8 +89,6 @@ export function WritingTest() {
         setPreviousAttempt(
           latest && actionPoints.length > 0
             ? {
-                completedAt: latest.completed_at,
-                overallBand: latest.grading.overall_band,
                 actionPoints,
               }
             : null,
@@ -236,30 +230,6 @@ export function WritingTest() {
         onExpire={handleSubmit}
         paused={submitting}
       />
-      {previousAttempt && (
-        <section className="border-b border-blue-100 bg-blue-50 px-4 py-3 md:px-6">
-          <div className="mx-auto max-w-6xl">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">
-                  Previous Attempt Action Points
-                </p>
-                <p className="mt-1 text-xs text-blue-900">
-                  Latest result: Band {previousAttempt.overallBand.toFixed(1)} ·{" "}
-                  {formatCompletedDate(previousAttempt.completedAt)}
-                </p>
-              </div>
-            </div>
-            <ul className="mt-3 grid gap-2 text-sm text-blue-950 md:grid-cols-3">
-              {previousAttempt.actionPoints.map((point) => (
-                <li key={point} className="rounded-lg border border-blue-200 bg-white/70 px-3 py-2">
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
       {error && <div className="px-4 md:px-6 py-2 text-sm text-amber-700">{error}</div>}
       <div className="grid md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] flex-1 min-h-0">
         <div className="overflow-y-auto border-r border-gray-200 bg-white p-4 md:p-6 space-y-6">
@@ -312,6 +282,10 @@ export function WritingTest() {
         <div className="overflow-y-auto p-4 md:p-6 space-y-5">
           {test.tasks.map((task) => {
             const wordCount = countWords(answers[String(task.task_number)] ?? "");
+            const taskActionPoints = previousAttempt
+              ? getActionPointsForTask(previousAttempt.actionPoints, task.task_number).slice(0, 2)
+              : [];
+
             return (
               <section key={task.task_number} className="space-y-2">
                 <div className="flex items-center justify-between gap-3">
@@ -333,6 +307,18 @@ export function WritingTest() {
                     </p>
                   </div>
                 </div>
+                {taskActionPoints.length > 0 && (
+                  <div className="rounded-md border border-blue-100 bg-blue-50/60 px-2.5 py-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-blue-700">
+                      Previous feedback
+                    </p>
+                    <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs leading-5 text-blue-950">
+                      {taskActionPoints.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </section>
             );
           })}
