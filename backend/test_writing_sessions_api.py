@@ -1,11 +1,9 @@
-import os
-from pathlib import Path
 from fastapi.testclient import TestClient
 
 import main
 from main import app
-from models import Base
-from database import engine
+from models import Base, WritingSessionRecord
+from database import SessionLocal, engine
 
 
 def authed_client() -> TestClient:
@@ -159,6 +157,24 @@ def test_create_writing_session_persists_ai_grade(monkeypatch) -> None:
     assert body["grading"]["task_1"]["detailed_improvement_points"]["task_response"][0].startswith("Write a specific")
     assert body["grading"]["task_2"]["primary_goal"] == "Support each main point with one concrete example or consequence."
     assert body["grading"]["task_1"]["sample_answer"].startswith("The map comparison shows")
+    assert body["answers"] == {"1": "Task 1 answer", "2": "Task 2 answer"}
+
+    db = SessionLocal()
+    try:
+        record = db.get(WritingSessionRecord, "writing-session-1")
+        assert record is not None
+        assert record.answers_json == {
+            "task1": {
+                "prompt": "Summarise the information.",
+                "answer": "Task 1 answer",
+            },
+            "task2": {
+                "prompt": "Discuss both views.",
+                "answer": "Task 2 answer",
+            },
+        }
+    finally:
+        db.close()
 
 
 def test_get_writing_session_by_id() -> None:
@@ -169,3 +185,29 @@ def test_get_writing_session_by_id() -> None:
     response = client.get("/api/writing-sessions/writing-session-1")
     assert response.status_code == 200
     assert response.json()["id"] == "writing-session-1"
+    assert response.json()["answers"] == {"1": "Task 1 answer", "2": "Task 2 answer"}
+
+
+def test_get_legacy_writing_session_answers_shape() -> None:
+    db = SessionLocal()
+    try:
+        db.add(
+            WritingSessionRecord(
+                id="legacy-writing-session",
+                test_id="writing-test-1",
+                passcode="test-passcode",
+                started_at=main.parse_iso_datetime("2026-05-07T00:00:00Z"),
+                completed_at=main.parse_iso_datetime("2026-05-07T01:00:00Z"),
+                total_time_ms=1000,
+                answers_json={"1": "Legacy task 1", "2": "Legacy task 2"},
+                grading_json=_fake_grade(),
+            )
+        )
+        db.commit()
+    finally:
+        db.close()
+
+    client = authed_client()
+    response = client.get("/api/writing-sessions/legacy-writing-session")
+    assert response.status_code == 200
+    assert response.json()["answers"] == {"1": "Legacy task 1", "2": "Legacy task 2"}

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { submitWritingSession } from "../services/api";
 import { TimerBar } from "./TimerBar";
-import type { WritingSession, WritingTest as WritingTestType } from "../types";
+import type { WritingAnswersJson, WritingSession, WritingTest as WritingTestType } from "../types";
 
 const writingFiles = import.meta.glob<{ default: WritingTestType }>(
   "../data/writing-tests/*.json",
@@ -18,6 +18,26 @@ function isWritingTest(value: unknown): value is WritingTestType {
 function countWords(value: string): number {
   const words = value.trim().match(/\b[\w'-]+\b/g);
   return words ? words.length : 0;
+}
+
+function buildWritingAnswersJson(
+  test: WritingTestType,
+  answers: Record<string, string>,
+): WritingAnswersJson {
+  const promptByTask = Object.fromEntries(
+    test.tasks.map((task) => [String(task.task_number), task.prompt]),
+  );
+
+  return {
+    task1: {
+      prompt: promptByTask["1"] ?? "",
+      answer: answers["1"] ?? "",
+    },
+    task2: {
+      prompt: promptByTask["2"] ?? "",
+      answer: answers["2"] ?? "",
+    },
+  };
 }
 
 export function WritingTest() {
@@ -68,6 +88,7 @@ export function WritingTest() {
       localStorage.setItem(`ielts_writing_session_${payload.id}`, JSON.stringify({
         ...payload,
         test_id: test.id,
+        answers_json: buildWritingAnswersJson(test, answers),
         grading: {
           overall_band: 0,
           task_1: {

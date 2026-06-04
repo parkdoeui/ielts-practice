@@ -96,6 +96,11 @@ function getDetailedImprovementPoints(
   return task.detailed_improvement_points?.[key]?.filter((point) => point.trim()) ?? [];
 }
 
+function getStoredPrompt(session: WritingSession, answerKey: "1" | "2"): string {
+  const storedTask = answerKey === "1" ? session.answers_json?.task1 : session.answers_json?.task2;
+  return storedTask?.prompt?.trim() ?? "";
+}
+
 export function WritingResultsView() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -196,6 +201,7 @@ export function WritingResultsView() {
         const answer = session.answers[answerKey] ?? "";
         const fallbackAction = session.grading.action_points[0] ?? "";
         const sampleAnswer = getSampleAnswer(task);
+        const prompt = getStoredPrompt(session, answerKey) || taskDef?.prompt || "";
         const criteriaRows = [
           {
             key: "task_response" as const,
@@ -234,7 +240,7 @@ export function WritingResultsView() {
                   Prompt Summary
                 </p>
                 <p className="mt-1 text-sm text-gray-900">
-                  {taskDef ? summarizePrompt(taskDef.prompt) : "Prompt summary unavailable."}
+                  {prompt ? summarizePrompt(prompt) : "Prompt summary unavailable."}
                 </p>
               </div>
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">

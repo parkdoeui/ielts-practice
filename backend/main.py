@@ -259,15 +259,48 @@ def session_to_response(record: TestSessionRecord) -> SessionResponse:
 
 
 def writing_session_to_response(record: WritingSessionRecord) -> WritingSessionResponse:
+    answers = extract_writing_answers(record.answers_json)
     return WritingSessionResponse(
         id=record.id,
         test_id=record.test_id,
         started_at=record.started_at.isoformat(),
         completed_at=record.completed_at.isoformat(),
         total_time_ms=record.total_time_ms,
-        answers=record.answers_json,  # type: ignore[arg-type]
+        answers=answers,
         grading=record.grading_json,  # type: ignore[arg-type]
     )
+
+
+def build_writing_answers_json(test: WritingTestInput, answers: dict[str, str]) -> dict[str, dict[str, str]]:
+    prompts = {str(task.task_number): task.prompt for task in test.tasks}
+    return {
+        "task1": {
+            "prompt": prompts.get("1", ""),
+            "answer": answers.get("1", ""),
+        },
+        "task2": {
+            "prompt": prompts.get("2", ""),
+            "answer": answers.get("2", ""),
+        },
+    }
+
+
+def extract_writing_answers(value: Any) -> dict[str, str]:
+    if isinstance(value, dict) and ("task1" in value or "task2" in value):
+        task1 = value.get("task1") if isinstance(value.get("task1"), dict) else {}
+        task2 = value.get("task2") if isinstance(value.get("task2"), dict) else {}
+        return {
+            "1": str(task1.get("answer", "")).strip(),
+            "2": str(task2.get("answer", "")).strip(),
+        }
+
+    if isinstance(value, dict):
+        return {
+            "1": str(value.get("1", "")).strip(),
+            "2": str(value.get("2", "")).strip(),
+        }
+
+    return {"1": "", "2": ""}
 
 
 def sanitize_test_for_grading(test: WritingTestInput) -> dict[str, Any]:
@@ -507,7 +540,7 @@ def create_writing_session(
         started_at=parse_iso_datetime(payload.started_at),
         completed_at=parse_iso_datetime(payload.completed_at),
         total_time_ms=payload.total_time_ms,
-        answers_json=payload.answers,
+        answers_json=build_writing_answers_json(payload.test, payload.answers),
         grading_json=grading,
     )
     db.add(record)

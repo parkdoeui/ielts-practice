@@ -126,6 +126,16 @@ export interface WritingGradingResult {
   action_points: string[];
 }
 
+export interface WritingSubmittedTask {
+  prompt: string;
+  answer: string;
+}
+
+export interface WritingAnswersJson {
+  task1: WritingSubmittedTask;
+  task2: WritingSubmittedTask;
+}
+
 export interface WritingSession {
   id: string;
   test_id: string;
@@ -133,6 +143,7 @@ export interface WritingSession {
   completed_at: string;
   total_time_ms: number;
   answers: Record<string, string>;
+  answers_json?: WritingAnswersJson;
   grading: WritingGradingResult;
   sync_status?: "synced" | "local-only";
   sync_error?: string;
