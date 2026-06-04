@@ -217,7 +217,7 @@ def _classify_blocks(children: list, base_url: str) -> list[Block]:
             continue
 
         # Short paragraph: ambiguous — resolved in segmenter
-        if el.name == "p" and len(text) < 100:
+        if el.name == "p" and len(text) < 160:
             if re.match(r"^\d+", text):
                 blocks.append(Block(el, text, "question_body"))
             else:
@@ -249,7 +249,7 @@ def _is_passage_title_candidate(text: str, blocks: list[Block], current_index: i
       - starts with a digit
       - starts with known question words / section markers
     """
-    if len(text) > 80:
+    if len(text) > 160:
         return False
     if re.match(r"^\d+", text):
         return False
@@ -472,7 +472,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
     stem_lines = []
 
     numbered_pattern = re.compile(r"^(\d+)[.)]?\s+(.*)")
-    option_inline_pattern = re.compile(r"^([A-Z])\s+(.*)")
+    option_inline_pattern = re.compile(r"^([A-Z])[\.)]?\s+(.*)")
     heading_option_pattern = re.compile(r"^(i{1,3}|iv|vi{0,3}|ix|x)\.?\s+(.*)")
     option_standalone_pattern = re.compile(r"^([A-Z])$")
     instruction_kw_pattern = re.compile(r"^(YES|NO|TRUE|FALSE|NOT GIVEN)\b", re.IGNORECASE)
@@ -826,7 +826,7 @@ def _extract_answers(soup: BeautifulSoup) -> dict[int, str]:
     ans_div = soup.find("div", id=lambda x: x and x.startswith("bg-showmore-hidden-"))
     if ans_div:
         div_text = ans_div.get_text(strip=True)
-        if div_text and re.search(r"\d+\.\s+", div_text):
+        if ans_div.find("ol") or (div_text and re.search(r"\d+\.\s+", div_text)):
             ans_container = ans_div
         else:
             ancestor = ans_div
@@ -850,6 +850,14 @@ def _extract_answers(soup: BeautifulSoup) -> dict[int, str]:
                 break
 
     if ans_container:
+        ordered_items = ans_container.find_all("li")
+        if ordered_items:
+            for idx, item in enumerate(ordered_items, start=1):
+                answer = item.get_text(" ", strip=True)
+                if answer:
+                    answers[idx] = answer
+            return answers
+
         all_ans_parts = [ans_container]
         nxt = ans_container.find_next_sibling(["p", "div"])
         while nxt and re.search(r"\d+\.\s+", nxt.get_text(strip=True)):

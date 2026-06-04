@@ -1,0 +1,72 @@
+{
+  "id": "writing-test-18",
+  "title": "IELTS Writing Test 18",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The table below shows the average band scores for students from different language groups taking the IELTS General Test in 2010.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": null,
+      "table": [
+        [
+          "",
+          "Listening",
+          "Reading",
+          "Writing",
+          "Speaking",
+          "Overall"
+        ],
+        [
+          "German",
+          "6.8",
+          "6.3",
+          "6.6",
+          "6.9",
+          "6.7"
+        ],
+        [
+          "French",
+          "6.3",
+          "6.1",
+          "6.5",
+          "6.6",
+          "6.5"
+        ],
+        [
+          "Indonesian",
+          "6.3",
+          "6.1",
+          "6.1",
+          "6.7",
+          "6.3"
+        ],
+        [
+          "Malay",
+          "6.2",
+          "6.4",
+          "6.0",
+          "6.6",
+          "6.4"
+        ]
+      ]
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Today, many people want to get married and have children in their thirties rather than when they are younger. Is it a positive or negative development?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-18/"
+}

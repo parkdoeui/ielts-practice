@@ -1,0 +1,32 @@
+{
+  "id": "writing-test-19",
+  "title": "IELTS Writing Test 19",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The illustrations show how chocolate is produced.",
+      "instructions": [
+        "Summarize the information by selecting and reporting the main features and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-19-min-1.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people say that all students should study history as a major subject, while others feels that other subjects are important for children in today’s society. Discuss both sides and give your opinion.",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-19/"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "writing-test-11",
+  "title": "IELTS Writing Test 11",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The chart below shows information about the challenges people face when they go to live in other countries.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-11-min-1.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "The restoration of old buildings in major cities throughout the world involves enormous expenditure. This money would bring more benefits if it was used to provide new housing and road development. To what extent do you agree or disagree?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-11/"
+}
