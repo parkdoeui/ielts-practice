@@ -36,6 +36,18 @@ function getVisibleSharedText(sharedText?: string) {
   return normalized;
 }
 
+function isParagraphMatchingOptions(options: Record<string, string>): boolean {
+  return Object.entries(options).every(([key, text]) => key === text);
+}
+
+function getMatchingInformationPlaceholder(options: Record<string, string>): string {
+  return isParagraphMatchingOptions(options) ? "Select paragraph..." : "Select option...";
+}
+
+function formatMatchingInformationOption(key: string, text: string, paragraphOptions: boolean): string {
+  return paragraphOptions ? `Paragraph ${key}` : `${key}. ${text}`;
+}
+
 function GroupRenderer({
   group,
   answers,
@@ -217,6 +229,7 @@ function QuestionInput({
 
     case "matching-information": {
       const opts = group.options ?? {};
+      const paragraphOptions = isParagraphMatchingOptions(opts);
       return (
         <div className="space-y-2">
           {question.statement && (
@@ -228,10 +241,10 @@ function QuestionInput({
             disabled={readOnly}
             className={selectClass}
           >
-            <option value="">Select paragraph...</option>
-            {Object.keys(opts).map((para) => (
-              <option key={para} value={para}>
-                Paragraph {para}
+            <option value="">{getMatchingInformationPlaceholder(opts)}</option>
+            {Object.entries(opts).map(([key, text]) => (
+              <option key={key} value={key}>
+                {formatMatchingInformationOption(key, text, paragraphOptions)}
               </option>
             ))}
           </select>
