@@ -510,6 +510,64 @@ class ParserRegressionTests(unittest.TestCase):
             "https://practicepteonline.com/wp-content/uploads/2024/09/test-relative.png",
         )
 
+    def test_parses_plural_single_question_header(self):
+        html = """
+        <html>
+          <body>
+            <div class="entry-content">
+              <p>Single Question Passage</p>
+              <p>This is a long passage paragraph. This is a long passage paragraph. This is a long passage paragraph. This is a long passage paragraph. This is a long passage paragraph.</p>
+              <p>Questions 9<br/>Choose TWO WORDS from the passage for the answer.</p>
+              <p>There are many different types of dogs today, because, in early times humans began to (9) ........ their animals for the characteristics they wanted.</p>
+              <p>Show Answers</p>
+              <div id="bg-showmore-hidden-1">
+                <p>9. selectively breed</p>
+              </div>
+            </div>
+          </body>
+        </html>
+        """
+
+        test = parse_reading_test(html, "https://practicepteonline.com/ielts-reading-test-300/")
+        group = next(g for g in test.question_groups if g.id == "group-9-9")
+
+        self.assertEqual(group.type, "sentence-completion")
+        self.assertEqual([q.id for q in group.questions], [9])
+        self.assertEqual(group.questions[0].answer, "selectively breed")
+        self.assertIn("(9)", group.shared_text or "")
+
+    def test_diagram_instruction_without_image_falls_back_to_completion(self):
+        groups = _build_question_groups(
+            [{
+                "start": 14,
+                "end": 16,
+                "instruction": (
+                    "Questions 14-16\n"
+                    "Complete the timeline diagram below. Write\n"
+                    "NO MORE THAN THREE WORDS\n"
+                    "from the passage for each answer."
+                ),
+                "text": (
+                    "1876\n"
+                    "No longer is criminality confined to a (14) ........ realm.\n"
+                    "1960s\n"
+                    "(15) ........ are linked to criminality.\n"
+                    "1995\n"
+                    "(16) ........ undermines the hypothesis."
+                ),
+                "passage_id": "passage-1",
+                "image_url": None,
+            }],
+            {14: "moral or philosophical", 15: "chromosomal abnormalities", 16: "Epps's study"},
+        )
+
+        self.assertEqual(len(groups), 1)
+        group = groups[0]
+        self.assertEqual(group.type, "sentence-completion")
+        self.assertIsNone(group.image_url)
+        self.assertIn("1876", group.shared_text or "")
+        self.assertEqual([q.id for q in group.questions], [14, 15, 16])
+
 
 class FixtureRegressionTests(unittest.TestCase):
     """Regression tests against saved raw HTML fixtures.

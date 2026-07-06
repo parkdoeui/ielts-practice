@@ -354,7 +354,7 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
                 block.text,
             )
             q_and = re.search(r"(?i)Questions?\s+(\d+)\s+and\s+(\d+)", block.text)
-            q_single = re.search(r"(?i)Question\s+(\d+)", block.text)
+            q_single = re.search(r"(?i)Questions?\s+(\d+)", block.text)
             q_match = q_range or q_and
             start_q = int(q_match.group(1)) if q_match else (int(q_single.group(1)) if q_single else 0)
             end_q = int(q_match.group(2)) if q_match else start_q
@@ -683,14 +683,26 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
         stem_lower = stem_text.lower()
 
         if "diagram" in instr_lower or re.search(r"\blabel(?:s|ing)?\b", instr_lower):
-            result.append(QuestionGroup(
-                id=group_id,
-                type="diagram-labeling",
-                passage_id=passage_id,
-                instruction=full_instruction,
-                questions=simple_questions,
-                image_url=image_url or "",
-            ))
+            shared = _sanitize_shared_text(stem_text or children_text or None)
+            if image_url:
+                result.append(QuestionGroup(
+                    id=group_id,
+                    type="diagram-labeling",
+                    passage_id=passage_id,
+                    instruction=full_instruction,
+                    questions=simple_questions,
+                    shared_text=shared,
+                    image_url=image_url,
+                ))
+            else:
+                result.append(QuestionGroup(
+                    id=group_id,
+                    type="sentence-completion",
+                    passage_id=passage_id,
+                    instruction=full_instruction,
+                    questions=simple_questions,
+                    shared_text=shared,
+                ))
 
         elif ("summary" in instr_lower or "notes" in instr_lower
               or re.search(r"(?i)complete\s+(the\s+)?(summary|notes)", instr_lower)
