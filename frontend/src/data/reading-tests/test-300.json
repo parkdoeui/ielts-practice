@@ -162,7 +162,7 @@
       "questions": [
         {
           "id": 10,
-          "statement": "",
+          "statement": "studied the brain size of domesticated animals",
           "answer": "C",
           "options": null
         },
@@ -195,7 +195,7 @@
       "word_list": null,
       "image_url": null,
       "options": {
-        "A": "10. studied the brain size of domesticated animals",
+        "A": "Dr. Wayne",
         "B": "Dr. Paxton",
         "C": "Dr. Groves"
       }
@@ -280,13 +280,13 @@
     },
     {
       "id": "group-24-27",
-      "type": "sentence-completion",
+      "type": "matching-information",
       "passage_id": "passage-2",
       "instruction": "Questions 24-27\nUse the information in the text to match one scientist (A-C) with each area of study (24-27) listed below.",
       "questions": [
         {
           "id": 24,
-          "statement": "",
+          "statement": "changes in the structure of soil within crop circles",
           "answer": "C",
           "options": null
         },
@@ -312,7 +312,11 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": {
+        "A": "Dr. Wayne",
+        "B": "Dr. Paxton",
+        "C": "Dr. Groves"
+      }
     },
     {
       "id": "group-28-33",
@@ -354,20 +358,16 @@
           "id": 33,
           "statement": "Environmental problems are not a threat to progress.",
           "answer": "B",
-          "options": {
-            "A": "R. Kaplan, author of The Coming Anarchy",
-            "B": "M. Gee, author of Apocalypse Deferred",
-            "C": "D. Suzuki, author of this passage"
-          }
+          "options": null
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
       "options": {
-        "A": "A",
-        "B": "B",
-        "C": "C"
+        "A": "R. Kaplan, author of The Coming Anarchy",
+        "B": "M. Gee, author of Apocalypse Deferred",
+        "C": "D. Suzuki, author of this passage"
       }
     },
     {
