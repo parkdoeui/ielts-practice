@@ -224,7 +224,6 @@ export function ReadingTest() {
             totalSeconds={test.time_limit_minutes * 60}
             answeredCount={answeredCount}
             totalCount={totalQuestions}
-            onExpire={handleSubmit}
             paused={submitted}
           />
         )}

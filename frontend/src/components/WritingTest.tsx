@@ -227,7 +227,6 @@ export function WritingTest() {
         totalSeconds={test.time_limit_minutes * 60}
         answeredCount={answeredCount}
         totalCount={2}
-        onExpire={handleSubmit}
         paused={submitting}
       />
       {error && <div className="px-4 md:px-6 py-2 text-sm text-amber-700">{error}</div>}

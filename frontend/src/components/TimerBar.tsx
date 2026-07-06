@@ -4,22 +4,18 @@ interface Props {
   totalSeconds: number;  // 60 * 60 = 3600
   answeredCount: number;
   totalCount: number;
-  onExpire: () => void;
   paused?: boolean;
 }
 
-export function TimerBar({ totalSeconds, answeredCount, totalCount, onExpire, paused = false }: Props) {
+export function TimerBar({ totalSeconds, answeredCount, totalCount, paused = false }: Props) {
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds);
 
   useEffect(() => {
     if (paused) return;
-    if (secondsLeft <= 0) {
-      onExpire();
-      return;
-    }
-    const id = setInterval(() => setSecondsLeft((s) => s - 1), 1000);
+    if (secondsLeft <= 0) return;
+    const id = setInterval(() => setSecondsLeft((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(id);
-  }, [secondsLeft, paused, onExpire]);
+  }, [secondsLeft, paused]);
 
   const minutes = Math.floor(secondsLeft / 60);
   const seconds = secondsLeft % 60;
