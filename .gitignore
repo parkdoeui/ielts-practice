@@ -33,3 +33,6 @@ venv/
 # Thunder
 .thunder/
 .thunder
+
+# DB exports (contain user data)
+backend/exports/
