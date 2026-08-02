@@ -4,8 +4,9 @@ import type { ReadingTest as ReadingTestType, UserAnswer, TestSession } from "..
 import { PassagePanel } from "./PassagePanel";
 import { QuestionPanel } from "./QuestionPanel";
 import { TimerBar } from "./TimerBar";
-import { CbtStatusBar, FONT_SCALE_ZOOM, type FontScale } from "./CbtStatusBar";
+import { CbtStatusBar } from "./CbtStatusBar";
 import { QuestionNavigator, type NavigatorPart } from "./QuestionNavigator";
+import { FONT_SCALE_ZOOM, type FontScale } from "../lib/fontScale";
 import { getLatestSessionForTest, saveSession } from "../services/api";
 import { estimateBand, isAnswerCorrect } from "../lib/grading";
 
