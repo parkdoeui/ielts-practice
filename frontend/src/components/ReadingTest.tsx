@@ -396,7 +396,7 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
       {/* Main layout */}
       <div
         className="flex flex-1 min-h-0"
-        style={embedded ? ({ zoom: FONT_SCALE_ZOOM[fontScale] } as React.CSSProperties) : undefined}
+        style={embedded ? ({ zoom: FONT_SCALE_ZOOM[fontScale] } as CSSProperties) : undefined}
       >
         {/* Passage panel */}
         <div
