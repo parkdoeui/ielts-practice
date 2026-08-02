@@ -279,7 +279,7 @@ export function WritingTest({ embeddedTestId, onComplete }: WritingTestProps = {
       {error && <div className="px-4 md:px-6 py-2 text-sm text-amber-700">{error}</div>}
       <div
         className="grid md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] flex-1 min-h-0"
-        style={embedded ? ({ zoom: FONT_SCALE_ZOOM[fontScale] } as React.CSSProperties) : undefined}
+        style={embedded ? ({ zoom: FONT_SCALE_ZOOM[fontScale] } as CSSProperties) : undefined}
       >
         <div className="overflow-y-auto border-r border-gray-200 bg-white p-4 md:p-6 space-y-6">
           {test.tasks.map((task) => (
