@@ -75,6 +75,13 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
   }, [id]);
 
   useEffect(() => {
+    // Embedded (mock) attempts are always fresh — never enter review mode.
+    if (embedded) {
+      setReviewSession(null);
+      setIsCheckingCompletion(false);
+      return;
+    }
+
     if (!id) {
       setReviewSession(null);
       setIsCheckingCompletion(false);
