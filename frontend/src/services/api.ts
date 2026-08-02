@@ -205,6 +205,26 @@ export async function getProgress(): Promise<ProgressData> {
   return res.json();
 }
 
+// ---- Full Test (Mock Exam) wrapper — localStorage only this iteration ----
+// The child reading/writing sessions still persist to the backend; only the grouping
+// wrapper lives locally. Mirrors the localStorage-first pattern of getStoredSessionById.
+
+const mockSessionKey = (mockId: string) => `ielts_mock_session_${mockId}`;
+
+export function saveMockSession(mock: MockSession): void {
+  localStorage.setItem(mockSessionKey(mock.id), JSON.stringify(mock));
+}
+
+export function getMockSession(mockId: string): MockSession | null {
+  const raw = localStorage.getItem(mockSessionKey(mockId));
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as MockSession;
+  } catch {
+    return null;
+  }
+}
+
 export function getStoredWritingSessionById(sessionId: string): WritingSession | null {
   const raw = localStorage.getItem(`ielts_writing_session_${sessionId}`);
   if (!raw) return null;
