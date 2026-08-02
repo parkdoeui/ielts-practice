@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useMemo, useState, type CSSProperties } from "react";
 import { useNavigate, useParams } from "react-router";
 import type { ListeningTest as ListeningTestType, TestSession, UserAnswer } from "../types";
 import { QuestionPanel } from "./QuestionPanel";
@@ -43,7 +43,6 @@ export function ListeningTest({ embeddedTestId, onComplete }: ListeningTestProps
   const id = embeddedTestId ?? params.id;
   const embedded = Boolean(onComplete);
   const navigate = useNavigate();
-  const [test, setTest] = useState<ListeningTestType | null>(null);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -51,16 +50,15 @@ export function ListeningTest({ embeddedTestId, onComplete }: ListeningTestProps
   const [flagged, setFlagged] = useState<Set<number>>(new Set());
   const [currentQuestionId, setCurrentQuestionId] = useState<number | null>(null);
   const [fontScale, setFontScale] = useState<FontScale>("base");
-  const [startedAt] = useState(new Date().toISOString());
-  const [startMs] = useState(Date.now());
+  const [startedAt] = useState(() => new Date().toISOString());
+  const [startMs] = useState(() => Date.now());
 
-  useEffect(() => {
-    const found = Object.values(testFiles)
+  const test = useMemo(() =>
+    Object.values(testFiles)
       .map((module) => module.default)
       .filter(isListeningTest)
-      .find((testFile) => testFile.id === id);
-    setTest(found ?? null);
-  }, [id]);
+      .find((testFile) => testFile.id === id) ?? null,
+  [id]);
 
   const partGroups = useMemo(
     () => test?.parts.map((part) => ({ part, groups: test.question_groups.filter((g) => g.passage_id === part.id) })) ?? [],
