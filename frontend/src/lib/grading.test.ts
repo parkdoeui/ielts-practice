@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isAnswerCorrect, isCompletionType } from "./grading";
+import { isAnswerCorrect, isCompletionType, roundToOverallBand } from "./grading";
 
 describe("grading completion helpers", () => {
   it("treats table completion as a completion type", () => {
