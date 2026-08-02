@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, type CSSProperties } from "react";
 import { useParams, useNavigate } from "react-router";
 import type { ReadingTest as ReadingTestType, UserAnswer, TestSession } from "../types";
 import { PassagePanel } from "./PassagePanel";
