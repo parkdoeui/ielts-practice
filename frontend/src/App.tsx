@@ -3,7 +3,10 @@ import { AccessGate } from "./components/AccessGate";
 
 function NavBar() {
   const { pathname } = useLocation();
-  const isTestRoute = pathname.startsWith("/test/") || pathname.startsWith("/writing/");
+  const isTestRoute =
+    pathname.startsWith("/test/") ||
+    pathname.startsWith("/writing/") ||
+    pathname.startsWith("/mock/");
 
   if (isTestRoute) return null; // test view manages its own header
 
