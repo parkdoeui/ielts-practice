@@ -48,6 +48,18 @@ function formatMatchingInformationOption(key: string, text: string, paragraphOpt
   return paragraphOptions ? `Paragraph ${key}` : `${key}. ${text}`;
 }
 
+function getSharedMultiChoiceLimit(group: QuestionGroup): number | null {
+  const isSharedMultiChoice =
+    group.type === "multiple-choice" &&
+    group.questions.length > 1 &&
+    !group.questions.some((question) => question.options);
+  if (!isSharedMultiChoice) return null;
+
+  return /\bchoose\s+(two|2)\b/i.test(`${group.instruction}\n${group.shared_text ?? ""}`)
+    ? 2
+    : null;
+}
+
 function GroupRenderer({
   group,
   answers,
@@ -111,6 +123,7 @@ function GroupRenderer({
                 group={group}
                 question={q}
                 value={answers[q.id] ?? ""}
+                answers={answers}
                 onChange={(v) => onAnswer(q.id, v)}
                 readOnly={readOnly}
               />
@@ -126,12 +139,14 @@ function QuestionInput({
   group,
   question,
   value,
+  answers,
   onChange,
   readOnly,
 }: {
   group: QuestionGroup;
   question: SimpleQuestion;
   value: string;
+  answers: Record<number, string>;
   onChange: (v: string) => void;
   readOnly: boolean;
 }) {
@@ -171,6 +186,12 @@ function QuestionInput({
 
     case "multiple-choice": {
       const opts = question.options ?? group.options ?? {};
+      const selectionLimit = getSharedMultiChoiceLimit(group);
+      const selectedValues = new Set(
+        group.questions
+          .map((item) => answers[item.id])
+          .filter((answer): answer is string => Boolean(answer)),
+      );
       return (
         <div className="space-y-2">
           {question.statement && (
@@ -179,15 +200,37 @@ function QuestionInput({
           <div className="space-y-1.5">
             {Object.entries(opts).map(([key, text]) => (
               <label key={key} className="flex items-start gap-3 cursor-pointer group">
-                <input
-                  type="radio"
-                  name={`q-${question.id}`}
-                  value={key}
-                  checked={value === key}
-                  onChange={() => onChange(key)}
-                  disabled={readOnly}
-                  className="h-4 w-4 text-blue-600 mt-0.5"
-                />
+                {selectionLimit ? (() => {
+                  const isSelected = value === key;
+                  const selectedElsewhere = group.questions.some(
+                    (item) => item.id !== question.id && answers[item.id] === key,
+                  );
+                  const disabled =
+                    readOnly ||
+                    selectedElsewhere ||
+                    (!isSelected && selectedValues.size >= selectionLimit);
+                  return (
+                    <input
+                      type="checkbox"
+                      name={`q-${question.id}`}
+                      value={key}
+                      checked={isSelected}
+                      onChange={() => onChange(isSelected ? "" : key)}
+                      disabled={disabled}
+                      className="mt-0.5 h-4 w-4 rounded text-blue-600"
+                    />
+                  );
+                })() : (
+                  <input
+                    type="radio"
+                    name={`q-${question.id}`}
+                    value={key}
+                    checked={value === key}
+                    onChange={() => onChange(key)}
+                    disabled={readOnly}
+                    className="h-4 w-4 text-blue-600 mt-0.5"
+                  />
+                )}
                 <span className="text-sm text-gray-700 group-hover:text-gray-900">
                   <span className="font-medium">{key}.</span> {text}
                 </span>
