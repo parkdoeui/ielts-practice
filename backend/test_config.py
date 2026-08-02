@@ -19,7 +19,7 @@ def test_allowed_frontend_origins_supports_comma_separated_values() -> None:
 
 
 def test_allowed_frontend_origins_include_vite_fallback_port_by_default() -> None:
-    settings = Settings(valid_passcode="test")
+    settings = Settings(_env_file=None, valid_passcode="test")
 
     assert "http://localhost:5173" in settings.allowed_frontend_origins
     assert "http://localhost:5174" in settings.allowed_frontend_origins

@@ -141,6 +141,40 @@ def test_create_session_recomputes_score_from_answers() -> None:
     assert body["score"]["band_estimate"] == 5.5
 
 
+def test_create_session_accepts_listening_question_types() -> None:
+    client = authed_client()
+    payload = _session_payload()
+    payload["id"] = "listening-test-208-attempt-1"
+    payload["test_id"] = "listening-test-208"
+    payload["answers"] = [
+        {
+            "question_id": 1,
+            "user_answer": "Leigh",
+            "is_correct": True,
+            "time_spent_ms": 0,
+            "question_type": "note-completion",
+        },
+        {
+            "question_id": 15,
+            "user_answer": "C",
+            "is_correct": True,
+            "time_spent_ms": 0,
+            "question_type": "matching",
+        },
+    ]
+
+    response = client.post("/api/sessions", json=payload)
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["test_id"] == "listening-test-208"
+    assert body["score"] == {"correct": 2, "total": 2, "band_estimate": 9.0}
+    assert [answer["question_type"] for answer in body["answers"]] == [
+        "note-completion",
+        "matching",
+    ]
+
+
 def test_update_session_persists_self_correction_and_recomputes_score() -> None:
     client = authed_client()
     create_response = client.post("/api/sessions", json=_session_payload())
