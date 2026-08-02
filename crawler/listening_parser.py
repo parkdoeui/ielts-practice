@@ -171,6 +171,7 @@ def _build_note_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> 
 
 def _build_mc_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> QuestionGroup:
     options_by_question: dict[int, dict[str, str]] = {}
+    shared_option_candidates: dict[str, str] = {}
     stems: dict[int, str] = {}
     current_number: Optional[int] = None
     context: list[str] = []
@@ -180,6 +181,8 @@ def _build_mc_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> Qu
         if option:
             if current_number is not None:
                 options_by_question.setdefault(current_number, {})[option.group(1)] = _normalize_text(option.group(2))
+            else:
+                shared_option_candidates[option.group(1)] = _normalize_text(option.group(2))
             continue
         stem = NUMBERED_RE.match(line)
         if stem:
@@ -214,9 +217,11 @@ def _build_mc_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> Qu
         ]
 
     shared_options: Optional[dict[str, str]] = None
+    if not stems and shared_option_candidates:
+        shared_options = shared_option_candidates
     if questions and all(question.options == questions[0].options for question in questions):
         candidate = questions[0].options
-        if candidate:
+        if candidate and shared_options is None:
             shared_options = candidate
             questions = [question.model_copy(update={"options": None}) for question in questions]
 
