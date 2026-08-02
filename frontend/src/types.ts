@@ -148,3 +148,35 @@ export interface WritingSession {
   sync_status?: "synced" | "local-only";
   sync_error?: string;
 }
+
+// ---- Full Test (Mock Exam) simulation ----
+
+export type MockMode = "relaxed" | "strict";
+export type SkillName = "listening" | "reading" | "writing" | "speaking";
+
+export interface MockSection {
+  skill: SkillName;
+  test_id: string | null;    // null ⇒ not-yet-available (listening/speaking this iteration)
+  session_id: string | null; // set on completion; also the "done" signal
+  band: number | null;       // child session's band, captured at completion
+}
+
+export interface MockSession {
+  id: string;
+  mode: MockMode;
+  started_at: string;
+  sections: MockSection[];   // ordered: listening, reading, writing, speaking
+}
+
+// Skills that have a real, playable section today. Listening/Speaking are placeholders
+// until their content + components ship; adding them here (with a test_id) is all that's
+// needed to promote them from "coming soon" to a real step.
+export const IMPLEMENTED_SKILLS = new Set<SkillName>(["reading", "writing"]);
+
+export function isMockSectionDone(section: MockSection): boolean {
+  return section.session_id !== null;
+}
+
+export function isMockSectionComingSoon(section: MockSection): boolean {
+  return !IMPLEMENTED_SKILLS.has(section.skill);
+}
