@@ -1,11 +1,26 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams, useNavigate } from "react-router";
 import type { ReadingTest as ReadingTestType, UserAnswer, TestSession } from "../types";
 import { PassagePanel } from "./PassagePanel";
 import { QuestionPanel } from "./QuestionPanel";
 import { TimerBar } from "./TimerBar";
+import { CbtStatusBar, FONT_SCALE_ZOOM, type FontScale } from "./CbtStatusBar";
+import { QuestionNavigator, type NavigatorPart } from "./QuestionNavigator";
 import { getLatestSessionForTest, saveSession } from "../services/api";
 import { estimateBand, isAnswerCorrect } from "../lib/grading";
+
+export interface ReadingSectionResult {
+  skill: "reading";
+  sessionId: string;
+  band: number;
+  correct: number;
+  total: number;
+}
+
+interface ReadingTestProps {
+  embeddedTestId?: string;
+  onComplete?: (result: ReadingSectionResult) => void;
+}
 
 const testFiles = import.meta.glob<{ default: ReadingTestType }>(
   "../data/reading-tests/*.json",
