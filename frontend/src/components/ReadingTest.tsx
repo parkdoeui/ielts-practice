@@ -236,6 +236,85 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
     }
   }, [test, submitted, isSaving, startMs, answers, id, startedAt, navigate, onComplete]);
 
+  // --- CBT navigator model (embedded/mock mode) ---
+  const questionModel = useMemo(() => {
+    const orderedIds: number[] = [];
+    const parts: NavigatorPart[] = [];
+    const passageIndexById = new Map<number, number>();
+    if (test) {
+      test.passages.forEach((passage, pIdx) => {
+        const ids = test.question_groups
+          .filter((group) => group.passage_id === passage.id)
+          .flatMap((group) => group.questions.map((q) => q.id));
+        ids.forEach((qid) => {
+          orderedIds.push(qid);
+          passageIndexById.set(qid, pIdx);
+        });
+        parts.push({ label: `Part ${pIdx + 1}`, questionIds: ids });
+      });
+    }
+    return { orderedIds, parts, passageIndexById };
+  }, [test]);
+
+  const answeredSet = useMemo(() => {
+    const set = new Set<number>();
+    for (const [key, value] of Object.entries(answers)) {
+      if (value && value.trim()) set.add(Number(key));
+    }
+    return set;
+  }, [answers]);
+
+  // The navigator's "current" follows the visible passage unless the user jumped to a
+  // specific question in it — avoids storing a cursor that can drift out of sync.
+  const navCurrent = useMemo(() => {
+    if (
+      currentQuestionId != null &&
+      questionModel.passageIndexById.get(currentQuestionId) === currentPassageIndex
+    ) {
+      return currentQuestionId;
+    }
+    return questionModel.parts[currentPassageIndex]?.questionIds[0] ?? null;
+  }, [currentQuestionId, currentPassageIndex, questionModel]);
+
+  const jumpToQuestion = useCallback(
+    (qid: number) => {
+      const pIdx = questionModel.passageIndexById.get(qid);
+      if (pIdx == null) return;
+      setCurrentPassageIndex(pIdx);
+      setCurrentQuestionId(qid);
+      setMobileView("questions");
+    },
+    [questionModel],
+  );
+
+  const stepQuestion = useCallback(
+    (delta: number) => {
+      const { orderedIds } = questionModel;
+      if (orderedIds.length === 0) return;
+      const ref = navCurrent ?? orderedIds[0];
+      const idx = orderedIds.indexOf(ref);
+      const nextIdx = Math.min(orderedIds.length - 1, Math.max(0, idx + delta));
+      jumpToQuestion(orderedIds[nextIdx]);
+    },
+    [questionModel, navCurrent, jumpToQuestion],
+  );
+
+  const toggleFlag = useCallback((qid: number) => {
+    setFlagged((prev) => {
+      const next = new Set(prev);
+      if (next.has(qid)) next.delete(qid);
+      else next.add(qid);
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!embedded || navCurrent == null) return;
+    document
+      .getElementById(`question-${navCurrent}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [embedded, navCurrent]);
+
   if (!test || isCheckingCompletion) {
     return <div className="p-8 text-gray-500">Loading test...</div>;
   }
