@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getWritingSessions, submitWritingSession } from "../services/api";
 import { TimerBar } from "./TimerBar";
