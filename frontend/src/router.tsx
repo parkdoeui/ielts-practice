@@ -7,6 +7,9 @@ import { ProgressDashboard } from "./components/ProgressDashboard";
 import { WritingTestSelector } from "./components/WritingTestSelector";
 import { WritingTest } from "./components/WritingTest";
 import { WritingResultsView } from "./components/WritingResultsView";
+import { MockExamSetup } from "./components/MockExamSetup";
+import { MockRunner } from "./components/MockRunner";
+import { MockResultsView } from "./components/MockResultsView";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +23,9 @@ export const router = createBrowserRouter([
       { path: "writing", element: <WritingTestSelector /> },
       { path: "writing/:id", element: <WritingTest /> },
       { path: "writing-results/:id", element: <WritingResultsView /> },
+      { path: "mock", element: <MockExamSetup /> },
+      { path: "mock/:id", element: <MockRunner /> },
+      { path: "mock-results/:id", element: <MockResultsView /> },
     ],
   },
 ], {
