@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getWritingSessions, submitWritingSession } from "../services/api";
 import { TimerBar } from "./TimerBar";
-import { CbtStatusBar, FONT_SCALE_ZOOM, type FontScale } from "./CbtStatusBar";
+import { CbtStatusBar } from "./CbtStatusBar";
+import { FONT_SCALE_ZOOM, type FontScale } from "../lib/fontScale";
 import type { WritingAnswersJson, WritingSession, WritingTest as WritingTestType } from "../types";
 
 export interface WritingSectionResult {
