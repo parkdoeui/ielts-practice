@@ -1,7 +1,13 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router";
-import { saveMockSession } from "../services/api";
-import type { MockMode, MockSession, ReadingTest, WritingTest } from "../types";
+import { Link, useNavigate } from "react-router";
+import { listMockSessions, saveMockSession } from "../services/api";
+import {
+  IMPLEMENTED_SKILLS,
+  type MockMode,
+  type MockSession,
+  type ReadingTest,
+  type WritingTest,
+} from "../types";
 
 const readingFiles = import.meta.glob<{ default: ReadingTest }>(
   "../data/reading-tests/*.json",
