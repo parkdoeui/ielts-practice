@@ -56,8 +56,7 @@ export function MockResultsView() {
         <p className="text-5xl font-bold text-gray-900">{overall !== null ? overall.toFixed(1) : "—"}</p>
         {hasComingSoon && (
           <p className="mt-3 text-xs text-amber-600">
-            Provisional — Listening &amp; Speaking aren't available yet, so they don't count toward
-            this band.
+            Provisional — Speaking isn't available yet, so it doesn't count toward this band.
           </p>
         )}
       </div>

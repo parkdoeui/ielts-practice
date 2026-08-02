@@ -7,16 +7,17 @@ import {
   type MockSession,
   type SkillName,
 } from "../types";
+import { ListeningTest, type ListeningSectionResult } from "./ListeningTest";
 import { ReadingTest, type ReadingSectionResult } from "./ReadingTest";
 import { WritingTest, type WritingSectionResult } from "./WritingTest";
 import { ComingSoonSection } from "./ComingSoonSection";
 
-type SectionResult = ReadingSectionResult | WritingSectionResult;
+type SectionResult = ListeningSectionResult | ReadingSectionResult | WritingSectionResult;
 
 const skillLabel = (skill: SkillName) => skill.charAt(0).toUpperCase() + skill.slice(1);
 
-// Where to resume: the first implemented section that isn't done. On a fresh mock
-// (nothing done) start at 0 so the leading Listening intro is shown in order.
+// Where to resume: the first implemented section that isn't done. On a fresh mock,
+// Listening is the first real section and therefore opens immediately.
 function firstCursor(mock: MockSession): number {
   const firstUnfinished = mock.sections.findIndex(
     (section) => IMPLEMENTED_SKILLS.has(section.skill) && section.session_id === null,
@@ -82,6 +83,16 @@ export function MockRunner() {
 
   if (isMockSectionComingSoon(section)) {
     return <ComingSoonSection skill={section.skill} onSkip={advance} />;
+  }
+
+  if (section.skill === "listening" && section.test_id) {
+    return (
+      <ListeningTest
+        key={`listening-${cursor}`}
+        embeddedTestId={section.test_id}
+        onComplete={handleSectionComplete}
+      />
+    );
   }
 
   if (section.skill === "reading" && section.test_id) {

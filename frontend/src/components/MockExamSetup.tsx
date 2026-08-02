@@ -5,10 +5,15 @@ import {
   IMPLEMENTED_SKILLS,
   type MockMode,
   type MockSession,
+  type ListeningTest,
   type ReadingTest,
   type WritingTest,
 } from "../types";
 
+const listeningFiles = import.meta.glob<{ default: ListeningTest }>(
+  "../data/listening-tests/*.json",
+  { eager: true },
+);
 const readingFiles = import.meta.glob<{ default: ReadingTest }>(
   "../data/reading-tests/*.json",
   { eager: true },
@@ -24,6 +29,17 @@ function isReadingTest(value: unknown): value is ReadingTest {
   return (
     typeof candidate.id === "string" &&
     Array.isArray(candidate.passages) &&
+    Array.isArray(candidate.question_groups)
+  );
+}
+
+function isListeningTest(value: unknown): value is ListeningTest {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<ListeningTest>;
+  return (
+    typeof candidate.id === "string" &&
+    typeof candidate.audio_url === "string" &&
+    Array.isArray(candidate.parts) &&
     Array.isArray(candidate.question_groups)
   );
 }
@@ -47,6 +63,14 @@ const MODES: { value: MockMode; title: string; blurb: string }[] = [
 export function MockExamSetup() {
   const navigate = useNavigate();
 
+  const listeningTests = useMemo(
+    () =>
+      Object.values(listeningFiles)
+        .map((m) => m.default)
+        .filter(isListeningTest)
+        .sort((a, b) => testNumber(b.id) - testNumber(a.id)),
+    [],
+  );
   const readingTests = useMemo(
     () =>
       Object.values(readingFiles)
@@ -65,6 +89,7 @@ export function MockExamSetup() {
   );
 
   const [mode, setMode] = useState<MockMode>("relaxed");
+  const [listeningId, setListeningId] = useState(listeningTests[0]?.id ?? "");
   const [readingId, setReadingId] = useState(readingTests[0]?.id ?? "");
   const [writingId, setWritingId] = useState(writingTests[0]?.id ?? "");
 
@@ -84,7 +109,7 @@ export function MockExamSetup() {
       mode,
       started_at: new Date().toISOString(),
       sections: [
-        { skill: "listening", test_id: null, session_id: null, band: null },
+        { skill: "listening", test_id: listeningId || null, session_id: null, band: null },
         { skill: "reading", test_id: readingId || null, session_id: null, band: null },
         { skill: "writing", test_id: writingId || null, session_id: null, band: null },
         { skill: "speaking", test_id: null, session_id: null, band: null },
@@ -94,7 +119,7 @@ export function MockExamSetup() {
     navigate(`/mock/${mock.id}`);
   }
 
-  const canStart = Boolean(readingId && writingId);
+  const canStart = Boolean(listeningId && readingId && writingId);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
@@ -102,7 +127,7 @@ export function MockExamSetup() {
         <h1 className="text-2xl font-bold text-gray-900">Full Test</h1>
         <p className="mt-1 text-sm text-gray-500">
           Sit a mock in exam order — Listening, Reading, Writing, Speaking — and get a combined band.
-          Listening &amp; Speaking are coming soon and are skipped for now.
+          Speaking is coming soon and is skipped for now.
         </p>
       </div>
 
@@ -153,7 +178,21 @@ export function MockExamSetup() {
         </div>
       </section>
 
-      <section className="mb-6 grid gap-4 sm:grid-cols-2">
+      <section className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <label className="block">
+          <span className="mb-1 block text-sm font-semibold text-gray-700">Listening test</span>
+          <select
+            value={listeningId}
+            onChange={(e) => setListeningId(e.target.value)}
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {listeningTests.map((test) => (
+              <option key={test.id} value={test.id}>
+                {test.title}
+              </option>
+            ))}
+          </select>
+        </label>
         <label className="block">
           <span className="mb-1 block text-sm font-semibold text-gray-700">Reading test</span>
           <select
@@ -185,7 +224,7 @@ export function MockExamSetup() {
       </section>
 
       <ol className="mb-6 space-y-1 text-sm text-gray-600">
-        <li>1. Listening — <span className="text-amber-600">coming soon</span></li>
+        <li>1. Listening</li>
         <li>2. Reading</li>
         <li>3. Writing</li>
         <li>4. Speaking — <span className="text-amber-600">coming soon</span></li>
