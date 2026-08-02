@@ -55,3 +55,18 @@ export function isAnswerCorrect(
     (answer) => normalizeAnswer(questionType, answer) === normalizedUserAnswer,
   );
 }
+
+/**
+ * IELTS overall band = the mean of the skill bands rounded to the nearest half band
+ * (a .25 average rounds up to .5, a .75 average rounds up to the next whole band).
+ * `Math.round(avg * 2) / 2` reproduces that rule exactly. Returns null when no bands
+ * are available yet (e.g. only coming-soon sections).
+ */
+export function roundToOverallBand(bands: number[]): number | null {
+  const present = bands.filter(
+    (band): band is number => typeof band === "number" && !Number.isNaN(band),
+  );
+  if (present.length === 0) return null;
+  const avg = present.reduce((sum, band) => sum + band, 0) / present.length;
+  return Math.round(avg * 2) / 2;
+}
