@@ -68,6 +68,16 @@ export function MockExamSetup() {
   const [readingId, setReadingId] = useState(readingTests[0]?.id ?? "");
   const [writingId, setWritingId] = useState(writingTests[0]?.id ?? "");
 
+  const inProgress = useMemo(
+    () =>
+      listMockSessions().filter((session) =>
+        session.sections.some(
+          (s) => IMPLEMENTED_SKILLS.has(s.skill) && s.session_id === null,
+        ),
+      ),
+    [],
+  );
+
   function startMock() {
     const mock: MockSession = {
       id: `mock-${Date.now()}`,
