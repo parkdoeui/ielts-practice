@@ -62,8 +62,10 @@ function getActionPointsForTask(points: string[], taskNumber: 1 | 2): string[] {
   return taskNumber === 1 ? points.slice(0, midpoint) : points.slice(midpoint);
 }
 
-export function WritingTest() {
-  const { id } = useParams<{ id: string }>();
+export function WritingTest({ embeddedTestId, onComplete }: WritingTestProps = {}) {
+  const params = useParams<{ id: string }>();
+  const id = embeddedTestId ?? params.id;
+  const embedded = Boolean(onComplete);
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Record<string, string>>({ "1": "", "2": "" });
   const [startedAt] = useState(() => new Date().toISOString());
@@ -71,6 +73,7 @@ export function WritingTest() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [previousAttempt, setPreviousAttempt] = useState<PreviousWritingAttempt | null>(null);
+  const [fontScale, setFontScale] = useState<FontScale>("base");
 
   const test = useMemo(
     () =>
