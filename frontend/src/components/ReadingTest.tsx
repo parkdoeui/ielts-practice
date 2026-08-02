@@ -202,21 +202,39 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
 
     localStorage.setItem(`ielts_session_${session.id}`, JSON.stringify(session));
 
+    // Reading is graded locally, so the band is valid even if the backend save fails —
+    // in embedded (mock) mode we hand control back to the runner either way.
+    const sectionResult: ReadingSectionResult = {
+      skill: "reading",
+      sessionId: session.id,
+      band: session.score.band_estimate,
+      correct,
+      total,
+    };
+
     try {
       await saveSession(session);
       const syncedSession: TestSession = { ...session, sync_status: "synced", sync_error: undefined };
       localStorage.setItem(`ielts_session_${session.id}`, JSON.stringify(syncedSession));
+      if (onComplete) {
+        onComplete(sectionResult);
+        return;
+      }
       navigate(`/results/${session.id}`);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to save session to backend.";
       const localOnlySession: TestSession = { ...session, sync_status: "local-only", sync_error: message };
       localStorage.setItem(`ielts_session_${session.id}`, JSON.stringify(localOnlySession));
+      if (onComplete) {
+        onComplete(sectionResult);
+        return;
+      }
       setSubmitError("Saved on this device only. Backend sync failed.");
       navigate(`/results/${session.id}`);
     } finally {
       setIsSaving(false);
     }
-  }, [test, submitted, isSaving, startMs, answers, id, startedAt, navigate]);
+  }, [test, submitted, isSaving, startMs, answers, id, startedAt, navigate, onComplete]);
 
   if (!test || isCheckingCompletion) {
     return <div className="p-8 text-gray-500">Loading test...</div>;
