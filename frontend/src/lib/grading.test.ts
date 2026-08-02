@@ -10,6 +10,10 @@ describe("grading completion helpers", () => {
     expect(isCompletionType("diagram-labeling")).toBe(true);
   });
 
+  it("treats note completion as a completion type", () => {
+    expect(isCompletionType("note-completion")).toBe(true);
+  });
+
   it("normalizes punctuation-heavy table completion answers", () => {
     expect(
       isAnswerCorrect("table-completion", "(big), large enough", [
@@ -22,6 +26,15 @@ describe("grading completion helpers", () => {
     expect(
       isAnswerCorrect("diagram-labeling", "(leaf) litter", ["leaf litter"]),
     ).toBe(true);
+  });
+
+  it("normalizes Listening note completion answers", () => {
+    expect(isAnswerCorrect("note-completion", "(Leigh)", ["Leigh"])).toBe(true);
+  });
+
+  it("grades Listening matching answers by their option letter", () => {
+    expect(isAnswerCorrect("matching", "c", ["C"])).toBe(true);
+    expect(isAnswerCorrect("matching", "B", ["C"])).toBe(false);
   });
 });
 

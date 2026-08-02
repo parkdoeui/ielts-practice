@@ -9,7 +9,9 @@ export type QuestionType =
   | "sentence-completion"
   | "summary-completion"
   | "table-completion"
-  | "diagram-labeling";
+  | "diagram-labeling"
+  | "note-completion"
+  | "matching";
 
 export interface Passage {
   id: string;
@@ -43,6 +45,22 @@ export interface ReadingTest {
   title: string;
   test_type: "academic" | "general";
   passages: Passage[];
+  question_groups: QuestionGroup[];
+  time_limit_minutes: number;
+  source_url: string;
+}
+
+export interface ListeningPart {
+  id: string;
+  number: number;
+  title?: string | null;
+}
+
+export interface ListeningTest {
+  id: string;
+  title: string;
+  audio_url: string;
+  parts: ListeningPart[];
   question_groups: QuestionGroup[];
   time_limit_minutes: number;
   source_url: string;
@@ -156,7 +174,7 @@ export type SkillName = "listening" | "reading" | "writing" | "speaking";
 
 export interface MockSection {
   skill: SkillName;
-  test_id: string | null;    // null ⇒ not-yet-available (listening/speaking this iteration)
+  test_id: string | null;    // null ⇒ not-yet-available (speaking this iteration)
   session_id: string | null; // set on completion; also the "done" signal
   band: number | null;       // child session's band, captured at completion
 }
@@ -168,10 +186,8 @@ export interface MockSession {
   sections: MockSection[];   // ordered: listening, reading, writing, speaking
 }
 
-// Skills that have a real, playable section today. Listening/Speaking are placeholders
-// until their content + components ship; adding them here (with a test_id) is all that's
-// needed to promote them from "coming soon" to a real step.
-export const IMPLEMENTED_SKILLS = new Set<SkillName>(["reading", "writing"]);
+// Skills that have a real, playable section today.
+export const IMPLEMENTED_SKILLS = new Set<SkillName>(["listening", "reading", "writing"]);
 
 export function isMockSectionDone(section: MockSection): boolean {
   return section.session_id !== null;

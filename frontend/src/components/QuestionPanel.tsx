@@ -252,6 +252,30 @@ function QuestionInput({
       );
     }
 
+    case "matching": {
+      const opts = group.options ?? {};
+      return (
+        <div className="space-y-2">
+          {question.statement && (
+            <p className="text-sm font-medium text-gray-900">{question.statement}</p>
+          )}
+          <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            disabled={readOnly}
+            className={selectClass}
+          >
+            <option value="">Select option...</option>
+            {Object.entries(opts).map(([key, text]) => (
+              <option key={key} value={key}>
+                {key}{text !== key ? `. ${text}` : ""}
+              </option>
+            ))}
+          </select>
+        </div>
+      );
+    }
+
     case "matching-headings": {
       const opts = group.options ?? {};
       return (
@@ -374,6 +398,24 @@ function QuestionInput({
     }
 
     case "table-completion": {
+      return (
+        <div className="space-y-2">
+          {question.statement && (
+            <p className="text-sm text-gray-900 whitespace-pre-line">{question.statement}</p>
+          )}
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            disabled={readOnly}
+            placeholder="Answer..."
+            className={`${inputClass} w-64`}
+          />
+        </div>
+      );
+    }
+
+    case "note-completion": {
       return (
         <div className="space-y-2">
           {question.statement && (

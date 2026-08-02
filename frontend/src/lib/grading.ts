@@ -5,6 +5,7 @@ const COMPLETION_TYPES: QuestionType[] = [
   "summary-completion",
   "table-completion",
   "diagram-labeling",
+  "note-completion",
 ];
 
 export function estimateBand(correct: number, total: number): number {
