@@ -5,6 +5,7 @@ IELTS Test Crawler
 Usage:
   python main.py crawl <url> --output <path>                         # reading
   python main.py crawl-writing <url> --output <path>                 # writing
+  python main.py crawl-listening <url> --output <path>              # listening
   python main.py crawl <url> --output <path> --ai-validate --project <gcp-project>
   python main.py crawl-writing <url> --output <path> --ai-validate --project <gcp-project>
   python main.py inspect <url>              # Print raw HTML for debugging
@@ -20,6 +21,8 @@ from parser import parse_reading_test
 from validator import validate_reading_test
 from writing_parser import parse_writing_test
 from writing_validator import validate_writing_test
+from listening_parser import parse_listening_test
+from listening_validator import validate_listening_test
 
 
 def _validate_or_exit(test, label: str = "Validation") -> None:
@@ -37,6 +40,19 @@ def _validate_or_exit(test, label: str = "Validation") -> None:
 
 def _validate_writing_or_exit(test, label: str = "Writing validation") -> None:
     result = validate_writing_test(test)
+    if result.warnings:
+        for w in result.warnings:
+            print(f"  ⚠ {w}")
+    if not result.valid:
+        print(f"{label} FAILED — aborting save:")
+        for e in result.errors:
+            print(f"  ✗ {e}")
+        sys.exit(1)
+    print(f"{label}: OK")
+
+
+def _validate_listening_or_exit(test, label: str = "Listening validation") -> None:
+    result = validate_listening_test(test)
     if result.warnings:
         for w in result.warnings:
             print(f"  ⚠ {w}")
@@ -244,6 +260,26 @@ def cmd_crawl_writing(
     print(f"Tasks: {len(test.tasks)}")
 
 
+def cmd_crawl_listening(url: str, output_dir: str) -> None:
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    print(f"Fetching: {url}")
+    html = fetch_test_page(url)
+
+    print("Parsing listening test...")
+    test = parse_listening_test(html, url)
+    _validate_listening_or_exit(test)
+
+    filepath = output_path / f"{test.id}.json"
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(test.model_dump(), f, indent=2, ensure_ascii=False)
+
+    total_qs = sum(len(group.questions) for group in test.question_groups)
+    print(f"Saved: {filepath}")
+    print(f"Parts: {len(test.parts)}, Groups: {len(test.question_groups)}, Questions: {total_qs}")
+
+
 def cmd_inspect(url: str) -> None:
     """Print page HTML for debugging parser selectors."""
     print(f"Fetching: {url}")
@@ -292,6 +328,11 @@ def main():
     crawl_writing_cmd.add_argument("--page-text-max-chars", type=int, default=12000,
                                    help="Max chars of page text to send to AI (default: 12000)")
 
+    crawl_listening_cmd = subparsers.add_parser("crawl-listening", help="Crawl and save a listening test")
+    crawl_listening_cmd.add_argument("url", help="URL of the IELTS listening test page")
+    crawl_listening_cmd.add_argument("--output", default="../frontend/src/data/listening-tests/",
+                                     help="Output directory for listening JSON files")
+
     args = parser.parse_args()
 
     if args.command == "crawl":
@@ -317,6 +358,8 @@ def main():
             ai_validate_model=args.ai_validate_model,
             page_text_max_chars=args.page_text_max_chars,
         )
+    elif args.command == "crawl-listening":
+        cmd_crawl_listening(args.url, args.output)
     else:
         parser.print_help()
 
