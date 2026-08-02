@@ -106,6 +106,32 @@ export function MockExamSetup() {
         </p>
       </div>
 
+      {inProgress.length > 0 && (
+        <section className="mb-6">
+          <h2 className="mb-2 text-sm font-semibold text-gray-700">Resume</h2>
+          <div className="space-y-2">
+            {inProgress.map((session) => {
+              const done = session.sections.filter(
+                (s) => IMPLEMENTED_SKILLS.has(s.skill) && s.session_id !== null,
+              ).length;
+              const total = session.sections.filter((s) => IMPLEMENTED_SKILLS.has(s.skill)).length;
+              return (
+                <Link
+                  key={session.id}
+                  to={`/mock/${session.id}`}
+                  className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 hover:border-amber-300"
+                >
+                  <span className="text-sm text-gray-700">
+                    In progress · {session.mode} · {done}/{total} sections done
+                  </span>
+                  <span className="text-sm font-medium text-amber-700">Resume →</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       <section className="mb-6">
         <h2 className="mb-2 text-sm font-semibold text-gray-700">Mode</h2>
         <div className="grid gap-3 sm:grid-cols-2">
