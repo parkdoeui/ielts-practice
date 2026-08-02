@@ -3,56 +3,27 @@ import { Link, useNavigate } from "react-router";
 import { listMockSessions, saveMockSession } from "../services/api";
 import {
   IMPLEMENTED_SKILLS,
+  type FullTestSet,
   type MockMode,
   type MockSession,
-  type ListeningTest,
-  type ReadingTest,
-  type WritingTest,
 } from "../types";
 
-const listeningFiles = import.meta.glob<{ default: ListeningTest }>(
-  "../data/listening-tests/*.json",
-  { eager: true },
-);
-const readingFiles = import.meta.glob<{ default: ReadingTest }>(
-  "../data/reading-tests/*.json",
-  { eager: true },
-);
-const writingFiles = import.meta.glob<{ default: WritingTest }>(
-  "../data/writing-tests/*.json",
+const fullTestFiles = import.meta.glob<{ default: FullTestSet }>(
+  "../data/full-tests/*.json",
   { eager: true },
 );
 
-function isReadingTest(value: unknown): value is ReadingTest {
+function isFullTestSet(value: unknown): value is FullTestSet {
   if (!value || typeof value !== "object") return false;
-  const candidate = value as Partial<ReadingTest>;
+  const candidate = value as Partial<FullTestSet>;
   return (
     typeof candidate.id === "string" &&
-    Array.isArray(candidate.passages) &&
-    Array.isArray(candidate.question_groups)
+    typeof candidate.title === "string" &&
+    typeof candidate.listening_test_id === "string" &&
+    typeof candidate.reading_test_id === "string" &&
+    typeof candidate.writing_test_id === "string" &&
+    (typeof candidate.speaking_test_id === "string" || candidate.speaking_test_id === null)
   );
-}
-
-function isListeningTest(value: unknown): value is ListeningTest {
-  if (!value || typeof value !== "object") return false;
-  const candidate = value as Partial<ListeningTest>;
-  return (
-    typeof candidate.id === "string" &&
-    typeof candidate.audio_url === "string" &&
-    Array.isArray(candidate.parts) &&
-    Array.isArray(candidate.question_groups)
-  );
-}
-
-function isWritingTest(value: unknown): value is WritingTest {
-  if (!value || typeof value !== "object") return false;
-  const candidate = value as Partial<WritingTest>;
-  return typeof candidate.id === "string" && Array.isArray(candidate.tasks);
-}
-
-function testNumber(id: string): number {
-  const match = id.match(/(\d+)/);
-  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
 }
 
 const MODES: { value: MockMode; title: string; blurb: string }[] = [
@@ -63,35 +34,18 @@ const MODES: { value: MockMode; title: string; blurb: string }[] = [
 export function MockExamSetup() {
   const navigate = useNavigate();
 
-  const listeningTests = useMemo(
+  const fullTests = useMemo(
     () =>
-      Object.values(listeningFiles)
+      Object.values(fullTestFiles)
         .map((m) => m.default)
-        .filter(isListeningTest)
-        .sort((a, b) => testNumber(b.id) - testNumber(a.id)),
-    [],
-  );
-  const readingTests = useMemo(
-    () =>
-      Object.values(readingFiles)
-        .map((m) => m.default)
-        .filter(isReadingTest)
-        .sort((a, b) => testNumber(a.id) - testNumber(b.id)),
-    [],
-  );
-  const writingTests = useMemo(
-    () =>
-      Object.values(writingFiles)
-        .map((m) => m.default)
-        .filter(isWritingTest)
-        .sort((a, b) => testNumber(a.id) - testNumber(b.id)),
+        .filter(isFullTestSet)
+        .sort((a, b) => a.title.localeCompare(b.title)),
     [],
   );
 
   const [mode, setMode] = useState<MockMode>("relaxed");
-  const [listeningId, setListeningId] = useState(listeningTests[0]?.id ?? "");
-  const [readingId, setReadingId] = useState(readingTests[0]?.id ?? "");
-  const [writingId, setWritingId] = useState(writingTests[0]?.id ?? "");
+  const [fullTestId, setFullTestId] = useState(fullTests[0]?.id ?? "");
+  const selectedFullTest = fullTests.find((test) => test.id === fullTestId) ?? null;
 
   const inProgress = useMemo(
     () =>
@@ -99,27 +53,28 @@ export function MockExamSetup() {
         session.sections.some(
           (s) => IMPLEMENTED_SKILLS.has(s.skill) && s.session_id === null,
         ),
-      ),
+      ).slice(0, 1),
     [],
   );
 
   function startMock() {
+    if (!selectedFullTest) return;
     const mock: MockSession = {
       id: `mock-${Date.now()}`,
       mode,
       started_at: new Date().toISOString(),
       sections: [
-        { skill: "listening", test_id: listeningId || null, session_id: null, band: null },
-        { skill: "reading", test_id: readingId || null, session_id: null, band: null },
-        { skill: "writing", test_id: writingId || null, session_id: null, band: null },
-        { skill: "speaking", test_id: null, session_id: null, band: null },
+        { skill: "listening", test_id: selectedFullTest.listening_test_id, session_id: null, band: null },
+        { skill: "reading", test_id: selectedFullTest.reading_test_id, session_id: null, band: null },
+        { skill: "writing", test_id: selectedFullTest.writing_test_id, session_id: null, band: null },
+        { skill: "speaking", test_id: selectedFullTest.speaking_test_id, session_id: null, band: null },
       ],
     };
     saveMockSession(mock);
     navigate(`/mock/${mock.id}`);
   }
 
-  const canStart = Boolean(listeningId && readingId && writingId);
+  const canStart = selectedFullTest !== null;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
@@ -178,49 +133,29 @@ export function MockExamSetup() {
         </div>
       </section>
 
-      <section className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mb-6 space-y-3">
         <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-gray-700">Listening test</span>
+          <span className="mb-1 block text-sm font-semibold text-gray-700">Full Test set</span>
           <select
-            value={listeningId}
-            onChange={(e) => setListeningId(e.target.value)}
+            value={fullTestId}
+            onChange={(e) => setFullTestId(e.target.value)}
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            {listeningTests.map((test) => (
+            {fullTests.map((test) => (
               <option key={test.id} value={test.id}>
                 {test.title}
               </option>
             ))}
           </select>
         </label>
-        <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-gray-700">Reading test</span>
-          <select
-            value={readingId}
-            onChange={(e) => setReadingId(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {readingTests.map((test) => (
-              <option key={test.id} value={test.id}>
-                {test.title}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-gray-700">Writing test</span>
-          <select
-            value={writingId}
-            onChange={(e) => setWritingId(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {writingTests.map((test) => (
-              <option key={test.id} value={test.id}>
-                {test.title}
-              </option>
-            ))}
-          </select>
-        </label>
+        {selectedFullTest && (
+          <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
+            <p>Listening: {selectedFullTest.listening_test_id}</p>
+            <p>Reading: {selectedFullTest.reading_test_id}</p>
+            <p>Writing: {selectedFullTest.writing_test_id}</p>
+            <p>Speaking: {selectedFullTest.speaking_test_id ?? "coming soon"}</p>
+          </div>
+        )}
       </section>
 
       <ol className="mb-6 space-y-1 text-sm text-gray-600">

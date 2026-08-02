@@ -186,6 +186,15 @@ export interface MockSession {
   sections: MockSection[];   // ordered: listening, reading, writing, speaking
 }
 
+export interface FullTestSet {
+  id: string;
+  title: string;
+  listening_test_id: string;
+  reading_test_id: string;
+  writing_test_id: string;
+  speaking_test_id: string | null;
+}
+
 // Skills that have a real, playable section today.
 export const IMPLEMENTED_SKILLS = new Set<SkillName>(["listening", "reading", "writing"]);
 
