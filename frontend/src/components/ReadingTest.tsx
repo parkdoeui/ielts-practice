@@ -439,40 +439,64 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
         </div>
       </div>
 
-      <div className="shrink-0 border-t border-gray-200 bg-white px-4 md:px-6 py-3">
-        <div className="flex justify-end gap-2">
-          <button
-            onClick={handlePrev}
-            disabled={currentPassageIndex === 0 || isSaving}
-            className="px-3 md:px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
-          >
-            Prev
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={currentPassageIndex === test.passages.length - 1 || isSaving}
-            className="px-3 md:px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
-          >
-            Next
-          </button>
-          {isReviewMode ? (
-            <button
-              onClick={() => navigate(`/results/${reviewSession.id}`)}
-              className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              View Results
-            </button>
-          ) : (
+      {embedded ? (
+        <>
+          <QuestionNavigator
+            parts={questionModel.parts}
+            answered={answeredSet}
+            flagged={flagged}
+            current={navCurrent}
+            onJump={jumpToQuestion}
+            onToggleFlag={toggleFlag}
+            onPrev={() => stepQuestion(-1)}
+            onNext={() => stepQuestion(1)}
+          />
+          <div className="shrink-0 border-t border-gray-200 bg-white px-4 md:px-6 py-2 flex justify-end">
             <button
               onClick={handleSubmit}
               disabled={submitted || isSaving}
-              className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
             >
-              {isSaving ? "Saving..." : "Submit"}
+              {isSaving ? "Saving..." : "Submit section"}
             </button>
-          )}
+          </div>
+        </>
+      ) : (
+        <div className="shrink-0 border-t border-gray-200 bg-white px-4 md:px-6 py-3">
+          <div className="flex justify-end gap-2">
+            <button
+              onClick={handlePrev}
+              disabled={currentPassageIndex === 0 || isSaving}
+              className="px-3 md:px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
+            >
+              Prev
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentPassageIndex === test.passages.length - 1 || isSaving}
+              className="px-3 md:px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
+            >
+              Next
+            </button>
+            {isReviewMode ? (
+              <button
+                onClick={() => navigate(`/results/${reviewSession.id}`)}
+                className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                View Results
+              </button>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                disabled={submitted || isSaving}
+                className="px-3 md:px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              >
+                {isSaving ? "Saving..." : "Submit"}
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
