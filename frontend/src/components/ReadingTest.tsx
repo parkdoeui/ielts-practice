@@ -41,8 +41,10 @@ function isReadingTest(value: unknown): value is ReadingTestType {
   );
 }
 
-export function ReadingTest() {
-  const { id } = useParams<{ id: string }>();
+export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {}) {
+  const params = useParams<{ id: string }>();
+  const id = embeddedTestId ?? params.id;
+  const embedded = Boolean(onComplete);
   const navigate = useNavigate();
   const [test, setTest] = useState<ReadingTestType | null>(null);
   const [currentPassageIndex, setCurrentPassageIndex] = useState(0);
@@ -56,6 +58,10 @@ export function ReadingTest() {
   const [reviewSession, setReviewSession] = useState<TestSession | null>(null);
   // Mobile: "passage" | "questions"
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
+  // CBT chrome (embedded/mock mode only)
+  const [flagged, setFlagged] = useState<Set<number>>(new Set());
+  const [currentQuestionId, setCurrentQuestionId] = useState<number | null>(null);
+  const [fontScale, setFontScale] = useState<FontScale>("base");
 
   useEffect(() => {
     const found = Object.values(testFiles)
