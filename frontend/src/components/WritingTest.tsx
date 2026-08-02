@@ -2,7 +2,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getWritingSessions, submitWritingSession } from "../services/api";
 import { TimerBar } from "./TimerBar";
+import { CbtStatusBar, FONT_SCALE_ZOOM, type FontScale } from "./CbtStatusBar";
 import type { WritingAnswersJson, WritingSession, WritingTest as WritingTestType } from "../types";
+
+export interface WritingSectionResult {
+  skill: "writing";
+  sessionId: string;
+  band: number;
+}
+
+interface WritingTestProps {
+  embeddedTestId?: string;
+  onComplete?: (result: WritingSectionResult) => void;
+}
 
 const writingFiles = import.meta.glob<{ default: WritingTestType }>(
   "../data/writing-tests/*.json",
