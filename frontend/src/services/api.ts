@@ -1,4 +1,4 @@
-import type { TestSession, WritingSession, WritingTest } from "../types";
+import type { MockSession, TestSession, WritingSession, WritingTest } from "../types";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 const FETCH_OPTS: RequestInit = { credentials: "include" };
