@@ -1,0 +1,427 @@
+{
+  "id": "listening-test-207",
+  "title": "IELTS Listening Test 207 – IELTS MASTER",
+  "audio_url": "https://practicepteonline.com/wp-content/uploads/audio/207_we.mp3",
+  "parts": [
+    {
+      "id": "part-1",
+      "number": 1,
+      "title": "Ferry to Shetland Islands"
+    },
+    {
+      "id": "part-2",
+      "number": 2,
+      "title": "Problems"
+    },
+    {
+      "id": "part-3",
+      "number": 3,
+      "title": "Comments"
+    },
+    {
+      "id": "part-4",
+      "number": 4,
+      "title": "Invasive species"
+    }
+  ],
+  "question_groups": [
+    {
+      "id": "g-part1-q1",
+      "type": "note-completion",
+      "passage_id": "part-1",
+      "instruction": "Complete the notes below. Write ONE WORD AND/ OR A NUMBER for each answer.",
+      "questions": [
+        {
+          "id": 1,
+          "statement": "• Name of ferry company: Ferries",
+          "answer": "Northern",
+          "options": null
+        },
+        {
+          "id": 2,
+          "statement": "• Ferries depart seven times per in summer",
+          "answer": "Week",
+          "options": null
+        },
+        {
+          "id": 3,
+          "statement": "• Cost for four people with car: a little less than £",
+          "answer": "250/two hundred fifty",
+          "options": null
+        },
+        {
+          "id": 4,
+          "statement": "• Cancellation policy: receive a (if cancelled a month in advance)",
+          "answer": "Voucher",
+          "options": null
+        },
+        {
+          "id": 5,
+          "statement": "o book one with a",
+          "answer": "Window",
+          "options": null
+        },
+        {
+          "id": 6,
+          "statement": "• Bring snacks and for the children",
+          "answer": "Books",
+          "options": null
+        },
+        {
+          "id": 7,
+          "statement": "• A is required for the dog kennels",
+          "answer": "Blanket",
+          "options": null
+        },
+        {
+          "id": 8,
+          "statement": "• Try to see in the morning",
+          "answer": "Dolphins",
+          "options": null
+        },
+        {
+          "id": 9,
+          "statement": "• If time, visit Castle",
+          "answer": "Drum",
+          "options": null
+        },
+        {
+          "id": 10,
+          "statement": "• The restaurant in a nearby village is recommended",
+          "answer": "Italian",
+          "options": null
+        }
+      ],
+      "shared_text": "Ferry to Shetland Islands Advice • Cabins: o luxury cabins have a TV",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q11",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 11,
+          "statement": "Which TWO explanations for the popularity of street food are given?",
+          "answer": "C",
+          "options": null
+        },
+        {
+          "id": 12,
+          "statement": "Which TWO explanations for the popularity of street food are given?",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": "Which TWO explanations for the popularity of street food are given?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "low price",
+        "B": "locally sourced",
+        "C": "freshly made",
+        "D": "convenience",
+        "E": "unusual food"
+      }
+    },
+    {
+      "id": "g-part2-q13",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 13,
+          "statement": "Which TWO places are recommended for new street food businesses?",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 14,
+          "statement": "Which TWO places are recommended for new street food businesses?",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": "Which TWO places are recommended for new street food businesses?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "music festivals",
+        "B": "food markets",
+        "C": "weddings",
+        "D": "parties",
+        "E": "parks"
+      }
+    },
+    {
+      "id": "g-part2-q15",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose the correct letter, A, B or C.",
+      "questions": [
+        {
+          "id": 15,
+          "statement": "What does the speaker say about getting equipment for a street food business?",
+          "answer": "B",
+          "options": {
+            "A": "High quality equipment is a good investment.",
+            "B": "It’s best to buy second-hand equipment.",
+            "C": "Renting equipment can be cheap."
+          }
+        },
+        {
+          "id": 16,
+          "statement": "What advice is given about creating a product for a street food business?",
+          "answer": "C",
+          "options": {
+            "A": "Provide information about the ingredients.",
+            "B": "It is important to have an original product.",
+            "C": "The presentation is an important factor."
+          }
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q17",
+      "type": "matching",
+      "passage_id": "part-2",
+      "instruction": "What problem did the owners of each of the following street food businesses experience? Choose FOUR answers from the box and write the correct letter, A-F, next to Questions 17-20.",
+      "questions": [
+        {
+          "id": 17,
+          "statement": "Thai Basil",
+          "answer": "F",
+          "options": null
+        },
+        {
+          "id": 18,
+          "statement": "Basque",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 19,
+          "statement": "Lou’s kitchen",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 20,
+          "statement": "Chip Chop",
+          "answer": "D",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "Some ingredients were too expensive.",
+        "B": "The meals took a long time to prepare.",
+        "C": "They had no money for marketing.",
+        "D": "It was difficult to get a permit to sell food.",
+        "E": "A competitor was selling similar food in their area.",
+        "F": "They worked very long hours."
+      }
+    },
+    {
+      "id": "g-part3-q21",
+      "type": "multiple-choice",
+      "passage_id": "part-3",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 21,
+          "statement": "Which TWO points do the speakers make about the terms ‘ethical’ and ‘sustainable’ fashion?",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 22,
+          "statement": "Which TWO points do the speakers make about the terms ‘ethical’ and ‘sustainable’ fashion?",
+          "answer": "D",
+          "options": null
+        }
+      ],
+      "shared_text": "Which TWO points do the speakers make about the terms ‘ethical’ and ‘sustainable’ fashion?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "Their definitions keep changing.",
+        "B": "People think they mean the same thing.",
+        "C": "The term ‘eco-friendly’ is preferable.",
+        "D": "They are often used imprecisely.",
+        "E": "Companies should avoid using them on clothing labels."
+      }
+    },
+    {
+      "id": "g-part3-q23",
+      "type": "multiple-choice",
+      "passage_id": "part-3",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 23,
+          "statement": "Which TWO claims about wool production do the speakers disagree with?",
+          "answer": "D",
+          "options": null
+        },
+        {
+          "id": 24,
+          "statement": "Which TWO claims about wool production do the speakers disagree with?",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": "Which TWO claims about wool production do the speakers disagree with?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "Sheep are generally well-treated.",
+        "B": "Wool is easy to recycle.",
+        "C": "Wool is a long-lasting fabric.",
+        "D": "Wool production involves few chemicals.",
+        "E": "Sheep do less environmental damage than other livestock."
+      }
+    },
+    {
+      "id": "g-part3-q25",
+      "type": "matching",
+      "passage_id": "part-3",
+      "instruction": "What comment do the speakers make about each of the following semi-synthetic fabrics? Choose SIX answers from the box and write the correct letter, A-H, next to Questions 25-30.",
+      "questions": [
+        {
+          "id": 25,
+          "statement": "Lyocell",
+          "answer": "G",
+          "options": null
+        },
+        {
+          "id": 26,
+          "statement": "Cupro",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 27,
+          "statement": "Bamboo",
+          "answer": "F",
+          "options": null
+        },
+        {
+          "id": 28,
+          "statement": "EcoVero",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 29,
+          "statement": "Cork",
+          "answer": "H",
+          "options": null
+        },
+        {
+          "id": 30,
+          "statement": "Hemp",
+          "answer": "D",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "The production process is fuel efficient.",
+        "B": "It is the least sustainable of alternative fabrics.",
+        "C": "Production costs are high.",
+        "D": "It provides additional health benefits.",
+        "E": "It is not durable in the long-term.",
+        "F": "It needs to be produced in a certain way to be sustainable.",
+        "G": "Chemicals required for production can be reused.",
+        "H": "This is from a wholly sustainable source."
+      }
+    },
+    {
+      "id": "g-part4-q31",
+      "type": "note-completion",
+      "passage_id": "part-4",
+      "instruction": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+      "questions": [
+        {
+          "id": 31,
+          "statement": "• introduces a new",
+          "answer": "Disease",
+          "options": null
+        },
+        {
+          "id": 32,
+          "statement": "• threatens an entire",
+          "answer": "Ecosystem",
+          "options": null
+        },
+        {
+          "id": 33,
+          "statement": "• accidentally e.g. via people returning from their or on cargo ships",
+          "answer": "Holidays",
+          "options": null
+        },
+        {
+          "id": 34,
+          "statement": "• intentionally e.g. for pest control, or as",
+          "answer": "Pets",
+          "options": null
+        },
+        {
+          "id": 35,
+          "statement": "o were introduced to Australia from Hawaii in 1935 to eat a type of insect that was damaging the plantations.",
+          "answer": "Sugar",
+          "options": null
+        },
+        {
+          "id": 36,
+          "statement": "• Rhododendron plants prevent from reaching native plants.",
+          "answer": "Light",
+          "options": null
+        },
+        {
+          "id": 37,
+          "statement": "• Grey squirrels from N. America reduce sources of food for the UK’s native red squirrels and spread a that kills red squirrels.",
+          "answer": "Virus",
+          "options": null
+        },
+        {
+          "id": 38,
+          "statement": "• Monitoring helps us to understand the of invasive species and the impact they have.",
+          "answer": "Behaviour/behavior",
+          "options": null
+        },
+        {
+          "id": 39,
+          "statement": "• Setting up a national makes it easier to track them.",
+          "answer": "Database",
+          "options": null
+        },
+        {
+          "id": 40,
+          "statement": "• Asking the public to and report them helps with monitoring.",
+          "answer": "Photograph",
+          "options": null
+        }
+      ],
+      "shared_text": "Invasive species Definition: an animal or plant that causes harm to an environment after being introduced by humans An invasive species can be a problem when it: • eats native species • takes food from native species How invasive species spread Examples of invasive species • Rhinella marina (toads) o failed to solve the problem and became widespread in the north of Australia. o are poisonous for any species that eats them and reduce the food available for native frogs. • Japanese knotweed plants were popular among 19th-century gardeners in the UK. Tackling invasive species",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    }
+  ],
+  "time_limit_minutes": 30,
+  "source_url": "https://practicepteonline.com/ielts-listening-test-207/"
+}

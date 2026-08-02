@@ -1,0 +1,406 @@
+{
+  "id": "listening-test-203",
+  "title": "IELTS Listening Test 203 – IELTS MASTER",
+  "audio_url": "https://practicepteonline.com/wp-content/uploads/audio/203_we.mp3",
+  "parts": [
+    {
+      "id": "part-1",
+      "number": 1,
+      "title": "Furniture Rental Companies"
+    },
+    {
+      "id": "part-2",
+      "number": 2,
+      "title": null
+    },
+    {
+      "id": "part-3",
+      "number": 3,
+      "title": "Show"
+    },
+    {
+      "id": "part-4",
+      "number": 4,
+      "title": "Inclusive design"
+    }
+  ],
+  "question_groups": [
+    {
+      "id": "g-part1-q1",
+      "type": "note-completion",
+      "passage_id": "part-1",
+      "instruction": "Complete the table below. Write ONE WORD AND/ OR A NUMBER for each answer.",
+      "questions": [
+        {
+          "id": 1,
+          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer:Free with every living room set",
+          "answer": "239",
+          "options": null
+        },
+        {
+          "id": 2,
+          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer:Free with every living room set",
+          "answer": "Modern",
+          "options": null
+        },
+        {
+          "id": 3,
+          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer:Free with every living room set",
+          "answer": "Lamp",
+          "options": null
+        },
+        {
+          "id": 4,
+          "statement": "And Oliver | Mid-range prices 12% monthly fee for | Also offers a cleaning service",
+          "answer": "Aaron",
+          "options": null
+        },
+        {
+          "id": 5,
+          "statement": "And Oliver | Mid-range prices 12% monthly fee for | Also offers a cleaning service",
+          "answer": "Damage",
+          "options": null
+        },
+        {
+          "id": 6,
+          "statement": "Larch Furniture | Offers cheapest process for renting furniture and items | Must have own Minimum contract length: Six months",
+          "answer": "Electronic",
+          "options": null
+        },
+        {
+          "id": 7,
+          "statement": "Larch Furniture | Offers cheapest process for renting furniture and items | Must have own Minimum contract length: Six months",
+          "answer": "Insurance",
+          "options": null
+        },
+        {
+          "id": 8,
+          "statement": "Rentals | See the for the most up-to-date prices | are allowed within 7 days of delivery",
+          "answer": "Space",
+          "options": null
+        },
+        {
+          "id": 9,
+          "statement": "Rentals | See the for the most up-to-date prices | are allowed within 7 days of delivery",
+          "answer": "App",
+          "options": null
+        },
+        {
+          "id": 10,
+          "statement": "Rentals | See the for the most up-to-date prices | are allowed within 7 days of delivery",
+          "answer": "Exchanges",
+          "options": null
+        }
+      ],
+      "shared_text": "Furniture Rental Companies Name of company | Information about costs | Additional notes",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q11",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose the correct letter, A, B or C.",
+      "questions": [
+        {
+          "id": 11,
+          "statement": "Who was responsible for starting the community project?",
+          "answer": "B",
+          "options": {
+            "A": "the castle owners",
+            "B": "a national charity",
+            "C": "the local council"
+          }
+        },
+        {
+          "id": 12,
+          "statement": "How was the gold coin found?",
+          "answer": "A",
+          "options": {
+            "A": "Heavy rain had removed some of the soil.",
+            "B": "The ground was dug up by wild rabbits.",
+            "C": "A person with a metal detector searched the area."
+          }
+        },
+        {
+          "id": 13,
+          "statement": "What led the archaeologists to believe there was an ancient village on this site?",
+          "answer": "A",
+          "options": {
+            "A": "the lucky discovery of old records",
+            "B": "the bases of several structures visible in the grass",
+            "C": "the unusual stones found near the castle"
+          }
+        },
+        {
+          "id": 14,
+          "statement": "What are the team still hoping to find?",
+          "answer": "C",
+          "options": {
+            "A": "everyday pottery",
+            "B": "animal bones",
+            "C": "pieces of jewellery"
+          }
+        },
+        {
+          "id": 15,
+          "statement": "What was found on the other side of the river to the castle?",
+          "answer": "B",
+          "options": {
+            "A": "the remains of a large palace",
+            "B": "the outline of fields",
+            "C": "a number of small huts"
+          }
+        },
+        {
+          "id": 16,
+          "statement": "What do the team plan to do after work ends this summer?",
+          "answer": "C",
+          "options": {
+            "A": "prepare a display for a museum",
+            "B": "take part in a television programme",
+            "C": "start to organise school visits"
+          }
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q17",
+      "type": "matching",
+      "passage_id": "part-2",
+      "instruction": "Label the map below. Write the correct letter A-G next to questions 17-20.",
+      "questions": [
+        {
+          "id": 17,
+          "statement": "",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 18,
+          "statement": "",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 19,
+          "statement": "",
+          "answer": "G",
+          "options": null
+        },
+        {
+          "id": 20,
+          "statement": "",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D",
+        "E": "E",
+        "F": "F",
+        "G": "G"
+      }
+    },
+    {
+      "id": "g-part3-q21",
+      "type": "multiple-choice",
+      "passage_id": "part-3",
+      "instruction": "Choose the correct letter, A, B or C.",
+      "questions": [
+        {
+          "id": 21,
+          "statement": "Finn was pleased to discover that their topic",
+          "answer": "B",
+          "options": {
+            "A": "was not familiar to their module leader.",
+            "B": "had not been chosen by other students.",
+            "C": "did not prove to be difficult to research."
+          }
+        },
+        {
+          "id": 22,
+          "statement": "Maya says a mistaken belief about theatre programmes is that",
+          "answer": "A",
+          "options": {
+            "A": "theatres pay companies to produce them.",
+            "B": "few theatre-goers buy them nowadays.",
+            "C": "they contain far more adverts than previously."
+          }
+        },
+        {
+          "id": 23,
+          "statement": "Finn was surprised that, in early British theatre, programmes",
+          "answer": "C",
+          "options": {
+            "A": "were difficult for audiences to obtain.",
+            "B": "were given out free of charge.",
+            "C": "were seen as a kind of contract."
+          }
+        },
+        {
+          "id": 24,
+          "statement": "Maya feels their project should include an explanation of why companies of actors",
+          "answer": "A",
+          "options": {
+            "A": "promoted their own plays.",
+            "B": "performed plays outdoors.",
+            "C": "had to tour with their plays."
+          }
+        },
+        {
+          "id": 25,
+          "statement": "Finn and Maya both think that, compared to nineteenth-century programmes, those from the eighteenth century",
+          "answer": "C",
+          "options": {
+            "A": "were more original.",
+            "B": "were more colourful.",
+            "C": "were more informative."
+          }
+        },
+        {
+          "id": 26,
+          "statement": "Maya doesn’t fully understand why, in the twentieth century,",
+          "answer": "B",
+          "options": {
+            "A": "very few theatre programmes were printed in the USA.",
+            "B": "British theatre programmes failed to develop for so long.",
+            "C": "theatre programmes in Britain copied fashions from the USA."
+          }
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part3-q27",
+      "type": "matching",
+      "passage_id": "part-3",
+      "instruction": "What comment is made about the programme for each of the following shows? Choose FOUR answers from the box and write the correct letter, A-F, next to Questions 27-30.",
+      "questions": [
+        {
+          "id": 27,
+          "statement": "Ruy Bias",
+          "answer": "F",
+          "options": null
+        },
+        {
+          "id": 28,
+          "statement": "Man of La Mancha",
+          "answer": "E",
+          "options": null
+        },
+        {
+          "id": 29,
+          "statement": "The Tragedy of Jane Shore",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 30,
+          "statement": "The Sailors’ Festival",
+          "answer": "D",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "Its origin is somewhat controversial.",
+        "B": "It is historically significant for a country.",
+        "C": "It was effective at attracting audiences.",
+        "D": "It is included in a recent project.",
+        "E": "It contains insights into the show.",
+        "F": "It resembles an artwork."
+      }
+    },
+    {
+      "id": "g-part4-q31",
+      "type": "note-completion",
+      "passage_id": "part-4",
+      "instruction": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+      "questions": [
+        {
+          "id": 31,
+          "statement": "• Designing products that can be accessed by a diverse range of people without the need for any",
+          "answer": "Adaptation",
+          "options": null
+        },
+        {
+          "id": 32,
+          "statement": "• Not the same as universal design: that is design for everyone, including catering for people with problems.",
+          "answer": "Cognitive",
+          "options": null
+        },
+        {
+          "id": 33,
+          "statement": "• which are adjustable, avoiding back or neck problems",
+          "answer": "Desks",
+          "options": null
+        },
+        {
+          "id": 34,
+          "statement": "• in public toilets which are easier to use",
+          "answer": "Taps",
+          "options": null
+        },
+        {
+          "id": 35,
+          "statement": "o designers avoid using in interfaces",
+          "answer": "Blue",
+          "options": null
+        },
+        {
+          "id": 36,
+          "statement": "o people can make commands using a mouse, keyboard or their",
+          "answer": "Voice",
+          "options": null
+        },
+        {
+          "id": 37,
+          "statement": "o Seatbelts are especially problematic for women.",
+          "answer": "Pregnant",
+          "options": null
+        },
+        {
+          "id": 38,
+          "statement": "o PPE Jackets are often unsuitable because of the size of women’s",
+          "answer": "Shoulders",
+          "options": null
+        },
+        {
+          "id": 39,
+          "statement": "o PPE for female officers dealing with emergencies is the worst.",
+          "answer": "Police",
+          "options": null
+        },
+        {
+          "id": 40,
+          "statement": "o The in offices is often too tow for women.",
+          "answer": "Temperature",
+          "options": null
+        }
+      ],
+      "shared_text": "Inclusive design Definition Examples of inclusive design • To assist the elderly: Impact of non-inclusive designs • Access o Loss of independence for disabled people. • Safety • Comfort in the workplace",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    }
+  ],
+  "time_limit_minutes": 30,
+  "source_url": "https://practicepteonline.com/ielts-listening-test-203/"
+}

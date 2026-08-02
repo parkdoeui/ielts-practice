@@ -22,7 +22,7 @@ NUMBERED_RE = re.compile(r"^(\d+)\.?\s+(.*)$")
 NUMBERED_BLANK_RE = re.compile(
     rf"^(\d+)\.?\s+(.*?)\s*{re.escape(BLANK_MARKER)}\s*$"
 )
-COMPLETION_RE = re.compile(rf"\((\d+)\)\s*{re.escape(BLANK_MARKER)}")
+COMPLETION_RE = re.compile(rf"\((\d+)\)(?=[^\n{re.escape(BLANK_MARKER)}]{{0,80}}{re.escape(BLANK_MARKER)})")
 CHECKBOX_OPTION_RE = re.compile(
     rf"^{re.escape(CHECKBOX_MARKER)}\s*([A-Z])\b\s*(.*)$"
 )
@@ -62,31 +62,50 @@ def _extract_title(soup: BeautifulSoup, test_id: str) -> str:
 def _linearize_entry(entry) -> list[str]:
     """Convert source paragraphs and form controls to marker-tagged lines."""
     lines: list[str] = []
-    for paragraph in entry.find_all("p"):
-        if paragraph.find_parent("div", id=lambda value: value and value.startswith("bg-showmore-hidden-")):
+    for element in entry.find_all(["p", "table"]):
+        if element.name == "p" and element.find_parent("table"):
             continue
-        if paragraph.find("ins", class_="adsbygoogle") or paragraph.find("script"):
+        if element.find_parent("div", id=lambda value: value and value.startswith("bg-showmore-hidden-")):
             continue
 
-        fragment = BeautifulSoup(str(paragraph), "html.parser").find("p")
+        fragment = BeautifulSoup(str(element), "html.parser").find(element.name)
         if fragment is None:
             continue
-        for tag in fragment.find_all("br"):
-            tag.replace_with("\n")
-        for control in fragment.find_all("input"):
-            control_type = (control.get("type") or "text").lower()
-            if control_type == "checkbox":
-                control.replace_with(CHECKBOX_MARKER)
-            elif control_type == "text":
-                control.replace_with(BLANK_MARKER)
-            else:
-                control.decompose()
+        for ad in fragment.find_all(["ins", "script"]):
+            ad.decompose()
 
-        raw = fragment.get_text("", strip=False)
-        for line in raw.splitlines():
-            normalized = re.sub(r"[ \t\r\f\v]+", " ", line).strip()
-            if normalized:
-                lines.append(normalized)
+        def replace_controls(node) -> None:
+            for tag in node.find_all("br"):
+                tag.replace_with("\n")
+            for control in node.find_all("input"):
+                control_type = (control.get("type") or "text").lower()
+                if control_type == "checkbox":
+                    control.replace_with(CHECKBOX_MARKER)
+                elif control_type == "text":
+                    control.replace_with(BLANK_MARKER)
+                else:
+                    control.decompose()
+
+        def append_text(raw: str) -> None:
+            for line in raw.splitlines():
+                normalized = re.sub(r"[ \t\r\f\v]+", " ", line).strip()
+                if not normalized:
+                    continue
+                # A few source paragraphs put the next question header after a
+                # sentence without a <br>. Split that structural boundary while
+                # leaving ordinary instruction text containing "Questions" intact.
+                chunks = re.split(r"(?<=\.)\s+(?=Questions?\s+\d+\b)", normalized, flags=re.IGNORECASE)
+                lines.extend(chunk.strip() for chunk in chunks if chunk.strip())
+
+        if element.name == "table":
+            replace_controls(fragment)
+            for row in fragment.find_all("tr"):
+                cells = row.find_all(["th", "td"], recursive=False)
+                values = [cell.get_text("", strip=False).replace("\n", " ") for cell in cells]
+                append_text(" | ".join(values))
+        else:
+            replace_controls(fragment)
+            append_text(fragment.get_text("", strip=False))
     return lines
 
 
@@ -101,10 +120,10 @@ def _question_header_numbers(line: str) -> list[int]:
 
 def _instruction_kind(line: str) -> Optional[str]:
     lower = line.lower()
-    if re.search(r"\bcomplete\s+the\s+(?:notes?|form|table|flow(?:-chart)?)\b", lower):
-        return "note-completion"
     if "from the box" in lower or "from box" in lower or "next to questions" in lower:
         return "matching"
+    if re.search(r"\bcomplete\s+the\s+(?:notes?|form|table|flow(?:-chart)?)\b", lower):
+        return "note-completion"
     if "choose the correct letter" in lower:
         return "multiple-choice"
     if re.search(r"\bchoose\s+(?:two|six|seven)\s+letters?\b", lower):
@@ -149,15 +168,14 @@ def _build_note_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> 
     questions: list[SimpleQuestion] = []
     context: list[str] = []
     for line in raw.lines:
-        match = COMPLETION_RE.search(line)
-        if not match:
+        matches = list(COMPLETION_RE.finditer(line))
+        if not matches:
             context.append(line)
             continue
-        number = int(match.group(1))
         statement = _clean_question_text(line)
-        questions.append(
-            SimpleQuestion(id=number, statement=statement, answer=answers.get(number, ""))
-        )
+        for match in matches:
+            number = int(match.group(1))
+            questions.append(SimpleQuestion(id=number, statement=statement, answer=answers.get(number, "")))
 
     return QuestionGroup(
         id=f"g-{part_id.replace('-', '')}-q{questions[0].id if questions else 'unknown'}",
@@ -244,6 +262,19 @@ def _build_matching_group(raw: _RawGroup, answers: dict[int, str], part_id: str)
         if option:
             options[option.group(1)] = _normalize_text(option.group(2))
             continue
+        completion_matches = list(COMPLETION_RE.finditer(line))
+        if completion_matches:
+            statement = _clean_question_text(line)
+            for completion in completion_matches:
+                number = int(completion.group(1))
+                questions.append(
+                    SimpleQuestion(
+                        id=number,
+                        statement=statement,
+                        answer=answers.get(number, ""),
+                    )
+                )
+            continue
         numbered = NUMBERED_BLANK_RE.match(line)
         if numbered:
             number = int(numbered.group(1))
@@ -254,6 +285,12 @@ def _build_matching_group(raw: _RawGroup, answers: dict[int, str], part_id: str)
                     answer=answers.get(number, ""),
                 )
             )
+
+    if not options:
+        letter_range = re.search(r"letters?\s+([A-Z])\s*[-–—]\s*([A-Z])", raw.instruction, re.IGNORECASE)
+        if letter_range:
+            start, end = (ord(letter.upper()) for letter in letter_range.groups())
+            options = {chr(code): chr(code) for code in range(start, end + 1)}
 
     return QuestionGroup(
         id=f"g-{part_id.replace('-', '')}-q{questions[0].id if questions else 'unknown'}",
@@ -335,7 +372,11 @@ def parse_listening_test(html: str, url: str) -> ListeningTest:
         raise ValueError("Unable to find entry-content block in listening page HTML")
 
     audio = entry.select_one("audio[src]") or soup.select_one("audio[src]")
-    audio_url = _normalize_url(audio.get("src") if audio else None, url)
+    audio_value = audio.get("src") if audio else None
+    if not audio_value:
+        audio_link = entry.select_one("a[href$='.mp3' i]") or soup.select_one("a[href$='.mp3' i]")
+        audio_value = audio_link.get("href") if audio_link else None
+    audio_url = _normalize_url(audio_value, url)
     if not audio_url:
         raise ValueError("Unable to find listening audio src")
 

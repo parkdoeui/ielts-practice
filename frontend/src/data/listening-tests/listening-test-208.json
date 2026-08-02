@@ -1,0 +1,397 @@
+{
+  "id": "listening-test-208",
+  "title": "IELTS Listening Test 208 – IELTS MASTER",
+  "audio_url": "https://practicepteonline.com/wp-content/uploads/audio/208_we.mp3",
+  "parts": [
+    {
+      "id": "part-1",
+      "number": 1,
+      "title": "Survey about shopping in Broadbeach"
+    },
+    {
+      "id": "part-2",
+      "number": 2,
+      "title": null
+    },
+    {
+      "id": "part-3",
+      "number": 3,
+      "title": "Presentation on houses of the future"
+    },
+    {
+      "id": "part-4",
+      "number": 4,
+      "title": "Music therapy for surgical patients"
+    }
+  ],
+  "question_groups": [
+    {
+      "id": "g-part1-q1",
+      "type": "note-completion",
+      "passage_id": "part-1",
+      "instruction": "Complete the notes below. Write ONE WORD AND/ OR A NUMBER for each answer.",
+      "questions": [
+        {
+          "id": 1,
+          "statement": "Name: Martyn",
+          "answer": "Leigh",
+          "options": null
+        },
+        {
+          "id": 2,
+          "statement": "Today’s journey to Broadbeach town centre: used his",
+          "answer": "Motorbike",
+          "options": null
+        },
+        {
+          "id": 3,
+          "statement": "• Has visited the",
+          "answer": "Hairdresser",
+          "options": null
+        },
+        {
+          "id": 4,
+          "statement": "• Looking for a new",
+          "answer": "Suit",
+          "options": null
+        },
+        {
+          "id": 5,
+          "statement": "• Collecting (after repair)",
+          "answer": "Laptop",
+          "options": null
+        },
+        {
+          "id": 6,
+          "statement": "Preferred day for shopping:",
+          "answer": "Monday",
+          "options": null
+        },
+        {
+          "id": 7,
+          "statement": "• Thinks there are too many places selling",
+          "answer": "Coffee",
+          "options": null
+        },
+        {
+          "id": 8,
+          "statement": "• Would like more places to buy",
+          "answer": "Books",
+          "options": null
+        },
+        {
+          "id": 9,
+          "statement": "• Likes the best",
+          "answer": "Plants",
+          "options": null
+        },
+        {
+          "id": 10,
+          "statement": "• Believes the is unnecessary",
+          "answer": "Cinema",
+          "options": null
+        }
+      ],
+      "shared_text": "Survey about shopping in Broadbeach Purpose of today’s trip: Opinions about shopping in the town centre • Finds the service in shops is excellent Opinions about new out-of-town Shopping Centre",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q11",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 11,
+          "statement": "In which TWO areas of the business exhibition did James Craig promote his company last year?",
+          "answer": "C",
+          "options": null
+        },
+        {
+          "id": 12,
+          "statement": "In which TWO areas of the business exhibition did James Craig promote his company last year?",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": "In which TWO areas of the business exhibition did James Craig promote his company last year?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "the Digital Marketing Centre",
+        "B": "the TalkCon Zone",
+        "C": "the Breakout area",
+        "D": "the Business Village",
+        "E": "the Business Connections Zone"
+      }
+    },
+    {
+      "id": "g-part2-q13",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 13,
+          "statement": "Which TWO facts are given about discounts on popular brands available to exhibitors?",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 14,
+          "statement": "Which TWO facts are given about discounts on popular brands available to exhibitors?",
+          "answer": "B",
+          "options": null
+        }
+      ],
+      "shared_text": "Which TWO facts are given about discounts on popular brands available to exhibitors?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "They are available to all members of exhibiting companies.",
+        "B": "They can be used for both food and clothing.",
+        "C": "They only apply if people spend at least £400.",
+        "D": "They can be used by family members.",
+        "E": "The percentage saved is always the same."
+      }
+    },
+    {
+      "id": "g-part2-q15",
+      "type": "matching",
+      "passage_id": "part-2",
+      "instruction": "Which topic will each of the following speakers focus on? Choose SIX answers from the box and write the correct letter, A-G, next to Questions 15-20.",
+      "questions": [
+        {
+          "id": 15,
+          "statement": "Jim Clowrie",
+          "answer": "C",
+          "options": null
+        },
+        {
+          "id": 16,
+          "statement": "David France",
+          "answer": "G",
+          "options": null
+        },
+        {
+          "id": 17,
+          "statement": "Oliver Stanton",
+          "answer": "D",
+          "options": null
+        },
+        {
+          "id": 18,
+          "statement": "Francesca Heptonstall",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 19,
+          "statement": "Salman Khan",
+          "answer": "F",
+          "options": null
+        },
+        {
+          "id": 20,
+          "statement": "Annie Craven",
+          "answer": "B",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "Supporting job seekers",
+        "B": "Dealing with personal problems",
+        "C": "Effects of an unexpectedly rapid expansion",
+        "D": "A global range of business experiences",
+        "E": "Coping with financial set-backs",
+        "F": "Developing a company in response to changing markets",
+        "G": "Combining business success with contributions to charities"
+      }
+    },
+    {
+      "id": "g-part3-q21",
+      "type": "multiple-choice",
+      "passage_id": "part-3",
+      "instruction": "Choose the correct letter, A, B or C.",
+      "questions": [
+        {
+          "id": 21,
+          "statement": "Which aspect of their presentation are Mia and Leo both concerned about?",
+          "answer": "B",
+          "options": {
+            "A": "meeting the deadline",
+            "B": "finding suitable examples",
+            "C": "including original ideas"
+          }
+        },
+        {
+          "id": 22,
+          "statement": "The students decide to focus their assignment on housing for",
+          "answer": "A",
+          "options": {
+            "A": "family groups.",
+            "B": "old people.",
+            "C": "single people."
+          }
+        },
+        {
+          "id": 23,
+          "statement": "The students agree that demand for accommodation in urban areas should be met by",
+          "answer": "B",
+          "options": {
+            "A": "repurposing offices and factories.",
+            "B": "constructing tall buildings.",
+            "C": "developing creative ideas for smaller homes."
+          }
+        }
+      ],
+      "shared_text": "Presentation on houses of the future",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part3-q24",
+      "type": "matching",
+      "passage_id": "part-3",
+      "instruction": "What opinion is given about each of the following developments? Choose SEVEN answers from the box and write the correct letter, A-l, next to Questions 24-30.",
+      "questions": [
+        {
+          "id": 24,
+          "statement": "use of roof space for gardens",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 25,
+          "statement": "shared working spaces",
+          "answer": "E",
+          "options": null
+        },
+        {
+          "id": 26,
+          "statement": "moveable internal wails",
+          "answer": "I",
+          "options": null
+        },
+        {
+          "id": 27,
+          "statement": "smart mirrors in bathrooms",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 28,
+          "statement": "bike sheds with charging points",
+          "answer": "D",
+          "options": null
+        },
+        {
+          "id": 29,
+          "statement": "restriction of cars to certain areas",
+          "answer": "H",
+          "options": null
+        },
+        {
+          "id": 30,
+          "statement": "communal vegetable plots",
+          "answer": "G",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "This could cause unnecessary anxiety.",
+        "B": "This would be especially beneficial for city residents.",
+        "C": "This would be challenging for young people.",
+        "D": "This would have environmental benefits.",
+        "E": "This could encourage creativity.",
+        "F": "This could lead to social problems.",
+        "G": "This could enable retired people to share a project.",
+        "H": "This would help some people but cause problems for others.",
+        "I": "This would suit both existing and new members of a household."
+      }
+    },
+    {
+      "id": "g-part4-q31",
+      "type": "note-completion",
+      "passage_id": "part-4",
+      "instruction": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+      "questions": [
+        {
+          "id": 31,
+          "statement": "• Surgery impacts patients because they may experience discomfort or unwelcome changes to their",
+          "answer": "Routine",
+          "options": null
+        },
+        {
+          "id": 32,
+          "statement": "• A study reviewed data from about 100 and found that listening to music",
+          "answer": "Trials",
+          "options": null
+        },
+        {
+          "id": 33,
+          "statement": "• The patients in the study all listened to music with a effect.",
+          "answer": "Calming",
+          "options": null
+        },
+        {
+          "id": 34,
+          "statement": "• The music was mostly played through music",
+          "answer": "Pillows",
+          "options": null
+        },
+        {
+          "id": 35,
+          "statement": "• Patients reported an absence or low levels of",
+          "answer": "Anxiety",
+          "options": null
+        },
+        {
+          "id": 36,
+          "statement": "• Medical records confirmed that patients who were played music in hospital needed less than those who weren’t played music.",
+          "answer": "Medication",
+          "options": null
+        },
+        {
+          "id": 37,
+          "statement": "• The best results were achieved when patients were played music while they were",
+          "answer": "Awake",
+          "options": null
+        },
+        {
+          "id": 38,
+          "statement": "• The study concluded that playing music was effective because it served as a",
+          "answer": "Distraction",
+          "options": null
+        },
+        {
+          "id": 39,
+          "statement": "• The researchers recommend playing either music or sounds from to all surgical patients.",
+          "answer": "Nature",
+          "options": null
+        },
+        {
+          "id": 40,
+          "statement": "• A future study will investigate the best for the music.",
+          "answer": "Volume",
+          "options": null
+        }
+      ],
+      "shared_text": "Music therapy for surgical patients Background • Current post-surgical strategies focus mainly on pain relief. Recent research o improved hospital patients’ sense of wellbeing. o reduced the length of their stay.",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    }
+  ],
+  "time_limit_minutes": 30,
+  "source_url": "https://practicepteonline.com/ielts-listening-test-208/"
+}

@@ -1,0 +1,416 @@
+{
+  "id": "listening-test-205",
+  "title": "IELTS Listening Test 205 – IELTS MASTER",
+  "audio_url": "https://practicepteonline.com/wp-content/uploads/audio/205_we.mp3",
+  "parts": [
+    {
+      "id": "part-1",
+      "number": 1,
+      "title": "Oyster Bay Sailing Club Courses"
+    },
+    {
+      "id": "part-2",
+      "number": 2,
+      "title": "Working as makeup trainee"
+    },
+    {
+      "id": "part-3",
+      "number": 3,
+      "title": "Resources"
+    },
+    {
+      "id": "part-4",
+      "number": 4,
+      "title": "Sources of rubber"
+    }
+  ],
+  "question_groups": [
+    {
+      "id": "g-part1-q1",
+      "type": "note-completion",
+      "passage_id": "part-1",
+      "instruction": "Complete the table below. Write ONE WORD AND/ OR A NUMBER for each answer.",
+      "questions": [
+        {
+          "id": 1,
+          "statement": "Taster day | introduction to sailing | £120 if booking one place | small groups (max people)",
+          "answer": "10/ ten",
+          "options": null
+        },
+        {
+          "id": 2,
+          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "answer": "Weather",
+          "options": null
+        },
+        {
+          "id": 3,
+          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "answer": "Safety",
+          "options": null
+        },
+        {
+          "id": 4,
+          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "answer": "Discount",
+          "options": null
+        },
+        {
+          "id": 5,
+          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "answer": "Dictionary",
+          "options": null
+        },
+        {
+          "id": 6,
+          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "answer": "Certificate",
+          "options": null
+        }
+      ],
+      "shared_text": "Oyster Bay Sailing Club Courses Name of course | What you learn | Cost | Other information",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part1-q7",
+      "type": "note-completion",
+      "passage_id": "part-1",
+      "instruction": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+      "questions": [
+        {
+          "id": 7,
+          "statement": "• Bring suitable clothing, a and toiletries (e.g. shampoo).",
+          "answer": "Towel",
+          "options": null
+        },
+        {
+          "id": 8,
+          "statement": "• There is a at the club.",
+          "answer": "Café",
+          "options": null
+        },
+        {
+          "id": 9,
+          "statement": "• Online training are recommended.",
+          "answer": "Videos",
+          "options": null
+        },
+        {
+          "id": 10,
+          "statement": "• are available for course participants.",
+          "answer": "Lockers",
+          "options": null
+        }
+      ],
+      "shared_text": "General information • Participants must be able to swim.",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q11",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose the correct letter, A, B or C.",
+      "questions": [
+        {
+          "id": 11,
+          "statement": "What should trainees always expect to get when working on low budget short films?",
+          "answer": "A",
+          "options": {
+            "A": "travel expenses",
+            "B": "a minimum wage",
+            "C": "meals"
+          }
+        },
+        {
+          "id": 12,
+          "statement": "According to the speaker, on big budget films trainees may get experience of",
+          "answer": "B",
+          "options": {
+            "A": "makeup for special effects.",
+            "B": "working with different ethnicities.",
+            "C": "creating a variety of hair styles."
+          }
+        },
+        {
+          "id": 13,
+          "statement": "The speaker says a problem for makeup artists is",
+          "answer": "A",
+          "options": {
+            "A": "dealing with difficult directors.",
+            "B": "being shouted at by their supervisor.",
+            "C": "waiting around for hours doing nothing."
+          }
+        },
+        {
+          "id": 14,
+          "statement": "How did the speaker feel when she met famous actors for the first time?",
+          "answer": "A",
+          "options": {
+            "A": "very shy",
+            "B": "very proud",
+            "C": "very disappointed"
+          }
+        },
+        {
+          "id": 15,
+          "statement": "What advice does the speaker give about makeup kits?",
+          "answer": "A",
+          "options": {
+            "A": "Always carry a basic kit with you.",
+            "B": "Only buy the best products for a makeup kit.",
+            "C": "Ask other makeup artists to check your kit."
+          }
+        },
+        {
+          "id": 16,
+          "statement": "What advice does the speaker give about creating a portfolio?",
+          "answer": "C",
+          "options": {
+            "A": "Keep print and digital photos.",
+            "B": "Only include a small selection of photos.",
+            "C": "Get permission to use photos."
+          }
+        }
+      ],
+      "shared_text": "Working as makeup trainee",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q17",
+      "type": "matching",
+      "passage_id": "part-2",
+      "instruction": "What ability is required for each of the following duties? Write the correct letter, A, B, or C, next to Questions 17-20.",
+      "questions": [
+        {
+          "id": 17,
+          "statement": "Prepping an actor",
+          "answer": "C",
+          "options": null
+        },
+        {
+          "id": 18,
+          "statement": "Continuity",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 19,
+          "statement": "General",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 20,
+          "statement": "Applying makeup",
+          "answer": "C",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "being well-organised",
+        "B": "being flexible",
+        "C": "working quickly"
+      }
+    },
+    {
+      "id": "g-part3-q21",
+      "type": "multiple-choice",
+      "passage_id": "part-3",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 21,
+          "statement": "Which TWO features of the lecture on ocean biodiversity had the greatest impact on the students?",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 22,
+          "statement": "Which TWO features of the lecture on ocean biodiversity had the greatest impact on the students?",
+          "answer": "D",
+          "options": null
+        }
+      ],
+      "shared_text": "Which TWO features of the lecture on ocean biodiversity had the greatest impact on the students?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "the references to local problems",
+        "B": "the broad focus of the examples",
+        "C": "the practical suggestions for solutions",
+        "D": "the type of issues discussed",
+        "E": "the implications for government policy"
+      }
+    },
+    {
+      "id": "g-part3-q23",
+      "type": "multiple-choice",
+      "passage_id": "part-3",
+      "instruction": "Choose TWO letters, A-E.",
+      "questions": [
+        {
+          "id": 23,
+          "statement": "Which TWO details about the research project particularly impressed the students?",
+          "answer": "C",
+          "options": null
+        },
+        {
+          "id": 24,
+          "statement": "Which TWO details about the research project particularly impressed the students?",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": "Which TWO details about the research project particularly impressed the students?",
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "the team’s previous successes",
+        "B": "its wide geographical scale",
+        "C": "the use of new technology",
+        "D": "the extensive statistical evidence",
+        "E": "the large range of specialists involved"
+      }
+    },
+    {
+      "id": "g-part3-q25",
+      "type": "matching",
+      "passage_id": "part-3",
+      "instruction": "What is the students’ opinion of each of the following resources related to ocean biodiversity? Choose SIX answers from the box and write the correct letter, A-H, next to Questions 25-30.",
+      "questions": [
+        {
+          "id": 25,
+          "statement": "Article on invasive lionfish",
+          "answer": "G",
+          "options": null
+        },
+        {
+          "id": 26,
+          "statement": "Documentary on microplastics",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 27,
+          "statement": "Podcast on ocean pollution",
+          "answer": "F",
+          "options": null
+        },
+        {
+          "id": 28,
+          "statement": "Book on coastal ecosystems",
+          "answer": "H",
+          "options": null
+        },
+        {
+          "id": 29,
+          "statement": "Article on metal toxicity",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 30,
+          "statement": "Podcast on floating marine cities",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "This is aimed at a very specialist audience.",
+        "B": "This is now rather outdated.",
+        "C": "This was an effective description of a new danger.",
+        "D": "This suggests possible ways to improve the situation.",
+        "E": "This does not give a balanced account.",
+        "F": "This is too predictable to be useful.",
+        "G": "This gives insufficient evidence for its claims.",
+        "H": "This gives a clear explanation of the problems."
+      }
+    },
+    {
+      "id": "g-part4-q31",
+      "type": "note-completion",
+      "passage_id": "part-4",
+      "instruction": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+      "questions": [
+        {
+          "id": 31,
+          "statement": "•",
+          "answer": "Metal(s)",
+          "options": null
+        },
+        {
+          "id": 32,
+          "statement": "• the growth of the tree is",
+          "answer": "Slow",
+          "options": null
+        },
+        {
+          "id": 33,
+          "statement": "• production cannot easily be adjusted because of increasing or decreasing",
+          "answer": "Demand",
+          "options": null
+        },
+        {
+          "id": 34,
+          "statement": "• the tree only grows near the",
+          "answer": "Equator",
+          "options": null
+        },
+        {
+          "id": 35,
+          "statement": "• it is very difficult to rubber after production.",
+          "answer": "Recycle",
+          "options": null
+        },
+        {
+          "id": 36,
+          "statement": "• lack of genetic diversity, leading to danger of disease caused by a",
+          "answer": "Fungus",
+          "options": null
+        },
+        {
+          "id": 37,
+          "statement": "• extreme events.",
+          "answer": "Weather",
+          "options": null
+        },
+        {
+          "id": 38,
+          "statement": "• is less than natural rubber",
+          "answer": "Strong",
+          "options": null
+        },
+        {
+          "id": 39,
+          "statement": "• A wild flower (a type of dandelion) has rubber in its",
+          "answer": "Roots",
+          "options": null
+        },
+        {
+          "id": 40,
+          "statement": "• It can be grown in many locations and does not require good",
+          "answer": "Soil",
+          "options": null
+        }
+      ],
+      "shared_text": "Sources of rubber Three resources which are essential for industrial civilisation • fossil fuels • rubber Natural rubber This mainly comes from the Para rubber tree, now cultivated in South-East Asia. The supply is limited because • extracting the latex (rubber) is labour-intensive New threats include • a shift to the cultivation of palm oil Synthetic rubber • may be used for engine parts and cooking utensils • is unsuitable for many purposes e.g. the tyres of aircraft. An alternative source of natural rubber",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    }
+  ],
+  "time_limit_minutes": 30,
+  "source_url": "https://practicepteonline.com/ielts-listening-test-205/"
+}
