@@ -198,6 +198,11 @@ export function WritingTest({ embeddedTestId, onComplete }: WritingTestProps = {
         sync_status: "local-only",
         sync_error: message,
       }));
+      if (onComplete) {
+        // Grading failed, but hand control back to the runner so the mock can proceed.
+        onComplete({ skill: "writing", sessionId: payload.id, band: 0 });
+        return;
+      }
       setError("Saved locally only. Backend grading failed.");
       navigate(`/writing-results/${payload.id}`);
     } finally {
