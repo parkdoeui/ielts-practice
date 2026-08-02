@@ -330,34 +330,44 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
 
   return (
     <div className="flex flex-col h-screen">
-      {/* Header */}
-      <div className="border-b border-gray-200 bg-white shrink-0">
-        <div className="flex items-center justify-between px-4 md:px-6 py-3">
-          <h1 className="font-semibold text-gray-900 text-sm truncate max-w-[60%]">{test.title}</h1>
-          <p className="text-xs text-gray-500">
-            Passage {currentPassageIndex + 1} of {test.passages.length}
-          </p>
-        </div>
-        {isReviewMode ? (
-          <div className="px-4 md:px-6 pb-3">
-            <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-800">
-              Completed test review. Answers are locked. Open the result page for right and wrong grading.
+      {/* Header — CBT status bar when embedded (mock), otherwise the standalone header */}
+      {embedded ? (
+        <CbtStatusBar
+          sectionLabel={`Reading — Part ${currentPassageIndex + 1}`}
+          totalSeconds={test.time_limit_minutes * 60}
+          paused={submitted}
+          fontScale={fontScale}
+          onFontScaleChange={setFontScale}
+        />
+      ) : (
+        <div className="border-b border-gray-200 bg-white shrink-0">
+          <div className="flex items-center justify-between px-4 md:px-6 py-3">
+            <h1 className="font-semibold text-gray-900 text-sm truncate max-w-[60%]">{test.title}</h1>
+            <p className="text-xs text-gray-500">
+              Passage {currentPassageIndex + 1} of {test.passages.length}
+            </p>
+          </div>
+          {isReviewMode ? (
+            <div className="px-4 md:px-6 pb-3">
+              <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-800">
+                Completed test review. Answers are locked. Open the result page for right and wrong grading.
+              </div>
             </div>
-          </div>
-        ) : (
-          <TimerBar
-            totalSeconds={test.time_limit_minutes * 60}
-            answeredCount={answeredCount}
-            totalCount={totalQuestions}
-            paused={submitted}
-          />
-        )}
-        {submitError && (
-          <div className="px-4 md:px-6 pb-3 text-xs text-amber-700">
-            {submitError}
-          </div>
-        )}
-      </div>
+          ) : (
+            <TimerBar
+              totalSeconds={test.time_limit_minutes * 60}
+              answeredCount={answeredCount}
+              totalCount={totalQuestions}
+              paused={submitted}
+            />
+          )}
+        </div>
+      )}
+      {submitError && (
+        <div className="px-4 md:px-6 py-2 text-xs text-amber-700 bg-white border-b border-gray-100 shrink-0">
+          {submitError}
+        </div>
+      )}
 
       {/* Mobile toggle tabs */}
       <div className="md:hidden flex border-b border-gray-200 bg-white shrink-0">
