@@ -225,6 +225,23 @@ export function getMockSession(mockId: string): MockSession | null {
   }
 }
 
+export function listMockSessions(): MockSession[] {
+  const sessions: MockSession[] = [];
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    if (!key || !key.startsWith("ielts_mock_session_")) continue;
+    try {
+      const parsed = JSON.parse(localStorage.getItem(key) ?? "");
+      if (parsed && typeof parsed === "object") sessions.push(parsed as MockSession);
+    } catch {
+      /* skip malformed entries */
+    }
+  }
+  return sessions.sort(
+    (a, b) => new Date(b.started_at).getTime() - new Date(a.started_at).getTime(),
+  );
+}
+
 export function getStoredWritingSessionById(sessionId: string): WritingSession | null {
   const raw = localStorage.getItem(`ielts_writing_session_${sessionId}`);
   if (!raw) return null;
