@@ -102,7 +102,7 @@ function GroupRenderer({
       {/* Individual questions */}
       <div className="space-y-5">
         {group.questions.map((q) => (
-          <div key={q.id} className="flex items-start gap-3">
+          <div key={q.id} id={`question-${q.id}`} className="flex items-start gap-3 scroll-mt-4">
             <span className="shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-blue-600 text-white text-sm font-bold">
               {q.id}
             </span>
