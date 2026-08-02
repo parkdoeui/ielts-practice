@@ -1,0 +1,33 @@
+{
+  "id": "writing-test-28",
+  "title": "IELTS Writing Test 28",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The diagrams below show UK students’ responses to the question of to what extent would they describe themselves as financially organised.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-28-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Online, people write product reviews and opinions about services. Is it a good thing or bad thing?",
+      "instructions": [
+        "Give reasons for your answer and include any relevant examples from your own knowledge or experience.",
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-28/"
+}

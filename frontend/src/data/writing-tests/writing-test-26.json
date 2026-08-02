@@ -1,0 +1,32 @@
+{
+  "id": "writing-test-26",
+  "title": "IELTS Writing Test 26",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The graphs below provides information on global population figures and figures for urban populations in different world regions.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-26-min-1.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people think that the media (newspapers) have the right to publish details of people’s private life, while others think it should be controlled? Discuss both views.",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-26/"
+}

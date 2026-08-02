@@ -1,0 +1,32 @@
+{
+  "id": "writing-test-30",
+  "title": "IELTS Writing Test 30",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The pie charts below give information about world population in 1900 and 2000.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-30-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people believe that teachers have an important role to play in the educational success, while others think it is the students’ attitude that matters. Discuss both views and share your opinion.",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-30/"
+}
