@@ -102,7 +102,7 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
       })
       .catch(() => setReviewSession(null))
       .finally(() => setIsCheckingCompletion(false));
-  }, [id]);
+  }, [id, embedded]);
 
   const goToPassage = useCallback((nextIndex: number) => {
     setCurrentPassageIndex(nextIndex);
