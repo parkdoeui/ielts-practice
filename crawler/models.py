@@ -31,6 +31,23 @@ class QuestionGroup(BaseModel):
     options: Optional[dict[str, str]] = None  # shared options (MC choices, paragraph letters, headings)
 
 
+class ListeningPart(BaseModel):
+    id: str
+    number: int
+    title: Optional[str] = None
+
+
+class ListeningTest(BaseModel):
+    id: str
+    title: str
+    audio_url: str
+    parts: list[ListeningPart]
+    # For listening groups, passage_id stores the owning ListeningPart id.
+    question_groups: list[QuestionGroup]
+    time_limit_minutes: int = 30
+    source_url: str
+
+
 class ReadingTest(BaseModel):
     id: str
     title: str

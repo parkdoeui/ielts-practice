@@ -1,7 +1,7 @@
 <!-- thunder:start -->
 ## Thunder — IELTS Practice Platform
 Idea: ~/.thunder/ideas/ielts-practice-20260502/
-Plan: ~/.thunder/ideas/ielts-practice-20260502/plan.md
+Plan: ~/.thunder/ideas/ielts-practice-20260502/plan-v2.md
 Log:  ~/.thunder/ideas/ielts-practice-20260502/log.md
 
 This project is tracked by Thunder. When making changes to this codebase,
