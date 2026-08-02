@@ -30,6 +30,14 @@ function NavBar() {
         Writing
       </Link>
       <Link
+        to="/mock"
+        className={`text-sm font-medium ${
+          pathname.startsWith("/mock") ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
+        }`}
+      >
+        Full Test
+      </Link>
+      <Link
         to="/progress"
         className={`text-sm font-medium ${
           pathname === "/progress" ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
