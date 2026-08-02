@@ -1,14 +1,5 @@
 import { useEffect, useState } from "react";
-
-export type FontScale = "sm" | "base" | "lg";
-
-export const FONT_SCALE_ZOOM: Record<FontScale, number> = {
-  sm: 0.9,
-  base: 1,
-  lg: 1.15,
-};
-
-const SCALE_ORDER: FontScale[] = ["sm", "base", "lg"];
+import { SCALE_ORDER, type FontScale } from "../lib/fontScale";
 
 interface Props {
   sectionLabel: string;
