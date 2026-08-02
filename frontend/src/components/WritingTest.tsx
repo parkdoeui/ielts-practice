@@ -142,6 +142,10 @@ export function WritingTest({ embeddedTestId, onComplete }: WritingTestProps = {
       const session = await submitWritingSession(payload);
       const synced: WritingSession = { ...session, sync_status: "synced" };
       localStorage.setItem(`ielts_writing_session_${session.id}`, JSON.stringify(synced));
+      if (onComplete) {
+        onComplete({ skill: "writing", sessionId: session.id, band: session.grading.overall_band });
+        return;
+      }
       navigate(`/writing-results/${session.id}`);
     } catch (e) {
       const message = e instanceof Error ? e.message : "Failed to submit writing test.";
