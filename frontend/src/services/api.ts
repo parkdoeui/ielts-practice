@@ -1,5 +1,14 @@
-import type { MockSession, TestSession, WritingSession, WritingTest } from "../types";
-import { reconcileMockSessionResults } from "../lib/fullTestResults";
+import type {
+  FullTestSet,
+  MockSession,
+  TestSession,
+  WritingSession,
+  WritingTest,
+} from "../types";
+import {
+  reconcileMockSessionResults,
+  synthesizeCompletedFullTests,
+} from "../lib/fullTestResults";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 const FETCH_OPTS: RequestInit = { credentials: "include" };
@@ -298,7 +307,7 @@ export async function syncMockSession(mock: MockSession): Promise<MockSession> {
   return readMockSessionResponse(response);
 }
 
-export async function getMockSessions(): Promise<MockSession[]> {
+export async function getMockSessions(fullTests: FullTestSet[] = []): Promise<MockSession[]> {
   const local = listMockSessions();
   let remote: MockSession[] = [];
   try {
@@ -336,6 +345,15 @@ export async function getMockSessions(): Promise<MockSession[]> {
     combined = combined.map((session) =>
       reconcileMockSessionResults(session, objectiveSessions, writingSessions),
     );
+    const synthesized = synthesizeCompletedFullTests(
+      fullTests,
+      combined,
+      objectiveSessions,
+      writingSessions,
+    );
+    const combinedById = new Map(combined.map((session) => [session.id, session]));
+    synthesized.forEach((session) => combinedById.set(session.id, session));
+    combined = [...combinedById.values()];
     combined.forEach(saveMockSession);
   } catch {
     // A section-level backend failure must not hide the saved Full Test wrapper.

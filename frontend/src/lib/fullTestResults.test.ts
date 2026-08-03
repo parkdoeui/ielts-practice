@@ -1,11 +1,25 @@
 import { describe, expect, it } from "vitest";
 import type {
+  FullTestSet,
   MockSession,
   TestSession,
   WritingSession,
   WritingTaskFeedback,
 } from "../types";
-import { buildFullTestResult, reconcileMockSessionResults } from "./fullTestResults";
+import {
+  buildFullTestResult,
+  reconcileMockSessionResults,
+  synthesizeCompletedFullTests,
+} from "./fullTestResults";
+
+const fullTest: FullTestSet = {
+  id: "full-test-1",
+  title: "Full Test 1",
+  listening_test_id: "listening-test-202",
+  reading_test_id: "test-295",
+  writing_test_id: "writing-test-25",
+  speaking_test_id: null,
+};
 
 const mock: MockSession = {
   id: "mock-1",
@@ -173,5 +187,64 @@ describe("combined Full Test result", () => {
       [objectiveSession("r-1", "test-295", 32, 6.5)],
       [writingSession],
     )).toEqual(untouched);
+  });
+
+  it("synthesizes a wrapperless completed bundle from all three section records", () => {
+    const synthesized = synthesizeCompletedFullTests(
+      [fullTest],
+      [],
+      [
+        objectiveSession("l-1", "listening-test-202", 34, 7.5),
+        objectiveSession("r-1", "test-295", 32, 6.5),
+      ],
+      [writingSession],
+    );
+
+    expect(synthesized).toHaveLength(1);
+    expect(synthesized[0]).toMatchObject({
+      id: "mock-restored-full-test-1",
+      full_test_id: "full-test-1",
+      completed_at: writingSession.completed_at,
+      overall_band: 7,
+    });
+    expect(synthesized[0].sections.map((section) => section.session_id))
+      .toEqual(["l-1", "r-1", "w-1", null]);
+  });
+
+  it("does not synthesize a partial bundle or duplicate a completed wrapper", () => {
+    const objective = [
+      objectiveSession("l-1", "listening-test-202", 34, 7.5),
+      objectiveSession("r-1", "test-295", 32, 6.5),
+    ];
+
+    expect(synthesizeCompletedFullTests([fullTest], [], objective, [])).toEqual([]);
+    expect(synthesizeCompletedFullTests([fullTest], [mock], objective, [writingSession]))
+      .toEqual([]);
+  });
+
+  it("upgrades an existing incomplete wrapper instead of creating a retake", () => {
+    const incomplete: MockSession = {
+      ...mock,
+      id: "existing-mock",
+      sections: mock.sections.map((section) => ({
+        ...section,
+        session_id: null,
+        band: null,
+      })),
+    };
+    const [restored] = synthesizeCompletedFullTests(
+      [fullTest],
+      [incomplete],
+      [
+        objectiveSession("l-1", "listening-test-202", 34, 7.5),
+        objectiveSession("r-1", "test-295", 32, 6.5),
+      ],
+      [writingSession],
+    );
+
+    expect(restored.id).toBe("existing-mock");
+    expect(restored.sections.every(
+      (section) => section.test_id === null || section.session_id !== null,
+    )).toBe(true);
   });
 });

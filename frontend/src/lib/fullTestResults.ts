@@ -1,4 +1,5 @@
 import type {
+  FullTestSet,
   MockSession,
   SkillName,
   TestSession,
@@ -103,6 +104,103 @@ export function reconcileMockSessionResults(
     completed_at: completed ? mock.completed_at ?? completedAt ?? mock.started_at : mock.completed_at,
     overall_band: completed ? mock.overall_band ?? overallBand : mock.overall_band,
   };
+}
+
+function matchesFullTest(session: MockSession, test: FullTestSet): boolean {
+  if (session.full_test_id === test.id) return true;
+  const testIds = new Map(
+    session.sections.map((section) => [section.skill, section.test_id]),
+  );
+  return (
+    testIds.get("listening") === test.listening_test_id &&
+    testIds.get("reading") === test.reading_test_id &&
+    testIds.get("writing") === test.writing_test_id
+  );
+}
+
+function latestByCompletedAt<T extends { completed_at: string }>(sessions: T[]): T | null {
+  return [...sessions].sort(
+    (a, b) =>
+      new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime(),
+  )[0] ?? null;
+}
+
+export function synthesizeCompletedFullTests(
+  fullTests: FullTestSet[],
+  existing: MockSession[],
+  objectiveSessions: TestSession[],
+  writingSessions: WritingSession[],
+): MockSession[] {
+  const synthesized: MockSession[] = [];
+
+  fullTests.forEach((test) => {
+    const wrapper = existing.find((session) => matchesFullTest(session, test)) ?? null;
+    const alreadyCompleted = wrapper?.sections
+      .filter((section) => section.test_id !== null)
+      .every((section) => section.session_id !== null);
+    if (alreadyCompleted) return;
+
+    const listening = latestByCompletedAt(
+      objectiveSessions.filter((session) => session.test_id === test.listening_test_id),
+    );
+    const reading = latestByCompletedAt(
+      objectiveSessions.filter((session) => session.test_id === test.reading_test_id),
+    );
+    const writing = latestByCompletedAt(
+      writingSessions.filter((session) => session.test_id === test.writing_test_id),
+    );
+    if (!listening || !reading || !writing) return;
+
+    const childSessions = [listening, reading, writing];
+    const startedAt = childSessions
+      .map((session) => session.started_at)
+      .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0];
+    const completedAt = childSessions
+      .map((session) => session.completed_at)
+      .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0];
+    const bands = [
+      listening.score.band_estimate,
+      reading.score.band_estimate,
+      writing.grading.overall_band,
+    ];
+
+    synthesized.push({
+      id: wrapper?.id ?? `mock-restored-${test.id}`,
+      full_test_id: test.id,
+      mode: wrapper?.mode ?? "relaxed",
+      started_at: wrapper?.started_at ?? startedAt,
+      completed_at: completedAt,
+      overall_band: roundToOverallBand(bands.filter((band) => band > 0)),
+      sections: [
+        {
+          skill: "listening",
+          test_id: test.listening_test_id,
+          session_id: listening.id,
+          band: listening.score.band_estimate,
+        },
+        {
+          skill: "reading",
+          test_id: test.reading_test_id,
+          session_id: reading.id,
+          band: reading.score.band_estimate,
+        },
+        {
+          skill: "writing",
+          test_id: test.writing_test_id,
+          session_id: writing.id,
+          band: writing.grading.overall_band,
+        },
+        {
+          skill: "speaking",
+          test_id: test.speaking_test_id,
+          session_id: null,
+          band: null,
+        },
+      ],
+    });
+  });
+
+  return synthesized;
 }
 
 function resultPath(skill: SkillName, sessionId: string | null): string | null {

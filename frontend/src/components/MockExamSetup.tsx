@@ -68,7 +68,7 @@ export function MockExamSetup() {
 
   useEffect(() => {
     let active = true;
-    getMockSessions()
+    getMockSessions(fullTests)
       .then((sessions) => {
         if (!active) return;
         setMockSessions(sessions);
@@ -104,6 +104,14 @@ export function MockExamSetup() {
             new Date(b.started_at).getTime() - new Date(a.started_at).getTime(),
         )
         .slice(0, 1),
+    [fullTests, mockSessions],
+  );
+  const completedResults = useMemo(
+    () =>
+      fullTests.flatMap((test) => {
+        const action = getFullTestAction(test, mockSessions);
+        return action.kind === "results" ? [{ test, session: action.session }] : [];
+      }),
     [fullTests, mockSessions],
   );
 
@@ -152,6 +160,33 @@ export function MockExamSetup() {
           Speaking is coming soon and is skipped for now.
         </p>
       </div>
+
+      {completedResults.length > 0 && (
+        <section className="mb-6" aria-labelledby="completed-full-tests-heading">
+          <h2 id="completed-full-tests-heading" className="mb-2 text-sm font-semibold text-gray-700">
+            Completed Full Tests
+          </h2>
+          <div className="space-y-2">
+            {completedResults.map(({ test, session }) => (
+              <Link
+                key={test.id}
+                to={`/mock-results/${session.id}`}
+                className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 hover:border-emerald-300"
+              >
+                <span>
+                  <span className="block text-sm font-semibold text-gray-900">{test.title}</span>
+                  <span className="mt-0.5 block text-xs text-emerald-700">
+                    {session.overall_band
+                      ? `Overall band ${session.overall_band.toFixed(1)}`
+                      : "Combined result available"}
+                  </span>
+                </span>
+                <span className="text-sm font-semibold text-emerald-700">View full result →</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {inProgress.length > 0 && (
         <section className="mb-6">
