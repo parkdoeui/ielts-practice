@@ -18,12 +18,34 @@ from models import ReadingTest, Passage, SimpleQuestion, QuestionGroup
 
 QUESTION_RANGE_SEPARATORS = r"[-–—]"
 QUESTION_COMPLETION_PLACEHOLDER_RE = re.compile(r"\(\d+\)\s*[…_.]{2,}")
+ROMAN_HEADING_OPTION_RE = re.compile(
+    r"(?mi)^(?:i|ii|iii|iv|v|vi|vii|viii|ix|x)\.\s+\S"
+)
 KNOWN_SOURCE_TEXT_REPLACEMENTS = (
     (re.compile(r"\bdear reason\b", re.IGNORECASE), "clear reason"),
     (re.compile(r"\bdeep-\s+sea\b", re.IGNORECASE), "deep-sea"),
     (re.compile(r",\s+Mining corporations argue\b"), ". Mining corporations argue"),
     (re.compile(r",\s+Different methods of extraction\b"), ". Different methods of extraction"),
     (re.compile(r"\(hen drawing\b", re.IGNORECASE), "then drawing"),
+    (re.compile(r"\bstill in my scat\b", re.IGNORECASE), "still in my seat"),
+    (re.compile(r"\bsting rays\b", re.IGNORECASE), "stingrays"),
+    (re.compile(r"\bT emerged, as the sole embodiment\b"), "I emerged as the sole embodiment"),
+    (re.compile(r"\brustfree\b", re.IGNORECASE), "rust-free"),
+    (re.compile(r"\bliquid, polymer\b", re.IGNORECASE), "liquid polymer"),
+    (re.compile(r"\bfactories, A different\b"), "factories. A different"),
+    (re.compile(r"\bprevents it\. from\b", re.IGNORECASE), "prevents it from"),
+    (re.compile(r"\bhard while lumps\b", re.IGNORECASE), "hard white lumps"),
+    (re.compile(r"\bWhat, helped\b", re.IGNORECASE), "What helped"),
+    (re.compile(r"\bNO MORE THAN THREE WORD\s+S\b", re.IGNORECASE), "NO MORE THAN THREE WORDS"),
+    (re.compile(r"\bImps helped to make beer\b", re.IGNORECASE), "Hops helped to make beer"),
+    (re.compile(r"\bIt want animals to work\b"), "not want animals to work"),
+    (re.compile(r"\bIike using wheels\b"), "like using wheels"),
+    (re.compile(r"\bwhen if did\b", re.IGNORECASE), "when it did"),
+    (re.compile(r"\bdrink beet\b", re.IGNORECASE), "drink beer"),
+    (re.compile(r"\bcareer choice made by graduates\b", re.IGNORECASE), "career choices made by graduates"),
+    (re.compile(r"\bDr, Ken Aplin\b"), "Dr. Ken Aplin"),
+    (re.compile(r"\bWestern Australia,most\b"), "Western Australia, most"),
+    (re.compile(r"\bpurpose of Frogwatch is\s*\."), "purpose of Frogwatch is:"),
 )
 
 # ---------------------------------------------------------------------------
@@ -66,6 +88,10 @@ def _is_passage_content(text: str) -> bool:
 def _looks_like_question_context(text: str) -> bool:
     """True when a block is visibly part of a numbered question exercise."""
     if QUESTION_COMPLETION_PLACEHOLDER_RE.search(text):
+        return True
+    if "more headings than sections" in text.lower():
+        return True
+    if len(ROMAN_HEADING_OPTION_RE.findall(text)) >= 2:
         return True
     return bool(re.search(r"(?m)^\d+[.)]?\s+", text))
 
@@ -547,18 +573,38 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
     option_inline_pattern = re.compile(r"^([A-Z])[\.)]?\s+(.*)")
     heading_option_pattern = re.compile(r"^(i{1,3}|iv|vi{0,3}|ix|x)\.?\s+(.*)")
     option_standalone_pattern = re.compile(r"^([A-Z])$")
-    instruction_kw_pattern = re.compile(r"^(YES|NO|TRUE|FALSE|NOT GIVEN)\b", re.IGNORECASE)
+    instruction_kw_pattern = re.compile(r"^(YES|NO|TRUE|FALSE|NOT GIVEN)\s*$", re.IGNORECASE)
     instruction_cont_pattern = re.compile(r"^if (the statement|there is|it is)", re.IGNORECASE)
     instruction_line_pattern = re.compile(
         r"(?i)^(complete|write|choose|look at|do the following|in boxes|label the diagram|match the following|classify the following|no more than|one word|two words|three words|four words|five words|six words|seven words|eight words|nine words|ten words|the list below|from the passage|from the list|use the letters|use letters)\b"
     )
 
     in_instruction_block = False
+    in_word_list = False
+    word_list = []
     pending_option_letter = None
     pending_option_owner = None
     last_qnum = None  # track most recently parsed question number (for multi-line questions)
     header_lines = header.strip().split("\n")
     normalized_header_lines = [header_lines[0].strip()] if header_lines else []
+    option_context = f"{header}\n{children_text}"
+    letter_option_line_count = sum(
+        1
+        for candidate in children_text.splitlines()
+        if option_standalone_pattern.match(candidate.strip())
+        or re.match(r"^[A-Z][.)]\s+\S", candidate.strip())
+        or re.match(r"^[A-Z]\s+\S", candidate.strip())
+    )
+    expects_letter_options = bool(
+        re.search(
+            r"(?is)\b(circle|classify|match|re-order|appropriate letter|correct ending|"
+            r"choose\s+(?:the\s+)?correct\s+(?:letter|answer)|choose\s+(?:one\s+)?(?:phrase|type|drawing)|"
+            r"letters?\s*\([A-Z]-[A-Z]\)|which\s+(?:two|three|four).*?following)\b",
+            option_context,
+        )
+        or ("choose" in header.lower() and letter_option_line_count >= 2)
+    )
+    expects_classification = bool(re.search(r"(?i)\bclassify\b", f"{header}\n{children_text}"))
 
     # Pre-pass: extract options embedded in the instruction header.
     # Some groups (e.g. classification) put "A\nfirst category\nB\nsecond category" in
@@ -584,11 +630,11 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         if heading_match:
             options[heading_match.group(1).lower()] = heading_match.group(2).strip()
             continue
-        opt_m = option_inline_pattern.match(hline)
+        opt_m = option_inline_pattern.match(hline) if expects_letter_options else None
         if opt_m and len(opt_m.group(2)) > 1:
             options[opt_m.group(1)] = opt_m.group(2).strip()
             continue
-        if option_standalone_pattern.match(hline):
+        if expects_letter_options and option_standalone_pattern.match(hline):
             _pre_pending = hline
             continue
 
@@ -602,6 +648,22 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         # Skip noise lines (Example Answer, Cambridge IELTS promo, "List of X" headers, etc.)
         # Note: "Show Answers" is intentionally NOT skipped here — it needs to
         # propagate to stem_text so _sanitize_shared_text can detect and reject it.
+        if re.match(r"(?i)^list of words\b", line):
+            in_word_list = True
+            last_qnum = None
+            continue
+
+        if in_word_list:
+            resumes_question_context = bool(
+                QUESTION_COMPLETION_PLACEHOLDER_RE.search(line)
+                or re.match(r"^\(?\d+\)?[.)]?\s*[…_.]", line)
+                or len(line) > 80
+            )
+            if not resumes_question_context and len(line) <= 60:
+                word_list.append(line)
+                continue
+            in_word_list = False
+
         if (re.match(r'(?i)^example\b', line)
                 or re.match(r'(?i)^cambridge ielts\b', line)
                 or re.match(r'(?i)^list of\b', line)):
@@ -627,7 +689,12 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         if paren_q_match:
             qnum = int(paren_q_match.group(1))
             if start_q <= qnum <= end_q:
-                numbered_questions[qnum] = ""
+                statement = ""
+                if expects_classification and stem_lines:
+                    candidate = stem_lines[-1]
+                    if len(candidate) <= 60 and re.fullmatch(r"[A-Za-z][A-Za-z .'-]*", candidate):
+                        statement = stem_lines.pop()
+                numbered_questions[qnum] = statement
                 # Preserve the blank marker in stem so it appears in shared_text
                 # and the reader still gets the table/form context.
                 stem_lines.append(line)
@@ -662,7 +729,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             in_instruction_block = False
             continue
 
-        opt_match = option_inline_pattern.match(line)
+        opt_match = option_inline_pattern.match(line) if expects_letter_options else None
         if opt_match and len(opt_match.group(2)) > 1:
             # Check if this is "SECTION_LETTER QUESTION_NUM statement" pattern:
             # e.g. "B 2 Section C" where B is the label for Q1, 2 starts Q2.
@@ -686,7 +753,7 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
             in_instruction_block = False
             continue
 
-        opt_standalone = option_standalone_pattern.match(line)
+        opt_standalone = option_standalone_pattern.match(line) if expects_letter_options else None
         if opt_standalone:
             pending_option_letter = opt_standalone.group(1)
             pending_option_owner = last_qnum if last_qnum in numbered_questions else None
@@ -713,7 +780,18 @@ def _parse_children_text(header: str, children_text: str, start_q: int, end_q: i
         full_instruction = full_instruction + "\n" + "\n".join(instruction_lines)
 
     stem_text = "\n".join(stem_lines) if stem_lines else ""
-    return full_instruction, numbered_questions, options, question_options, stem_text
+    return full_instruction, numbered_questions, options, question_options, stem_text, word_list
+
+
+def _infer_letter_range_options(text: str) -> dict[str, str] | None:
+    match = re.search(r"(?i)(?:\(|\b)([A-Z])\s*[-–—]\s*([A-Z])(?:\)|\b)", text)
+    if not match:
+        return None
+    start = ord(match.group(1).upper())
+    end = ord(match.group(2).upper())
+    if start > end or end - start > 15:
+        return None
+    return {chr(value): chr(value) for value in range(start, end + 1)}
 
 
 def _build_question_groups(groups: list[dict], answers: dict, base_url: str = "") -> list[QuestionGroup]:
@@ -734,7 +812,7 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
             continue
         seen_ids.add(group_id)
 
-        full_instruction, numbered_qs, options, question_options, stem_text = _parse_children_text(
+        full_instruction, numbered_qs, options, question_options, stem_text, parsed_word_list = _parse_children_text(
             header, children_text, start_q, end_q
         )
 
@@ -779,7 +857,7 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
         elif ("summary" in instr_lower or "notes" in instr_lower
               or re.search(r"(?i)complete\s+(the\s+)?(summary|notes)", instr_lower)
               or ("complete" in instr_lower and "using" in instr_lower)):
-            word_list = list(options.values()) if options and len(options) > 1 else None
+            word_list = parsed_word_list or (list(options.values()) if options and len(options) > 1 else None)
             shared = _sanitize_shared_text(stem_text or children_text or None)
             result.append(QuestionGroup(
                 id=group_id,
@@ -829,10 +907,57 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
                 options=heading_options,
             ))
 
+        elif (re.search(r"\bclassify\b", instr_lower)
+              or re.search(r"\bclassify\b", body_lower)):
+            classif_options = options if options else _infer_letter_range_options(full_instruction)
+            result.append(QuestionGroup(
+                id=group_id,
+                type="classification",
+                passage_id=passage_id,
+                instruction=full_instruction,
+                questions=simple_questions,
+                options=classif_options,
+            ))
+
+        elif (re.search(r"choose one phrase.*complete", instr_lower, re.DOTALL)
+              or re.search(r"correct ending", instr_lower)):
+            ending_options = dict(options)
+            for q in simple_questions:
+                if q.options:
+                    ending_options.update(q.options)
+                    q.options = None
+            result.append(QuestionGroup(
+                id=group_id,
+                type="matching-sentence-endings",
+                passage_id=passage_id,
+                instruction=full_instruction,
+                questions=simple_questions,
+                options=ending_options if ending_options else _infer_letter_range_options(full_instruction),
+            ))
+
+        elif ("re-order" in instr_lower
+              or re.search(r"match .* with (?:the )?characteristics", instr_lower)
+              or re.search(r"choose the type .* corresponds", instr_lower)
+              or "choose one drawing" in instr_lower):
+            result.append(QuestionGroup(
+                id=group_id,
+                type="matching",
+                passage_id=passage_id,
+                instruction=full_instruction,
+                questions=simple_questions,
+                options=options or _infer_letter_range_options(full_instruction),
+                shared_text=_sanitize_shared_text(stem_text or None),
+                image_url=image_url,
+            ))
+
         elif ("choose" in instr_lower and "letter" in instr_lower
+              or "choose the correct answer" in instr_lower
+              or "circle the correct answer" in instr_lower
+              or "write the appropriate letter" in instr_lower
               or (options and "which" in instr_lower and "following" in instr_lower)
               or (options and "which" in stem_lower and "following" in stem_lower)
-              or "choose" in body_lower and "letter" in body_lower):
+              or "choose" in body_lower and "letter" in body_lower
+              or all(q.options for q in simple_questions)):
             has_question_options = any(q.options for q in simple_questions)
             mc_options = options if options else (None if has_question_options else {chr(65 + i): f"Option {chr(65 + i)}" for i in range(4)})
             result.append(QuestionGroup(
@@ -853,35 +978,6 @@ def _build_question_groups(groups: list[dict], answers: dict, base_url: str = ""
                 passage_id=passage_id,
                 instruction=full_instruction,
                 questions=simple_questions,
-            ))
-
-        elif "classif" in instr_lower or "classif" in body_lower:
-            # "Classify the following statements as referring to A ... B ... C ..."
-            # options are inline in the instruction (A hand collecting, B using bait, ...)
-            classif_options = options if options else None
-            result.append(QuestionGroup(
-                id=group_id,
-                type="classification",
-                passage_id=passage_id,
-                instruction=full_instruction,
-                questions=simple_questions,
-                options=classif_options,
-            ))
-
-        elif re.search(r"correct ending", instr_lower):
-            # "Complete each sentence with the correct ending, A-G, below"
-            ending_options = dict(options)
-            for q in simple_questions:
-                if q.options:
-                    ending_options.update(q.options)
-                    q.options = None
-            result.append(QuestionGroup(
-                id=group_id,
-                type="matching-sentence-endings",
-                passage_id=passage_id,
-                instruction=full_instruction,
-                questions=simple_questions,
-                options=ending_options if ending_options else None,
             ))
 
         else:

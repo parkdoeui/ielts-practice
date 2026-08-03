@@ -74,6 +74,28 @@ HTML = """
 
 
 class ParserRegressionTests(unittest.TestCase):
+    def test_bundled_reading_source_artifacts_are_normalized(self):
+        value = (
+            "still in my scat; sting rays; T emerged, as the sole embodiment; rustfree; "
+            "liquid, polymer; factories, A different; prevents it. from; hard while lumps; "
+            "What, helped; NO MORE THAN THREE WORD S; Imps helped to make beer; "
+            "It want animals to work; Iike using wheels; when if did; drink beet; "
+            "career choice made by graduates; Dr, Ken Aplin; Western Australia,most; "
+            "purpose of Frogwatch is ."
+        )
+
+        cleaned = _normalize_known_source_artifacts(value)
+
+        for expected in (
+            "still in my seat", "stingrays", "I emerged as the sole embodiment",
+            "rust-free", "liquid polymer", "factories. A different", "prevents it from",
+            "hard white lumps", "What helped", "NO MORE THAN THREE WORDS",
+            "Hops helped to make beer", "not want animals to work", "like using wheels",
+            "when it did", "drink beer", "career choices made by graduates",
+            "Dr. Ken Aplin", "Western Australia, most", "purpose of Frogwatch is:",
+        ):
+            self.assertIn(expected, cleaned)
+
     def test_known_reading_295_source_artifacts_are_normalized(self):
         value = (
             "There is a dear reason. The deep- sea contains minerals, Mining corporations argue for it. "
@@ -124,6 +146,118 @@ class ParserRegressionTests(unittest.TestCase):
         self.assertIn("(7)", completion["text"])
         self.assertNotIn("(7)", passages[1].text)
         self.assertIn("Butterflies in the UK", completion_group.shared_text or "")
+
+    def test_matching_heading_options_do_not_become_a_fake_passage(self):
+        long_passage = "Tea and beer passage content. " * 50
+        soup = BeautifulSoup(
+            f"""
+            <div class="entry-content">
+              <p>Did tea and beer bring about industrialisation?</p>
+              <p>{long_passage}</p>
+              <p>Questions 14-18<br/>Choose the most suitable headings for sections B-F.</p>
+              <p>There are more headings than sections so you will not use all of them.</p>
+              <p>i. Tea drinking<br/>ii. Population growth<br/>iii. Waterborne disease<br/>iv. Japan<br/>v. Industry</p>
+              <p>14. Section B<br/>15. Section C<br/>16. Section D<br/>17. Section E<br/>18. Section F</p>
+              <p>Questions 19-22<br/>Complete the table.</p>
+              <p>Reason: (19) …………</p>
+            </div>
+            """,
+            "html.parser",
+        )
+
+        blocks = _classify_blocks(
+            _normalize_dom(soup.select_one("div.entry-content")),
+            "https://practicepteonline.com/ielts-reading-test-297/",
+        )
+        passages, raw_groups = _segment_test(blocks)
+        groups = _build_question_groups(raw_groups, {qid: "answer" for qid in range(14, 23)})
+        headings = next(group for group in groups if group.id == "group-14-18")
+
+        self.assertEqual(len(passages), 1)
+        self.assertEqual(list(headings.options or {}), ["i", "ii", "iii", "iv", "v"])
+        self.assertEqual(
+            [question.statement for question in headings.questions],
+            ["Section B", "Section C", "Section D", "Section E", "Section F"],
+        )
+
+    def test_completion_content_is_not_mistaken_for_letter_or_boolean_options(self):
+        groups = _build_question_groups(
+            [{
+                "start": 20,
+                "end": 22,
+                "instruction": "Questions 20-22\nComplete the description below.",
+                "text": (
+                    "A single product is mixed with alcohol and (20) ………… then left to stand.\n"
+                    "The mixture is then (21) ………… vigorously.\n"
+                    "No active substances remain when it gets (22) …………"
+                ),
+                "passage_id": "passage-2",
+                "image_url": None,
+            }],
+            {20: "water", 21: "shaken", 22: "stronger"},
+        )
+
+        shared = groups[0].shared_text or ""
+        self.assertIn("A single product", shared)
+        self.assertIn("(20)", shared)
+        self.assertIn("No active substances", shared)
+        self.assertIn("(22)", shared)
+
+    def test_bare_word_bank_is_extracted_from_summary_context(self):
+        groups = _build_question_groups(
+            [{
+                "start": 28,
+                "end": 29,
+                "instruction": "Questions 28-29\nComplete the summary. Choose your answers from the box below.",
+                "text": (
+                    "List of Words\nAxis\nPerspective\nProjection\nCompare\n"
+                    "Each method of (28) ………… involves compromise. The map shows an (29) …………"
+                ),
+                "passage_id": "passage-3",
+                "image_url": None,
+            }],
+            {28: "Projection", 29: "Axis"},
+        )
+
+        self.assertEqual(groups[0].word_list, ["Axis", "Perspective", "Projection", "Compare"])
+        self.assertNotIn("Axis\nPerspective", groups[0].shared_text or "")
+
+    def test_letter_selection_instructions_produce_interactive_group_types(self):
+        groups = _build_question_groups(
+            [
+                {
+                    "start": 1,
+                    "end": 1,
+                    "instruction": "Questions 1\nCircle the correct answer A-D.",
+                    "text": "1. Which answer?\nA\nAlpha\nB\nBeta\nC\nGamma\nD\nDelta",
+                    "passage_id": "passage-1",
+                    "image_url": None,
+                },
+                {
+                    "start": 2,
+                    "end": 3,
+                    "instruction": "Questions 2-3\nChoose one phrase from the list A-C to complete each sentence.",
+                    "text": "2. First stem\n3. Second stem\nA. Alpha\nB. Beta\nC. Gamma",
+                    "passage_id": "passage-1",
+                    "image_url": None,
+                },
+                {
+                    "start": 4,
+                    "end": 5,
+                    "instruction": "Questions 4-5\nRe-order the following letters (A-C).",
+                    "text": "A. First event\nB. Second event\nC. Third event\n4. Next\n5. Last",
+                    "passage_id": "passage-1",
+                    "image_url": None,
+                },
+            ],
+            {1: "B", 2: "A", 3: "C", 4: "B", 5: "C"},
+        )
+
+        self.assertEqual([group.type for group in groups], [
+            "multiple-choice", "matching-sentence-endings", "matching",
+        ])
+        self.assertTrue(all(group.questions[0].statement for group in groups))
+        self.assertTrue(all(group.options or group.questions[0].options for group in groups))
 
     def test_answer_list_directly_after_show_answers_is_extracted(self):
         soup = BeautifulSoup("""
@@ -763,6 +897,71 @@ class ValidationRegressionTests(unittest.TestCase):
         result = validate_reading_test(test)
 
         self.assertTrue(result.valid, result.report())
+
+    def test_validator_requires_context_for_each_empty_completion_question(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-3",
+                type="summary-completion",
+                passage_id="passage-1",
+                instruction="Questions 1-3\nComplete the notes.",
+                questions=[
+                    SimpleQuestion(id=qid, statement="", answer="answer")
+                    for qid in range(1, 4)
+                ],
+                shared_text="First (1) ………\nSecond (2) ………",
+            ),
+            _filler_group(4),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertFalse(result.valid)
+        self.assertTrue(any("[3]" in error for error in result.errors))
+
+    def test_validator_rejects_placeholder_matching_headings(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-3",
+                type="matching-headings",
+                passage_id="passage-1",
+                instruction="Questions 1-3\nChoose the headings.",
+                questions=[
+                    SimpleQuestion(id=1, statement="", answer="i"),
+                    SimpleQuestion(id=2, statement="", answer="ii"),
+                    SimpleQuestion(id=3, statement="", answer="iii"),
+                ],
+                options={"i": "i", "ii": "ii", "iii": "iii"},
+            ),
+            _filler_group(4),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertFalse(result.valid)
+        self.assertTrue(any("questions without labels" in error for error in result.errors))
+        self.assertTrue(any("placeholder-only options" in error for error in result.errors))
+
+    def test_validator_rejects_letter_selection_as_sentence_completion(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-3",
+                type="sentence-completion",
+                passage_id="passage-1",
+                instruction="Questions 1-3\nChoose one phrase from A-C.",
+                questions=[
+                    SimpleQuestion(id=1, statement="First", answer="A"),
+                    SimpleQuestion(id=2, statement="Second", answer="B"),
+                    SimpleQuestion(id=3, statement="Third", answer="C"),
+                ],
+            ),
+            _filler_group(4),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertFalse(result.valid)
+        self.assertTrue(any("misclassified as sentence-completion" in error for error in result.errors))
 
     def test_validator_rejects_question_placeholders_inside_passage(self):
         test = _minimal_reading_test([_filler_group(1)])

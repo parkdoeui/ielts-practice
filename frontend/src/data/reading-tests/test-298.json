@@ -48,7 +48,7 @@
   "question_groups": [
     {
       "id": "group-1-1",
-      "type": "sentence-completion",
+      "type": "multiple-choice",
       "passage_id": "passage-1",
       "instruction": "Questions 1\nCircle the correct answer A-D.",
       "questions": [
@@ -117,7 +117,7 @@
     },
     {
       "id": "group-7-9",
-      "type": "sentence-completion",
+      "type": "matching-sentence-endings",
       "passage_id": "passage-1",
       "instruction": "Questions 7-9\nChoose one phrase from the list in the box (A-F) to complete each of the following sentences.",
       "questions": [
@@ -137,20 +137,20 @@
           "id": 9,
           "statement": "Traditional employers are likely to",
           "answer": "E",
-          "options": {
-            "A": "drink coffee to stay awake during the afternoon",
-            "B": "have a nap during breaks",
-            "C": "fall asleep when they are bored",
-            "D": "sneak naps without permission",
-            "E": "resist the trend toward napping",
-            "F": "fall asleep in the afternoon"
-          }
+          "options": null
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null,
+      "options": {
+        "A": "drink coffee to stay awake during the afternoon",
+        "B": "have a nap during breaks",
+        "C": "fall asleep when they are bored",
+        "D": "sneak naps without permission",
+        "E": "resist the trend toward napping",
+        "F": "fall asleep in the afternoon"
+      },
       "layout": null,
       "selection_limit": null
     },
@@ -182,7 +182,7 @@
     },
     {
       "id": "group-12-13",
-      "type": "sentence-completion",
+      "type": "multiple-choice",
       "passage_id": "passage-1",
       "instruction": "Questions 12-13\nCircle the correct answer A-D.",
       "questions": [
@@ -224,37 +224,37 @@
       "questions": [
         {
           "id": 14,
-          "statement": "",
+          "statement": "Section B",
           "answer": "v",
           "options": null
         },
         {
           "id": 15,
-          "statement": "",
+          "statement": "Section C",
           "answer": "vii",
           "options": null
         },
         {
           "id": 16,
-          "statement": "",
+          "statement": "Section D",
           "answer": "viii",
           "options": null
         },
         {
           "id": 17,
-          "statement": "",
+          "statement": "Section E",
           "answer": "x",
           "options": null
         },
         {
           "id": 18,
-          "statement": "",
+          "statement": "Section F",
           "answer": "iii",
           "options": null
         },
         {
           "id": 19,
-          "statement": "",
+          "statement": "Section G",
           "answer": "ix",
           "options": null
         }
@@ -263,11 +263,16 @@
       "word_list": null,
       "image_url": null,
       "options": {
-        "i": "i",
-        "ii": "ii",
-        "iii": "iii",
-        "iv": "iv",
-        "v": "v"
+        "i": "The future of homeopathy",
+        "ii": "Concerns about homeopathy",
+        "iii": "Comparison with traditional western medicine",
+        "iv": "Dr. S. Hahnemann",
+        "v": "Theoretical and experimental basis",
+        "vi": "Revival of homeopathy",
+        "vii": "Preparation of medicines",
+        "viii": "Debate over effectiveness",
+        "ix": "Advantages and limitations of homeopathy",
+        "x": "Aspects of treatment"
       },
       "layout": null,
       "selection_limit": null
@@ -297,7 +302,7 @@
           "options": null
         }
       ],
-      "shared_text": "Making a homeopathic remedy\nThe remedies come from plant, animal and mineral sources.\nThis mixture is strained to produce a tincture which can be diluted.\n1 drop of this tincture is added to 99 drops of alcohol/water.\nThe mixture is then (21) …………. vigorously.\nThis produces a remedy with a potency of 1c.\nAs the remedy becomes more diluted, it gets (22) ……………..",
+      "shared_text": "Making a homeopathic remedy\nThe remedies come from plant, animal and mineral sources.\nA single product is mixed with alcohol and (20) …………….. then left to stand for 2-4 weeks.\nThis mixture is strained to produce a tincture which can be diluted.\n1 drop of this tincture is added to 99 drops of alcohol/water.\nThe mixture is then (21) …………. vigorously.\nThis produces a remedy with a potency of 1c.\nAs the remedy becomes more diluted, it gets (22) ……………..",
       "word_list": null,
       "image_url": null,
       "options": null,
@@ -335,8 +340,21 @@
           "options": null
         }
       ],
-      "shared_text": "Homeopathy differs from conventional medicine in a number of ways. Conventional medicine views symptoms as an indication of something wrong in the body whereas homeopathy sees them as signs that the body is attempting to (23) ……………. The uses of medication differ also. Many types of conventional medication (24) ……………. but if the medicine is taken away, the illness returns. The intention of homeopathy is to bring about a complete cure. Homeopathic remedies are (25) ……………… than conventional medicine and have fewer (26) ………………\nCheaper\nCure\nHeal itself\nIllness\nTreatments\nGetting better\nControl symptoms\nMore expensive\nSide effects\nStronger\nHealthy\nPatients",
-      "word_list": null,
+      "shared_text": "Homeopathy differs from conventional medicine in a number of ways. Conventional medicine views symptoms as an indication of something wrong in the body whereas homeopathy sees them as signs that the body is attempting to (23) ……………. The uses of medication differ also. Many types of conventional medication (24) ……………. but if the medicine is taken away, the illness returns. The intention of homeopathy is to bring about a complete cure. Homeopathic remedies are (25) ……………… than conventional medicine and have fewer (26) ………………",
+      "word_list": [
+        "Cheaper",
+        "Cure",
+        "Heal itself",
+        "Illness",
+        "Treatments",
+        "Getting better",
+        "Control symptoms",
+        "More expensive",
+        "Side effects",
+        "Stronger",
+        "Healthy",
+        "Patients"
+      ],
       "image_url": null,
       "options": null,
       "layout": null,
@@ -344,7 +362,7 @@
     },
     {
       "id": "group-27-31",
-      "type": "sentence-completion",
+      "type": "matching",
       "passage_id": "passage-3",
       "instruction": "Questions 27-31\nRe-order the following letters (A-F) to show the sequence of events according to the passage.",
       "questions": [
@@ -382,7 +400,14 @@
       "shared_text": "The first one has been done for you as an example.\n(27) ……..\n(28) …….\n(29) …….\n(30) …….\n(31) ………",
       "word_list": null,
       "image_url": null,
-      "options": null,
+      "options": {
+        "A": "Timber and petro-chemical industries threatened",
+        "B": "Articles praise hemp as a potential billion dollar crop",
+        "C": "Widespread cultivation of hemp (Example)",
+        "D": "Prohibition of marijuana",
+        "E": "Newspaper articles link hemp to violent crime",
+        "F": "Development of stripping machines"
+      },
       "layout": null,
       "selection_limit": null
     },
@@ -390,7 +415,7 @@
       "id": "group-32-33",
       "type": "summary-completion",
       "passage_id": "passage-3",
-      "instruction": "Questions 32-33\nComplete the following using\nNO MORE THAN THREE WORDS\nfrom the passage.\nNo active substances named (33) ……",
+      "instruction": "Questions 32-33\nComplete the following using\nNO MORE THAN THREE WORDS\nfrom the passage.",
       "questions": [
         {
           "id": 32,
@@ -405,7 +430,7 @@
           "options": null
         }
       ],
-      "shared_text": "Hemp\nMarijuana\nFibre\nStrong and durable\n(32)…………..\nDrug content\nUp to 10%",
+      "shared_text": "Hemp\nMarijuana\nFibre\nStrong and durable\n(32)…………..\nDrug content\nNo active substances named (33) ……\nUp to 10%",
       "word_list": null,
       "image_url": null,
       "options": null,
@@ -468,7 +493,7 @@
     },
     {
       "id": "group-40-40",
-      "type": "sentence-completion",
+      "type": "multiple-choice",
       "passage_id": "passage-3",
       "instruction": "Questions 40\nChoose the correct answer A-D.",
       "questions": [

@@ -13,6 +13,13 @@ from models import ReadingTest
 
 QUESTION_COMPLETION_PLACEHOLDER_RE = re.compile(r"\((\d+)\)\s*[…_.]{2,}")
 COMPLETION_TYPES = {"summary-completion", "sentence-completion", "table-completion"}
+SHARED_OPTION_TYPES = {
+    "matching",
+    "matching-headings",
+    "matching-information",
+    "matching-sentence-endings",
+    "classification",
+}
 
 
 @dataclass
@@ -73,13 +80,60 @@ def validate_reading_test(test: ReadingTest) -> ValidationResult:
             errors.append(f"Group {g.id}: shared_text starts with 'Show Answers' (answer section leaked)")
 
     for g in test.question_groups:
-        has_instruction_context = bool(QUESTION_COMPLETION_PLACEHOLDER_RE.search(g.instruction or ""))
-        if g.type not in COMPLETION_TYPES or g.shared_text or has_instruction_context:
+        if g.type not in COMPLETION_TYPES:
             continue
-        missing_context = [question.id for question in g.questions if not question.statement.strip()]
+        shared_context = "\n".join(part for part in (g.instruction, g.shared_text or "") if part)
+        missing_context = [
+            question.id
+            for question in g.questions
+            if not question.statement.strip()
+            and not re.search(rf"\({question.id}\)\s*[…_.]", shared_context)
+        ]
         if missing_context:
             errors.append(
                 f"Group {g.id}: completion questions without displayable context: {missing_context}"
+            )
+
+    for g in test.question_groups:
+        if g.type in SHARED_OPTION_TYPES:
+            if not g.options:
+                errors.append(f"Group {g.id}: {g.type} has no options")
+            group_context = "\n".join(part for part in (g.instruction, g.shared_text or "") if part)
+            missing_statements = [
+                question.id
+                for question in g.questions
+                if not question.statement.strip()
+                and not re.search(rf"\({question.id}\)\s*[…_.]", group_context)
+            ]
+            if missing_statements:
+                errors.append(
+                    f"Group {g.id}: {g.type} questions without labels: {missing_statements}"
+                )
+        if g.type == "matching-headings" and g.options:
+            if all(key == value for key, value in g.options.items()):
+                errors.append(f"Group {g.id}: matching-headings has placeholder-only options")
+
+    for g in test.question_groups:
+        if g.type == "multiple-choice":
+            missing_options = [
+                question.id for question in g.questions
+                if not question.options and not g.options
+            ]
+            if missing_options:
+                errors.append(f"Group {g.id}: multiple-choice questions without options: {missing_options}")
+
+    for g in test.question_groups:
+        answers_are_letters = bool(g.questions) and all(
+            re.fullmatch(r"[A-Z]", question.answer.strip(), re.IGNORECASE)
+            for question in g.questions
+        )
+        instruction_expects_choices = bool(re.search(
+            r"(?i)\b(choose|circle|match|re-order|appropriate letter)\b",
+            g.instruction or "",
+        ))
+        if g.type == "sentence-completion" and answers_are_letters and instruction_expects_choices:
+            errors.append(
+                f"Group {g.id}: letter-selection exercise misclassified as sentence-completion"
             )
 
     for g in test.question_groups:

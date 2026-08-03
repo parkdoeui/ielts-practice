@@ -84,11 +84,13 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-3-7",
-      "type": "sentence-completion",
+      "type": "matching",
       "passage_id": "passage-1",
       "instruction": "Questions 3-7\nChoose the type of music from the list A-D below which corresponds to the findings of the study.",
       "questions": [
@@ -126,7 +128,14 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": {
+        "A": "light jazz",
+        "B": "alternative",
+        "C": "classical",
+        "D": "rock"
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-8-13",
@@ -174,7 +183,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-14-18",
@@ -184,31 +195,31 @@
       "questions": [
         {
           "id": 14,
-          "statement": "",
+          "statement": "Section B",
           "answer": "ix",
           "options": null
         },
         {
           "id": 15,
-          "statement": "",
+          "statement": "Section C",
           "answer": "ii",
           "options": null
         },
         {
           "id": 16,
-          "statement": "",
+          "statement": "Section D",
           "answer": "iv",
           "options": null
         },
         {
           "id": 17,
-          "statement": "",
+          "statement": "Section E",
           "answer": "v",
           "options": null
         },
         {
           "id": 18,
-          "statement": "",
+          "statement": "Section F",
           "answer": "i",
           "options": null
         }
@@ -217,18 +228,25 @@
       "word_list": null,
       "image_url": null,
       "options": {
-        "i": "i",
-        "ii": "ii",
-        "iii": "iii",
-        "iv": "iv",
-        "v": "v"
-      }
+        "i": "The significance of tea drinking",
+        "ii": "Possible solution to the puzzle",
+        "iii": "Industry in Holland and France",
+        "iv": "Significant population increase",
+        "v": "The relationship between drinks and disease",
+        "vi": "Gin drinking and industrialisation",
+        "vii": "Dysentery prevention in Japan and Holland",
+        "viii": "Japan’s waterborne diseases",
+        "ix": "Preconditions necessary for Industrial Revolution",
+        "x": "Introduction"
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-19-22",
       "type": "summary-completion",
       "passage_id": "passage-2",
-      "instruction": "Questions 19-22\nComplete the table using\nNO MORE THAN THREE WORD\nno significant change",
+      "instruction": "Questions 19-22\nComplete the table using\nNO MORE THAN THREE WORDS from the passage.",
       "questions": [
         {
           "id": 19,
@@ -255,10 +273,12 @@
           "options": null
         }
       ],
-      "shared_text": "Century\nSocial change in Britain\nReason\nEffect on population\nMid 17\nth\ncentury\nmain drinks were still beer and ale\nImps helped to make beer last longer\nLate 17\nth\ncentury\ngin becomes more popular, especially with poor people\nbeer becomes expensive because of (19) ……….\nmortality rate goes up\nEarly 18\nth\ncentury\n(20) ……….. drinking starts to become widespread\nBritain starts trade with China\nmortality rate goes down\nMid 18\nth\ncentury\ndecline in urban deaths caused by (21) ……….\n(22) …………. water used for tea and beer; antibacterial qualities of tannin\ninfant mortality rate goes down by half",
+      "shared_text": "Century\nSocial change in Britain\nReason\nEffect on population\nMid 17\nth\ncentury\nmain drinks were still beer and ale\nHops helped to make beer last longer\nno significant change\nLate 17\nth\ncentury\ngin becomes more popular, especially with poor people\nbeer becomes expensive because of (19) ……….\nmortality rate goes up\nEarly 18\nth\ncentury\n(20) ……….. drinking starts to become widespread\nBritain starts trade with China\nmortality rate goes down\nMid 18\nth\ncentury\ndecline in urban deaths caused by (21) ……….\n(22) …………. water used for tea and beer; antibacterial qualities of tannin\ninfant mortality rate goes down by half",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-23-25",
@@ -283,8 +303,8 @@
           "answer": "D",
           "options": {
             "A": "like drinking beer.",
-            "B": "It want animals to work.",
-            "C": "Iike using wheels.",
+            "B": "not want animals to work.",
+            "C": "like using wheels.",
             "D": "want unemployment."
           }
         },
@@ -294,8 +314,8 @@
           "answer": "B",
           "options": {
             "A": "the British drink beer and tea",
-            "B": "industrialisation happened in Britain when if did.",
-            "C": "the Japanese did not drink beet.",
+            "B": "industrialisation happened in Britain when it did.",
+            "C": "the Japanese did not drink beer.",
             "D": "sanitation wasn’t widespread until the 19th century."
           }
         }
@@ -303,12 +323,14 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-26-32",
       "type": "summary-completion",
-      "passage_id": "passage-2",
+      "passage_id": "passage-3",
       "instruction": "Questions 26-32\nComplete the summary below. Choose your answers from the box below the summary.",
       "questions": [
         {
@@ -354,10 +376,28 @@
           "options": null
         }
       ],
-      "shared_text": "Although IT is one of the leading career choice made by graduates today, the industry’s demand for qualified applicants (26) …………….. the supply of skilled IT personnel. Despite the (27) …………….. widespread use of computer technology in all areas of life, (28) …………….. face difficulties recruiting people whose education has equipped them to commence working productively without further training. Several business organisations now offer income and other (29) ……………… inducements to potential employees. They also include group (30) ……………… in their selection procedures, often inviting up to forty (31) ……………. to their company for the two-day visit. In this way the company can demonstrate the reality of the working (32) ……… which is more likely to involve challenging co-operative projects than individualised tasks.\nExceeds\nExtracts\nChoices\nCandidates\nEmployees\nAdmiration\nPrevious\nFinancial\nEmployment\nRegularity\nAdvantages\nEmployers\nEnvironment\nActivities\nCurrent",
-      "word_list": null,
+      "shared_text": "Although IT is one of the leading career choices made by graduates today, the industry’s demand for qualified applicants (26) …………….. the supply of skilled IT personnel. Despite the (27) …………….. widespread use of computer technology in all areas of life, (28) …………….. face difficulties recruiting people whose education has equipped them to commence working productively without further training. Several business organisations now offer income and other (29) ……………… inducements to potential employees. They also include group (30) ……………… in their selection procedures, often inviting up to forty (31) ……………. to their company for the two-day visit. In this way the company can demonstrate the reality of the working (32) ……… which is more likely to involve challenging co-operative projects than individualised tasks.",
+      "word_list": [
+        "Exceeds",
+        "Extracts",
+        "Choices",
+        "Candidates",
+        "Employees",
+        "Admiration",
+        "Previous",
+        "Financial",
+        "Employment",
+        "Regularity",
+        "Advantages",
+        "Employers",
+        "Environment",
+        "Activities",
+        "Current"
+      ],
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-33-37",
@@ -399,11 +439,13 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-38-40",
-      "type": "sentence-completion",
+      "type": "matching-sentence-endings",
       "passage_id": "passage-3",
       "instruction": "Questions 38-40\nChoose one phrase from the list of phrases A-H below to complete each of the following sentences.",
       "questions": [
@@ -423,22 +465,24 @@
           "id": 40,
           "statement": "The need to achieve consensus assists",
           "answer": "E",
-          "options": {
-            "A": "to compete with other teams as judged by the facilitator.",
-            "B": "by individual tests and exams.",
-            "C": "to see who has the strongest point of view in the group.",
-            "D": "individually, by their peers and as a team.",
-            "E": "in the development of communication skills.",
-            "F": "to practise working as a group while putting theory into practice.",
-            "G": "to assist international and non-traditional students.",
-            "H": "in getting to know new friends and colleagues."
-          }
+          "options": null
         }
       ],
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": {
+        "A": "to compete with other teams as judged by the facilitator.",
+        "B": "by individual tests and exams.",
+        "C": "to see who has the strongest point of view in the group.",
+        "D": "individually, by their peers and as a team.",
+        "E": "in the development of communication skills.",
+        "F": "to practise working as a group while putting theory into practice.",
+        "G": "to assist international and non-traditional students.",
+        "H": "in getting to know new friends and colleagues."
+      },
+      "layout": null,
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 60,

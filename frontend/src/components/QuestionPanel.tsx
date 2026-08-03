@@ -1,4 +1,5 @@
 import type { QuestionGroup, SimpleQuestion } from "../types";
+import { getWordListChoice } from "../lib/readingWordList";
 
 interface Props {
   groups: QuestionGroup[];
@@ -102,12 +103,15 @@ function GroupRenderer({
       {group.word_list && group.word_list.length > 0 && (
         <div className="text-xs text-gray-600 bg-gray-50 p-3 rounded border border-gray-200">
           <span className="font-medium">Word bank: </span>
-          {group.word_list.map((w, i) => (
-            <span key={w}>
-              <span className="font-medium">{String.fromCharCode(65 + i)}.</span> {w}
-              {i < group.word_list!.length - 1 ? " · " : ""}
-            </span>
-          ))}
+          {group.word_list.map((word, index) => {
+            const choice = getWordListChoice(group, word, index);
+            return (
+              <span key={`${index}-${word}`}>
+                {choice.label}
+                {index < group.word_list!.length - 1 ? " · " : ""}
+              </span>
+            );
+          })}
         </div>
       )}
 
@@ -378,11 +382,11 @@ function QuestionInput({
               className={selectClass}
             >
               <option value="">Select word...</option>
-              {group.word_list.map((w, i) => {
-                const letter = String.fromCharCode(65 + i);
+              {group.word_list.map((word, index) => {
+                const choice = getWordListChoice(group, word, index);
                 return (
-                  <option key={letter} value={letter}>
-                    {letter}. {w}
+                  <option key={`${index}-${word}`} value={choice.value}>
+                    {choice.label}
                   </option>
                 );
               })}
