@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getMockSession, listMockSessions, saveMockSession } from "../services/api";
+import {
+  getMockSession,
+  listMockSessions,
+  saveMockSession,
+  syncMockSession,
+} from "../services/api";
 import { FULL_TESTS } from "../lib/fullTests";
 import { getFullTestAction, getSessionFullTest } from "../lib/mockProgress";
 import {
@@ -85,6 +90,11 @@ export function MockRunner() {
       );
       const updated = { ...prev, sections };
       saveMockSession(updated);
+      void syncMockSession(updated)
+        .then(saveMockSession)
+        .catch(() => {
+          // The local wrapper remains the offline fallback and can sync on resume.
+        });
       return updated;
     });
     if (mock.mode === "strict") advance();

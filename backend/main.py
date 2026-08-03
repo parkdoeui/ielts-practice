@@ -1,5 +1,6 @@
-from datetime import datetime
-from typing import Any, Optional
+from datetime import datetime, timezone
+from math import floor
+from typing import Any, Literal, Optional
 
 from fastapi import FastAPI, Depends, HTTPException, Response, Cookie, Request, Header
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,7 +9,7 @@ from sqlalchemy.orm import Session
 
 from config import settings
 from database import engine, get_db
-from models import Base, TestSessionRecord, WritingSessionRecord
+from models import Base, FullTestSessionRecord, TestSessionRecord, WritingSessionRecord
 from ai_writing_grader import grade_writing_submission, WritingGraderError
 
 Base.metadata.create_all(bind=engine)
@@ -181,6 +182,42 @@ class WritingSessionResponse(BaseModel):
     grading: WritingGradingResponse
 
 
+class FullTestSectionSchema(BaseModel):
+    skill: Literal["listening", "reading", "writing", "speaking"]
+    test_id: Optional[str] = Field(default=None, max_length=120)
+    session_id: Optional[str] = Field(default=None, max_length=160)
+    band: Optional[float] = Field(default=None, ge=0, le=9)
+
+
+class FullTestSessionUpsert(BaseModel):
+    id: str = Field(min_length=1, max_length=160)
+    full_test_id: str = Field(pattern=r"^full-test-\d+$")
+    mode: Literal["relaxed", "strict"]
+    started_at: str
+    sections: list[FullTestSectionSchema] = Field(min_length=1, max_length=4)
+
+    @field_validator("sections")
+    @classmethod
+    def validate_unique_sections(
+        cls,
+        value: list[FullTestSectionSchema],
+    ) -> list[FullTestSectionSchema]:
+        skills = [section.skill for section in value]
+        if len(skills) != len(set(skills)):
+            raise ValueError("sections must contain each skill at most once")
+        return value
+
+
+class FullTestSessionResponse(BaseModel):
+    id: str
+    full_test_id: str
+    mode: Literal["relaxed", "strict"]
+    started_at: str
+    completed_at: Optional[str] = None
+    overall_band: Optional[float] = None
+    sections: list[FullTestSectionSchema]
+
+
 # ---------- Helper ----------
 
 def verify_passcode(passcode: str) -> None:
@@ -268,6 +305,28 @@ def writing_session_to_response(record: WritingSessionRecord) -> WritingSessionR
         total_time_ms=record.total_time_ms,
         answers=answers,
         grading=record.grading_json,  # type: ignore[arg-type]
+    )
+
+
+def round_overall_band(bands: list[float]) -> Optional[float]:
+    valid_bands = [band for band in bands if band > 0]
+    if not valid_bands:
+        return None
+    average = sum(valid_bands) / len(valid_bands)
+    return floor((average * 2) + 0.5) / 2
+
+
+def full_test_session_to_response(
+    record: FullTestSessionRecord,
+) -> FullTestSessionResponse:
+    return FullTestSessionResponse(
+        id=record.id,
+        full_test_id=record.full_test_id,
+        mode=record.mode,
+        started_at=record.started_at.isoformat(),
+        completed_at=record.completed_at.isoformat() if record.completed_at else None,
+        overall_band=record.overall_band,
+        sections=record.sections_json,
     )
 
 
@@ -502,6 +561,101 @@ def get_progress(
         score_history=score_history,
         per_type_accuracy=per_type,
     )
+
+
+@app.put(
+    "/api/full-test-sessions/{session_id}",
+    response_model=FullTestSessionResponse,
+)
+def upsert_full_test_session(
+    session_id: str,
+    payload: FullTestSessionUpsert,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    if payload.id != session_id:
+        raise HTTPException(status_code=400, detail="Full Test session ID mismatch")
+
+    canonical = (
+        db.query(FullTestSessionRecord)
+        .filter(
+            FullTestSessionRecord.passcode == settings.valid_passcode,
+            FullTestSessionRecord.full_test_id == payload.full_test_id,
+        )
+        .first()
+    )
+    if canonical and canonical.id != session_id:
+        raise HTTPException(
+            status_code=409,
+            detail={
+                "message": "This Full Test already has an attempt",
+                "session_id": canonical.id,
+            },
+        )
+
+    # A completed Full Test is immutable. Returning the existing record also makes
+    # retries of the final sync idempotent without permitting a retake.
+    if canonical and canonical.completed_at is not None:
+        return full_test_session_to_response(canonical)
+
+    section_values = [section.model_dump() for section in payload.sections]
+    assigned_sections = [section for section in payload.sections if section.test_id is not None]
+    is_completed = bool(assigned_sections) and all(
+        section.session_id is not None for section in assigned_sections
+    )
+    overall_band = round_overall_band(
+        [
+            section.band
+            for section in assigned_sections
+            if section.session_id is not None and section.band is not None
+        ]
+    )
+
+    record = canonical or FullTestSessionRecord(
+        id=payload.id,
+        full_test_id=payload.full_test_id,
+        passcode=settings.valid_passcode,
+    )
+    record.mode = payload.mode
+    record.started_at = parse_iso_datetime(payload.started_at)
+    record.sections_json = section_values
+    record.completed_at = datetime.now(timezone.utc) if is_completed else None
+    record.overall_band = overall_band if is_completed else None
+
+    if canonical is None:
+        db.add(record)
+    db.commit()
+    db.refresh(record)
+    return full_test_session_to_response(record)
+
+
+@app.get("/api/full-test-sessions", response_model=list[FullTestSessionResponse])
+def list_full_test_sessions(
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    records = (
+        db.query(FullTestSessionRecord)
+        .filter(FullTestSessionRecord.passcode == settings.valid_passcode)
+        .order_by(FullTestSessionRecord.started_at.desc())
+        .all()
+    )
+    return [full_test_session_to_response(record) for record in records]
+
+
+@app.get(
+    "/api/full-test-sessions/{session_id}",
+    response_model=FullTestSessionResponse,
+)
+def get_full_test_session(
+    session_id: str,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    record = db.get(FullTestSessionRecord, session_id)
+    if not record or record.passcode != settings.valid_passcode:
+        raise HTTPException(status_code=404, detail="Full Test session not found")
+    return full_test_session_to_response(record)
 
 
 @app.post("/api/writing-sessions", response_model=WritingSessionResponse, status_code=201)

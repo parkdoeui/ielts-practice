@@ -1,6 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { listMockSessions, saveMockSession } from "../services/api";
+import {
+  getMockSessions,
+  listMockSessions,
+  saveMockSession,
+  syncMockSession,
+} from "../services/api";
 import {
   IMPLEMENTED_SKILLS,
   type FullTestSet,
@@ -51,13 +56,42 @@ function createMockSession(fullTest: FullTestSet, mode: MockMode): MockSession {
 export function MockExamSetup() {
   const navigate = useNavigate();
   const fullTests = FULL_TESTS;
-  const mockSessions = useMemo(() => listMockSessions(), []);
+  const [mockSessions, setMockSessions] = useState<MockSession[]>(() => listMockSessions());
+  const [isLoadingSessions, setIsLoadingSessions] = useState(true);
+  const [isStarting, setIsStarting] = useState(false);
   const firstStartableId = fullTests.find(
     (test) => getFullTestAction(test, mockSessions).kind === "start",
   )?.id ?? "";
   const [mode, setMode] = useState<MockMode>("relaxed");
   const [fullTestId, setFullTestId] = useState(firstStartableId);
   const selectedFullTest = fullTests.find((test) => test.id === fullTestId) ?? null;
+
+  useEffect(() => {
+    let active = true;
+    getMockSessions()
+      .then((sessions) => {
+        if (!active) return;
+        setMockSessions(sessions);
+        fullTests.forEach((test) => {
+          const action = getFullTestAction(test, sessions);
+          if (action.kind === "start") return;
+          const canonical = { ...action.session, full_test_id: test.id };
+          saveMockSession(canonical);
+          void syncMockSession(canonical).catch(() => {
+            // Reconciled legacy results remain locally available while offline.
+          });
+        });
+      })
+      .catch(() => {
+        // Local Full Test progress remains available when the backend is offline.
+      })
+      .finally(() => {
+        if (active) setIsLoadingSessions(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [fullTests]);
 
   const inProgress = useMemo(
     () =>
@@ -73,9 +107,9 @@ export function MockExamSetup() {
     [fullTests, mockSessions],
   );
 
-  function startMock() {
-    if (!selectedFullTest) return;
-    const existing = getFullTestAction(selectedFullTest, listMockSessions());
+  async function startMock() {
+    if (!selectedFullTest || isLoadingSessions || isStarting) return;
+    const existing = getFullTestAction(selectedFullTest, mockSessions);
     if (existing.kind === "results") {
       navigate(`/mock-results/${existing.session.id}`);
       return;
@@ -84,13 +118,29 @@ export function MockExamSetup() {
       navigate(`/mock/${existing.session.id}`);
       return;
     }
+    setIsStarting(true);
     const mock = createMockSession(selectedFullTest, mode);
     saveMockSession(mock);
-    navigate(`/mock/${mock.id}`);
+    setMockSessions((sessions) => [mock, ...sessions]);
+    try {
+      const canonical = await syncMockSession(mock);
+      const action = getFullTestAction(selectedFullTest, [canonical]);
+      navigate(
+        action.kind === "results"
+          ? `/mock-results/${action.session.id}`
+          : `/mock/${canonical.id}`,
+      );
+    } catch {
+      navigate(`/mock/${mock.id}`);
+    } finally {
+      setIsStarting(false);
+    }
   }
 
   const canStart = Boolean(
-    selectedFullTest && getFullTestAction(selectedFullTest, mockSessions).kind === "start",
+    !isLoadingSessions &&
+    selectedFullTest &&
+    getFullTestAction(selectedFullTest, mockSessions).kind === "start",
   );
 
   return (
@@ -188,7 +238,7 @@ export function MockExamSetup() {
                     <span className={`text-xs font-semibold ${
                       action.kind === "results" ? "text-emerald-700" : "text-amber-700"
                     }`}>
-                      {action.kind === "results" ? "View result →" : "Resume →"}
+                      {action.kind === "results" ? "View full result →" : "Resume →"}
                     </span>
                   )}
                 </span>
@@ -230,13 +280,16 @@ export function MockExamSetup() {
         <button
           type="button"
           onClick={startMock}
+          disabled={isStarting}
           className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700"
         >
-          Start Full Test
+          {isStarting ? "Starting…" : "Start Full Test"}
         </button>
+      ) : isLoadingSessions ? (
+        <p className="text-sm text-gray-500">Checking saved Full Test results…</p>
       ) : (
         <p className="text-sm text-gray-500">
-          Completed Full Tests are available through their View result links and cannot be retaken.
+          Completed Full Tests are available through their View full result links and cannot be retaken.
         </p>
       )}
     </div>

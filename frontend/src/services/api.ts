@@ -1,4 +1,5 @@
 import type { MockSession, TestSession, WritingSession, WritingTest } from "../types";
+import { reconcileMockSessionResults } from "../lib/fullTestResults";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
 const FETCH_OPTS: RequestInit = { credentials: "include" };
@@ -71,8 +72,9 @@ export function getStoredSessionById(sessionId: string): TestSession | null {
     // Back-compat: older cached sessions included `passcode`; we intentionally ignore it.
     const candidate = parsed as Record<string, unknown>;
     if ("passcode" in candidate) {
-      const { passcode: _ignored, ...rest } = candidate;
-      return rest as unknown as TestSession;
+      const sanitized = { ...candidate };
+      delete sanitized.passcode;
+      return sanitized as unknown as TestSession;
     }
     return parsed as TestSession;
   } catch {
@@ -211,6 +213,25 @@ export async function getProgress(): Promise<ProgressData> {
 
 const mockSessionKey = (mockId: string) => `ielts_mock_session_${mockId}`;
 
+function mergeMockSessionProgress(
+  local: MockSession | null,
+  remote: MockSession,
+): MockSession {
+  if (!local || local.id !== remote.id) return remote;
+  const localSections = new Map(local.sections.map((section) => [section.skill, section]));
+  const sections = remote.sections.map((section) => {
+    const localSection = localSections.get(section.skill);
+    return !section.session_id && localSection?.session_id ? localSection : section;
+  });
+  return {
+    ...local,
+    ...remote,
+    completed_at: remote.completed_at ?? local.completed_at,
+    overall_band: remote.overall_band ?? local.overall_band,
+    sections,
+  };
+}
+
 export function saveMockSession(mock: MockSession): void {
   localStorage.setItem(mockSessionKey(mock.id), JSON.stringify(mock));
 }
@@ -240,6 +261,105 @@ export function listMockSessions(): MockSession[] {
   return sessions.sort(
     (a, b) => new Date(b.started_at).getTime() - new Date(a.started_at).getTime(),
   );
+}
+
+async function readMockSessionResponse(response: Response): Promise<MockSession> {
+  const remote = await response.json() as MockSession;
+  const mock = mergeMockSessionProgress(getMockSession(remote.id), remote);
+  saveMockSession(mock);
+  return mock;
+}
+
+export async function syncMockSession(mock: MockSession): Promise<MockSession> {
+  const response = await fetch(
+    `${API_BASE}/api/full-test-sessions/${encodeURIComponent(mock.id)}`,
+    {
+      ...FETCH_OPTS,
+      method: "PUT",
+      headers: authHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify(mock),
+    },
+  );
+
+  if (response.status === 409) {
+    const conflict = await response.json() as {
+      detail?: { session_id?: string };
+    };
+    const canonicalId = conflict.detail?.session_id;
+    if (canonicalId) {
+      const canonical = await getFullTestSessionById(canonicalId);
+      if (canonical) return canonical;
+    }
+  }
+
+  if (!response.ok) {
+    throw new Error(`PUT /api/full-test-sessions/${mock.id} failed: ${response.status}`);
+  }
+  return readMockSessionResponse(response);
+}
+
+export async function getMockSessions(): Promise<MockSession[]> {
+  const response = await fetch(`${API_BASE}/api/full-test-sessions`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error(`GET /api/full-test-sessions failed: ${response.status}`);
+  }
+
+  const remote = await response.json() as MockSession[];
+  const local = listMockSessions();
+  const localById = new Map(local.map((session) => [session.id, session]));
+  const restored = remote.map((session) =>
+    mergeMockSessionProgress(localById.get(session.id) ?? null, session),
+  );
+  restored.forEach(saveMockSession);
+  const remoteIds = new Set(restored.map((session) => session.id));
+  const remoteBundleIds = new Set(
+    restored.map((session) => session.full_test_id).filter(Boolean),
+  );
+  const localOnly = local.filter(
+    (session) =>
+      !remoteIds.has(session.id) &&
+      (!session.full_test_id || !remoteBundleIds.has(session.full_test_id)),
+  );
+  let combined = [...restored, ...localOnly];
+  try {
+    const [objectiveSessions, writingSessions] = await Promise.all([
+      getSessions(),
+      getWritingSessions(),
+    ]);
+    combined = combined.map((session) =>
+      reconcileMockSessionResults(session, objectiveSessions, writingSessions),
+    );
+    combined.forEach(saveMockSession);
+  } catch {
+    // A section-level backend failure must not hide the saved Full Test wrapper.
+  }
+
+  return combined.sort(
+    (a, b) => new Date(b.started_at).getTime() - new Date(a.started_at).getTime(),
+  );
+}
+
+export async function getFullTestSessionById(
+  sessionId: string,
+): Promise<MockSession | null> {
+  const local = getMockSession(sessionId);
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/full-test-sessions/${encodeURIComponent(sessionId)}`,
+      { ...FETCH_OPTS, headers: authHeaders() },
+    );
+    if (response.status === 404) return local;
+    if (!response.ok) {
+      throw new Error(`GET /api/full-test-sessions/${sessionId} failed: ${response.status}`);
+    }
+    return readMockSessionResponse(response);
+  } catch (error) {
+    if (local) return local;
+    throw error;
+  }
 }
 
 export function getStoredWritingSessionById(sessionId: string): WritingSession | null {

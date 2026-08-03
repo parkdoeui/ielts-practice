@@ -218,6 +218,8 @@ export interface MockSession {
   full_test_id?: string;
   mode: MockMode;
   started_at: string;
+  completed_at?: string | null;
+  overall_band?: number | null;
   sections: MockSection[];   // ordered: listening, reading, writing, speaking
 }
 

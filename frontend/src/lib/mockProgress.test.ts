@@ -87,6 +87,22 @@ describe("Full Test progress", () => {
     expect(isMockSessionCompleted(completed)).toBe(true);
   });
 
+  it("recognizes a restored backend result as the canonical completed action", () => {
+    const restored = {
+      ...mockSession(
+        "2026-08-02T11:00:00Z",
+        ["listening", "reading", "writing"],
+      ),
+      completed_at: "2026-08-02T13:30:00Z",
+      overall_band: 7,
+    };
+
+    expect(getFullTestAction(fullTest, [restored])).toEqual({
+      kind: "results",
+      session: restored,
+    });
+  });
+
   it("matches older sessions by their section IDs", () => {
     const legacy = mockSession("2026-08-02T10:00:00Z", [], false);
     expect(getSessionFullTest(legacy, [fullTest])).toEqual(fullTest);
