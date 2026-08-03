@@ -26,6 +26,24 @@ function isFullTestSet(value: unknown): value is FullTestSet {
   );
 }
 
+function getSessionFullTest(
+  session: MockSession,
+  fullTests: FullTestSet[],
+): FullTestSet | null {
+  const storedMatch = fullTests.find((test) => test.id === session.full_test_id);
+  if (storedMatch) return storedMatch;
+
+  const testIdBySkill = new Map(
+    session.sections.map((section) => [section.skill, section.test_id]),
+  );
+  return fullTests.find((test) =>
+    testIdBySkill.get("listening") === test.listening_test_id &&
+    testIdBySkill.get("reading") === test.reading_test_id &&
+    testIdBySkill.get("writing") === test.writing_test_id &&
+    testIdBySkill.get("speaking") === test.speaking_test_id
+  ) ?? null;
+}
+
 const MODES: { value: MockMode; title: string; blurb: string }[] = [
   { value: "relaxed", title: "Relaxed", blurb: "Pause and resume between sections. Per-section timers." },
   { value: "strict", title: "Strict", blurb: "Continuous sitting in exam order — no leaving between sections." },
@@ -61,6 +79,7 @@ export function MockExamSetup() {
     if (!selectedFullTest) return;
     const mock: MockSession = {
       id: `mock-${Date.now()}`,
+      full_test_id: selectedFullTest.id,
       mode,
       started_at: new Date().toISOString(),
       sections: [
@@ -91,6 +110,7 @@ export function MockExamSetup() {
           <h2 className="mb-2 text-sm font-semibold text-gray-700">Resume</h2>
           <div className="space-y-2">
             {inProgress.map((session) => {
+              const sessionFullTest = getSessionFullTest(session, fullTests);
               const done = session.sections.filter(
                 (s) => IMPLEMENTED_SKILLS.has(s.skill) && s.session_id !== null,
               ).length;
@@ -101,8 +121,13 @@ export function MockExamSetup() {
                   to={`/mock/${session.id}`}
                   className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 hover:border-amber-300"
                 >
-                  <span className="text-sm text-gray-700">
-                    In progress · {session.mode} · {done}/{total} sections done
+                  <span>
+                    <span className="block text-sm font-semibold text-gray-900">
+                      {sessionFullTest?.title ?? "Full Test"}
+                    </span>
+                    <span className="mt-0.5 block text-xs text-gray-600">
+                      In progress · {session.mode} · {done}/{total} sections done
+                    </span>
                   </span>
                   <span className="text-sm font-medium text-amber-700">Resume →</span>
                 </Link>
@@ -133,37 +158,37 @@ export function MockExamSetup() {
         </div>
       </section>
 
-      <section className="mb-6 space-y-3">
-        <label className="block">
-          <span className="mb-1 block text-sm font-semibold text-gray-700">Full Test set</span>
-          <select
-            value={fullTestId}
-            onChange={(e) => setFullTestId(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {fullTests.map((test) => (
-              <option key={test.id} value={test.id}>
-                {test.title}
-              </option>
-            ))}
-          </select>
-        </label>
-        {selectedFullTest && (
-          <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600">
-            <p>Listening: {selectedFullTest.listening_test_id}</p>
-            <p>Reading: {selectedFullTest.reading_test_id}</p>
-            <p>Writing: {selectedFullTest.writing_test_id}</p>
-            <p>Speaking: {selectedFullTest.speaking_test_id ?? "coming soon"}</p>
-          </div>
-        )}
+      <section className="mb-6">
+        <h2 className="mb-2 text-sm font-semibold text-gray-700">Choose a Full Test</h2>
+        <div className="space-y-2">
+          {fullTests.map((test) => {
+            const selected = test.id === fullTestId;
+            return (
+              <button
+                key={test.id}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => setFullTestId(test.id)}
+                className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-colors ${
+                  selected
+                    ? "border-blue-500 bg-blue-50 text-blue-900"
+                    : "border-gray-200 bg-white text-gray-900 hover:border-gray-300"
+                }`}
+              >
+                <span className="text-sm font-semibold">{test.title}</span>
+                <span
+                  aria-hidden="true"
+                  className={`flex h-5 w-5 items-center justify-center rounded-full border ${
+                    selected ? "border-blue-600" : "border-gray-300"
+                  }`}
+                >
+                  {selected && <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </section>
-
-      <ol className="mb-6 space-y-1 text-sm text-gray-600">
-        <li>1. Listening</li>
-        <li>2. Reading</li>
-        <li>3. Writing</li>
-        <li>4. Speaking — <span className="text-amber-600">coming soon</span></li>
-      </ol>
 
       <button
         type="button"

@@ -181,6 +181,7 @@ export interface MockSection {
 
 export interface MockSession {
   id: string;
+  full_test_id?: string;
   mode: MockMode;
   started_at: string;
   sections: MockSection[];   // ordered: listening, reading, writing, speaking
