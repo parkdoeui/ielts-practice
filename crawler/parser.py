@@ -451,6 +451,50 @@ def _segment_test(blocks: list[Block]) -> tuple[list[Passage], list[dict]]:
     return passages, raw_groups
 
 
+def _normalize_oversegmented_passages(
+    passages: list[Passage], raw_groups: list[dict]
+) -> tuple[list[Passage], list[dict]]:
+    """Recover the standard three-passage layout after false boundaries.
+
+    Some source pages present long option tables as heading-like content between
+    question groups.  The segmenter intentionally treats those conservatively,
+    but a few pages still produce a short, spurious "passage".  IELTS Academic
+    Reading always assigns questions 1-13, 14-26, and 27-40 to its three
+    passages, so use that invariant only when segmentation produced more than
+    three candidates.  Keeping this post-processing conditional preserves
+    partial fixtures and non-standard source snippets used in unit tests.
+    """
+    if len(passages) <= 3:
+        return passages, raw_groups
+
+    # Genuine reading passages are substantive prose.  Fake boundaries created
+    # from headings/options are much shorter on the affected source pages.
+    substantive = [passage for passage in passages if len(passage.text.strip()) >= 1000]
+    if len(substantive) < 3:
+        return passages[:3], raw_groups
+
+    normalized_passages = [
+        Passage(
+            id=f"passage-{index}",
+            title=passage.title,
+            text=passage.text,
+            paragraphs=passage.paragraphs,
+        )
+        for index, passage in enumerate(substantive[:3], start=1)
+    ]
+
+    for group in raw_groups:
+        start = group.get("start", 0)
+        if 1 <= start <= 13:
+            group["passage_id"] = "passage-1"
+        elif 14 <= start <= 26:
+            group["passage_id"] = "passage-2"
+        elif 27 <= start <= 40:
+            group["passage_id"] = "passage-3"
+
+    return normalized_passages, raw_groups
+
+
 # ---------------------------------------------------------------------------
 # Phase 4: Question group building (unchanged from v1)
 # ---------------------------------------------------------------------------
@@ -835,6 +879,15 @@ def _extract_answers(soup: BeautifulSoup) -> dict[int, str]:
     answers: dict[int, str] = {}
     ans_container = None
 
+    def is_answer_container(candidate) -> bool:
+        if not candidate:
+            return False
+        return bool(
+            candidate.name == "ol"
+            or candidate.find("ol")
+            or re.search(r"\d+\.\s+", candidate.get_text(strip=True))
+        )
+
     ans_div = soup.find("div", id=lambda x: x and x.startswith("bg-showmore-hidden-"))
     if ans_div:
         div_text = ans_div.get_text(strip=True)
@@ -843,8 +896,8 @@ def _extract_answers(soup: BeautifulSoup) -> dict[int, str]:
         else:
             ancestor = ans_div
             while ancestor and ancestor.parent and ancestor.parent.name in ("span", "p", "div"):
-                candidate = ancestor.parent.find_next_sibling(["p", "div"])
-                if candidate and re.search(r"\d+\.\s+", candidate.get_text(strip=True)):
+                candidate = ancestor.parent.find_next_sibling(["p", "div", "ol"])
+                if is_answer_container(candidate):
                     ans_container = candidate
                     break
                 ancestor = ancestor.parent
@@ -852,14 +905,24 @@ def _extract_answers(soup: BeautifulSoup) -> dict[int, str]:
     if not ans_container:
         btn = soup.find("button", string=lambda t: t and "Show Answers" in t)
         if btn:
-            ans_container = btn.find_next_sibling("div")
+            candidate = btn.find_next_sibling("div")
+            if is_answer_container(candidate):
+                ans_container = candidate
+            else:
+                trigger_paragraph = btn.find_parent("p")
+                if trigger_paragraph:
+                    candidate = trigger_paragraph.find_next_sibling(["p", "div", "ol"])
+                    if is_answer_container(candidate):
+                        ans_container = candidate
 
     if not ans_container:
         for p in soup.find_all("p"):
             text = p.get_text(strip=True)
             if "Show Answers" in text or text == "Answers":
-                ans_container = p.find_next_sibling(["p", "div"])
-                break
+                candidate = p.find_next_sibling(["p", "div", "ol"])
+                if is_answer_container(candidate):
+                    ans_container = candidate
+                    break
 
     if ans_container:
         ordered_items = ans_container.find_all("li")
@@ -871,10 +934,10 @@ def _extract_answers(soup: BeautifulSoup) -> dict[int, str]:
             return answers
 
         all_ans_parts = [ans_container]
-        nxt = ans_container.find_next_sibling(["p", "div"])
+        nxt = ans_container.find_next_sibling(["p", "div", "ol"])
         while nxt and re.search(r"\d+\.\s+", nxt.get_text(strip=True)):
             all_ans_parts.append(nxt)
-            nxt = nxt.find_next_sibling(["p", "div"])
+            nxt = nxt.find_next_sibling(["p", "div", "ol"])
 
         for part in all_ans_parts:
             for br in part.find_all("br"):
@@ -911,6 +974,7 @@ def parse_reading_test(html: str, url: str) -> ReadingTest:
 
     # Phase 3: Segment into passages and raw question groups
     passages, raw_groups = _segment_test(blocks)
+    passages, raw_groups = _normalize_oversegmented_passages(passages, raw_groups)
 
     # Phase 4: Build question groups (type classification)
     question_groups = _build_question_groups(raw_groups, answers, url)

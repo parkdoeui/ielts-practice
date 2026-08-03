@@ -1,10 +1,12 @@
 import unittest
 from pathlib import Path
 
+from bs4 import BeautifulSoup
+
 from ai_repair import _build_repair_prompt
 from ai_validator import _build_validation_prompt
 from models import Passage, QuestionGroup, ReadingTest, SimpleQuestion
-from parser import _build_question_groups, parse_reading_test
+from parser import _build_question_groups, _extract_answers, _normalize_oversegmented_passages, parse_reading_test
 from validator import validate_reading_test
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
@@ -63,6 +65,33 @@ HTML = """
 
 
 class ParserRegressionTests(unittest.TestCase):
+    def test_answer_list_directly_after_show_answers_is_extracted(self):
+        soup = BeautifulSoup("""
+            <p>Show Answers</p>
+            <ol><li>first</li><li>second</li></ol>
+        """, "html.parser")
+
+        self.assertEqual(_extract_answers(soup), {1: "first", 2: "second"})
+
+    def test_oversegmented_pages_keep_three_substantive_passages(self):
+        passages = [
+            Passage(id="passage-1", title="One", text="a" * 1200, paragraphs=["a" * 1200]),
+            Passage(id="passage-2", title="Option table", text="b" * 300, paragraphs=["b" * 300]),
+            Passage(id="passage-3", title="Two", text="c" * 1200, paragraphs=["c" * 1200]),
+            Passage(id="passage-4", title="Three", text="d" * 1200, paragraphs=["d" * 1200]),
+        ]
+        raw_groups = [
+            {"start": 1, "passage_id": "passage-1"},
+            {"start": 14, "passage_id": "passage-3"},
+            {"start": 27, "passage_id": "passage-4"},
+        ]
+
+        normalized, groups = _normalize_oversegmented_passages(passages, raw_groups)
+
+        self.assertEqual([passage.title for passage in normalized], ["One", "Two", "Three"])
+        self.assertEqual([passage.id for passage in normalized], ["passage-1", "passage-2", "passage-3"])
+        self.assertEqual([group["passage_id"] for group in groups], ["passage-1", "passage-2", "passage-3"])
+
     def test_per_question_multiple_choice_options_do_not_overwrite_siblings(self):
         groups = _build_question_groups(
             [{
