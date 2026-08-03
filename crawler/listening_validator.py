@@ -2,8 +2,17 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass, field
+import re
 
 from models import ListeningTest, QuestionGroup
+
+
+RESIDUAL_PREFIX_RE = re.compile(r"^(?:[•●○◦▪▫·]|[oO]\s|va(?:\s|$))", re.IGNORECASE)
+RESIDUAL_TEXT_RE = re.compile(
+    r"(?:\btidesbasic\b|\bskillsincluding\b|\bavailablefor\b|\batthe\b|"
+    r"\binternal wails\b|\btoo tow\b)",
+    re.IGNORECASE,
+)
 
 
 @dataclass
@@ -64,6 +73,10 @@ def validate_listening_test(test: ListeningTest) -> ValidationResult:
             errors.append(f"Question {question.id} has an empty answer")
         if len(question.answer.split()) > 3:
             warnings.append(f"Question {question.id} completion answer is longer than three words")
+        if RESIDUAL_PREFIX_RE.match(question.statement):
+            errors.append(f"Question {question.id} has a residual list/OCR prefix")
+        if RESIDUAL_TEXT_RE.search(question.statement):
+            errors.append(f"Question {question.id} has residual fused/OCR text")
 
     for group in test.question_groups:
         if len(group.questions) > 10:

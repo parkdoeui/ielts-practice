@@ -33,19 +33,19 @@
       "questions": [
         {
           "id": 1,
-          "statement": "Vietnamese food | | £59 | It provides information on the use of herbs.There are no places at present.",
+          "statement": "Vietnamese food | | £59 | It provides information on the use of herbs. There are no places at present.",
           "answer": "13th of January/ 13.01",
           "options": null
         },
         {
           "id": 2,
-          "statement": "Bread making | 20 March | £ | There is also an extra charge for ingredients.Participants make white bread, sourdough and",
+          "statement": "Bread making | 20 March | £ | There is also an extra charge for ingredients. Participants make white bread, sourdough and",
           "answer": "48/forty-eight",
           "options": null
         },
         {
           "id": 3,
-          "statement": "Bread making | 20 March | £ | There is also an extra charge for ingredients.Participants make white bread, sourdough and",
+          "statement": "Bread making | 20 March | £ | There is also an extra charge for ingredients. Participants make white bread, sourdough and",
           "answer": "Pizza",
           "options": null
         },
@@ -63,13 +63,13 @@
         },
         {
           "id": 6,
-          "statement": "Candle making | | £52 | Only ingredients are used.The candles can be used as presents.",
+          "statement": "Candle making | | £52 | Only ingredients are used. The candles can be used as presents.",
           "answer": "6th of April/ 06.04",
           "options": null
         },
         {
           "id": 7,
-          "statement": "Candle making | | £52 | Only ingredients are used.The candles can be used as presents.",
+          "statement": "Candle making | | £52 | Only ingredients are used. The candles can be used as presents.",
           "answer": "Natural",
           "options": null
         },
@@ -87,7 +87,7 @@
         },
         {
           "id": 10,
-          "statement": "DIY for beginners | 24 February | £125 | Learn how to· use a drill, saw and· put up a shelf.",
+          "statement": "DIY for beginners | 24 February | £125 | Learn how to · use a drill, saw and · put up a shelf.",
           "answer": "Hammer",
           "options": null
         }
@@ -313,25 +313,25 @@
       "questions": [
         {
           "id": 27,
-          "statement": "• initial aim",
+          "statement": "initial aim",
           "answer": "C",
           "options": null
         },
         {
           "id": 28,
-          "statement": "• literature review",
+          "statement": "literature review",
           "answer": "D",
           "options": null
         },
         {
           "id": 29,
-          "statement": "• product development",
+          "statement": "product development",
           "answer": "F",
           "options": null
         },
         {
           "id": 30,
-          "statement": "• product production",
+          "statement": "product production",
           "answer": "A",
           "options": null
         }
@@ -356,61 +356,61 @@
       "questions": [
         {
           "id": 31,
-          "statement": "• is one of the worst problems.",
+          "statement": "is one of the worst problems.",
           "answer": "Pollution",
           "options": null
         },
         {
           "id": 32,
-          "statement": "• A tourist is being introduced in some cities to reduce numbers, e.g. Barcelona.",
+          "statement": "A tourist is being introduced in some cities to reduce numbers, e.g. Barcelona.",
           "answer": "Tax",
           "options": null
         },
         {
           "id": 33,
-          "statement": "• Bruges: action was taken to limit day trips from the nearby port because the city was becoming a ‘theme park’ (e.g. many shops were only stocking and souvenirs).",
+          "statement": "Bruges: action was taken to limit day trips from the nearby port because the city was becoming a ‘theme park’ (e.g. many shops were only stocking and souvenirs).",
           "answer": "Chocolate",
           "options": null
         },
         {
           "id": 34,
-          "statement": "• Dubrovnik: limits the number of tourists by managing the of cruise ship arrivals.",
+          "statement": "Dubrovnik: limits the number of tourists by managing the of cruise ship arrivals.",
           "answer": "Timing",
           "options": null
         },
         {
           "id": 35,
-          "statement": "• There is an assumption about the of cruises.",
+          "statement": "There is an assumption about the of cruises.",
           "answer": "Cost",
           "options": null
         },
         {
           "id": 36,
-          "statement": "• People think there may be too many",
+          "statement": "People think there may be too many",
           "answer": "Rules",
           "options": null
         },
         {
           "id": 37,
-          "statement": "• having a wide range of activities e.g. boxing, and well-being programmes.",
+          "statement": "having a wide range of activities e.g. boxing, and well-being programmes.",
           "answer": "Diving",
           "options": null
         },
         {
           "id": 38,
-          "statement": "• offering a diverse selection of food including options.",
+          "statement": "offering a diverse selection of food including options.",
           "answer": "Vegan",
           "options": null
         },
         {
           "id": 39,
-          "statement": "• providing reliable",
+          "statement": "providing reliable",
           "answer": "Wifi",
           "options": null
         },
         {
           "id": 40,
-          "statement": "• improving marketing on social media with high quality",
+          "statement": "improving marketing on social media with high quality",
           "answer": "Videos",
           "options": null
         }

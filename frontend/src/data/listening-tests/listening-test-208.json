@@ -45,19 +45,19 @@
         },
         {
           "id": 3,
-          "statement": "• Has visited the",
+          "statement": "Has visited the",
           "answer": "Hairdresser",
           "options": null
         },
         {
           "id": 4,
-          "statement": "• Looking for a new",
+          "statement": "Looking for a new",
           "answer": "Suit",
           "options": null
         },
         {
           "id": 5,
-          "statement": "• Collecting (after repair)",
+          "statement": "Collecting (after repair)",
           "answer": "Laptop",
           "options": null
         },
@@ -69,25 +69,25 @@
         },
         {
           "id": 7,
-          "statement": "• Thinks there are too many places selling",
+          "statement": "Thinks there are too many places selling",
           "answer": "Coffee",
           "options": null
         },
         {
           "id": 8,
-          "statement": "• Would like more places to buy",
+          "statement": "Would like more places to buy",
           "answer": "Books",
           "options": null
         },
         {
           "id": 9,
-          "statement": "• Likes the best",
+          "statement": "Likes the best",
           "answer": "Plants",
           "options": null
         },
         {
           "id": 10,
-          "statement": "• Believes the is unnecessary",
+          "statement": "Believes the is unnecessary",
           "answer": "Cinema",
           "options": null
         }
@@ -275,7 +275,7 @@
         },
         {
           "id": 26,
-          "statement": "moveable internal wails",
+          "statement": "moveable internal walls",
           "answer": "I",
           "options": null
         },
@@ -327,61 +327,61 @@
       "questions": [
         {
           "id": 31,
-          "statement": "• Surgery impacts patients because they may experience discomfort or unwelcome changes to their",
+          "statement": "Surgery impacts patients because they may experience discomfort or unwelcome changes to their",
           "answer": "Routine",
           "options": null
         },
         {
           "id": 32,
-          "statement": "• A study reviewed data from about 100 and found that listening to music",
+          "statement": "A study reviewed data from about 100 and found that listening to music",
           "answer": "Trials",
           "options": null
         },
         {
           "id": 33,
-          "statement": "• The patients in the study all listened to music with a effect.",
+          "statement": "The patients in the study all listened to music with a effect.",
           "answer": "Calming",
           "options": null
         },
         {
           "id": 34,
-          "statement": "• The music was mostly played through music",
+          "statement": "The music was mostly played through music",
           "answer": "Pillows",
           "options": null
         },
         {
           "id": 35,
-          "statement": "• Patients reported an absence or low levels of",
+          "statement": "Patients reported an absence or low levels of",
           "answer": "Anxiety",
           "options": null
         },
         {
           "id": 36,
-          "statement": "• Medical records confirmed that patients who were played music in hospital needed less than those who weren’t played music.",
+          "statement": "Medical records confirmed that patients who were played music in hospital needed less than those who weren’t played music.",
           "answer": "Medication",
           "options": null
         },
         {
           "id": 37,
-          "statement": "• The best results were achieved when patients were played music while they were",
+          "statement": "The best results were achieved when patients were played music while they were",
           "answer": "Awake",
           "options": null
         },
         {
           "id": 38,
-          "statement": "• The study concluded that playing music was effective because it served as a",
+          "statement": "The study concluded that playing music was effective because it served as a",
           "answer": "Distraction",
           "options": null
         },
         {
           "id": 39,
-          "statement": "• The researchers recommend playing either music or sounds from to all surgical patients.",
+          "statement": "The researchers recommend playing either music or sounds from to all surgical patients.",
           "answer": "Nature",
           "options": null
         },
         {
           "id": 40,
-          "statement": "• A future study will investigate the best for the music.",
+          "statement": "A future study will investigate the best for the music.",
           "answer": "Volume",
           "options": null
         }

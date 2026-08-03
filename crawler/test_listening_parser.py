@@ -1,8 +1,9 @@
 from pathlib import Path
 
 import pytest
+from bs4 import BeautifulSoup
 
-from listening_parser import parse_listening_test
+from listening_parser import BLANK_MARKER, _clean_question_text, _linearize_entry, parse_listening_test
 from listening_validator import validate_listening_test
 
 
@@ -36,6 +37,8 @@ def test_parse_listening_fixture_208() -> None:
         24: "B",
         40: "Volume",
     }
+    assert questions[3].statement == "Has visited the"
+    assert questions[26].statement == "moveable internal walls"
 
     by_part = {part_id: [group.type for group in test.question_groups if group.passage_id == part_id] for part_id in {"part-1", "part-2", "part-3", "part-4"}}
     assert by_part["part-1"] == ["note-completion"]
@@ -68,3 +71,45 @@ def test_validator_rejects_missing_question_and_options() -> None:
     assert not result.valid
     assert any("Missing question ids" in error for error in result.errors)
     assert any("requires non-empty options" in error for error in result.errors)
+
+
+def test_question_text_cleanup_removes_list_and_ocr_artifacts() -> None:
+    assert _clean_question_text(f"• va (1) {BLANK_MARKER}") == "a"
+    assert _clean_question_text(f"o designers avoid using (35) {BLANK_MARKER} in interfaces") == (
+        "designers avoid using in interfaces"
+    )
+    assert _clean_question_text(f"26. moveable internal wails {BLANK_MARKER}") == (
+        "26. moveable internal walls"
+    )
+    assert _clean_question_text(f"The (40) {BLANK_MARKER} is too tow") == "The is too low"
+
+
+def test_table_linearization_preserves_nested_text_spacing() -> None:
+    soup = BeautifulSoup(
+        f"""
+        <div class="entry-content">
+          <table><tr><td>
+            basic theory <p>(2)<input type="text"/> and tides</p>
+            <p>basic sailing skills</p><p>including (3)<input type="text"/> information</p>
+          </td><td>£200<p>(4)<input type="text"/> available</p><p>for club members</p></td></tr></table>
+        </div>
+        """,
+        "html.parser",
+    )
+
+    lines = _linearize_entry(soup.select_one("div.entry-content"))
+
+    assert lines == [
+        f"basic theory (2) {BLANK_MARKER} and tides basic sailing skills including (3) {BLANK_MARKER} information | £200 (4) {BLANK_MARKER} available for club members"
+    ]
+
+
+def test_validator_rejects_residual_list_prefix() -> None:
+    test = _fixture_test()
+    groups = [group.model_copy(deep=True) for group in test.question_groups]
+    groups[0].questions[0].statement = "o malformed nested bullet"
+
+    result = validate_listening_test(test.model_copy(update={"question_groups": groups}))
+
+    assert not result.valid
+    assert any("residual list/OCR prefix" in error for error in result.errors)

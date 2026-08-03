@@ -27,6 +27,11 @@ CHECKBOX_OPTION_RE = re.compile(
     rf"^{re.escape(CHECKBOX_MARKER)}\s*([A-Z])\b\s*(.*)$"
 )
 BOX_OPTION_RE = re.compile(r"^([A-I])\s+(.+)$")
+LEADING_LIST_MARKER_RE = re.compile(r"^(?:[•●○◦▪▫·]|[oO](?=\s))\s*")
+KNOWN_OCR_REPLACEMENTS = (
+    (re.compile(r"\binternal wails\b", re.IGNORECASE), "internal walls"),
+    (re.compile(r"\btoo tow\b", re.IGNORECASE), "too low"),
+)
 
 
 @dataclass
@@ -101,7 +106,7 @@ def _linearize_entry(entry) -> list[str]:
             replace_controls(fragment)
             for row in fragment.find_all("tr"):
                 cells = row.find_all(["th", "td"], recursive=False)
-                values = [cell.get_text("", strip=False).replace("\n", " ") for cell in cells]
+                values = [_normalize_text(cell.get_text(" ", strip=False)) for cell in cells]
                 append_text(" | ".join(values))
         else:
             replace_controls(fragment)
@@ -134,7 +139,13 @@ def _instruction_kind(line: str) -> Optional[str]:
 def _clean_question_text(text: str) -> str:
     text = text.replace(BLANK_MARKER, "")
     text = re.sub(r"\(\d+\)", "", text)
-    return _normalize_text(text).strip(" -–—")
+    text = _normalize_text(text)
+    text = LEADING_LIST_MARKER_RE.sub("", text)
+    # Test 202's source contains "• va (1)" for the phrase "a (1)".
+    text = re.sub(r"^va\b", "a", text, flags=re.IGNORECASE)
+    for pattern, replacement in KNOWN_OCR_REPLACEMENTS:
+        text = pattern.sub(replacement, text)
+    return text.strip(" -–—")
 
 
 def _split_multi_answer(answer: str) -> list[str]:

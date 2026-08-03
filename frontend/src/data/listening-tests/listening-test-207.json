@@ -33,61 +33,61 @@
       "questions": [
         {
           "id": 1,
-          "statement": "• Name of ferry company: Ferries",
+          "statement": "Name of ferry company: Ferries",
           "answer": "Northern",
           "options": null
         },
         {
           "id": 2,
-          "statement": "• Ferries depart seven times per in summer",
+          "statement": "Ferries depart seven times per in summer",
           "answer": "Week",
           "options": null
         },
         {
           "id": 3,
-          "statement": "• Cost for four people with car: a little less than £",
+          "statement": "Cost for four people with car: a little less than £",
           "answer": "250/two hundred fifty",
           "options": null
         },
         {
           "id": 4,
-          "statement": "• Cancellation policy: receive a (if cancelled a month in advance)",
+          "statement": "Cancellation policy: receive a (if cancelled a month in advance)",
           "answer": "Voucher",
           "options": null
         },
         {
           "id": 5,
-          "statement": "o book one with a",
+          "statement": "book one with a",
           "answer": "Window",
           "options": null
         },
         {
           "id": 6,
-          "statement": "• Bring snacks and for the children",
+          "statement": "Bring snacks and for the children",
           "answer": "Books",
           "options": null
         },
         {
           "id": 7,
-          "statement": "• A is required for the dog kennels",
+          "statement": "A is required for the dog kennels",
           "answer": "Blanket",
           "options": null
         },
         {
           "id": 8,
-          "statement": "• Try to see in the morning",
+          "statement": "Try to see in the morning",
           "answer": "Dolphins",
           "options": null
         },
         {
           "id": 9,
-          "statement": "• If time, visit Castle",
+          "statement": "If time, visit Castle",
           "answer": "Drum",
           "options": null
         },
         {
           "id": 10,
-          "statement": "• The restaurant in a nearby village is recommended",
+          "statement": "The restaurant in a nearby village is recommended",
           "answer": "Italian",
           "options": null
         }
@@ -357,61 +357,61 @@
       "questions": [
         {
           "id": 31,
-          "statement": "• introduces a new",
+          "statement": "introduces a new",
           "answer": "Disease",
           "options": null
         },
         {
           "id": 32,
-          "statement": "• threatens an entire",
+          "statement": "threatens an entire",
           "answer": "Ecosystem",
           "options": null
         },
         {
           "id": 33,
-          "statement": "• accidentally e.g. via people returning from their or on cargo ships",
+          "statement": "accidentally e.g. via people returning from their or on cargo ships",
           "answer": "Holidays",
           "options": null
         },
         {
           "id": 34,
-          "statement": "• intentionally e.g. for pest control, or as",
+          "statement": "intentionally e.g. for pest control, or as",
           "answer": "Pets",
           "options": null
         },
         {
           "id": 35,
-          "statement": "o were introduced to Australia from Hawaii in 1935 to eat a type of insect that was damaging the plantations.",
+          "statement": "were introduced to Australia from Hawaii in 1935 to eat a type of insect that was damaging the plantations.",
           "answer": "Sugar",
           "options": null
         },
         {
           "id": 36,
-          "statement": "• Rhododendron plants prevent from reaching native plants.",
+          "statement": "Rhododendron plants prevent from reaching native plants.",
           "answer": "Light",
           "options": null
         },
         {
           "id": 37,
-          "statement": "• Grey squirrels from N. America reduce sources of food for the UK’s native red squirrels and spread a that kills red squirrels.",
+          "statement": "Grey squirrels from N. America reduce sources of food for the UK’s native red squirrels and spread a that kills red squirrels.",
           "answer": "Virus",
           "options": null
         },
         {
           "id": 38,
-          "statement": "• Monitoring helps us to understand the of invasive species and the impact they have.",
+          "statement": "Monitoring helps us to understand the of invasive species and the impact they have.",
           "answer": "Behaviour/behavior",
           "options": null
         },
         {
           "id": 39,
-          "statement": "• Setting up a national makes it easier to track them.",
+          "statement": "Setting up a national makes it easier to track them.",
           "answer": "Database",
           "options": null
         },
         {
           "id": 40,
-          "statement": "• Asking the public to and report them helps with monitoring.",
+          "statement": "Asking the public to and report them helps with monitoring.",
           "answer": "Photograph",
           "options": null
         }

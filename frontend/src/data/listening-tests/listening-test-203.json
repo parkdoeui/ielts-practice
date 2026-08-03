@@ -33,19 +33,19 @@
       "questions": [
         {
           "id": 1,
-          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer:Free with every living room set",
+          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer: Free with every living room set",
           "answer": "239",
           "options": null
         },
         {
           "id": 2,
-          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer:Free with every living room set",
+          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer: Free with every living room set",
           "answer": "Modern",
           "options": null
         },
         {
           "id": 3,
-          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer:Free with every living room set",
+          "statement": "Peak Rentals | Price ranges from $105 to $ per room per month | The furniture is very Delivers in 1-2 days Special offer: Free with every living room set",
           "answer": "Lamp",
           "options": null
         },
@@ -336,61 +336,61 @@
       "questions": [
         {
           "id": 31,
-          "statement": "• Designing products that can be accessed by a diverse range of people without the need for any",
+          "statement": "Designing products that can be accessed by a diverse range of people without the need for any",
           "answer": "Adaptation",
           "options": null
         },
         {
           "id": 32,
-          "statement": "• Not the same as universal design: that is design for everyone, including catering for people with problems.",
+          "statement": "Not the same as universal design: that is design for everyone, including catering for people with problems.",
           "answer": "Cognitive",
           "options": null
         },
         {
           "id": 33,
-          "statement": "• which are adjustable, avoiding back or neck problems",
+          "statement": "which are adjustable, avoiding back or neck problems",
           "answer": "Desks",
           "options": null
         },
         {
           "id": 34,
-          "statement": "• in public toilets which are easier to use",
+          "statement": "in public toilets which are easier to use",
           "answer": "Taps",
           "options": null
         },
         {
           "id": 35,
-          "statement": "o designers avoid using in interfaces",
+          "statement": "designers avoid using in interfaces",
           "answer": "Blue",
           "options": null
         },
         {
           "id": 36,
-          "statement": "o people can make commands using a mouse, keyboard or their",
+          "statement": "people can make commands using a mouse, keyboard or their",
           "answer": "Voice",
           "options": null
         },
         {
           "id": 37,
-          "statement": "o Seatbelts are especially problematic for women.",
+          "statement": "Seatbelts are especially problematic for women.",
           "answer": "Pregnant",
           "options": null
         },
         {
           "id": 38,
-          "statement": "o PPE Jackets are often unsuitable because of the size of women’s",
+          "statement": "PPE Jackets are often unsuitable because of the size of women’s",
           "answer": "Shoulders",
           "options": null
         },
         {
           "id": 39,
-          "statement": "o PPE for female officers dealing with emergencies is the worst.",
+          "statement": "PPE for female officers dealing with emergencies is the worst.",
           "answer": "Police",
           "options": null
         },
         {
           "id": 40,
-          "statement": "o The in offices is often too tow for women.",
+          "statement": "The in offices is often too low for women.",
           "answer": "Temperature",
           "options": null
         }

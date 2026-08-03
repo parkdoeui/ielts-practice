@@ -39,31 +39,31 @@
         },
         {
           "id": 2,
-          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "statement": "Level 1 | basic theory e.g. understanding the and tides basic sailing skills including information | £200 available for club members all inclusive (plus a useful ) | a at the end of the course for all participants",
           "answer": "Weather",
           "options": null
         },
         {
           "id": 3,
-          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "statement": "Level 1 | basic theory e.g. understanding the and tides basic sailing skills including information | £200 available for club members all inclusive (plus a useful ) | a at the end of the course for all participants",
           "answer": "Safety",
           "options": null
         },
         {
           "id": 4,
-          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "statement": "Level 1 | basic theory e.g. understanding the and tides basic sailing skills including information | £200 available for club members all inclusive (plus a useful ) | a at the end of the course for all participants",
           "answer": "Discount",
           "options": null
         },
         {
           "id": 5,
-          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "statement": "Level 1 | basic theory e.g. understanding the and tides basic sailing skills including information | £200 available for club members all inclusive (plus a useful ) | a at the end of the course for all participants",
           "answer": "Dictionary",
           "options": null
         },
         {
           "id": 6,
-          "statement": "Level 1 | basic theory e.g. understanding the and tidesbasic sailing skillsincluding information | £200 availablefor club membersall inclusive (plus a useful ) | a atthe end of the course for all participants",
+          "statement": "Level 1 | basic theory e.g. understanding the and tides basic sailing skills including information | £200 available for club members all inclusive (plus a useful ) | a at the end of the course for all participants",
           "answer": "Certificate",
           "options": null
         }
@@ -81,25 +81,25 @@
       "questions": [
         {
           "id": 7,
-          "statement": "• Bring suitable clothing, a and toiletries (e.g. shampoo).",
+          "statement": "Bring suitable clothing, a and toiletries (e.g. shampoo).",
           "answer": "Towel",
           "options": null
         },
         {
           "id": 8,
-          "statement": "• There is a at the club.",
+          "statement": "There is a at the club.",
           "answer": "Café",
           "options": null
         },
         {
           "id": 9,
-          "statement": "• Online training are recommended.",
+          "statement": "Online training are recommended.",
           "answer": "Videos",
           "options": null
         },
         {
           "id": 10,
-          "statement": "• are available for course participants.",
+          "statement": "are available for course participants.",
           "answer": "Lockers",
           "options": null
         }
@@ -346,61 +346,61 @@
       "questions": [
         {
           "id": 31,
-          "statement": "•",
+          "statement": "",
           "answer": "Metal(s)",
           "options": null
         },
         {
           "id": 32,
-          "statement": "• the growth of the tree is",
+          "statement": "the growth of the tree is",
           "answer": "Slow",
           "options": null
         },
         {
           "id": 33,
-          "statement": "• production cannot easily be adjusted because of increasing or decreasing",
+          "statement": "production cannot easily be adjusted because of increasing or decreasing",
           "answer": "Demand",
           "options": null
         },
         {
           "id": 34,
-          "statement": "• the tree only grows near the",
+          "statement": "the tree only grows near the",
           "answer": "Equator",
           "options": null
         },
         {
           "id": 35,
-          "statement": "• it is very difficult to rubber after production.",
+          "statement": "it is very difficult to rubber after production.",
           "answer": "Recycle",
           "options": null
         },
         {
           "id": 36,
-          "statement": "• lack of genetic diversity, leading to danger of disease caused by a",
+          "statement": "lack of genetic diversity, leading to danger of disease caused by a",
           "answer": "Fungus",
           "options": null
         },
         {
           "id": 37,
-          "statement": "• extreme events.",
+          "statement": "extreme events.",
           "answer": "Weather",
           "options": null
         },
         {
           "id": 38,
-          "statement": "• is less than natural rubber",
+          "statement": "is less than natural rubber",
           "answer": "Strong",
           "options": null
         },
         {
           "id": 39,
-          "statement": "• A wild flower (a type of dandelion) has rubber in its",
+          "statement": "A wild flower (a type of dandelion) has rubber in its",
           "answer": "Roots",
           "options": null
         },
         {
           "id": 40,
-          "statement": "• It can be grown in many locations and does not require good",
+          "statement": "It can be grown in many locations and does not require good",
           "answer": "Soil",
           "options": null
         }

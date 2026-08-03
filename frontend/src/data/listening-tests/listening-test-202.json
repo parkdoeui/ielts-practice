@@ -1,0 +1,397 @@
+{
+  "id": "listening-test-202",
+  "title": "IELTS Listening Test 202 – IELTS MASTER",
+  "audio_url": "https://practicepteonline.com/wp-content/uploads/audio/202_we.mp3",
+  "parts": [
+    {
+      "id": "part-1",
+      "number": 1,
+      "title": "Local councils can arrange practical support to help those caring for elderly people at home."
+    },
+    {
+      "id": "part-2",
+      "number": 2,
+      "title": null
+    },
+    {
+      "id": "part-3",
+      "number": 3,
+      "title": "Aspects of human geography"
+    },
+    {
+      "id": "part-4",
+      "number": 4,
+      "title": "Developing food trends"
+    }
+  ],
+  "question_groups": [
+    {
+      "id": "g-part1-q1",
+      "type": "note-completion",
+      "passage_id": "part-1",
+      "instruction": "Complete the notes below. Write ONE WORD AND/ OR A NUMBER for each answer.",
+      "questions": [
+        {
+          "id": 1,
+          "statement": "a",
+          "answer": "Break",
+          "options": null
+        },
+        {
+          "id": 2,
+          "statement": "how much the caring involves",
+          "answer": "Time",
+          "options": null
+        },
+        {
+          "id": 3,
+          "statement": "helping her have a",
+          "answer": "Shower",
+          "options": null
+        },
+        {
+          "id": 4,
+          "statement": "dealing with",
+          "answer": "Money",
+          "options": null
+        },
+        {
+          "id": 5,
+          "statement": "loss of",
+          "answer": "Memory",
+          "options": null
+        },
+        {
+          "id": 6,
+          "statement": "her",
+          "answer": "Lifting",
+          "options": null
+        },
+        {
+          "id": 7,
+          "statement": "preventing a",
+          "answer": "Fall",
+          "options": null
+        },
+        {
+          "id": 8,
+          "statement": "transport costs, e.g. cost of a",
+          "answer": "Taxi",
+          "options": null
+        },
+        {
+          "id": 9,
+          "statement": "car-related costs, e.g. fuel and",
+          "answer": "Insurance",
+          "options": null
+        },
+        {
+          "id": 10,
+          "statement": "help to reduce",
+          "answer": "Stress",
+          "options": null
+        }
+      ],
+      "shared_text": "Local councils can arrange practical support to help those caring for elderly people at home. This can give the carer: • time for other responsibilities Assessment of mother’s needs This may include discussion of: • what types of tasks are involved, e.g. o help with dressing o shopping o helping with meals • any aspects of caring that are especially difficult, e.g. Types of support that may be offered to carers • help with housework",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part2-q11",
+      "type": "matching",
+      "passage_id": "part-2",
+      "instruction": "What is the role of the volunteers in each of the following activities? Choose SIX answers from the box and write the correct letter, A-I, next to Questions 11-16.",
+      "questions": [
+        {
+          "id": 11,
+          "statement": "walking around the town centre",
+          "answer": "D",
+          "options": null
+        },
+        {
+          "id": 12,
+          "statement": "helping at concerts",
+          "answer": "I",
+          "options": null
+        },
+        {
+          "id": 13,
+          "statement": "getting involved with community groups",
+          "answer": "H",
+          "options": null
+        },
+        {
+          "id": 14,
+          "statement": "helping with a magazine",
+          "answer": "E",
+          "options": null
+        },
+        {
+          "id": 15,
+          "statement": "participating at lunches for retired people",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 16,
+          "statement": "helping with the website",
+          "answer": "B",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "providing entertainment",
+        "B": "providing publicity about a council service",
+        "C": "contacting local businesses",
+        "D": "giving advice to visitors",
+        "E": "collecting feedback on events",
+        "F": "selling tickets",
+        "G": "introducing guest speakers at an event",
+        "H": "encouraging cooperation between local organisations",
+        "I": "helping people find their seats"
+      }
+    },
+    {
+      "id": "g-part2-q17",
+      "type": "multiple-choice",
+      "passage_id": "part-2",
+      "instruction": "Choose the correct letter, A, B or C.",
+      "questions": [
+        {
+          "id": 17,
+          "statement": "Which event requires the largest number of volunteers?",
+          "answer": "B",
+          "options": {
+            "A": "the music festival",
+            "B": "the science festival",
+            "C": "the book festival"
+          }
+        },
+        {
+          "id": 18,
+          "statement": "What is the most important requirement for volunteers at the festivals?",
+          "answer": "A",
+          "options": {
+            "A": "interpersonal skills",
+            "B": "personal interest in the event",
+            "C": "flexibility"
+          }
+        },
+        {
+          "id": 19,
+          "statement": "New volunteers will start working in the week beginning",
+          "answer": "B",
+          "options": {
+            "A": "2 September.",
+            "B": "9 September.",
+            "C": "23 September."
+          }
+        },
+        {
+          "id": 20,
+          "statement": "What is the next annual event for volunteers?",
+          "answer": "A",
+          "options": {
+            "A": "a boat trip",
+            "B": "a barbecue",
+            "C": "a party"
+          }
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part3-q21",
+      "type": "matching",
+      "passage_id": "part-3",
+      "instruction": "What is Rosie and Colin’s opinion about each of the following aspects of human geography? Choose FIVE answers from the box and write the correct letter, A-G, next to Questions 21-25.",
+      "questions": [
+        {
+          "id": 21,
+          "statement": "Population",
+          "answer": "D",
+          "options": null
+        },
+        {
+          "id": 22,
+          "statement": "Health",
+          "answer": "G",
+          "options": null
+        },
+        {
+          "id": 23,
+          "statement": "Economies",
+          "answer": "B",
+          "options": null
+        },
+        {
+          "id": 24,
+          "statement": "Culture",
+          "answer": "A",
+          "options": null
+        },
+        {
+          "id": 25,
+          "statement": "Poverty",
+          "answer": "E",
+          "options": null
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": {
+        "A": "The information given about this was too vague",
+        "B": "This may not be relevant to their course.",
+        "C": "This will involve only a small number of statistics.",
+        "D": "It will be easy to find facts about this.",
+        "E": "The facts about this may not be reliable.",
+        "F": "No useful research has been done on this.",
+        "G": "The information provided about this was interesting."
+      }
+    },
+    {
+      "id": "g-part3-q26",
+      "type": "multiple-choice",
+      "passage_id": "part-3",
+      "instruction": "Choose the correct letter, A, B or C.",
+      "questions": [
+        {
+          "id": 26,
+          "statement": "Rosie says that in her own city the main problem is",
+          "answer": "C",
+          "options": {
+            "A": "crime.",
+            "B": "housing.",
+            "C": "unemployment."
+          }
+        },
+        {
+          "id": 27,
+          "statement": "What recent additions to the outskirts of their cities are both students happy about?",
+          "answer": "A",
+          "options": {
+            "A": "conference centres",
+            "B": "sports centres",
+            "C": "retail centres"
+          }
+        },
+        {
+          "id": 28,
+          "statement": "The students agree that developing disused industrial sites may",
+          "answer": "A",
+          "options": {
+            "A": "have unexpected costs.",
+            "B": "damage the urban environment.",
+            "C": "destroy valuable historical buildings."
+          }
+        },
+        {
+          "id": 29,
+          "statement": "The students will mention Masdar City as an example of an attempt to achieve",
+          "answer": "B",
+          "options": {
+            "A": "daily collections for waste recycling.",
+            "B": "sustainable energy use.",
+            "C": "free transport for everyone."
+          }
+        },
+        {
+          "id": 30,
+          "statement": "When discussing the Eco town of Greenhill Abbots, Colin is uncertain about",
+          "answer": "C",
+          "options": {
+            "A": "what its objectives were.",
+            "B": "why there was opposition to it.",
+            "C": "how much of it has actually been built."
+          }
+        }
+      ],
+      "shared_text": null,
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    },
+    {
+      "id": "g-part4-q31",
+      "type": "note-completion",
+      "passage_id": "part-4",
+      "instruction": "Complete the notes below. Write ONE WORD ONLY for each answer.",
+      "questions": [
+        {
+          "id": 31,
+          "statement": "The growth in interest in food fashions started with of food being shared on social media.",
+          "answer": "Photos/ photographs/ pictures",
+          "options": null
+        },
+        {
+          "id": 32,
+          "statement": "Sales of food brands have grown this way.",
+          "answer": "Vegan",
+          "options": null
+        },
+        {
+          "id": 33,
+          "statement": "Famous are influential.",
+          "answer": "Chefs/ cooks",
+          "options": null
+        },
+        {
+          "id": 34,
+          "statement": "were invited to visit growers in South Africa.",
+          "answer": "Journalists/ reporters",
+          "options": null
+        },
+        {
+          "id": 35,
+          "statement": "Advertising focused on its benefits.",
+          "answer": "Health",
+          "options": null
+        },
+        {
+          "id": 36,
+          "statement": "Promotion in the USA through shops reduced the need for advertising.",
+          "answer": "Coffee",
+          "options": null
+        },
+        {
+          "id": 37,
+          "statement": "It appealed to consumers who are concerned about the",
+          "answer": "Environment",
+          "options": null
+        },
+        {
+          "id": 38,
+          "statement": "has helped strengthen the of Norwegian seafood.",
+          "answer": "Reputation",
+          "options": null
+        },
+        {
+          "id": 39,
+          "statement": "Its success led to an increase in its",
+          "answer": "Price/ cost",
+          "options": null
+        },
+        {
+          "id": 40,
+          "statement": "Overuse of resources resulted in poor quality",
+          "answer": "Soil",
+          "options": null
+        }
+      ],
+      "shared_text": "Developing food trends • The UK food industry is constantly developing products which are new or different. • Influencers on social media become ‘ambassadors’ for a brand. • Supermarkets track demand for ingredients on social media. Marketing campaigns • The avocado: • Oat milk: o A Swedish brand’s media campaign received publicity by upsetting competitors. • Norwegian skrei: Ethical concerns • Quinoa:",
+      "word_list": null,
+      "image_url": null,
+      "options": null
+    }
+  ],
+  "time_limit_minutes": 30,
+  "source_url": "https://practicepteonline.com/ielts-listening-test-202/"
+}
