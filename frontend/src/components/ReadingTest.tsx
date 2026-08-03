@@ -21,6 +21,7 @@ export interface ReadingSectionResult {
 interface ReadingTestProps {
   embeddedTestId?: string;
   onComplete?: (result: ReadingSectionResult) => void;
+  autoSubmitOnExpire?: boolean;
 }
 
 const testFiles = import.meta.glob<{ default: ReadingTestType }>(
@@ -42,7 +43,11 @@ function isReadingTest(value: unknown): value is ReadingTestType {
   );
 }
 
-export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {}) {
+export function ReadingTest({
+  embeddedTestId,
+  onComplete,
+  autoSubmitOnExpire = false,
+}: ReadingTestProps = {}) {
   const params = useParams<{ id: string }>();
   const id = embeddedTestId ?? params.id;
   const embedded = Boolean(onComplete);
@@ -337,6 +342,7 @@ export function ReadingTest({ embeddedTestId, onComplete }: ReadingTestProps = {
           sectionLabel={`Reading — Part ${currentPassageIndex + 1}`}
           totalSeconds={test.time_limit_minutes * 60}
           paused={submitted}
+          onExpire={autoSubmitOnExpire ? handleSubmit : undefined}
           fontScale={fontScale}
           onFontScaleChange={setFontScale}
         />

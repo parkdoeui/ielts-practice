@@ -7,6 +7,11 @@ import {
   type MockMode,
   type MockSession,
 } from "../types";
+import {
+  getFullTestProgress,
+  getSessionFullTest,
+  type FullTestProgress,
+} from "../lib/mockProgress";
 
 const fullTestFiles = import.meta.glob<{ default: FullTestSet }>(
   "../data/full-tests/*.json",
@@ -26,28 +31,22 @@ function isFullTestSet(value: unknown): value is FullTestSet {
   );
 }
 
-function getSessionFullTest(
-  session: MockSession,
-  fullTests: FullTestSet[],
-): FullTestSet | null {
-  const storedMatch = fullTests.find((test) => test.id === session.full_test_id);
-  if (storedMatch) return storedMatch;
-
-  const testIdBySkill = new Map(
-    session.sections.map((section) => [section.skill, section.test_id]),
-  );
-  return fullTests.find((test) =>
-    testIdBySkill.get("listening") === test.listening_test_id &&
-    testIdBySkill.get("reading") === test.reading_test_id &&
-    testIdBySkill.get("writing") === test.writing_test_id &&
-    testIdBySkill.get("speaking") === test.speaking_test_id
-  ) ?? null;
-}
-
 const MODES: { value: MockMode; title: string; blurb: string }[] = [
   { value: "relaxed", title: "Relaxed", blurb: "Pause and resume between sections. Per-section timers." },
   { value: "strict", title: "Strict", blurb: "Continuous sitting in exam order — no leaving between sections." },
 ];
+
+const PROGRESS_LABELS: Record<FullTestProgress, string> = {
+  "not-started": "Not started",
+  "in-progress": "In progress",
+  completed: "Completed",
+};
+
+const PROGRESS_STYLES: Record<FullTestProgress, string> = {
+  "not-started": "bg-gray-100 text-gray-600",
+  "in-progress": "bg-amber-100 text-amber-800",
+  completed: "bg-emerald-100 text-emerald-800",
+};
 
 export function MockExamSetup() {
   const navigate = useNavigate();
@@ -64,15 +63,16 @@ export function MockExamSetup() {
   const [mode, setMode] = useState<MockMode>("relaxed");
   const [fullTestId, setFullTestId] = useState(fullTests[0]?.id ?? "");
   const selectedFullTest = fullTests.find((test) => test.id === fullTestId) ?? null;
+  const mockSessions = useMemo(() => listMockSessions(), []);
 
   const inProgress = useMemo(
     () =>
-      listMockSessions().filter((session) =>
+      mockSessions.filter((session) =>
         session.sections.some(
           (s) => IMPLEMENTED_SKILLS.has(s.skill) && s.session_id === null,
         ),
       ).slice(0, 1),
-    [],
+    [mockSessions],
   );
 
   function startMock() {
@@ -163,6 +163,7 @@ export function MockExamSetup() {
         <div className="space-y-2">
           {fullTests.map((test) => {
             const selected = test.id === fullTestId;
+            const progress = getFullTestProgress(test, mockSessions);
             return (
               <button
                 key={test.id}
@@ -176,13 +177,18 @@ export function MockExamSetup() {
                 }`}
               >
                 <span className="text-sm font-semibold">{test.title}</span>
-                <span
-                  aria-hidden="true"
-                  className={`flex h-5 w-5 items-center justify-center rounded-full border ${
-                    selected ? "border-blue-600" : "border-gray-300"
-                  }`}
-                >
-                  {selected && <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />}
+                <span className="flex items-center gap-3">
+                  <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${PROGRESS_STYLES[progress]}`}>
+                    {PROGRESS_LABELS[progress]}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`flex h-5 w-5 items-center justify-center rounded-full border ${
+                      selected ? "border-blue-600" : "border-gray-300"
+                    }`}
+                  >
+                    {selected && <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />}
+                  </span>
                 </span>
               </button>
             );

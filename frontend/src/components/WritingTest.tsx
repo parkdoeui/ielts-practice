@@ -15,6 +15,7 @@ export interface WritingSectionResult {
 interface WritingTestProps {
   embeddedTestId?: string;
   onComplete?: (result: WritingSectionResult) => void;
+  autoSubmitOnExpire?: boolean;
 }
 
 const writingFiles = import.meta.glob<{ default: WritingTestType }>(
@@ -63,7 +64,11 @@ function getActionPointsForTask(points: string[], taskNumber: 1 | 2): string[] {
   return taskNumber === 1 ? points.slice(0, midpoint) : points.slice(midpoint);
 }
 
-export function WritingTest({ embeddedTestId, onComplete }: WritingTestProps = {}) {
+export function WritingTest({
+  embeddedTestId,
+  onComplete,
+  autoSubmitOnExpire = false,
+}: WritingTestProps = {}) {
   const params = useParams<{ id: string }>();
   const id = embeddedTestId ?? params.id;
   const embedded = Boolean(onComplete);
@@ -242,6 +247,7 @@ export function WritingTest({ embeddedTestId, onComplete }: WritingTestProps = {
             sectionLabel="Writing"
             totalSeconds={test.time_limit_minutes * 60}
             paused={submitting}
+            onExpire={autoSubmitOnExpire ? handleSubmit : undefined}
             fontScale={fontScale}
             onFontScaleChange={setFontScale}
           />

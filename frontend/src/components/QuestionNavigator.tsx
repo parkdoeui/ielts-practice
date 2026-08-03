@@ -74,7 +74,9 @@ export function QuestionNavigator({
               key={qid}
               type="button"
               onClick={() => onJump(qid)}
-              className={`relative h-8 w-8 shrink-0 rounded-md border text-xs font-semibold tabular-nums transition-colors ${
+              className={`relative h-8 w-8 shrink-0 border text-xs font-semibold tabular-nums transition-all ${
+                isFlagged ? "rounded-full" : "rounded-md"
+              } ${
                 isCurrent
                   ? "border-blue-600 ring-2 ring-blue-500 text-blue-700"
                   : isAnswered
@@ -84,9 +86,6 @@ export function QuestionNavigator({
               aria-label={`Question ${qid}${isAnswered ? ", answered" : ""}${isFlagged ? ", flagged for review" : ""}`}
             >
               {qid}
-              {isFlagged && (
-                <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border border-white bg-amber-500" />
-              )}
             </button>
           );
         })}

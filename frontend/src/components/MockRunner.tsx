@@ -50,6 +50,7 @@ export function MockRunner() {
   }
 
   const section = mock.sections[cursor];
+  const autoSubmitOnExpire = mock.mode === "strict";
 
   const advance = () => {
     setPhase("running");
@@ -91,6 +92,7 @@ export function MockRunner() {
         key={`listening-${cursor}`}
         embeddedTestId={section.test_id}
         onComplete={handleSectionComplete}
+        autoSubmitOnExpire={autoSubmitOnExpire}
       />
     );
   }
@@ -101,6 +103,7 @@ export function MockRunner() {
         key={`reading-${cursor}`}
         embeddedTestId={section.test_id}
         onComplete={handleSectionComplete}
+        autoSubmitOnExpire={autoSubmitOnExpire}
       />
     );
   }
@@ -111,6 +114,7 @@ export function MockRunner() {
         key={`writing-${cursor}`}
         embeddedTestId={section.test_id}
         onComplete={handleSectionComplete}
+        autoSubmitOnExpire={autoSubmitOnExpire}
       />
     );
   }

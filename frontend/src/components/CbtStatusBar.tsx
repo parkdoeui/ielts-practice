@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SCALE_ORDER, type FontScale } from "../lib/fontScale";
 
 interface Props {
   sectionLabel: string;
   totalSeconds: number;
   paused?: boolean;
+  onExpire?: () => void;
   fontScale: FontScale;
   onFontScaleChange: (scale: FontScale) => void;
 }
@@ -15,8 +16,16 @@ interface Props {
  * shows minutes remaining (no seconds, like the real exam) in the middle, and a font-size
  * control on the right. The countdown reuses TimerBar's setInterval/paused pattern.
  */
-export function CbtStatusBar({ sectionLabel, totalSeconds, paused = false, fontScale, onFontScaleChange }: Props) {
+export function CbtStatusBar({
+  sectionLabel,
+  totalSeconds,
+  paused = false,
+  onExpire,
+  fontScale,
+  onFontScaleChange,
+}: Props) {
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds);
+  const expiredRef = useRef(false);
 
   useEffect(() => {
     if (paused || secondsLeft <= 0) return;
@@ -24,10 +33,20 @@ export function CbtStatusBar({ sectionLabel, totalSeconds, paused = false, fontS
     return () => clearInterval(id);
   }, [secondsLeft, paused]);
 
+  useEffect(() => {
+    if (paused || secondsLeft !== 0 || !onExpire || expiredRef.current) return;
+    expiredRef.current = true;
+    onExpire();
+  }, [onExpire, paused, secondsLeft]);
+
   const minutesLeft = Math.ceil(secondsLeft / 60);
   const isWarning = secondsLeft <= 5 * 60;
   const timeLabel =
-    secondsLeft <= 60 ? "less than 1 minute left" : `${minutesLeft} minutes left`;
+    secondsLeft === 0
+      ? "Time is up"
+      : secondsLeft <= 60
+        ? "less than 1 minute left"
+        : `${minutesLeft} minutes left`;
 
   const scaleIndex = SCALE_ORDER.indexOf(fontScale);
   const step = (delta: number) => {

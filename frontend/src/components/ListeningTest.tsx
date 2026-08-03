@@ -19,6 +19,7 @@ export interface ListeningSectionResult {
 interface ListeningTestProps {
   embeddedTestId?: string;
   onComplete?: (result: ListeningSectionResult) => void;
+  autoSubmitOnExpire?: boolean;
 }
 
 const testFiles = import.meta.glob<{ default: ListeningTestType }>(
@@ -38,7 +39,11 @@ function isListeningTest(value: unknown): value is ListeningTestType {
   );
 }
 
-export function ListeningTest({ embeddedTestId, onComplete }: ListeningTestProps = {}) {
+export function ListeningTest({
+  embeddedTestId,
+  onComplete,
+  autoSubmitOnExpire = false,
+}: ListeningTestProps = {}) {
   const params = useParams<{ id: string }>();
   const id = embeddedTestId ?? params.id;
   const embedded = Boolean(onComplete);
@@ -189,6 +194,7 @@ export function ListeningTest({ embeddedTestId, onComplete }: ListeningTestProps
         sectionLabel="Listening"
         totalSeconds={test.time_limit_minutes * 60}
         paused={submitted}
+        onExpire={autoSubmitOnExpire ? handleSubmit : undefined}
         fontScale={fontScale}
         onFontScaleChange={setFontScale}
       />
