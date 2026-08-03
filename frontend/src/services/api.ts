@@ -299,16 +299,20 @@ export async function syncMockSession(mock: MockSession): Promise<MockSession> {
 }
 
 export async function getMockSessions(): Promise<MockSession[]> {
-  const response = await fetch(`${API_BASE}/api/full-test-sessions`, {
-    ...FETCH_OPTS,
-    headers: authHeaders(),
-  });
-  if (!response.ok) {
-    throw new Error(`GET /api/full-test-sessions failed: ${response.status}`);
+  const local = listMockSessions();
+  let remote: MockSession[] = [];
+  try {
+    const response = await fetch(`${API_BASE}/api/full-test-sessions`, {
+      ...FETCH_OPTS,
+      headers: authHeaders(),
+    });
+    if (response.ok) {
+      remote = await response.json() as MockSession[];
+    }
+  } catch {
+    // Continue with local wrappers and section-level backend history.
   }
 
-  const remote = await response.json() as MockSession[];
-  const local = listMockSessions();
   const localById = new Map(local.map((session) => [session.id, session]));
   const restored = remote.map((session) =>
     mergeMockSessionProgress(localById.get(session.id) ?? null, session),
