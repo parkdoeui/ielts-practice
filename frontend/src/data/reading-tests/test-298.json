@@ -67,7 +67,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-2-6",
@@ -109,7 +111,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-7-9",
@@ -146,7 +150,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-10-11",
@@ -170,7 +176,9 @@
       "shared_text": "In the transportation industry, napping is a matter of (10) …………..\nOn some airlines, pilots can sleep in the cockpit if (11) …………..",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-12-13",
@@ -204,7 +212,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-14-19",
@@ -258,7 +268,9 @@
         "iii": "iii",
         "iv": "iv",
         "v": "v"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-20-22",
@@ -288,7 +300,9 @@
       "shared_text": "Making a homeopathic remedy\nThe remedies come from plant, animal and mineral sources.\nThis mixture is strained to produce a tincture which can be diluted.\n1 drop of this tincture is added to 99 drops of alcohol/water.\nThe mixture is then (21) …………. vigorously.\nThis produces a remedy with a potency of 1c.\nAs the remedy becomes more diluted, it gets (22) ……………..",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-23-26",
@@ -324,7 +338,9 @@
       "shared_text": "Homeopathy differs from conventional medicine in a number of ways. Conventional medicine views symptoms as an indication of something wrong in the body whereas homeopathy sees them as signs that the body is attempting to (23) ……………. The uses of medication differ also. Many types of conventional medication (24) ……………. but if the medicine is taken away, the illness returns. The intention of homeopathy is to bring about a complete cure. Homeopathic remedies are (25) ……………… than conventional medicine and have fewer (26) ………………\nCheaper\nCure\nHeal itself\nIllness\nTreatments\nGetting better\nControl symptoms\nMore expensive\nSide effects\nStronger\nHealthy\nPatients",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-27-31",
@@ -366,7 +382,9 @@
       "shared_text": "The first one has been done for you as an example.\n(27) ……..\n(28) …….\n(29) …….\n(30) …….\n(31) ………",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-32-33",
@@ -390,7 +408,9 @@
       "shared_text": "Hemp\nMarijuana\nFibre\nStrong and durable\n(32)…………..\nDrug content\nUp to 10%",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-34-39",
@@ -400,37 +420,37 @@
       "questions": [
         {
           "id": 34,
-          "statement": "",
+          "statement": "mildew-resistant",
           "answer": "A",
           "options": null
         },
         {
           "id": 35,
-          "statement": "",
+          "statement": "dioxin is a by-product of processing",
           "answer": "B",
           "options": null
         },
         {
           "id": 36,
-          "statement": "",
+          "statement": "can be harvested more than once a year",
           "answer": "A",
           "options": null
         },
         {
           "id": 37,
-          "statement": "",
+          "statement": "large amounts of fertiliser needed",
           "answer": "C",
           "options": null
         },
         {
           "id": 38,
-          "statement": "",
+          "statement": "fire-retardant properties",
           "answer": "A",
           "options": null
         },
         {
           "id": 39,
-          "statement": "",
+          "statement": "requires mild temperature",
           "answer": "C",
           "options": null
         }
@@ -438,7 +458,13 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": {
+        "A": "Hemp",
+        "B": "Wood",
+        "C": "Cotton"
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-40-40",
@@ -461,7 +487,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 60,

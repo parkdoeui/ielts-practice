@@ -100,7 +100,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-7-12",
@@ -110,37 +112,37 @@
       "questions": [
         {
           "id": 7,
-          "statement": "",
+          "statement": "Although the involvement of large numbers of people is encouraging, this does not guarantee scientifically valid data.",
           "answer": "B",
           "options": null
         },
         {
           "id": 8,
-          "statement": "",
+          "statement": "The development of frog-friendly backyards will help to conserve frog species.",
           "answer": "A",
           "options": null
         },
         {
           "id": 9,
-          "statement": "",
+          "statement": "Although it is possible that frogs will adapt to fungal and other problems in the long term, we should take precautions in case this does not occur.",
           "answer": "A",
           "options": null
         },
         {
           "id": 10,
-          "statement": "",
+          "statement": "As there may be many other explanations for recent frog deaths, it is not worth spending a great deal of time and money studying this fungus.",
           "answer": "B",
           "options": null
         },
         {
           "id": 11,
-          "statement": "",
+          "statement": "Because of the unique geography of Western Australia,most frog species in this State are not in danger of extinction.",
           "answer": "B",
           "options": null
         },
         {
           "id": 12,
-          "statement": "",
+          "statement": "Frogwatch has greater potential for frog observation than is possible by the scientific community.",
           "answer": "A/C",
           "options": null
         }
@@ -149,10 +151,12 @@
       "word_list": null,
       "image_url": null,
       "options": {
-        "A": "A",
-        "B": "B",
-        "C": "C"
-      }
+        "A": "– for Dr. Aplin",
+        "B": "– for Dr. Roberts",
+        "C": "– for Dr. Speare"
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-13-13",
@@ -175,7 +179,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-14-18",
@@ -228,7 +234,9 @@
         "viii": "Difference between mesmerism and hypnotism",
         "ix": "Therapeutic uses of hypnosis",
         "x": "Origins of hypnosis (Example)"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-19-23",
@@ -270,7 +278,9 @@
       "shared_text": "References to hypnotism can be found in both the Talmud and the (19) …………. Even when Mesmer’s\n(20) ………….. were not used, successful results occurred without them. Braid identified hypnosis as a natural\n(21) ……….. response, rather than magical or mystical. Early psychological studies showed the difference between sleep and hypnosis. Successful hypnosis requires the subject’s active (22) …………. Consequently subjects can speak or move around and are (23) ………… of their surroundings.",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-24-28",
@@ -337,7 +347,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-29-36",
@@ -397,7 +409,9 @@
       "shared_text": "Marte & Notarnicola define the spontaneous sporting games of children as activities of (29) …………… Because today sport is often decided and (30) …………… by parents, children lose their autonomy. A first imbalance occurs because (31) ………….. are out of the city and often crowded, whilst there are a limited number of open recreational areas where children can play spontaneously.\nChildren should discover and learn about sports themselves. The second imbalance occurs because they start early (32) …………….. training very young and participate in only (33) ………….. specific activity. Children often give up a sport because of negative (34) …………….. It is important that trainers avoid excessive criticism of young children, who should have (35) ……………… at sporting activities. Another reason that children may give up sport is the attitudes of their parents. This third imbalance occurs as parents exert (36) ………….. on children to win rather than to enjoy sport.",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-37-40",
@@ -453,7 +467,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 60,

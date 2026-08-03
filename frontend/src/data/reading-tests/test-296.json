@@ -80,7 +80,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-4-10",
@@ -169,7 +171,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-11-14",
@@ -205,7 +209,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-15-19",
@@ -251,7 +257,9 @@
         "A": "the silk of bombyx mori",
         "B": "dragline silk of nephila clavipes",
         "C": "capture silk of nephila clavipes"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-20-24",
@@ -293,7 +301,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-25-27",
@@ -323,7 +333,9 @@
       "shared_text": "Comparison of Synthetic and Natural Fibres\n• Main problem in the production of synthetic fibres: (25) ……………\n• 3 disadvantages of natural fibres: losing elasticity, reducing in size, and (26) ………….\n• Proportion of clothing made from natural fibre: (27) ………………. percent",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-28-31",
@@ -359,7 +371,9 @@
       "shared_text": "Axis\nEstimate\nPerspective\nMap\nDirection\nCompare\nProjection\nSize\nJudge\nAccurately\nAngle\nDistances\nModels\nChange\nFor four centuries, map makers have been trying to convert three-dimensional information as accurately (example) as possible onto a two-dimensional plane. However, each method of (28) …………………. involves a compromise. Thus, a cylindrical projection indicates true north and south, known as fidelity of (29) …………. but misrepresents the relative size of countries.\nTo avoid this distortion, other cartographers rounded the lines of latitude and longitude. Dr. Peters felt that such maps presented a first-world (30) ……………… His map, with equal area projection, enables us to (31) …………… the size of one country with another.",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-32-36",
@@ -369,31 +383,31 @@
       "questions": [
         {
           "id": 32,
-          "statement": "",
+          "statement": "makes Europe seem larger than it is",
           "answer": "M",
           "options": null
         },
         {
           "id": 33,
-          "statement": "",
+          "statement": "maximum distortions at the poles",
           "answer": "M",
           "options": null
         },
         {
           "id": 34,
-          "statement": "",
+          "statement": "maintains greatest accuracy at 45 degrees latitude",
           "answer": "P",
           "options": null
         },
         {
           "id": 35,
-          "statement": "",
+          "statement": "most distorts the position of the equator",
           "answer": "M",
           "options": null
         },
         {
           "id": 36,
-          "statement": "",
+          "statement": "more accurately represents country shapes and sizes",
           "answer": "A",
           "options": null
         }
@@ -401,7 +415,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-37-39",
@@ -431,7 +447,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": "https://practicepteonline.com/wp-content/uploads/2024/12/1-275x300.webp",
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "group-40-40",
@@ -454,7 +472,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 60,

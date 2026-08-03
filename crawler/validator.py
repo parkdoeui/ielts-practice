@@ -11,6 +11,10 @@ from dataclasses import dataclass, field
 from models import ReadingTest
 
 
+QUESTION_COMPLETION_PLACEHOLDER_RE = re.compile(r"\((\d+)\)\s*[…_.]{2,}")
+COMPLETION_TYPES = {"summary-completion", "sentence-completion", "table-completion"}
+
+
 @dataclass
 class ValidationResult:
     valid: bool
@@ -69,6 +73,16 @@ def validate_reading_test(test: ReadingTest) -> ValidationResult:
             errors.append(f"Group {g.id}: shared_text starts with 'Show Answers' (answer section leaked)")
 
     for g in test.question_groups:
+        has_instruction_context = bool(QUESTION_COMPLETION_PLACEHOLDER_RE.search(g.instruction or ""))
+        if g.type not in COMPLETION_TYPES or g.shared_text or has_instruction_context:
+            continue
+        missing_context = [question.id for question in g.questions if not question.statement.strip()]
+        if missing_context:
+            errors.append(
+                f"Group {g.id}: completion questions without displayable context: {missing_context}"
+            )
+
+    for g in test.question_groups:
         if g.type == "diagram-labeling":
             url = g.image_url or ""
             if not re.match(r"^https?://", url):
@@ -112,6 +126,13 @@ def validate_reading_test(test: ReadingTest) -> ValidationResult:
     for p in test.passages:
         if len(p.text.strip()) < 100:
             errors.append(f"Passage '{p.id}' has trivially short text ({len(p.text)} chars) — likely parsing failure")
+        leaked_placeholders = sorted(
+            {int(match.group(1)) for match in QUESTION_COMPLETION_PLACEHOLDER_RE.finditer(p.text)}
+        )
+        if leaked_placeholders:
+            errors.append(
+                f"Passage '{p.id}' contains question-completion placeholders: {leaked_placeholders}"
+            )
 
     # Check for overlapping question groups
     seen: dict[int, str] = {}

@@ -6,7 +6,16 @@ from bs4 import BeautifulSoup
 from ai_repair import _build_repair_prompt
 from ai_validator import _build_validation_prompt
 from models import Passage, QuestionGroup, ReadingTest, SimpleQuestion
-from parser import _build_question_groups, _extract_answers, _normalize_oversegmented_passages, parse_reading_test
+from parser import (
+    _build_question_groups,
+    _classify_blocks,
+    _extract_answers,
+    _normalize_dom,
+    _normalize_known_source_artifacts,
+    _normalize_oversegmented_passages,
+    _segment_test,
+    parse_reading_test,
+)
 from validator import validate_reading_test
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
@@ -65,6 +74,57 @@ HTML = """
 
 
 class ParserRegressionTests(unittest.TestCase):
+    def test_known_reading_295_source_artifacts_are_normalized(self):
+        value = (
+            "There is a dear reason. The deep- sea contains minerals, Mining corporations argue for it. "
+            "There is little waste, Different methods of extraction exist, (hen drawing a slurry upwards."
+        )
+
+        cleaned = _normalize_known_source_artifacts(value)
+
+        self.assertIn("clear reason", cleaned)
+        self.assertIn("deep-sea", cleaned)
+        self.assertIn("minerals. Mining corporations", cleaned)
+        self.assertIn("waste. Different methods", cleaned)
+        self.assertIn("then drawing", cleaned)
+
+    def test_completion_notes_before_next_passage_do_not_become_passage(self):
+        long_first = "Butterfly passage content. " * 20
+        long_second = "A Deep-sea mining passage content. " * 20
+        soup = BeautifulSoup(
+            f"""
+            <div class="entry-content">
+              <p>The impact of climate change on butterflies in Britain</p>
+              <p>{long_first}</p>
+              <p>Questions 7-13<br/>Complete the notes below. Choose ONE WORD ONLY from the passage.</p>
+              <p>Butterflies in the UK</p>
+              <p>The Small Blue<br/>• lives in large (7) ……………….<br/>• first appears at the start of (8) ………….</p>
+              <p>The High Brown Fritillary<br/>• is considered to be more (9) ……………… than other species</p>
+              <p>Deep-sea mining</p>
+              <p>Bacteria from the ocean floor can beat superbugs and cancer.</p>
+              <p>{long_second}</p>
+              <p>Questions 14-17<br/>Which paragraph contains the following information?</p>
+            </div>
+            """,
+            "html.parser",
+        )
+
+        children = _normalize_dom(soup.select_one("div.entry-content"))
+        blocks = _classify_blocks(children, "https://practicepteonline.com/ielts-reading-test-295/")
+        passages, raw_groups = _segment_test(blocks)
+        completion = next(group for group in raw_groups if group["start"] == 7)
+        built = _build_question_groups(raw_groups, {number: "answer" for number in range(7, 18)}, "")
+        completion_group = next(group for group in built if group.id == "group-7-13")
+
+        self.assertEqual([passage.title for passage in passages], [
+            "The impact of climate change on butterflies in Britain",
+            "Deep-sea mining",
+        ])
+        self.assertIn("Butterflies in the UK", completion["text"])
+        self.assertIn("(7)", completion["text"])
+        self.assertNotIn("(7)", passages[1].text)
+        self.assertIn("Butterflies in the UK", completion_group.shared_text or "")
+
     def test_answer_list_directly_after_show_answers_is_extracted(self):
         soup = BeautifulSoup("""
             <p>Show Answers</p>
@@ -665,6 +725,55 @@ def _filler_group(start: int) -> QuestionGroup:
 
 
 class ValidationRegressionTests(unittest.TestCase):
+    def test_validator_rejects_completion_group_without_displayable_context(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-3",
+                type="summary-completion",
+                passage_id="passage-1",
+                instruction="Questions 1-3\nComplete the notes.",
+                questions=[
+                    SimpleQuestion(id=qid, statement="", answer="answer")
+                    for qid in range(1, 4)
+                ],
+            ),
+            _filler_group(4),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertFalse(result.valid)
+        self.assertTrue(any("completion questions without displayable context" in error for error in result.errors))
+
+    def test_validator_allows_completion_context_embedded_in_instruction(self):
+        test = _minimal_reading_test([
+            QuestionGroup(
+                id="group-1-3",
+                type="summary-completion",
+                passage_id="passage-1",
+                instruction="Questions 1-3\n• lives in (1) ………\n• appears in (2) ………\n• eats (3) ………",
+                questions=[
+                    SimpleQuestion(id=qid, statement="", answer="answer")
+                    for qid in range(1, 4)
+                ],
+            ),
+            _filler_group(4),
+        ])
+
+        result = validate_reading_test(test)
+
+        self.assertTrue(result.valid, result.report())
+
+    def test_validator_rejects_question_placeholders_inside_passage(self):
+        test = _minimal_reading_test([_filler_group(1)])
+        test.passages[0].text += "\nButterflies in the UK: lives in large (7) ………………."
+        test.passages[0].paragraphs.append("Butterflies in the UK: lives in large (7) ……………….")
+
+        result = validate_reading_test(test)
+
+        self.assertFalse(result.valid)
+        self.assertTrue(any("question-completion placeholders" in error for error in result.errors))
+
     def test_validator_flags_overwritten_unique_multiple_choice_options(self):
         test = _minimal_reading_test([
             QuestionGroup(

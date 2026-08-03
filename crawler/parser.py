@@ -17,6 +17,14 @@ from urllib.parse import urljoin
 from models import ReadingTest, Passage, SimpleQuestion, QuestionGroup
 
 QUESTION_RANGE_SEPARATORS = r"[-–—]"
+QUESTION_COMPLETION_PLACEHOLDER_RE = re.compile(r"\(\d+\)\s*[…_.]{2,}")
+KNOWN_SOURCE_TEXT_REPLACEMENTS = (
+    (re.compile(r"\bdear reason\b", re.IGNORECASE), "clear reason"),
+    (re.compile(r"\bdeep-\s+sea\b", re.IGNORECASE), "deep-sea"),
+    (re.compile(r",\s+Mining corporations argue\b"), ". Mining corporations argue"),
+    (re.compile(r",\s+Different methods of extraction\b"), ". Different methods of extraction"),
+    (re.compile(r"\(hen drawing\b", re.IGNORECASE), "then drawing"),
+)
 
 # ---------------------------------------------------------------------------
 # Shared helpers
@@ -53,6 +61,19 @@ def _is_passage_content(text: str) -> bool:
     if re.search(r"(?i)Questions?\s+\d+", text):
         return False
     return True
+
+
+def _looks_like_question_context(text: str) -> bool:
+    """True when a block is visibly part of a numbered question exercise."""
+    if QUESTION_COMPLETION_PLACEHOLDER_RE.search(text):
+        return True
+    return bool(re.search(r"(?m)^\d+[.)]?\s+", text))
+
+
+def _normalize_known_source_artifacts(text: str) -> str:
+    for pattern, replacement in KNOWN_SOURCE_TEXT_REPLACEMENTS:
+        text = pattern.sub(replacement, text)
+    return text
 
 
 def _sanitize_shared_text(text: str | None) -> str | None:
@@ -172,7 +193,7 @@ def _classify_blocks(children: list, base_url: str) -> list[Block]:
     """
     blocks = []
     for el in children:
-        text = el.get_text(separator="\n", strip=True)
+        text = _normalize_known_source_artifacts(el.get_text(separator="\n", strip=True))
 
         # Images may have no text — classify them before the empty-text guard
         if not text and (el.name in ("figure", "img") or el.find("img")):
@@ -251,6 +272,8 @@ def _is_passage_title_candidate(text: str, blocks: list[Block], current_index: i
     """
     if len(text) > 160:
         return False
+    if _looks_like_question_context(text):
+        return False
     if re.match(r"^\d+", text):
         return False
     if re.match(r"(?i)^(which|choose|select|for each|where|complete|answer|true|false|yes|no|not given|write|nb\b|note\b|according to)\b", text):
@@ -280,6 +303,11 @@ def _is_passage_title_candidate(text: str, blocks: list[Block], current_index: i
             return False  # Hit another structural anchor — no passage content found
         if b.type == "noise":
             continue
+        # A title-like label followed by numbered blanks or question statements
+        # belongs to the active question group. Do not scan through that material
+        # to a later article and retroactively promote the label to a passage title.
+        if _looks_like_question_context(b.text):
+            return False
         if b.type == "long_p":
             return _is_passage_content(b.text)
         # short_p / question_body / other — keep scanning
