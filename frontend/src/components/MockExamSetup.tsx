@@ -8,28 +8,12 @@ import {
   type MockSession,
 } from "../types";
 import {
+  getFullTestAction,
   getFullTestProgress,
   getSessionFullTest,
   type FullTestProgress,
 } from "../lib/mockProgress";
-
-const fullTestFiles = import.meta.glob<{ default: FullTestSet }>(
-  "../data/full-tests/*.json",
-  { eager: true },
-);
-
-function isFullTestSet(value: unknown): value is FullTestSet {
-  if (!value || typeof value !== "object") return false;
-  const candidate = value as Partial<FullTestSet>;
-  return (
-    typeof candidate.id === "string" &&
-    typeof candidate.title === "string" &&
-    typeof candidate.listening_test_id === "string" &&
-    typeof candidate.reading_test_id === "string" &&
-    typeof candidate.writing_test_id === "string" &&
-    (typeof candidate.speaking_test_id === "string" || candidate.speaking_test_id === null)
-  );
-}
+import { FULL_TESTS } from "../lib/fullTests";
 
 const MODES: { value: MockMode; title: string; blurb: string }[] = [
   { value: "relaxed", title: "Relaxed", blurb: "Pause and resume between sections. Per-section timers." },
@@ -48,52 +32,66 @@ const PROGRESS_STYLES: Record<FullTestProgress, string> = {
   completed: "bg-emerald-100 text-emerald-800",
 };
 
+function createMockSession(fullTest: FullTestSet, mode: MockMode): MockSession {
+  const startedAt = new Date();
+  return {
+    id: `mock-${startedAt.getTime()}`,
+    full_test_id: fullTest.id,
+    mode,
+    started_at: startedAt.toISOString(),
+    sections: [
+      { skill: "listening", test_id: fullTest.listening_test_id, session_id: null, band: null },
+      { skill: "reading", test_id: fullTest.reading_test_id, session_id: null, band: null },
+      { skill: "writing", test_id: fullTest.writing_test_id, session_id: null, band: null },
+      { skill: "speaking", test_id: fullTest.speaking_test_id, session_id: null, band: null },
+    ],
+  };
+}
+
 export function MockExamSetup() {
   const navigate = useNavigate();
-
-  const fullTests = useMemo(
-    () =>
-      Object.values(fullTestFiles)
-        .map((m) => m.default)
-        .filter(isFullTestSet)
-        .sort((a, b) => a.title.localeCompare(b.title)),
-    [],
-  );
-
-  const [mode, setMode] = useState<MockMode>("relaxed");
-  const [fullTestId, setFullTestId] = useState(fullTests[0]?.id ?? "");
-  const selectedFullTest = fullTests.find((test) => test.id === fullTestId) ?? null;
+  const fullTests = FULL_TESTS;
   const mockSessions = useMemo(() => listMockSessions(), []);
+  const firstStartableId = fullTests.find(
+    (test) => getFullTestAction(test, mockSessions).kind === "start",
+  )?.id ?? "";
+  const [mode, setMode] = useState<MockMode>("relaxed");
+  const [fullTestId, setFullTestId] = useState(firstStartableId);
+  const selectedFullTest = fullTests.find((test) => test.id === fullTestId) ?? null;
 
   const inProgress = useMemo(
     () =>
-      mockSessions.filter((session) =>
-        session.sections.some(
-          (s) => IMPLEMENTED_SKILLS.has(s.skill) && s.session_id === null,
-        ),
-      ).slice(0, 1),
-    [mockSessions],
+      fullTests
+        .map((test) => getFullTestAction(test, mockSessions))
+        .filter((action) => action.kind === "resume")
+        .map((action) => action.session)
+        .sort(
+          (a, b) =>
+            new Date(b.started_at).getTime() - new Date(a.started_at).getTime(),
+        )
+        .slice(0, 1),
+    [fullTests, mockSessions],
   );
 
   function startMock() {
     if (!selectedFullTest) return;
-    const mock: MockSession = {
-      id: `mock-${Date.now()}`,
-      full_test_id: selectedFullTest.id,
-      mode,
-      started_at: new Date().toISOString(),
-      sections: [
-        { skill: "listening", test_id: selectedFullTest.listening_test_id, session_id: null, band: null },
-        { skill: "reading", test_id: selectedFullTest.reading_test_id, session_id: null, band: null },
-        { skill: "writing", test_id: selectedFullTest.writing_test_id, session_id: null, band: null },
-        { skill: "speaking", test_id: selectedFullTest.speaking_test_id, session_id: null, band: null },
-      ],
-    };
+    const existing = getFullTestAction(selectedFullTest, listMockSessions());
+    if (existing.kind === "results") {
+      navigate(`/mock-results/${existing.session.id}`);
+      return;
+    }
+    if (existing.kind === "resume") {
+      navigate(`/mock/${existing.session.id}`);
+      return;
+    }
+    const mock = createMockSession(selectedFullTest, mode);
     saveMockSession(mock);
     navigate(`/mock/${mock.id}`);
   }
 
-  const canStart = selectedFullTest !== null;
+  const canStart = Boolean(
+    selectedFullTest && getFullTestAction(selectedFullTest, mockSessions).kind === "start",
+  );
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
@@ -164,46 +162,83 @@ export function MockExamSetup() {
           {fullTests.map((test) => {
             const selected = test.id === fullTestId;
             const progress = getFullTestProgress(test, mockSessions);
+            const action = getFullTestAction(test, mockSessions);
+            const cardClass = `flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-colors ${
+              selected
+                ? "border-blue-500 bg-blue-50 text-blue-900"
+                : "border-gray-200 bg-white text-gray-900 hover:border-gray-300"
+            }`;
+            const cardContent = (
+              <>
+                <span className="text-sm font-semibold">{test.title}</span>
+                <span className="flex items-center gap-3">
+                  <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${PROGRESS_STYLES[progress]}`}>
+                    {PROGRESS_LABELS[progress]}
+                  </span>
+                  {action.kind === "start" ? (
+                    <span
+                      aria-hidden="true"
+                      className={`flex h-5 w-5 items-center justify-center rounded-full border ${
+                        selected ? "border-blue-600" : "border-gray-300"
+                      }`}
+                    >
+                      {selected && <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />}
+                    </span>
+                  ) : (
+                    <span className={`text-xs font-semibold ${
+                      action.kind === "results" ? "text-emerald-700" : "text-amber-700"
+                    }`}>
+                      {action.kind === "results" ? "View result →" : "Resume →"}
+                    </span>
+                  )}
+                </span>
+              </>
+            );
+
+            if (action.kind === "results") {
+              return (
+                <Link key={test.id} to={`/mock-results/${action.session.id}`} className={cardClass}>
+                  {cardContent}
+                </Link>
+              );
+            }
+
+            if (action.kind === "resume") {
+              return (
+                <Link key={test.id} to={`/mock/${action.session.id}`} className={cardClass}>
+                  {cardContent}
+                </Link>
+              );
+            }
+
             return (
               <button
                 key={test.id}
                 type="button"
                 aria-pressed={selected}
                 onClick={() => setFullTestId(test.id)}
-                className={`flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition-colors ${
-                  selected
-                    ? "border-blue-500 bg-blue-50 text-blue-900"
-                    : "border-gray-200 bg-white text-gray-900 hover:border-gray-300"
-                }`}
+                className={cardClass}
               >
-                <span className="text-sm font-semibold">{test.title}</span>
-                <span className="flex items-center gap-3">
-                  <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${PROGRESS_STYLES[progress]}`}>
-                    {PROGRESS_LABELS[progress]}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className={`flex h-5 w-5 items-center justify-center rounded-full border ${
-                      selected ? "border-blue-600" : "border-gray-300"
-                    }`}
-                  >
-                    {selected && <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />}
-                  </span>
-                </span>
+                {cardContent}
               </button>
             );
           })}
         </div>
       </section>
 
-      <button
-        type="button"
-        onClick={startMock}
-        disabled={!canStart}
-        className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
-      >
-        Start Full Test
-      </button>
+      {canStart ? (
+        <button
+          type="button"
+          onClick={startMock}
+          className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700"
+        >
+          Start Full Test
+        </button>
+      ) : (
+        <p className="text-sm text-gray-500">
+          Completed Full Tests are available through their View result links and cannot be retaken.
+        </p>
+      )}
     </div>
   );
 }

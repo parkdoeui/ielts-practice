@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import type { FullTestSet, MockSession } from "../types";
-import { getFullTestProgress, getSessionFullTest } from "./mockProgress";
+import {
+  getFullTestAction,
+  getFullTestProgress,
+  getSessionFullTest,
+  isMockSessionCompleted,
+} from "./mockProgress";
 
 const fullTest: FullTestSet = {
   id: "full-test-1",
@@ -49,13 +54,37 @@ describe("Full Test progress", () => {
     expect(getFullTestProgress(fullTest, [completed])).toBe("completed");
   });
 
-  it("uses the latest retake status", () => {
+  it("keeps a completed result canonical over a later incomplete duplicate", () => {
     const completed = mockSession(
       "2026-08-02T10:00:00Z",
       ["listening", "reading", "writing"],
     );
     const retake = mockSession("2026-08-02T11:00:00Z");
-    expect(getFullTestProgress(fullTest, [completed, retake])).toBe("in-progress");
+    expect(getFullTestProgress(fullTest, [completed, retake])).toBe("completed");
+    expect(getFullTestAction(fullTest, [completed, retake])).toEqual({
+      kind: "results",
+      session: completed,
+    });
+  });
+
+  it("returns start, resume, and results actions for the bundle lifecycle", () => {
+    const inProgress = mockSession("2026-08-02T10:00:00Z", ["listening"]);
+    const completed = mockSession(
+      "2026-08-02T11:00:00Z",
+      ["listening", "reading", "writing"],
+    );
+
+    expect(getFullTestAction(fullTest, [])).toEqual({ kind: "start" });
+    expect(getFullTestAction(fullTest, [inProgress])).toEqual({
+      kind: "resume",
+      session: inProgress,
+    });
+    expect(getFullTestAction(fullTest, [inProgress, completed])).toEqual({
+      kind: "results",
+      session: completed,
+    });
+    expect(isMockSessionCompleted(inProgress)).toBe(false);
+    expect(isMockSessionCompleted(completed)).toBe(true);
   });
 
   it("matches older sessions by their section IDs", () => {

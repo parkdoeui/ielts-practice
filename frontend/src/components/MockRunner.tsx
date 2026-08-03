@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getMockSession, saveMockSession } from "../services/api";
+import { getMockSession, listMockSessions, saveMockSession } from "../services/api";
+import { FULL_TESTS } from "../lib/fullTests";
+import { getFullTestAction, getSessionFullTest } from "../lib/mockProgress";
 import {
   IMPLEMENTED_SKILLS,
   isMockSectionComingSoon,
@@ -33,10 +35,25 @@ export function MockRunner() {
   const [mock, setMock] = useState<MockSession | null>(() => (id ? getMockSession(id) : null));
   const [cursor, setCursor] = useState<number>(() => (mock ? firstCursor(mock) : 0));
   const [phase, setPhase] = useState<"running" | "handoff">("running");
+  const canonicalResultId = useMemo(() => {
+    if (!mock) return null;
+    const fullTest = getSessionFullTest(mock, FULL_TESTS);
+    if (!fullTest) return null;
+    const action = getFullTestAction(fullTest, listMockSessions());
+    return action.kind === "results" && action.session.id !== mock.id
+      ? action.session.id
+      : null;
+  }, [mock]);
 
   useEffect(() => {
     if (!mock) navigate("/mock", { replace: true });
   }, [mock, navigate]);
+
+  useEffect(() => {
+    if (canonicalResultId) {
+      navigate(`/mock-results/${canonicalResultId}`, { replace: true });
+    }
+  }, [canonicalResultId, navigate]);
 
   useEffect(() => {
     if (mock && cursor >= mock.sections.length) {
@@ -45,6 +62,9 @@ export function MockRunner() {
   }, [cursor, mock, navigate]);
 
   if (!mock) return null;
+  if (canonicalResultId) {
+    return <div className="p-8 text-gray-500">Opening your completed Full Test result…</div>;
+  }
   if (cursor >= mock.sections.length) {
     return <div className="p-8 text-gray-500">Finishing your test…</div>;
   }

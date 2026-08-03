@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import { Link, useParams } from "react-router";
 import { getMockSession } from "../services/api";
 import { roundToOverallBand } from "../lib/grading";
+import { FULL_TESTS } from "../lib/fullTests";
+import { getSessionFullTest, isMockSessionCompleted } from "../lib/mockProgress";
 import { isMockSectionComingSoon, type MockSection, type SkillName } from "../types";
 
 const skillLabel = (skill: SkillName) => skill.charAt(0).toUpperCase() + skill.slice(1);
@@ -23,6 +25,10 @@ function statusFor(section: MockSection): { text: string; tone: "band" | "muted"
 export function MockResultsView() {
   const { id } = useParams<{ id: string }>();
   const mock = useMemo(() => (id ? getMockSession(id) : null), [id]);
+  const fullTest = useMemo(
+    () => (mock ? getSessionFullTest(mock, FULL_TESTS) : null),
+    [mock],
+  );
 
   const overall = useMemo(() => {
     if (!mock) return null;
@@ -42,7 +48,7 @@ export function MockResultsView() {
       <div className="mx-auto max-w-2xl px-4 py-10 text-center">
         <p className="text-gray-500">This full-test result was not found on this device.</p>
         <Link to="/mock" className="mt-4 inline-block text-sm font-medium text-blue-600">
-          Start a new Full Test
+          Back to Full Tests
         </Link>
       </div>
     );
@@ -51,9 +57,24 @@ export function MockResultsView() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">Full Test</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
+          Full Test result
+        </p>
+        <h1 className="mt-2 text-2xl font-bold text-gray-900">
+          {fullTest?.title ?? "Full Test"}
+        </h1>
+        <p className="mt-1 text-xs capitalize text-gray-500">
+          {mock.mode} mode · Started {new Date(mock.started_at).toLocaleDateString()}
+        </p>
         <p className="mt-3 text-sm text-gray-500">Overall band</p>
         <p className="text-5xl font-bold text-gray-900">{overall !== null ? overall.toFixed(1) : "—"}</p>
+        <span className={`mt-4 inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+          isMockSessionCompleted(mock)
+            ? "bg-emerald-50 text-emerald-700"
+            : "bg-amber-50 text-amber-700"
+        }`}>
+          {isMockSessionCompleted(mock) ? "Completed" : "In progress"}
+        </span>
         {hasComingSoon && (
           <p className="mt-3 text-xs text-amber-600">
             Provisional — Speaking isn't available yet, so it doesn't count toward this band.
@@ -71,7 +92,7 @@ export function MockResultsView() {
                 <p className="font-semibold text-gray-900">{skillLabel(section.skill)}</p>
                 {link && (
                   <Link to={link} className="text-xs font-medium text-blue-600 hover:underline">
-                    View details
+                    {section.skill === "writing" ? "View feedback" : "Review answers"}
                   </Link>
                 )}
               </div>
@@ -96,7 +117,7 @@ export function MockResultsView() {
           to="/mock"
           className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
         >
-          New Full Test
+          Back to Full Tests
         </Link>
         <Link
           to="/"

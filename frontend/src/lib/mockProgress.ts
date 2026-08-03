@@ -5,6 +5,10 @@ import {
 } from "../types";
 
 export type FullTestProgress = "not-started" | "in-progress" | "completed";
+export type FullTestAction =
+  | { kind: "start" }
+  | { kind: "resume"; session: MockSession }
+  | { kind: "results"; session: MockSession };
 
 export function getSessionFullTest(
   session: MockSession,
@@ -24,7 +28,7 @@ export function getSessionFullTest(
   ) ?? null;
 }
 
-function isCompleted(session: MockSession): boolean {
+export function isMockSessionCompleted(session: MockSession): boolean {
   const implementedSections = session.sections.filter((section) =>
     IMPLEMENTED_SKILLS.has(section.skill),
   );
@@ -33,17 +37,30 @@ function isCompleted(session: MockSession): boolean {
   );
 }
 
+function newestFirst(a: MockSession, b: MockSession): number {
+  return new Date(b.started_at).getTime() - new Date(a.started_at).getTime();
+}
+
+export function getFullTestAction(
+  test: FullTestSet,
+  sessions: MockSession[],
+): FullTestAction {
+  const matching = sessions
+    .filter((session) => getSessionFullTest(session, [test]) !== null)
+    .sort(newestFirst);
+  const completed = matching.find(isMockSessionCompleted);
+
+  if (completed) return { kind: "results", session: completed };
+  if (matching[0]) return { kind: "resume", session: matching[0] };
+  return { kind: "start" };
+}
+
 export function getFullTestProgress(
   test: FullTestSet,
   sessions: MockSession[],
 ): FullTestProgress {
-  const latest = sessions
-    .filter((session) => getSessionFullTest(session, [test]) !== null)
-    .sort(
-      (a, b) =>
-        new Date(b.started_at).getTime() - new Date(a.started_at).getTime(),
-    )[0];
-
-  if (!latest) return "not-started";
-  return isCompleted(latest) ? "completed" : "in-progress";
+  const action = getFullTestAction(test, sessions);
+  if (action.kind === "results") return "completed";
+  if (action.kind === "resume") return "in-progress";
+  return "not-started";
 }
