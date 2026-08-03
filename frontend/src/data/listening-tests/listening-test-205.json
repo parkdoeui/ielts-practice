@@ -71,7 +71,209 @@
       "shared_text": "Oyster Bay Sailing Club Courses Name of course | What you learn | Cost | Other information",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Oyster Bay Sailing Club Courses",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "table",
+          "segments": [],
+          "items": [],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Name of course",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "What you learn",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Cost",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Other information",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Taster day",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "introduction to sailing",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "£120 if booking one place",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "small groups (max",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 1
+                    },
+                    {
+                      "type": "text",
+                      "text": "people)",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Level 1",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "basic theory e.g. understanding the",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 2
+                    },
+                    {
+                      "type": "text",
+                      "text": "and tides basic sailing skills including",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 3
+                    },
+                    {
+                      "type": "text",
+                      "text": "information",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "£200",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 4
+                    },
+                    {
+                      "type": "text",
+                      "text": "available for club members all inclusive (plus a useful",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 5
+                    },
+                    {
+                      "type": "text",
+                      "text": ")",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "a",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 6
+                    },
+                    {
+                      "type": "text",
+                      "text": "at the end of the course for all participants",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part1-q7",
@@ -107,7 +309,114 @@
       "shared_text": "General information • Participants must be able to swim.",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "General information",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Participants must be able to swim.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Bring suitable clothing, a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 7
+                },
+                {
+                  "type": "text",
+                  "text": "and toiletries (e.g. shampoo).",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "There is a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 8
+                },
+                {
+                  "type": "text",
+                  "text": "at the club.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Online training",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 9
+                },
+                {
+                  "type": "text",
+                  "text": "are recommended.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 10
+                },
+                {
+                  "type": "text",
+                  "text": "are available for course participants.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part2-q11",
@@ -179,7 +488,9 @@
       "shared_text": "Working as makeup trainee",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part2-q17",
@@ -219,7 +530,9 @@
         "A": "being well-organised",
         "B": "being flexible",
         "C": "working quickly"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q21",
@@ -249,7 +562,9 @@
         "C": "the practical suggestions for solutions",
         "D": "the type of issues discussed",
         "E": "the implications for government policy"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q23",
@@ -279,7 +594,9 @@
         "C": "the use of new technology",
         "D": "the extensive statistical evidence",
         "E": "the large range of specialists involved"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q25",
@@ -336,7 +653,9 @@
         "F": "This is too predictable to be useful.",
         "G": "This gives insufficient evidence for its claims.",
         "H": "This gives a clear explanation of the problems."
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part4-q31",
@@ -408,7 +727,349 @@
       "shared_text": "Sources of rubber Three resources which are essential for industrial civilisation • fossil fuels • rubber Natural rubber This mainly comes from the Para rubber tree, now cultivated in South-East Asia. The supply is limited because • extracting the latex (rubber) is labour-intensive New threats include • a shift to the cultivation of palm oil Synthetic rubber • may be used for engine parts and cooking utensils • is unsuitable for many purposes e.g. the tyres of aircraft. An alternative source of natural rubber",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Sources of rubber",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Three resources which are essential for industrial civilisation",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 31
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "fossil fuels",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "rubber",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Natural rubber",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "This mainly comes from the Para rubber tree, now cultivated in South-East Asia. The supply is limited because",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "the growth of the tree is",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 32
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "production cannot easily be adjusted because of increasing or decreasing",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 33
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "the tree only grows near the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 34
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "extracting the latex (rubber) is labour-intensive",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "it is very difficult to",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 35
+                },
+                {
+                  "type": "text",
+                  "text": "rubber after production.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "New threats include",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "lack of genetic diversity, leading to danger of disease caused by a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 36
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "a shift to the cultivation of palm oil",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "extreme",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 37
+                },
+                {
+                  "type": "text",
+                  "text": "events.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Synthetic rubber",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "may be used for engine parts and cooking utensils",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "is less",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 38
+                },
+                {
+                  "type": "text",
+                  "text": "than natural rubber",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "is unsuitable for many purposes e.g. the tyres of aircraft.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "An alternative source of natural rubber",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "A wild flower (a type of dandelion) has rubber in its",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 39
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "It can be grown in many locations and does not require good",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 40
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 30,

@@ -4,7 +4,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 import re
 
-from models import ListeningTest, QuestionGroup
+from models import ListeningLayoutBlock, ListeningListItem, ListeningSegment, ListeningTest, QuestionGroup
 
 
 RESIDUAL_PREFIX_RE = re.compile(r"^(?:[•●○◦▪▫·]|[oO]\s|va(?:\s|$))", re.IGNORECASE)
@@ -35,6 +35,29 @@ def _group_option_keys(group: QuestionGroup) -> set[str]:
     for question in group.questions:
         keys.update(question.options or {})
     return keys
+
+
+def _segment_question_ids(segments: list[ListeningSegment]) -> list[int]:
+    return [segment.question_id for segment in segments if segment.type == "blank" and segment.question_id is not None]
+
+
+def _list_item_question_ids(item: ListeningListItem) -> list[int]:
+    ids = _segment_question_ids(item.segments)
+    for child in item.children:
+        ids.extend(_list_item_question_ids(child))
+    return ids
+
+
+def collect_layout_question_ids(layout: list[ListeningLayoutBlock]) -> list[int]:
+    ids: list[int] = []
+    for block in layout:
+        ids.extend(_segment_question_ids(block.segments))
+        for item in block.items:
+            ids.extend(_list_item_question_ids(item))
+        for row in block.rows:
+            for cell in row.cells:
+                ids.extend(_segment_question_ids(cell.segments))
+    return ids
 
 
 def validate_listening_test(test: ListeningTest) -> ValidationResult:
@@ -81,6 +104,30 @@ def validate_listening_test(test: ListeningTest) -> ValidationResult:
     for group in test.question_groups:
         if len(group.questions) > 10:
             warnings.append(f"{group.id} spans more than 10 questions")
+
+        if group.type == "note-completion":
+            if not group.layout:
+                errors.append(f"{group.id} requires a structured layout")
+            else:
+                referenced = collect_layout_question_ids(group.layout)
+                expected = [question.id for question in group.questions]
+                duplicate_references = sorted(
+                    number for number, count in Counter(referenced).items() if count > 1
+                )
+                if duplicate_references:
+                    errors.append(f"{group.id} layout duplicates question ids: {duplicate_references}")
+                if set(referenced) != set(expected):
+                    errors.append(
+                        f"{group.id} layout references {sorted(set(referenced))}, expected {sorted(set(expected))}"
+                    )
+
+        if group.selection_limit is not None:
+            if group.type != "multiple-choice":
+                errors.append(f"{group.id} selection_limit is only valid for multiple-choice groups")
+            if group.selection_limit < 2 or group.selection_limit > len(group.questions):
+                errors.append(f"{group.id} has invalid selection_limit {group.selection_limit}")
+            if len(group.options or {}) < group.selection_limit:
+                errors.append(f"{group.id} has fewer options than its selection_limit")
 
         if group.type not in {"multiple-choice", "matching"}:
             continue

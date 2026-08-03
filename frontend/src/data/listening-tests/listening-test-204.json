@@ -95,7 +95,352 @@
       "shared_text": "Advice on family visit Accommodation Recommended trips Science Museum Food • Clacton Market: Theatre tickets Free activities • Blakewell Gardens: • Roots Music Festival",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Advice on family visit",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Accommodation",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 1
+                },
+                {
+                  "type": "text",
+                  "text": "hotel on George Street",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "cost of family room per night: £",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 2
+                },
+                {
+                  "type": "text",
+                  "text": "(approx.)",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Recommended trips",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 3
+                },
+                {
+                  "type": "text",
+                  "text": "tour of the city centre (starts in Carlton Square)",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "a trip by",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 4
+                },
+                {
+                  "type": "text",
+                  "text": "to the old fort",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Science Museum",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "best day to visit:",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 5
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "see the exhibition about",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 6
+                },
+                {
+                  "type": "text",
+                  "text": ", which opens soon",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Food",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Clacton Market:",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "good for",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 7
+                    },
+                    {
+                      "type": "text",
+                      "text": "food",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "need to have lunch before",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 8
+                    },
+                    {
+                      "type": "text",
+                      "text": "p.m.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Theatre tickets",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "save up to",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 9
+                },
+                {
+                  "type": "text",
+                  "text": "% on ticket prices at bargaintickets.com",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Free activities",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Blakewell Gardens:",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Roots Music Festival",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "climb Telegraph Hill to see a view of the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 10
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part2-q11",
@@ -125,7 +470,9 @@
         "C": "Parents must stay with their children at all times.",
         "D": "Children will need sunhats and drinks.",
         "E": "The cafe has a special offer on meals for children."
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q13",
@@ -155,7 +502,9 @@
         "C": "audio guide",
         "D": "dressing room tour",
         "E": "tours in other languages"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q15",
@@ -212,7 +561,9 @@
         "F": "two changes to the rules of the game",
         "G": "the introduction of a fee for spectators",
         "H": "an agreement on the length of a game"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q21",
@@ -242,7 +593,9 @@
         "C": "improved concentration",
         "D": "improved imagination",
         "E": "improved spatial awareness"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q23",
@@ -272,7 +625,9 @@
         "C": "applying too much pressure when writing",
         "D": "confusing letter shapes",
         "E": "writing very slowly"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q25",
@@ -344,7 +699,9 @@
       "shared_text": "Teaching handwriting",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part4-q31",
@@ -416,7 +773,311 @@
       "shared_text": "Research in the area around the Chembe Bird Sanctuary The importance of birds of prey to the local communities • They have been an important part of the local culture for many years. Falling numbers of birds of prey • The birds may be accidentally killed Ways of protecting chickens from birds of prey • clearing away vegetation from the area (unhelpful) • frightening birds of prey by o e.g. with metal objects",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Research in the area around the Chembe Bird Sanctuary",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "The importance of birds of prey to the local communities",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "They destroy",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 31
+                },
+                {
+                  "type": "text",
+                  "text": "and other rodents.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "They help to prevent farmers from being bitten by",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 32
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "They have been an important part of the local culture for many years.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "They now support the economy by encouraging",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 33
+                },
+                {
+                  "type": "text",
+                  "text": "in the area.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Falling numbers of birds of prey",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The birds may be accidentally killed",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "By",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 34
+                    },
+                    {
+                      "type": "text",
+                      "text": "when they are hunting or sleeping",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "by electrocution from contact with power lines, especially at times when there is a lot of",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 35
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Local farmers may illegally shoot them or",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 36
+                },
+                {
+                  "type": "text",
+                  "text": "them.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Ways of protecting chickens from birds of prey",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "clearing away vegetation from the area (unhelpful)",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "providing a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 37
+                },
+                {
+                  "type": "text",
+                  "text": "for chickens (expensive)",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "frightening birds of prey by",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "keeping a",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 38
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "making a",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 39
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "e.g. with metal objects",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "A",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 40
+                },
+                {
+                  "type": "text",
+                  "text": "of methods is usually most effective.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 30,

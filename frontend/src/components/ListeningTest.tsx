@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState, type CSSProperties } from "react";
 import { useNavigate, useParams } from "react-router";
 import type { ListeningTest as ListeningTestType, TestSession, UserAnswer } from "../types";
-import { QuestionPanel } from "./QuestionPanel";
+import { ListeningQuestionPanel } from "./ListeningQuestionPanel";
 import { QuestionNavigator, type NavigatorPart } from "./QuestionNavigator";
 import { CbtStatusBar } from "./CbtStatusBar";
 import { FONT_SCALE_ZOOM, type FontScale } from "../lib/fontScale";
@@ -127,7 +127,8 @@ export function ListeningTest({
         group.type === "multiple-choice" &&
         group.questions.length > 1 &&
         !group.questions.some((question) => question.options) &&
-        /\b(choose|which)\s+(two|three|four|five|six|\d+)\b/i.test(`${group.instruction}\n${group.shared_text ?? ""}`);
+        (Boolean(group.selection_limit) ||
+          /\b(choose|which)\s+(two|three|four|five|six|\d+)\b/i.test(`${group.instruction}\n${group.shared_text ?? ""}`));
       if (!isSharedMultiAnswerMc) continue;
       const correctFreq = new Map<string, number>();
       group.questions.forEach((question) => {
@@ -214,9 +215,9 @@ export function ListeningTest({
           {partGroups.map(({ part, groups }) => (
             <section key={part.id} className="rounded-xl border border-gray-200 bg-white shadow-sm">
               <div className="border-b border-gray-100 px-4 py-3">
-                <h2 className="font-semibold text-gray-900">Part {part.number}{part.title ? ` — ${part.title}` : ""}</h2>
+                <h2 className="font-semibold text-gray-900">Part {part.number}</h2>
               </div>
-              <QuestionPanel
+              <ListeningQuestionPanel
                 groups={groups}
                 answers={answers}
                 onAnswer={(questionId, answer) => setAnswers((previous) => ({ ...previous, [questionId]: answer }))}

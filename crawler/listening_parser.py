@@ -6,7 +6,17 @@ from typing import Optional
 
 from bs4 import BeautifulSoup
 
-from models import ListeningPart, ListeningTest, QuestionGroup, SimpleQuestion
+from models import (
+    ListeningLayoutBlock,
+    ListeningListItem,
+    ListeningPart,
+    ListeningSegment,
+    ListeningTableCell,
+    ListeningTableRow,
+    ListeningTest,
+    QuestionGroup,
+    SimpleQuestion,
+)
 from parser import _extract_answers, _normalize_url
 
 
@@ -23,6 +33,9 @@ NUMBERED_BLANK_RE = re.compile(
     rf"^(\d+)\.?\s+(.*?)\s*{re.escape(BLANK_MARKER)}\s*$"
 )
 COMPLETION_RE = re.compile(rf"\((\d+)\)(?=[^\n{re.escape(BLANK_MARKER)}]{{0,80}}{re.escape(BLANK_MARKER)})")
+COMPLETION_WITH_BLANK_RE = re.compile(
+    rf"\((\d+)\)\s*([^\n{re.escape(BLANK_MARKER)}]{{0,80}}?)\s*{re.escape(BLANK_MARKER)}"
+)
 CHECKBOX_OPTION_RE = re.compile(
     rf"^{re.escape(CHECKBOX_MARKER)}\s*([A-Z])\b\s*(.*)$"
 )
@@ -35,10 +48,20 @@ KNOWN_OCR_REPLACEMENTS = (
 
 
 @dataclass
+class _SourceLine:
+    text: str
+    kind: str = "paragraph"
+    table_id: Optional[int] = None
+    cells: Optional[list[str]] = None
+    is_heading: bool = False
+    list_depth: Optional[int] = None
+
+
+@dataclass
 class _RawGroup:
     kind: str
     instruction: str
-    lines: list[str]
+    lines: list[_SourceLine]
     header_numbers: list[int]
 
 
@@ -64,9 +87,32 @@ def _extract_title(soup: BeautifulSoup, test_id: str) -> str:
     return f"IELTS Listening Test {number}"
 
 
-def _linearize_entry(entry) -> list[str]:
-    """Convert source paragraphs and form controls to marker-tagged lines."""
-    lines: list[str] = []
+def _replace_controls(node) -> None:
+    for tag in node.find_all("br"):
+        tag.replace_with("\n")
+    for control in node.find_all("input"):
+        control_type = (control.get("type") or "text").lower()
+        if control_type == "checkbox":
+            control.replace_with(CHECKBOX_MARKER)
+        elif control_type == "text":
+            control.replace_with(BLANK_MARKER)
+        else:
+            control.decompose()
+
+
+def _list_depth(text: str) -> Optional[int]:
+    stripped = text.lstrip()
+    if re.match(r"^[•●▪▫·]\s*", stripped):
+        return 0
+    if re.match(r"^(?:[oO]|[○◦])\s+", stripped):
+        return 1
+    return None
+
+
+def _extract_source_lines(entry) -> list[_SourceLine]:
+    """Convert source elements to marker-tagged lines without losing layout metadata."""
+    lines: list[_SourceLine] = []
+    table_id = 0
     for element in entry.find_all(["p", "table"]):
         if element.name == "p" and element.find_parent("table"):
             continue
@@ -79,17 +125,11 @@ def _linearize_entry(entry) -> list[str]:
         for ad in fragment.find_all(["ins", "script"]):
             ad.decompose()
 
-        def replace_controls(node) -> None:
-            for tag in node.find_all("br"):
-                tag.replace_with("\n")
-            for control in node.find_all("input"):
-                control_type = (control.get("type") or "text").lower()
-                if control_type == "checkbox":
-                    control.replace_with(CHECKBOX_MARKER)
-                elif control_type == "text":
-                    control.replace_with(BLANK_MARKER)
-                else:
-                    control.decompose()
+        strong_texts = {
+            _normalize_text(node.get_text(" ", strip=True))
+            for node in fragment.find_all(["strong", "b"])
+            if _normalize_text(node.get_text(" ", strip=True))
+        }
 
         def append_text(raw: str) -> None:
             for line in raw.splitlines():
@@ -100,18 +140,44 @@ def _linearize_entry(entry) -> list[str]:
                 # sentence without a <br>. Split that structural boundary while
                 # leaving ordinary instruction text containing "Questions" intact.
                 chunks = re.split(r"(?<=\.)\s+(?=Questions?\s+\d+\b)", normalized, flags=re.IGNORECASE)
-                lines.extend(chunk.strip() for chunk in chunks if chunk.strip())
+                for chunk in chunks:
+                    chunk = chunk.strip()
+                    if not chunk:
+                        continue
+                    unmarked = LEADING_LIST_MARKER_RE.sub("", chunk)
+                    lines.append(
+                        _SourceLine(
+                            text=chunk,
+                            is_heading=_normalize_text(unmarked) in strong_texts,
+                            list_depth=_list_depth(chunk),
+                        )
+                    )
 
         if element.name == "table":
-            replace_controls(fragment)
+            table_id += 1
+            _replace_controls(fragment)
             for row in fragment.find_all("tr"):
                 cells = row.find_all(["th", "td"], recursive=False)
                 values = [_normalize_text(cell.get_text(" ", strip=False)) for cell in cells]
-                append_text(" | ".join(values))
+                if values:
+                    lines.append(
+                        _SourceLine(
+                            text=" | ".join(values),
+                            kind="table",
+                            table_id=table_id,
+                            cells=values,
+                            is_heading=all(cell.name == "th" for cell in cells),
+                        )
+                    )
         else:
-            replace_controls(fragment)
+            _replace_controls(fragment)
             append_text(fragment.get_text("", strip=False))
     return lines
+
+
+def _linearize_entry(entry) -> list[str]:
+    """Backward-compatible text view used by parser regression tests."""
+    return [line.text for line in _extract_source_lines(entry)]
 
 
 def _question_header_numbers(line: str) -> list[int]:
@@ -148,13 +214,89 @@ def _clean_question_text(text: str) -> str:
     return text.strip(" -–—")
 
 
+def _clean_layout_text(text: str) -> str:
+    text = LEADING_LIST_MARKER_RE.sub("", text.strip())
+    # Test 202 contains the source typo "va (1)" where the phrase is "a break".
+    text = re.sub(r"^va(?=\s*\(\d+\))", "a", text, flags=re.IGNORECASE)
+    for pattern, replacement in KNOWN_OCR_REPLACEMENTS:
+        text = pattern.sub(replacement, text)
+    return re.sub(r"\s+", " ", text.replace("\xa0", " ")).strip()
+
+
+def _segments_from_source(text: str) -> list[ListeningSegment]:
+    cleaned = _clean_layout_text(text)
+    segments: list[ListeningSegment] = []
+    cursor = 0
+    for match in COMPLETION_WITH_BLANK_RE.finditer(cleaned):
+        prefix = _normalize_text(cleaned[cursor:match.start()])
+        between = _normalize_text(match.group(2))
+        if prefix:
+            segments.append(ListeningSegment(type="text", text=prefix))
+        if between:
+            segments.append(ListeningSegment(type="text", text=between))
+        segments.append(ListeningSegment(type="blank", question_id=int(match.group(1))))
+        cursor = match.end()
+    suffix = _normalize_text(cleaned[cursor:])
+    if suffix:
+        segments.append(ListeningSegment(type="text", text=suffix))
+    return segments
+
+
+def _build_layout(lines: list[_SourceLine]) -> list[ListeningLayoutBlock]:
+    blocks: list[ListeningLayoutBlock] = []
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        if line.kind == "table":
+            table_rows: list[ListeningTableRow] = []
+            table_id = line.table_id
+            while index < len(lines) and lines[index].kind == "table" and lines[index].table_id == table_id:
+                row = lines[index]
+                table_rows.append(
+                    ListeningTableRow(
+                        cells=[
+                            ListeningTableCell(segments=_segments_from_source(cell))
+                            for cell in (row.cells or [])
+                        ]
+                    )
+                )
+                index += 1
+            blocks.append(ListeningLayoutBlock(type="table", rows=table_rows))
+            continue
+
+        if line.list_depth is not None:
+            items: list[ListeningListItem] = []
+            while index < len(lines) and lines[index].kind == "paragraph" and lines[index].list_depth is not None:
+                list_line = lines[index]
+                item = ListeningListItem(segments=_segments_from_source(list_line.text))
+                if list_line.list_depth and items:
+                    items[-1].children.append(item)
+                else:
+                    items.append(item)
+                index += 1
+            blocks.append(ListeningLayoutBlock(type="list", items=items))
+            continue
+
+        segments = _segments_from_source(line.text)
+        if segments:
+            blocks.append(
+                ListeningLayoutBlock(
+                    type="heading" if line.is_heading else "paragraph",
+                    segments=segments,
+                )
+            )
+        index += 1
+    return blocks
+
+
 def _split_multi_answer(answer: str) -> list[str]:
     values = re.split(r"\s*(?:,|/|\band\b)\s*", answer.strip(), flags=re.IGNORECASE)
     return [value.strip().upper() for value in values if value.strip()]
 
 
-def _part_title(lines: list[str]) -> Optional[str]:
-    for line in lines:
+def _part_title(lines: list[_SourceLine]) -> Optional[str]:
+    for source_line in lines:
+        line = source_line.text
         if PART_RE.match(line) or _instruction_kind(line):
             continue
         if QUESTION_HEADER_RE.match(line):
@@ -178,7 +320,8 @@ def _part_title(lines: list[str]) -> Optional[str]:
 def _build_note_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> QuestionGroup:
     questions: list[SimpleQuestion] = []
     context: list[str] = []
-    for line in raw.lines:
+    for source_line in raw.lines:
+        line = source_line.text
         matches = list(COMPLETION_RE.finditer(line))
         if not matches:
             context.append(line)
@@ -195,6 +338,7 @@ def _build_note_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> 
         instruction=raw.instruction,
         questions=questions,
         shared_text=_normalize_text(" ".join(context)) or None,
+        layout=_build_layout(raw.lines),
     )
 
 
@@ -205,7 +349,8 @@ def _build_mc_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> Qu
     current_number: Optional[int] = None
     context: list[str] = []
 
-    for line in raw.lines:
+    for source_line in raw.lines:
+        line = source_line.text
         option = CHECKBOX_OPTION_RE.match(line)
         if option:
             if current_number is not None:
@@ -254,6 +399,14 @@ def _build_mc_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> Qu
             shared_options = candidate
             questions = [question.model_copy(update={"options": None}) for question in questions]
 
+    selection_limit = None
+    if (
+        len(questions) > 1
+        and shared_options
+        and re.search(r"\b(?:choose|which)\s+(?:two|2)\b", f"{raw.instruction} {' '.join(context)}", re.IGNORECASE)
+    ):
+        selection_limit = len(questions)
+
     return QuestionGroup(
         id=f"g-{part_id.replace('-', '')}-q{questions[0].id if questions else 'unknown'}",
         type="multiple-choice",
@@ -262,13 +415,15 @@ def _build_mc_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> Qu
         questions=questions,
         shared_text=_normalize_text(" ".join(context)) or None,
         options=shared_options,
+        selection_limit=selection_limit,
     )
 
 
 def _build_matching_group(raw: _RawGroup, answers: dict[int, str], part_id: str) -> QuestionGroup:
     options: dict[str, str] = {}
     questions: list[SimpleQuestion] = []
-    for line in raw.lines:
+    for source_line in raw.lines:
+        line = source_line.text
         option = BOX_OPTION_RE.match(line)
         if option:
             options[option.group(1)] = _normalize_text(option.group(2))
@@ -313,7 +468,7 @@ def _build_matching_group(raw: _RawGroup, answers: dict[int, str], part_id: str)
     )
 
 
-def _parse_part(number: int, lines: list[str], answers: dict[int, str]) -> tuple[ListeningPart, list[QuestionGroup]]:
+def _parse_part(number: int, lines: list[_SourceLine], answers: dict[int, str]) -> tuple[ListeningPart, list[QuestionGroup]]:
     part_id = f"part-{number}"
     title = _part_title(lines)
     raw_groups: list[_RawGroup] = []
@@ -326,7 +481,8 @@ def _parse_part(number: int, lines: list[str], answers: dict[int, str]) -> tuple
             raw_groups.append(current)
             current = None
 
-    for line in lines:
+    for source_line in lines:
+        line = source_line.text
         if PART_RE.match(line):
             pending_numbers = _question_header_numbers(line)
             continue
@@ -342,7 +498,7 @@ def _parse_part(number: int, lines: list[str], answers: dict[int, str]) -> tuple
             pending_numbers = []
             continue
         if current is not None:
-            current.lines.append(line)
+            current.lines.append(source_line)
 
     flush()
     groups: list[QuestionGroup] = []
@@ -358,19 +514,20 @@ def _parse_part(number: int, lines: list[str], answers: dict[int, str]) -> tuple
     return ListeningPart(id=part_id, number=number, title=title), groups
 
 
-def _segment_parts(lines: list[str]) -> list[tuple[int, list[str]]]:
-    parts: list[tuple[int, list[str]]] = []
+def _segment_parts(lines: list[_SourceLine]) -> list[tuple[int, list[_SourceLine]]]:
+    parts: list[tuple[int, list[_SourceLine]]] = []
     current_number: Optional[int] = None
-    current_lines: list[str] = []
-    for line in lines:
+    current_lines: list[_SourceLine] = []
+    for source_line in lines:
+        line = source_line.text
         match = PART_RE.match(line)
         if match:
             if current_number is not None:
                 parts.append((current_number, current_lines))
             current_number = int(match.group(1))
-            current_lines = [line]
+            current_lines = [source_line]
         elif current_number is not None:
-            current_lines.append(line)
+            current_lines.append(source_line)
     if current_number is not None:
         parts.append((current_number, current_lines))
     return parts
@@ -392,7 +549,7 @@ def parse_listening_test(html: str, url: str) -> ListeningTest:
         raise ValueError("Unable to find listening audio src")
 
     answers = _extract_answers(soup)
-    lines = _linearize_entry(entry)
+    lines = _extract_source_lines(entry)
     parsed_parts = [_parse_part(number, part_lines, answers) for number, part_lines in _segment_parts(lines)]
     test_id = _extract_test_id(url)
     return ListeningTest(

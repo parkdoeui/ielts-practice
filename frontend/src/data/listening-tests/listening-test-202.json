@@ -95,7 +95,317 @@
       "shared_text": "Local councils can arrange practical support to help those caring for elderly people at home. This can give the carer: • time for other responsibilities Assessment of mother’s needs This may include discussion of: • what types of tasks are involved, e.g. o help with dressing o shopping o helping with meals • any aspects of caring that are especially difficult, e.g. Types of support that may be offered to carers • help with housework",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Local councils can arrange practical support to help those caring for elderly people at home.",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "This can give the carer:",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "time for other responsibilities",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 1
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Assessment of mother’s needs",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "This may include discussion of:",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "how much",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 2
+                },
+                {
+                  "type": "text",
+                  "text": "the caring involves",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "what types of tasks are involved, e.g.",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "help with dressing",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "helping her have a",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 3
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "shopping",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "helping with meals",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "dealing with",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 4
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "any aspects of caring that are especially difficult, e.g.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "loss of",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 5
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 6
+                },
+                {
+                  "type": "text",
+                  "text": "her",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "preventing a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 7
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Types of support that may be offered to carers",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "transport costs, e.g. cost of a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 8
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "car-related costs, e.g. fuel and",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 9
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "help with housework",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "help to reduce",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 10
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part2-q11",
@@ -153,7 +463,9 @@
         "G": "introducing guest speakers at an event",
         "H": "encouraging cooperation between local organisations",
         "I": "helping people find their seats"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part2-q17",
@@ -205,7 +517,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q21",
@@ -255,7 +569,9 @@
         "E": "The facts about this may not be reliable.",
         "F": "No useful research has been done on this.",
         "G": "The information provided about this was interesting."
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q26",
@@ -317,7 +633,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part4-q31",
@@ -389,7 +707,331 @@
       "shared_text": "Developing food trends • The UK food industry is constantly developing products which are new or different. • Influencers on social media become ‘ambassadors’ for a brand. • Supermarkets track demand for ingredients on social media. Marketing campaigns • The avocado: • Oat milk: o A Swedish brand’s media campaign received publicity by upsetting competitors. • Norwegian skrei: Ethical concerns • Quinoa:",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Developing food trends",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The growth in interest in food fashions started with",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 31
+                },
+                {
+                  "type": "text",
+                  "text": "of food being shared on social media.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The UK food industry is constantly developing products which are new or different.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Influencers on social media become ‘ambassadors’ for a brand.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Sales of",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 32
+                },
+                {
+                  "type": "text",
+                  "text": "food brands have grown this way.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Supermarkets track demand for ingredients on social media.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Famous",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 33
+                },
+                {
+                  "type": "text",
+                  "text": "are influential.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Marketing campaigns",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The avocado:",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 34
+                    },
+                    {
+                      "type": "text",
+                      "text": "were invited to visit growers in South Africa.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Advertising focused on its",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 35
+                    },
+                    {
+                      "type": "text",
+                      "text": "benefits.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Oat milk:",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "A Swedish brand’s media campaign received publicity by upsetting competitors.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Promotion in the USA through",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 36
+                    },
+                    {
+                      "type": "text",
+                      "text": "shops reduced the need for advertising.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "It appealed to consumers who are concerned about the",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 37
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Norwegian skrei:",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "has helped strengthen the",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 38
+                    },
+                    {
+                      "type": "text",
+                      "text": "of Norwegian seafood.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Ethical concerns",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Quinoa:",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Its success led to an increase in its",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 39
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Overuse of resources resulted in poor quality",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 40
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 30,

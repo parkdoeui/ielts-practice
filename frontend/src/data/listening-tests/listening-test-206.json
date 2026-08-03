@@ -95,7 +95,364 @@
       "shared_text": "One day classes at Steynford College Course | Date | Cost | Notes",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "One day classes at Steynford College",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "table",
+          "segments": [],
+          "items": [],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Course",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Date",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Cost",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Notes",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Vietnamese food",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 1
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "£59",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "It provides information on the use of herbs. There are no places at present.",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Bread making",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "20 March",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 2
+                    },
+                    {
+                      "type": "text",
+                      "text": "£",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "There is also an extra charge for ingredients. Participants make white bread, sourdough and",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 3
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Face massage",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "23 February",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "£35",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "The teacher trained in",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 4
+                    },
+                    {
+                      "type": "text",
+                      "text": "Bring a",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Candle making",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 6
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "£52",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Only",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 7
+                    },
+                    {
+                      "type": "text",
+                      "text": "ingredients are used. The candles can be used as presents.",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Silk painting",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "18 May",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 8
+                    },
+                    {
+                      "type": "text",
+                      "text": "£",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Bring an apron or old",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 9
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "DIY for beginners",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "24 February",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "£125",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Learn how to · use a drill, saw and",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 10
+                    },
+                    {
+                      "type": "text",
+                      "text": "· put up a shelf.",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part2-q11",
@@ -125,7 +482,9 @@
         "C": "Catch a boat to the start of this walk.",
         "D": "Be careful of the steep and rocky paths.",
         "E": "Don’t worry about getting lost."
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q13",
@@ -155,7 +514,9 @@
         "C": "This is a circular walk.",
         "D": "A tower stands on the site of an older structure.",
         "E": "There are far-reaching views the whole way."
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q15",
@@ -213,7 +574,9 @@
         "G": "G",
         "H": "H",
         "I": "I"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q21",
@@ -243,7 +606,9 @@
         "C": "the amount of food that is wasted",
         "D": "the number of people who are obese",
         "E": "the result of treating animals with antibiotics"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q23",
@@ -273,7 +638,9 @@
         "C": "the use of multiple tests on food items",
         "D": "the variety of dietary requirements included",
         "E": "the way information was made widely accessible"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q25",
@@ -303,7 +670,9 @@
         "C": "global differences in consumption",
         "D": "sustainable agriculture",
         "E": "digital technology and food"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q27",
@@ -346,7 +715,9 @@
         "D": "This was helped by the guidelines provided.",
         "E": "This seemed like an unnecessary stage.",
         "F": "This involved selecting a new ingredient."
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part4-q31",
@@ -418,7 +789,291 @@
       "shared_text": "Challenges facing the cruise ship industry Problems with overtourism Problems of perception • Cruises are generally associated with the elderly. Solutions Cruise lines are attracting younger customers by: • becoming more sustainable e.g. using hybrid engines.",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Challenges facing the cruise ship industry",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Problems with overtourism",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 31
+                },
+                {
+                  "type": "text",
+                  "text": "is one of the worst problems.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "A tourist",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 32
+                },
+                {
+                  "type": "text",
+                  "text": "is being introduced in some cities to reduce numbers, e.g. Barcelona.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Bruges: action was taken to limit day trips from the nearby port because the city was becoming a ‘theme park’ (e.g. many shops were only stocking",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 33
+                },
+                {
+                  "type": "text",
+                  "text": "and souvenirs).",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Dubrovnik: limits the number of tourists by managing the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 34
+                },
+                {
+                  "type": "text",
+                  "text": "of cruise ship arrivals.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Problems of perception",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Cruises are generally associated with the elderly.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "There is an assumption about the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 35
+                },
+                {
+                  "type": "text",
+                  "text": "of cruises.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "People think there may be too many",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 36
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Solutions",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Cruise lines are attracting younger customers by:",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "becoming more sustainable e.g. using hybrid engines.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "having a wide range of activities e.g. boxing,",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 37
+                },
+                {
+                  "type": "text",
+                  "text": "and well-being programmes.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "offering a diverse selection of food including",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 38
+                },
+                {
+                  "type": "text",
+                  "text": "options.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "providing reliable",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 39
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "improving marketing on social media with high quality",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 40
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 30,

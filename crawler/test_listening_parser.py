@@ -3,8 +3,16 @@ from pathlib import Path
 import pytest
 from bs4 import BeautifulSoup
 
-from listening_parser import BLANK_MARKER, _clean_question_text, _linearize_entry, parse_listening_test
-from listening_validator import validate_listening_test
+from listening_parser import (
+    BLANK_MARKER,
+    _build_layout,
+    _clean_question_text,
+    _extract_source_lines,
+    _linearize_entry,
+    parse_listening_test,
+)
+from listening_validator import collect_layout_question_ids, validate_listening_test
+from models import ListeningSegment
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "listening-test-208.html"
@@ -49,6 +57,13 @@ def test_parse_listening_fixture_208() -> None:
     multi_groups = [group for group in test.question_groups if group.passage_id == "part-2" and group.type == "multiple-choice"]
     assert multi_groups[0].options and set(multi_groups[0].options) == {"A", "B", "C", "D", "E"}
     assert multi_groups[1].options and set(multi_groups[1].options) == {"A", "B", "C", "D", "E"}
+    assert multi_groups[0].selection_limit == 2
+    assert multi_groups[1].selection_limit == 2
+
+    completion_groups = [group for group in test.question_groups if group.type == "note-completion"]
+    for group in completion_groups:
+        assert group.layout
+        assert collect_layout_question_ids(group.layout) == [question.id for question in group.questions]
 
 
 def test_missing_root_or_audio_raises() -> None:
@@ -104,6 +119,58 @@ def test_table_linearization_preserves_nested_text_spacing() -> None:
     ]
 
 
+def test_note_layout_preserves_order_nested_bullets_and_inline_blanks() -> None:
+    soup = BeautifulSoup(
+        """
+        <div class="entry-content">
+          <p>Local councils can arrange practical support at home.</p>
+          <p>This can give the carer:<br/>
+          • time for other responsibilities<br/>
+          • va (1) <input type="text"/></p>
+          <p><strong>Assessment of mother’s needs</strong></p>
+          <p>This may include discussion of:<br/>
+          • how much (2) <input type="text"/> the caring involves<br/>
+          • what types of tasks are involved, e.g.<br/>
+          o help with dressing<br/>
+          o helping her have a (3) <input type="text"/></p>
+        </div>
+        """,
+        "html.parser",
+    )
+
+    layout = _build_layout(_extract_source_lines(soup.select_one("div.entry-content")))
+
+    assert [block.type for block in layout] == ["paragraph", "paragraph", "list", "heading", "paragraph", "list"]
+    assert collect_layout_question_ids(layout) == [1, 2, 3]
+    first_list = layout[2]
+    assert first_list.items[1].segments[0].text == "a"
+    second_list = layout[5]
+    assert len(second_list.items) == 2
+    assert [child.segments[0].text for child in second_list.items[1].children] == [
+        "help with dressing",
+        "helping her have a",
+    ]
+
+
+def test_table_layout_preserves_rows_cells_and_multiple_blanks() -> None:
+    soup = BeautifulSoup(
+        """
+        <div class="entry-content"><table>
+          <tr><th>Course</th><th>Details</th></tr>
+          <tr><td>Level 1</td><td>understanding (2)<input type="text"/> and tides; (3)<input type="text"/> information</td></tr>
+        </table></div>
+        """,
+        "html.parser",
+    )
+
+    layout = _build_layout(_extract_source_lines(soup.select_one("div.entry-content")))
+
+    assert len(layout) == 1
+    assert layout[0].type == "table"
+    assert [len(row.cells) for row in layout[0].rows] == [2, 2]
+    assert collect_layout_question_ids(layout) == [2, 3]
+
+
 def test_validator_rejects_residual_list_prefix() -> None:
     test = _fixture_test()
     groups = [group.model_copy(deep=True) for group in test.question_groups]
@@ -113,3 +180,16 @@ def test_validator_rejects_residual_list_prefix() -> None:
 
     assert not result.valid
     assert any("residual list/OCR prefix" in error for error in result.errors)
+
+
+def test_validator_rejects_duplicate_layout_question_reference() -> None:
+    test = _fixture_test()
+    groups = [group.model_copy(deep=True) for group in test.question_groups]
+    completion = next(group for group in groups if group.type == "note-completion")
+    assert completion.layout
+    completion.layout[0].segments.append(ListeningSegment(type="blank", question_id=completion.questions[0].id))
+
+    result = validate_listening_test(test.model_copy(update={"question_groups": groups}))
+
+    assert not result.valid
+    assert any("layout duplicates question ids" in error for error in result.errors)

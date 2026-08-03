@@ -95,7 +95,264 @@
       "shared_text": "Ferry to Shetland Islands Advice • Cabins: o luxury cabins have a TV",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Ferry to Shetland Islands",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Name of ferry company:",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 1
+                },
+                {
+                  "type": "text",
+                  "text": "Ferries",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Ferries depart seven times per",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 2
+                },
+                {
+                  "type": "text",
+                  "text": "in summer",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Cost for four people with car: a little less than",
+                  "question_id": null
+                },
+                {
+                  "type": "text",
+                  "text": "£",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 3
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Cancellation policy: receive a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 4
+                },
+                {
+                  "type": "text",
+                  "text": "(if cancelled a month in advance)",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Advice",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Cabins:",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "book one with a",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 5
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "luxury cabins have a TV",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Bring snacks and",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 6
+                },
+                {
+                  "type": "text",
+                  "text": "for the children",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "A",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 7
+                },
+                {
+                  "type": "text",
+                  "text": "is required for the dog kennels",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Try to see",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 8
+                },
+                {
+                  "type": "text",
+                  "text": "in the morning",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "If time, visit",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 9
+                },
+                {
+                  "type": "text",
+                  "text": "Castle",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 10
+                },
+                {
+                  "type": "text",
+                  "text": "restaurant in a nearby village is recommended",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part2-q11",
@@ -125,7 +382,9 @@
         "C": "freshly made",
         "D": "convenience",
         "E": "unusual food"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q13",
@@ -155,7 +414,9 @@
         "C": "weddings",
         "D": "parties",
         "E": "parks"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q15",
@@ -187,7 +448,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part2-q17",
@@ -230,7 +493,9 @@
         "D": "It was difficult to get a permit to sell food.",
         "E": "A competitor was selling similar food in their area.",
         "F": "They worked very long hours."
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q21",
@@ -260,7 +525,9 @@
         "C": "The term ‘eco-friendly’ is preferable.",
         "D": "They are often used imprecisely.",
         "E": "Companies should avoid using them on clothing labels."
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q23",
@@ -290,7 +557,9 @@
         "C": "Wool is a long-lasting fabric.",
         "D": "Wool production involves few chemicals.",
         "E": "Sheep do less environmental damage than other livestock."
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part3-q25",
@@ -347,7 +616,9 @@
         "F": "It needs to be produced in a certain way to be sustainable.",
         "G": "Chemicals required for production can be reused.",
         "H": "This is from a wholly sustainable source."
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part4-q31",
@@ -419,7 +690,356 @@
       "shared_text": "Invasive species Definition: an animal or plant that causes harm to an environment after being introduced by humans An invasive species can be a problem when it: • eats native species • takes food from native species How invasive species spread Examples of invasive species • Rhinella marina (toads) o failed to solve the problem and became widespread in the north of Australia. o are poisonous for any species that eats them and reduce the food available for native frogs. • Japanese knotweed plants were popular among 19th-century gardeners in the UK. Tackling invasive species",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Invasive species",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Definition: an animal or plant that causes harm to an environment after being introduced by humans",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "An invasive species can be a problem when it:",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "eats native species",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "introduces a new",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 31
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "takes food from native species",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "threatens an entire",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 32
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "How invasive species spread",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "accidentally e.g. via people returning from their",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 33
+                },
+                {
+                  "type": "text",
+                  "text": "or on cargo ships",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "intentionally e.g. for pest control, or as",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 34
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Examples of invasive species",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Rhinella marina (toads)",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "were introduced to Australia from Hawaii in 1935 to eat a type of insect that was damaging the",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 35
+                    },
+                    {
+                      "type": "text",
+                      "text": "plantations.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "failed to solve the problem and became widespread in the north of Australia.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "are poisonous for any species that eats them and reduce the food available for native frogs.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Japanese knotweed plants were popular among 19th-century gardeners in the UK.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Rhododendron plants prevent",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 36
+                },
+                {
+                  "type": "text",
+                  "text": "from reaching native plants.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Grey squirrels from N. America reduce sources of food for the UK’s native red squirrels and spread a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 37
+                },
+                {
+                  "type": "text",
+                  "text": "that kills red squirrels.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Tackling invasive species",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Monitoring helps us to understand the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 38
+                },
+                {
+                  "type": "text",
+                  "text": "of invasive species and the impact they have.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Setting up a national",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 39
+                },
+                {
+                  "type": "text",
+                  "text": "makes it easier to track them.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Asking the public to",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 40
+                },
+                {
+                  "type": "text",
+                  "text": "and report them helps with monitoring.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 30,

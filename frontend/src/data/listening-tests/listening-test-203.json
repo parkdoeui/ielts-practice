@@ -95,7 +95,265 @@
       "shared_text": "Furniture Rental Companies Name of company | Information about costs | Additional notes",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "table",
+          "segments": [],
+          "items": [],
+          "rows": [
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Furniture Rental Companies",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Name of company",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Information about costs",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Additional notes",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Peak Rentals",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Price ranges from $105 to $",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 1
+                    },
+                    {
+                      "type": "text",
+                      "text": "per room per month",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "The furniture is very",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 2
+                    },
+                    {
+                      "type": "text",
+                      "text": "Delivers in 1-2 days Special offer: Free",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 3
+                    },
+                    {
+                      "type": "text",
+                      "text": "with every living room set",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 4
+                    },
+                    {
+                      "type": "text",
+                      "text": "And Oliver",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Mid-range prices 12% monthly fee for",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 5
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Also offers a cleaning service",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Larch Furniture",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Offers cheapest process for renting furniture and",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 6
+                    },
+                    {
+                      "type": "text",
+                      "text": "items",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Must have own",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 7
+                    },
+                    {
+                      "type": "text",
+                      "text": "Minimum contract length: Six months",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "cells": [
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 8
+                    },
+                    {
+                      "type": "text",
+                      "text": "Rentals",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "See the",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 9
+                    },
+                    {
+                      "type": "text",
+                      "text": "for the most up-to-date prices",
+                      "question_id": null
+                    }
+                  ]
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 10
+                    },
+                    {
+                      "type": "text",
+                      "text": "are allowed within 7 days of delivery",
+                      "question_id": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part2-q11",
@@ -167,7 +425,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part2-q17",
@@ -211,7 +471,9 @@
         "E": "E",
         "F": "F",
         "G": "G"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q21",
@@ -283,7 +545,9 @@
       "shared_text": null,
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q27",
@@ -326,7 +590,9 @@
         "D": "It is included in a recent project.",
         "E": "It contains insights into the show.",
         "F": "It resembles an artwork."
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part4-q31",
@@ -398,7 +664,308 @@
       "shared_text": "Inclusive design Definition Examples of inclusive design • To assist the elderly: Impact of non-inclusive designs • Access o Loss of independence for disabled people. • Safety • Comfort in the workplace",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Inclusive design",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Definition",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Designing products that can be accessed by a diverse range of people without the need for any",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 31
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Not the same as universal design: that is design for everyone, including catering for people with",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 32
+                },
+                {
+                  "type": "text",
+                  "text": "problems.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Examples of inclusive design",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 33
+                },
+                {
+                  "type": "text",
+                  "text": "which are adjustable, avoiding back or neck problems",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 34
+                },
+                {
+                  "type": "text",
+                  "text": "in public toilets which are easier to use",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "To assist the elderly:",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "designers avoid using",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 35
+                    },
+                    {
+                      "type": "text",
+                      "text": "in interfaces",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "people can make commands using a mouse, keyboard or their",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 36
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Impact of non-inclusive designs",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Access",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Loss of independence for disabled people.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Safety",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "Seatbelts are especially problematic for",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 37
+                    },
+                    {
+                      "type": "text",
+                      "text": "women.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "PPE Jackets are often unsuitable because of the size of women’s",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 38
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "PPE for female",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 39
+                    },
+                    {
+                      "type": "text",
+                      "text": "officers dealing with emergencies is the worst.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Comfort in the workplace",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "The",
+                      "question_id": null
+                    },
+                    {
+                      "type": "blank",
+                      "text": null,
+                      "question_id": 40
+                    },
+                    {
+                      "type": "text",
+                      "text": "in offices is often too low for women.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 30,

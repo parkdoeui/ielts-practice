@@ -95,7 +95,260 @@
       "shared_text": "Survey about shopping in Broadbeach Purpose of today’s trip: Opinions about shopping in the town centre • Finds the service in shops is excellent Opinions about new out-of-town Shopping Centre",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Survey about shopping in Broadbeach",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Name: Martyn",
+              "question_id": null
+            },
+            {
+              "type": "blank",
+              "text": null,
+              "question_id": 1
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Today’s journey to Broadbeach town centre: used his",
+              "question_id": null
+            },
+            {
+              "type": "blank",
+              "text": null,
+              "question_id": 2
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Purpose of today’s trip:",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Has visited the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 3
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Looking for a new",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 4
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Collecting",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 5
+                },
+                {
+                  "type": "text",
+                  "text": "(after repair)",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Preferred day for shopping:",
+              "question_id": null
+            },
+            {
+              "type": "blank",
+              "text": null,
+              "question_id": 6
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Opinions about shopping in the town centre",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Finds the service in shops is excellent",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Thinks there are too many places selling",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 7
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Would like more places to buy",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 8
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Opinions about new out-of-town Shopping Centre",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Likes the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 9
+                },
+                {
+                  "type": "text",
+                  "text": "best",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Believes the",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 10
+                },
+                {
+                  "type": "text",
+                  "text": "is unnecessary",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     },
     {
       "id": "g-part2-q11",
@@ -125,7 +378,9 @@
         "C": "the Breakout area",
         "D": "the Business Village",
         "E": "the Business Connections Zone"
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q13",
@@ -155,7 +410,9 @@
         "C": "They only apply if people spend at least £400.",
         "D": "They can be used by family members.",
         "E": "The percentage saved is always the same."
-      }
+      },
+      "layout": null,
+      "selection_limit": 2
     },
     {
       "id": "g-part2-q15",
@@ -211,7 +468,9 @@
         "E": "Coping with financial set-backs",
         "F": "Developing a company in response to changing markets",
         "G": "Combining business success with contributions to charities"
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q21",
@@ -253,7 +512,9 @@
       "shared_text": "Presentation on houses of the future",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part3-q24",
@@ -317,7 +578,9 @@
         "G": "This could enable retired people to share a project.",
         "H": "This would help some people but cause problems for others.",
         "I": "This would suit both existing and new members of a household."
-      }
+      },
+      "layout": null,
+      "selection_limit": null
     },
     {
       "id": "g-part4-q31",
@@ -389,7 +652,266 @@
       "shared_text": "Music therapy for surgical patients Background • Current post-surgical strategies focus mainly on pain relief. Recent research o improved hospital patients’ sense of wellbeing. o reduced the length of their stay.",
       "word_list": null,
       "image_url": null,
-      "options": null
+      "options": null,
+      "layout": [
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Music therapy for surgical patients",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Background",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Surgery impacts patients because they may experience discomfort or unwelcome changes to their",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 31
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Current post-surgical strategies focus mainly on pain relief.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        },
+        {
+          "type": "heading",
+          "segments": [
+            {
+              "type": "text",
+              "text": "Recent research",
+              "question_id": null
+            }
+          ],
+          "items": [],
+          "rows": []
+        },
+        {
+          "type": "list",
+          "segments": [],
+          "items": [
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "A study reviewed data from about 100",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 32
+                },
+                {
+                  "type": "text",
+                  "text": "and found that listening to music",
+                  "question_id": null
+                }
+              ],
+              "children": [
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "improved hospital patients’ sense of wellbeing.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "segments": [
+                    {
+                      "type": "text",
+                      "text": "reduced the length of their stay.",
+                      "question_id": null
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The patients in the study all listened to music with a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 33
+                },
+                {
+                  "type": "text",
+                  "text": "effect.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The music was mostly played through music",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 34
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Patients reported an absence or low levels of",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 35
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "Medical records confirmed that patients who were played music in hospital needed less",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 36
+                },
+                {
+                  "type": "text",
+                  "text": "than those who weren’t played music.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The best results were achieved when patients were played music while they were",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 37
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The study concluded that playing music was effective because it served as a",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 38
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "The researchers recommend playing either music or sounds from",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 39
+                },
+                {
+                  "type": "text",
+                  "text": "to all surgical patients.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            },
+            {
+              "segments": [
+                {
+                  "type": "text",
+                  "text": "A future study will investigate the best",
+                  "question_id": null
+                },
+                {
+                  "type": "blank",
+                  "text": null,
+                  "question_id": 40
+                },
+                {
+                  "type": "text",
+                  "text": "for the music.",
+                  "question_id": null
+                }
+              ],
+              "children": []
+            }
+          ],
+          "rows": []
+        }
+      ],
+      "selection_limit": null
     }
   ],
   "time_limit_minutes": 30,

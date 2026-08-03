@@ -28,6 +28,38 @@ export interface SimpleQuestion {
   options?: Record<string, string>;  // per-question MC choices when not shared by the group
 }
 
+export interface ListeningTextSegment {
+  type: "text";
+  text: string;
+}
+
+export interface ListeningBlankSegment {
+  type: "blank";
+  question_id: number;
+}
+
+export type ListeningSegment = ListeningTextSegment | ListeningBlankSegment;
+
+export interface ListeningListItem {
+  segments: ListeningSegment[];
+  children: ListeningListItem[];
+}
+
+export interface ListeningTableCell {
+  segments: ListeningSegment[];
+}
+
+export interface ListeningTableRow {
+  cells: ListeningTableCell[];
+}
+
+export interface ListeningLayoutBlock {
+  type: "heading" | "paragraph" | "list" | "table";
+  segments: ListeningSegment[];
+  items: ListeningListItem[];
+  rows: ListeningTableRow[];
+}
+
 export interface QuestionGroup {
   id: string;
   type: QuestionType;
@@ -38,6 +70,8 @@ export interface QuestionGroup {
   word_list?: string[];       // word bank for summary completion
   image_url?: string;         // diagram image URL
   options?: Record<string, string>;  // shared options (MC choices, paragraph letters, headings)
+  layout?: ListeningLayoutBlock[];   // Listening-only ordered source presentation
+  selection_limit?: number;          // Shared option count, e.g. Choose TWO
 }
 
 export interface ReadingTest {

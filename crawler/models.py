@@ -1,5 +1,5 @@
 from __future__ import annotations
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Literal, Optional
 
 
@@ -17,6 +17,32 @@ class SimpleQuestion(BaseModel):
     options: Optional[dict[str, str]] = None  # per-question MC choices when not shared by the group
 
 
+class ListeningSegment(BaseModel):
+    type: Literal["text", "blank"]
+    text: Optional[str] = None
+    question_id: Optional[int] = None
+
+
+class ListeningListItem(BaseModel):
+    segments: list[ListeningSegment] = Field(default_factory=list)
+    children: list["ListeningListItem"] = Field(default_factory=list)
+
+
+class ListeningTableCell(BaseModel):
+    segments: list[ListeningSegment] = Field(default_factory=list)
+
+
+class ListeningTableRow(BaseModel):
+    cells: list[ListeningTableCell] = Field(default_factory=list)
+
+
+class ListeningLayoutBlock(BaseModel):
+    type: Literal["heading", "paragraph", "list", "table"]
+    segments: list[ListeningSegment] = Field(default_factory=list)
+    items: list[ListeningListItem] = Field(default_factory=list)
+    rows: list[ListeningTableRow] = Field(default_factory=list)
+
+
 class QuestionGroup(BaseModel):
     id: str
     type: str  # "true-false-ng", "multiple-choice", "matching-information", "matching-headings",
@@ -29,6 +55,9 @@ class QuestionGroup(BaseModel):
     word_list: Optional[list[str]] = None   # word bank (e.g., A-I) for summary completion
     image_url: Optional[str] = None         # diagram image for the group
     options: Optional[dict[str, str]] = None  # shared options (MC choices, paragraph letters, headings)
+    # Listening-only presentation structure. Questions remain the grading source of truth.
+    layout: Optional[list[ListeningLayoutBlock]] = None
+    selection_limit: Optional[int] = None
 
 
 class ListeningPart(BaseModel):
