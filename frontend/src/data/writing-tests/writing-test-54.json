@@ -1,0 +1,123 @@
+{
+  "id": "writing-test-54",
+  "title": "IELTS Writing Test 54",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The table below gives information about Favorite Pastimes in different countries.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+        "from 30-50 years old"
+      ],
+      "min_words": 150,
+      "image_url": null,
+      "table": [
+        [
+          "",
+          "TV",
+          "Sport",
+          "Reading",
+          "Hobbies",
+          "Music",
+          "Beach",
+          "Sleep"
+        ],
+        [
+          "Canada",
+          "60",
+          "22",
+          "15",
+          "40",
+          "3",
+          "0",
+          "2"
+        ],
+        [
+          "France",
+          "/",
+          "/",
+          "30",
+          "20",
+          "4",
+          "/",
+          "/"
+        ],
+        [
+          "England",
+          "/",
+          "/",
+          "30",
+          "21",
+          "4",
+          "/",
+          "20"
+        ],
+        [
+          "Australia",
+          "65",
+          "30",
+          "15",
+          "45",
+          "5",
+          "30",
+          "4"
+        ],
+        [
+          "Korea",
+          "22",
+          "21",
+          "60",
+          "45",
+          "2",
+          "2",
+          "4"
+        ],
+        [
+          "China",
+          "15",
+          "25",
+          "60",
+          "50",
+          "0",
+          "5",
+          "5"
+        ],
+        [
+          "USA",
+          "60",
+          "23",
+          "15",
+          "42",
+          "23",
+          "30",
+          "2"
+        ],
+        [
+          "Japan",
+          "/",
+          "/",
+          "62",
+          "/",
+          "/",
+          "/",
+          "/"
+        ]
+      ]
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people think that dangerous sports should be ban? Do you agree or disagree?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-54/"
+}

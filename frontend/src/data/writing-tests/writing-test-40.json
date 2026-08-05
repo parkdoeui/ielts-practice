@@ -1,0 +1,32 @@
+{
+  "id": "writing-test-40",
+  "title": "IELTS Writing Test 40",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The graph below shows female unemployment rates in each country of the United Kingdom in 2013 and 2014.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-40_11zon.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people find it beneficial to send young children to nursery school before they go to primary school, while others think it is good to keep children at home with their family. Discuss both views and give your opinion.",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-40/"
+}

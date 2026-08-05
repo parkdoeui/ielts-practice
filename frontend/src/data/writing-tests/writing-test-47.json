@@ -1,0 +1,31 @@
+{
+  "id": "writing-test-47",
+  "title": "IELTS Writing Test 47",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The graph below shows radio and television audiences throughout the day in 1992. Write a report for a university lecturer describing the information shown below.",
+      "instructions": [
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-47-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Museums and art galleries should concentrate on local works of art, not showing the cultures or artworks from other countries. To what extent do you agree?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-47/"
+}

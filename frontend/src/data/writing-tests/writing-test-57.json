@@ -1,0 +1,31 @@
+{
+  "id": "writing-test-57",
+  "title": "IELTS Writing Test 57",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The graph below gives information about the preferred leisure activities of Australian children. Write a report for a university lecturer describing the information shown.",
+      "instructions": [
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-57-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "All fathers should be entitled to time off from work when their children are born. What is your opinion?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-57/"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "writing-test-56",
+  "title": "IELTS Writing Test 56",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "Write a report for a university lecturer describing the information shown below.",
+      "instructions": [
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-56-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people believe that houses should be built in same style as other houses in the area, while others believe people should be allowed by the council to build houses in any style they like. Discuss and give your opinion.",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-56/"
+}

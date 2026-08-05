@@ -1,0 +1,33 @@
+{
+  "id": "writing-test-60",
+  "title": "IELTS Writing Test 60",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The graph below shows the total value of exports and the value of fuel, food and manufactured goods exported by one country from 2000 to 2005.",
+      "instructions": [
+        "Summarize the information by selecting and reporting the main features, and make comparisons where relevant.",
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-60-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Pollution and other environmental damages are caused by a country developing and becoming richer. This problem cannot be avoided. To what extent do you agree?",
+      "instructions": [
+        "Give reasons for your answer, and include any relevant examples from your own knowledge or experience.",
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-60/"
+}

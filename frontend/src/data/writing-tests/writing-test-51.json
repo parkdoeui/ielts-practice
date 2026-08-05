@@ -1,0 +1,31 @@
+{
+  "id": "writing-test-51",
+  "title": "IELTS Writing Test 51",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The two graphs show the main sources of energy in the USA in the 1980s and the 1990s. Write a report for a university lecturer describing the changes which occurred.",
+      "instructions": [
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-51-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "When designing a building the intended use of the building should be taken into account rather than its outward appearance. To what extent do you agree or disagree?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-51/"
+}

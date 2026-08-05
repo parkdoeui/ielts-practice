@@ -1,0 +1,31 @@
+{
+  "id": "writing-test-59",
+  "title": "IELTS Writing Test 59",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The diagram below gives the information about the Hawaiian island chain in the centre of the Pacific Ocean. Write a report for a university lecturer describing the information shown.",
+      "instructions": [
+        "Write at least 150 words."
+      ],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-59-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people prefer hobbies that require technology, while some people prefer hobbies that do not require technology. Discuss the both views and give your opinion.",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-59/"
+}

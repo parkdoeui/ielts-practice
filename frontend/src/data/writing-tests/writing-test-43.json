@@ -1,0 +1,81 @@
+{
+  "id": "writing-test-43",
+  "title": "IELTS Writing Test 43",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The table below shows the cinema viewing figures for films by country, in millions.",
+      "instructions": [
+        "Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+        "cinema viewing figures for films by country in millions"
+      ],
+      "min_words": 150,
+      "image_url": null,
+      "table": [
+        [
+          "",
+          "Action",
+          "Romance",
+          "Comedy",
+          "Horror",
+          "Total"
+        ],
+        [
+          "India",
+          "8",
+          "7.5",
+          "6.5",
+          "2.5",
+          "24.5"
+        ],
+        [
+          "Ireland",
+          "7.6",
+          "3.8",
+          "5.5",
+          "6.4",
+          "23.3"
+        ],
+        [
+          "New Zealand",
+          "7.2",
+          "4.5",
+          "3.9",
+          "4.7",
+          "20.3"
+        ],
+        [
+          "Japan",
+          "7.1",
+          "4.5",
+          "4.0",
+          "2.2",
+          "17.8"
+        ],
+        [
+          "Total",
+          "29.9",
+          "20.3",
+          "19.9",
+          "15.8",
+          ""
+        ]
+      ]
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Social media has replaced the traditional methods of communicating, and people use more and more social media to communicate, and to follow news and events. Do the advantages outweigh the disadvantages?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-43/"
+}

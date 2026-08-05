@@ -131,6 +131,61 @@ export interface WritingTask {
   table?: string[][];
 }
 
+export interface Task1Plan {
+  kind: "task_1";
+  introduction: { visual_subject: string };
+  overview: { big_picture_1: string; big_picture_2: string };
+  detail_paragraphs: Array<{
+    grouping_focus: string;
+    key_feature_1: string;
+    supporting_data_1: string;
+    key_feature_2: string;
+    supporting_data_2: string;
+    comparison_or_relationship: string;
+  }>;
+}
+
+export interface Task2Plan {
+  kind: "task_2";
+  introduction: { position: string; roadmap: string };
+  body_1: { main_idea: string; explanation: string; example: string; link_to_position: string };
+  body_2: { main_idea: string; explanation: string; example: string; link_to_position: string };
+  conclusion: { restated_position: string; synthesis: string };
+}
+
+export type WritingPlan = Task1Plan | Task2Plan;
+
+export interface PlanningCriterionFeedback {
+  band: number;
+  feedback: string;
+}
+
+export interface PlanningFeedback {
+  planning_band: number;
+  task_achievement: PlanningCriterionFeedback;
+  coherence_cohesion: PlanningCriterionFeedback;
+  summary: string;
+  relevant_ideas: string[];
+  missing_or_weak_ideas: string[];
+  organization_feedback: string;
+  next_attempt_focus: string;
+  improved_plan: WritingPlan;
+}
+
+export interface PlanningSession {
+  id: string;
+  test_id: string;
+  task_number: 1 | 2;
+  parent_session_id?: string | null;
+  started_at: string;
+  completed_at: string;
+  total_time_ms: number;
+  within_time_target: boolean;
+  task: WritingTask;
+  plan: WritingPlan;
+  feedback: PlanningFeedback;
+}
+
 export interface WritingTest {
   id: string;
   title: string;

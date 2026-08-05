@@ -94,6 +94,16 @@ class WritingTaskInput(BaseModel):
     instructions: list[str] = Field(default_factory=list, max_length=12)
     min_words: int
     image_url: Optional[str] = Field(default=None, max_length=2048)
+    table: Optional[list[list[str]]] = Field(default=None, max_length=40)
+
+    @field_validator("table")
+    @classmethod
+    def validate_table(cls, value: Optional[list[list[str]]]) -> Optional[list[list[str]]]:
+        if value is None:
+            return None
+        if len(value) > 40 or any(len(row) > 20 for row in value):
+            raise ValueError("table is too large")
+        return [[str(cell).strip()[:500] for cell in row] for row in value]
 
     @field_validator("instructions")
     @classmethod
@@ -377,6 +387,7 @@ def sanitize_test_for_grading(test: WritingTestInput) -> dict[str, Any]:
                 "instructions": task.instructions,
                 "min_words": task.min_words,
                 "image_url": task.image_url,
+                "table": task.table,
             }
             for task in test.tasks
         ],

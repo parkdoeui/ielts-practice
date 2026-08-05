@@ -10,8 +10,6 @@ def _prompt_has_instruction_leak(prompt: str) -> bool:
     markers = (
         "write at least",
         "you should spend",
-        "give reasons for your answer",
-        "include relevant examples",
         "sample answer",
         "comments are closed",
     )

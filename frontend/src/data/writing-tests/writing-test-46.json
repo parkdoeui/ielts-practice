@@ -1,0 +1,29 @@
+{
+  "id": "writing-test-46",
+  "title": "IELTS Writing Test 46",
+  "test_type": "academic",
+  "tasks": [
+    {
+      "task_number": 1,
+      "task_type": "academic-task-1",
+      "prompt": "The graph below shows the unemployment rates in the US and Japan between March 1993 and March 1999. Write a short report for a university lecturer describing the information shown below.",
+      "instructions": [],
+      "min_words": 150,
+      "image_url": "https://practicepteonline.com/wp-content/uploads/2024/09/test-46-min.png",
+      "table": null
+    },
+    {
+      "task_number": 2,
+      "task_type": "essay",
+      "prompt": "Some people think that the government should take care of disadvantaged people such as the unemployed and homeless people. Do you agree or disagree?",
+      "instructions": [
+        "Write at least 250 words."
+      ],
+      "min_words": 250,
+      "image_url": null,
+      "table": null
+    }
+  ],
+  "time_limit_minutes": 60,
+  "source_url": "https://practicepteonline.com/ielts-writing-test-46/"
+}
