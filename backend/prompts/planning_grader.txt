@@ -12,7 +12,8 @@ Score two dimensions using IELTS-style 0.0–9.0 half-band increments:
 
 Return verbal feedback first: a concise summary, ideas worth retaining, missing or weak ideas,
 organization feedback, and one next-attempt focus. Then return an improved complete outline using
-the same task-specific shape as the learner's plan. The planning band is the average of the two
+the same task-specific shape as the learner's plan. Keep outline fields as concise planning notes,
+not finished sentences or paragraphs. The planning band is the average of the two
 criterion bands, rounded to the nearest half band.
 
 TASK:

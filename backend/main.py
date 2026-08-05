@@ -102,6 +102,15 @@ class ProgressResponse(BaseModel):
 class WritingTaskInput(BaseModel):
     task_number: Literal[1, 2]
     task_type: str
+    question_type: Optional[Literal[
+        "line-graph",
+        "bar-chart",
+        "table",
+        "pie-chart",
+        "map-plan",
+        "process-diagram",
+        "mixed-visuals",
+    ]] = None
     prompt: str = Field(min_length=10, max_length=5000)
     instructions: list[str] = Field(default_factory=list, max_length=12)
     min_words: int
@@ -154,29 +163,12 @@ class WritingSubmitRequest(BaseModel):
         return {"1": task_1, "2": task_2}
 
 
-class Task1IntroductionSchema(BaseModel):
-    visual_subject: str = Field(default="", max_length=1000)
-
-
-class Task1OverviewSchema(BaseModel):
-    big_picture_1: str = Field(default="", max_length=1000)
-    big_picture_2: str = Field(default="", max_length=1000)
-
-
-class Task1DetailParagraphSchema(BaseModel):
-    grouping_focus: str = Field(default="", max_length=1000)
-    key_feature_1: str = Field(default="", max_length=1000)
-    supporting_data_1: str = Field(default="", max_length=1000)
-    key_feature_2: str = Field(default="", max_length=1000)
-    supporting_data_2: str = Field(default="", max_length=1000)
-    comparison_or_relationship: str = Field(default="", max_length=1000)
-
-
 class Task1PlanSchema(BaseModel):
     kind: Literal["task_1"]
-    introduction: Task1IntroductionSchema
-    overview: Task1OverviewSchema
-    detail_paragraphs: list[Task1DetailParagraphSchema] = Field(min_length=1, max_length=2)
+    introduction: str = Field(default="", max_length=1000)
+    overview: str = Field(default="", max_length=2000)
+    detail_1: str = Field(default="", max_length=3000)
+    detail_2: str = Field(default="", max_length=3000)
 
 
 class Task2IntroductionSchema(BaseModel):

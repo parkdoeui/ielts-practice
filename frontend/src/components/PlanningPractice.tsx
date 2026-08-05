@@ -1,24 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router";
+import task1GuideUrl from "../content/task-1-planning-guide.md?url";
 import { getPlanningSessionById, submitPlanningSession } from "../services/api";
 import { clearPlanningDraft, getPlanningDraft, savePlanningDraft, type PlanningDraft } from "../lib/planningDraft";
+import { EMPTY_TASK1_PLAN, normalizePlanningPlanForEdit, simplifyTask1Plan } from "../lib/planningPlans";
 import { getPlanningClock } from "../lib/planningTimer";
+import { getTask1QuestionType, TASK1_TYPE_META } from "../lib/task1QuestionTypes";
 import type { PlanningSession, Task1Plan, Task2Plan, WritingPlan, WritingTask, WritingTest } from "../types";
 
 const writingFiles = import.meta.glob<{ default: WritingTest }>(
   "../data/writing-tests/*.json",
   { eager: true },
 );
-
-const EMPTY_TASK1: Task1Plan = {
-  kind: "task_1",
-  introduction: { visual_subject: "" },
-  overview: { big_picture_1: "", big_picture_2: "" },
-  detail_paragraphs: [
-    { grouping_focus: "", key_feature_1: "", supporting_data_1: "", key_feature_2: "", supporting_data_2: "", comparison_or_relationship: "" },
-    { grouping_focus: "", key_feature_1: "", supporting_data_1: "", key_feature_2: "", supporting_data_2: "", comparison_or_relationship: "" },
-  ],
-};
 
 const EMPTY_TASK2: Task2Plan = {
   kind: "task_2",
@@ -84,37 +77,14 @@ function VisualPrompt({ task }: { task: WritingTask }) {
 }
 
 function Task1Form({ plan, onChange }: { plan: Task1Plan; onChange: (plan: Task1Plan) => void }) {
-  const updateDetail = (index: number, key: keyof Task1Plan["detail_paragraphs"][number], value: string) => {
-    const detail_paragraphs = plan.detail_paragraphs.map((item, itemIndex) =>
-      itemIndex === index ? { ...item, [key]: value } : item,
-    );
-    onChange({ ...plan, detail_paragraphs });
-  };
   return (
-    <div className="space-y-6">
-      <section className="rounded-xl border border-blue-100 bg-blue-50/60 p-4">
-        <h2 className="mb-3 font-semibold text-gray-900">Introduction and overview</h2>
-        <div className="space-y-3">
-          <Field label="What does the visual show?" value={plan.introduction.visual_subject} onChange={(value) => onChange({ ...plan, introduction: { visual_subject: value } })} />
-          <Field label="Big picture 1" value={plan.overview.big_picture_1} onChange={(value) => onChange({ ...plan, overview: { ...plan.overview, big_picture_1: value } })} />
-          <Field label="Big picture 2" value={plan.overview.big_picture_2} onChange={(value) => onChange({ ...plan, overview: { ...plan.overview, big_picture_2: value } })} />
-        </div>
-      </section>
-      {plan.detail_paragraphs.map((detail, index) => (
-        <section key={index} className="rounded-xl border border-gray-200 bg-white p-4">
-          <h2 className="mb-3 font-semibold text-gray-900">Detail paragraph {index + 1}</h2>
-          <div className="space-y-3">
-            <Field label="Grouping focus" value={detail.grouping_focus} onChange={(value) => updateDetail(index, "grouping_focus", value)} />
-            <Field label="Key feature 1" value={detail.key_feature_1} onChange={(value) => updateDetail(index, "key_feature_1", value)} />
-            <Field label="Supporting data 1" value={detail.supporting_data_1} onChange={(value) => updateDetail(index, "supporting_data_1", value)} />
-            <Field label="Key feature 2" value={detail.key_feature_2} onChange={(value) => updateDetail(index, "key_feature_2", value)} />
-            <Field label="Supporting data 2" value={detail.supporting_data_2} onChange={(value) => updateDetail(index, "supporting_data_2", value)} />
-            <Field label="Comparison or relationship" value={detail.comparison_or_relationship} onChange={(value) => updateDetail(index, "comparison_or_relationship", value)} />
-          </div>
-        </section>
-      ))}
-      <p className="text-xs text-gray-500">Task 1 needs an introduction, overview, and grouped details. A separate conclusion is not required.</p>
-    </div>
+    <section className="space-y-4 rounded-xl border border-gray-200 bg-white p-4">
+      <Field label="Introduction note" placeholder="What does the visual show?" value={plan.introduction} onChange={(value) => onChange({ ...plan, introduction: value })} />
+      <Field label="Overview — main pattern or change" placeholder="What are the most important overall features?" value={plan.overview} onChange={(value) => onChange({ ...plan, overview: value })} />
+      <Field label="Detail paragraph 1 — grouped evidence" placeholder="Which related facts belong together?" value={plan.detail_1} onChange={(value) => onChange({ ...plan, detail_1: value })} />
+      <Field label="Detail paragraph 2 — grouped evidence" placeholder="What remaining comparison, area, or stage belongs here?" value={plan.detail_2} onChange={(value) => onChange({ ...plan, detail_2: value })} />
+      <p className="text-xs text-gray-500">Four planning notes are enough for a 150-word report. A separate conclusion is not required.</p>
+    </section>
   );
 }
 
@@ -182,14 +152,17 @@ export function PlanningPractice() {
       if (cancelled) return;
       setPrevious(parent);
       const stored = getPlanningDraft(currentTestId, taskNumber, revisionOf);
-      const plan = stored?.plan ?? parent?.plan ?? (taskNumber === 1 ? EMPTY_TASK1 : EMPTY_TASK2);
-      setDraft(stored ?? {
-        testId: currentTestId,
-        taskNumber,
-        parentSessionId: revisionOf,
-        startedAt: new Date().toISOString(),
-        plan,
-      });
+      const sourcePlan = stored?.plan ?? parent?.plan ?? (taskNumber === 1 ? EMPTY_TASK1_PLAN : EMPTY_TASK2);
+      const plan = normalizePlanningPlanForEdit(sourcePlan, taskNumber);
+      setDraft(stored
+        ? { ...stored, plan }
+        : {
+            testId: currentTestId,
+            taskNumber,
+            parentSessionId: revisionOf,
+            startedAt: new Date().toISOString(),
+            plan,
+          });
     }
     void initialize();
     return () => { cancelled = true; };
@@ -211,6 +184,7 @@ export function PlanningPractice() {
   const activeDraft = draft;
   const clock = getPlanningClock(new Date(activeDraft.startedAt).getTime(), now);
   const plan = activeDraft.plan;
+  const task1Type = taskNumber === 1 ? getTask1QuestionType(activeTest.id) : null;
 
   async function submit() {
     if (submitting) return;
@@ -220,7 +194,7 @@ export function PlanningPractice() {
     const payload = {
       id: `${activeTest.id}-planning-${taskNumber}-${Date.now()}`,
       test_id: activeTest.id,
-      task: activeTask,
+      task: task1Type ? { ...activeTask, question_type: task1Type } : activeTask,
       parent_session_id: activeDraft.parentSessionId,
       started_at: activeDraft.startedAt,
       completed_at: completedAt,
@@ -265,8 +239,18 @@ export function PlanningPractice() {
           <VisualPrompt task={task} />
         </section>
         <section className="min-w-0">
+          {task1Type && (
+            <div className="mb-4 rounded-xl border border-violet-100 bg-violet-50 p-4 text-sm leading-6 text-violet-950">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-semibold">{TASK1_TYPE_META[task1Type].label}</p>
+                <a href={task1GuideUrl} target="_blank" rel="noreferrer" className="text-xs font-semibold text-violet-700 hover:text-violet-900">Full Task 1 guide →</a>
+              </div>
+              <p className="mt-2">{TASK1_TYPE_META[task1Type].overviewTip}</p>
+              <p>{TASK1_TYPE_META[task1Type].detailTip}</p>
+            </div>
+          )}
           {plan.kind === "task_1"
-            ? <Task1Form plan={plan} onChange={updatePlan} />
+            ? <Task1Form plan={simplifyTask1Plan(plan)} onChange={updatePlan} />
             : <Task2Form plan={plan} onChange={updatePlan} />}
           <div className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-gray-200 bg-white p-4">
             <p className="text-xs leading-5 text-gray-500">Your notes are graded for ideas and organization, not grammar or vocabulary.</p>

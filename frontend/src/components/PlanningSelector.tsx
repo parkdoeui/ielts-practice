@@ -1,5 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import task1GuideUrl from "../content/task-1-planning-guide.md?url";
+import {
+  filterAndSortTask1Tests,
+  getTask1QuestionType,
+  TASK1_TYPE_META,
+  TASK1_TYPE_ORDER,
+  type Task1Sort,
+  type Task1TypeFilter,
+} from "../lib/task1QuestionTypes";
 import { getPlanningSessions } from "../services/api";
 import type { PlanningSession, WritingTest } from "../types";
 
@@ -33,12 +42,20 @@ export function PlanningSelector() {
   const navigate = useNavigate();
   const [taskNumber, setTaskNumber] = useState<1 | 2>(2);
   const [sessions, setSessions] = useState<PlanningSession[]>([]);
+  const [questionType, setQuestionType] = useState<Task1TypeFilter>("all");
+  const [sortBy, setSortBy] = useState<Task1Sort>("test-number");
 
   useEffect(() => {
     getPlanningSessions(taskNumber).then(setSessions).catch(() => setSessions([]));
   }, [taskNumber]);
 
   const latest = useMemo(() => latestByPrompt(sessions), [sessions]);
+  const visibleTests = useMemo(
+    () => taskNumber === 1
+      ? filterAndSortTask1Tests(writingTests, questionType, sortBy)
+      : writingTests,
+    [questionType, sortBy, taskNumber],
+  );
 
   return (
     <div className="max-w-5xl mx-auto w-full py-8 px-4">
@@ -47,6 +64,9 @@ export function PlanningSelector() {
         <p className="mt-1 text-sm text-gray-500">
           Spend five minutes generating relevant ideas and organizing your response before writing.
         </p>
+        <a href={task1GuideUrl} target="_blank" rel="noreferrer" className="mt-2 inline-flex text-sm font-medium text-blue-700 hover:text-blue-900">
+          Open the Task 1 five-minute guide →
+        </a>
       </div>
 
       <div className="mb-6 flex w-full gap-2 rounded-xl bg-gray-100 p-1 sm:w-fit">
@@ -66,12 +86,31 @@ export function PlanningSelector() {
 
       <div className="mb-5 rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-900">
         {taskNumber === 1
-          ? "Plan the visual subject, overview, and grouped details. No conclusion is needed."
+          ? "Use four notes: introduction, overview, detail paragraph 1, and detail paragraph 2. No conclusion is needed."
           : "Plan the introduction, two developed arguments, and a consistent conclusion."}
       </div>
 
+      {taskNumber === 1 && (
+        <div className="mb-5 grid gap-3 rounded-xl border border-gray-200 bg-white p-4 sm:grid-cols-2">
+          <label className="space-y-1 text-sm font-medium text-gray-700">
+            <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Question type</span>
+            <select value={questionType} onChange={(event) => setQuestionType(event.target.value as Task1TypeFilter)} className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
+              <option value="all">All question types</option>
+              {TASK1_TYPE_ORDER.map((type) => <option key={type} value={type}>{TASK1_TYPE_META[type].label}</option>)}
+            </select>
+          </label>
+          <label className="space-y-1 text-sm font-medium text-gray-700">
+            <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Sort by</span>
+            <select value={sortBy} onChange={(event) => setSortBy(event.target.value as Task1Sort)} className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
+              <option value="test-number">Test number</option>
+              <option value="question-type">Question type</option>
+            </select>
+          </label>
+        </div>
+      )}
+
       <div className="grid gap-4">
-        {writingTests.map((test) => {
+        {visibleTests.map((test) => {
           const task = test.tasks.find((item) => item.task_number === taskNumber);
           const previous = latest.get(`${test.id}:${taskNumber}`);
           if (!task) return null;
@@ -82,6 +121,11 @@ export function PlanningSelector() {
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
                     Writing Test {testNumber(test)} · Task {taskNumber}
                   </p>
+                  {taskNumber === 1 && (
+                    <span className="mt-2 inline-flex rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-700">
+                      {TASK1_TYPE_META[getTask1QuestionType(test.id)].label}
+                    </span>
+                  )}
                   <h2 className="mt-1 font-semibold text-gray-900">{test.title}</h2>
                   <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">{task.prompt}</p>
                   {previous && (
@@ -113,6 +157,9 @@ export function PlanningSelector() {
             </article>
           );
         })}
+        {visibleTests.length === 0 && (
+          <div className="rounded-xl border border-gray-200 bg-white p-6 text-sm text-gray-500">No prompts match this question type.</div>
+        )}
       </div>
     </div>
   );

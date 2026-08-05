@@ -87,14 +87,21 @@ def _normalize_list(value: Any, fallback: str = "") -> list[str]:
 def _normalize_plan(plan: Any, submitted_plan: dict[str, Any], task_number: int) -> dict[str, Any]:
     if not isinstance(plan, dict) or plan.get("kind") != f"task_{task_number}":
         return submitted_plan
+    if task_number == 1:
+        required_fields = ("introduction", "overview", "detail_1", "detail_2")
+        if not all(isinstance(plan.get(field), str) for field in required_fields):
+            return submitted_plan
     return plan
 
 
 def _build_prompt(task: dict[str, Any], plan: dict[str, Any]) -> str:
     task_number = task.get("task_number")
+    question_type = str(task.get("question_type") or "unclassified visual")
     task_guidance = (
-        "For Task 1, check the visual subject, overview, grouping, selected key features, "
-        "accurate supporting data, and comparisons. Do not require a conclusion."
+        "For Task 1, check the introduction note, one selective overview, and two logically grouped "
+        f"detail notes. The question type is {question_type}; judge the overview and grouping accordingly. "
+        "Do not require a conclusion. The improved_plan must contain exactly kind, introduction, overview, "
+        "detail_1, and detail_2, with the four plan fields returned as concise strings."
         if task_number == 1
         else "For Task 2, check the introduction position and roadmap, coverage of every question part, "
         "two developed body ideas, and a conclusion that restates rather than changes the position."

@@ -1,5 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import {
+  getTask1QuestionType,
+  TASK1_TYPE_META,
+  TASK1_TYPE_ORDER,
+  type Task1Sort,
+  type Task1TypeFilter,
+} from "../lib/task1QuestionTypes";
 import { getWritingSessions } from "../services/api";
 import type { WritingSession, WritingTest } from "../types";
 
@@ -84,6 +91,8 @@ export function WritingTestSelector() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<SelectorTab>("not-started");
   const [sessions, setSessions] = useState<WritingSession[]>([]);
+  const [questionType, setQuestionType] = useState<Task1TypeFilter>("all");
+  const [sortBy, setSortBy] = useState<Task1Sort>("test-number");
 
   useEffect(() => {
     getWritingSessions().then(setSessions).catch(() => setSessions([]));
@@ -103,7 +112,16 @@ export function WritingTestSelector() {
 
   const notStartedTests = testItems.filter((item) => item.completion === null);
   const completedTests = testItems.filter((item) => item.completion !== null);
-  const visibleTests = tab === "not-started" ? notStartedTests : completedTests;
+  const visibleTests = (tab === "not-started" ? notStartedTests : completedTests)
+    .filter((item) => questionType === "all" || getTask1QuestionType(item.test.id) === questionType)
+    .sort((left, right) => {
+      if (sortBy === "question-type") {
+        const typeDifference = TASK1_TYPE_ORDER.indexOf(getTask1QuestionType(left.test.id))
+          - TASK1_TYPE_ORDER.indexOf(getTask1QuestionType(right.test.id));
+        if (typeDifference !== 0) return typeDifference;
+      }
+      return sortWritingTestsAscending(left, right);
+    });
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
@@ -137,11 +155,30 @@ export function WritingTestSelector() {
         </button>
       </div>
 
+      <div className="mb-6 grid gap-3 rounded-xl border border-gray-200 bg-white p-4 sm:grid-cols-2">
+        <label className="space-y-1 text-sm font-medium text-gray-700">
+          <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Task 1 question type</span>
+          <select value={questionType} onChange={(event) => setQuestionType(event.target.value as Task1TypeFilter)} className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
+            <option value="all">All question types</option>
+            {TASK1_TYPE_ORDER.map((type) => <option key={type} value={type}>{TASK1_TYPE_META[type].label}</option>)}
+          </select>
+        </label>
+        <label className="space-y-1 text-sm font-medium text-gray-700">
+          <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">Sort by</span>
+          <select value={sortBy} onChange={(event) => setSortBy(event.target.value as Task1Sort)} className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
+            <option value="test-number">Test number</option>
+            <option value="question-type">Question type</option>
+          </select>
+        </label>
+      </div>
+
       {visibleTests.length === 0 ? (
         <div className="bg-white border border-gray-200 rounded-xl p-6 text-sm text-gray-500">
-          {tab === "not-started"
-            ? "No not-started writing tests found."
-            : "No completed writing tests found yet."}
+          {questionType !== "all"
+            ? "No writing tests in this status match the selected Task 1 question type."
+            : tab === "not-started"
+              ? "No not-started writing tests found."
+              : "No completed writing tests found yet."}
         </div>
       ) : (
         <div className="grid gap-4">
@@ -173,9 +210,10 @@ export function WritingTestSelector() {
                     )}
                   </div>
 
-                  <span className="shrink-0 px-2 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-700 capitalize">
-                    {test.test_type}
-                  </span>
+                  <div className="flex shrink-0 flex-col items-end gap-2">
+                    <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-700 capitalize">{test.test_type}</span>
+                    <span className="px-2 py-1 text-xs font-medium rounded-full bg-violet-50 text-violet-700">Task 1 · {TASK1_TYPE_META[getTask1QuestionType(test.id)].label}</span>
+                  </div>
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {completion ? (

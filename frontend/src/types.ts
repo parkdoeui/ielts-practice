@@ -124,6 +124,7 @@ export interface TestSession {
 export interface WritingTask {
   task_number: 1 | 2;
   task_type: "academic-task-1" | "essay";
+  question_type?: Task1QuestionType;
   prompt: string;
   instructions: string[];
   min_words: number;
@@ -131,7 +132,24 @@ export interface WritingTask {
   table?: string[][];
 }
 
+export type Task1QuestionType =
+  | "line-graph"
+  | "bar-chart"
+  | "table"
+  | "pie-chart"
+  | "map-plan"
+  | "process-diagram"
+  | "mixed-visuals";
+
 export interface Task1Plan {
+  kind: "task_1";
+  introduction: string;
+  overview: string;
+  detail_1: string;
+  detail_2: string;
+}
+
+export interface LegacyTask1Plan {
   kind: "task_1";
   introduction: { visual_subject: string };
   overview: { big_picture_1: string; big_picture_2: string };
@@ -153,7 +171,7 @@ export interface Task2Plan {
   conclusion: { restated_position: string; synthesis: string };
 }
 
-export type WritingPlan = Task1Plan | Task2Plan;
+export type WritingPlan = Task1Plan | LegacyTask1Plan | Task2Plan;
 
 export interface PlanningCriterionFeedback {
   band: number;

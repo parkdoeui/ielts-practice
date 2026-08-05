@@ -20,6 +20,7 @@ def _task(task_number: int = 2) -> dict:
         return {
             "task_number": 1,
             "task_type": "academic-task-1",
+            "question_type": "line-graph",
             "prompt": "The chart shows changes in household recycling.",
             "instructions": ["Write at least 150 words."],
             "min_words": 150,
@@ -39,16 +40,10 @@ def _plan(task_number: int = 2) -> dict:
     if task_number == 1:
         return {
             "kind": "task_1",
-            "introduction": {"visual_subject": "Recycling rates over time."},
-            "overview": {"big_picture_1": "Rates rose overall.", "big_picture_2": "The final year was highest."},
-            "detail_paragraphs": [{
-                "grouping_focus": "Early versus late years",
-                "key_feature_1": "The first rate was low",
-                "supporting_data_1": "It was 20 percent",
-                "key_feature_2": "The final rate was higher",
-                "supporting_data_2": "It reached 50 percent",
-                "comparison_or_relationship": "The increase was gradual",
-            }],
+            "introduction": "Recycling rates over time.",
+            "overview": "Rates rose overall and the final year was highest.",
+            "detail_1": "Early years: the rate started at 20 percent.",
+            "detail_2": "Later years: the rate reached 50 percent after a gradual rise.",
         }
     return {
         "kind": "task_2",
@@ -158,3 +153,4 @@ def test_table_task_is_retained(monkeypatch) -> None:
     response = client.post("/api/planning-sessions", json=_payload(task_number=1, session_id="planning-3"))
     assert response.status_code == 201
     assert captured["task"]["table"] == [["Year", "Rate"], ["2000", "20%"]]
+    assert captured["task"]["question_type"] == "line-graph"

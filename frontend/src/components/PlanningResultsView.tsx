@@ -1,7 +1,8 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useNavigate, useParams } from "react-router";
+import { simplifyTask1Plan } from "../lib/planningPlans";
 import { getPlanningSessionById } from "../services/api";
-import type { PlanningSession, Task1Plan, Task2Plan, WritingPlan } from "../types";
+import type { PlanningSession, Task2Plan, WritingPlan } from "../types";
 
 function elapsedLabel(ms: number): string {
   const seconds = Math.round(ms / 1000);
@@ -10,19 +11,13 @@ function elapsedLabel(ms: number): string {
 
 function Outline({ plan }: { plan: WritingPlan }) {
   if (plan.kind === "task_1") {
-    const task = plan as Task1Plan;
+    const task = simplifyTask1Plan(plan);
     return (
       <div className="space-y-4 text-sm leading-6">
-        <OutlineSection title="Introduction"><p>{task.introduction.visual_subject || "—"}</p></OutlineSection>
-        <OutlineSection title="Overview"><p>{task.overview.big_picture_1 || "—"}</p><p>{task.overview.big_picture_2 || "—"}</p></OutlineSection>
-        {task.detail_paragraphs.map((detail, index) => (
-          <OutlineSection key={index} title={`Detail paragraph ${index + 1}`}>
-            <p><strong>Group:</strong> {detail.grouping_focus || "—"}</p>
-            <p><strong>Feature:</strong> {detail.key_feature_1 || "—"} · {detail.key_feature_2 || "—"}</p>
-            <p><strong>Support:</strong> {detail.supporting_data_1 || "—"} · {detail.supporting_data_2 || "—"}</p>
-            <p><strong>Relationship:</strong> {detail.comparison_or_relationship || "—"}</p>
-          </OutlineSection>
-        ))}
+        <OutlineSection title="Introduction note"><p>{task.introduction || "—"}</p></OutlineSection>
+        <OutlineSection title="Overview"><p>{task.overview || "—"}</p></OutlineSection>
+        <OutlineSection title="Detail paragraph 1"><p>{task.detail_1 || "—"}</p></OutlineSection>
+        <OutlineSection title="Detail paragraph 2"><p>{task.detail_2 || "—"}</p></OutlineSection>
       </div>
     );
   }
