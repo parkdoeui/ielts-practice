@@ -6,6 +6,7 @@ function NavBar() {
   const isTestRoute =
     pathname.startsWith("/test/") ||
     pathname.startsWith("/writing/") ||
+    pathname.startsWith("/planning/") ||
     pathname.startsWith("/mock/");
 
   if (isTestRoute) return null; // test view manages its own header
@@ -28,6 +29,14 @@ function NavBar() {
         }`}
       >
         Writing
+      </Link>
+      <Link
+        to="/planning"
+        className={`text-sm font-medium ${
+          pathname.startsWith("/planning") ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
+        }`}
+      >
+        Planning
       </Link>
       <Link
         to="/mock"

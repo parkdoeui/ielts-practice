@@ -2,6 +2,8 @@ import type {
   FullTestSet,
   MockSession,
   TestSession,
+  PlanningSession,
+  WritingPlan,
   WritingSession,
   WritingTest,
 } from "../types";
@@ -66,6 +68,17 @@ export interface WritingSubmitPayload {
   completed_at: string;
   total_time_ms: number;
   answers: Record<string, string>;
+}
+
+export interface PlanningSubmitPayload {
+  id: string;
+  test_id: string;
+  task: WritingTest["tasks"][number];
+  parent_session_id?: string | null;
+  started_at: string;
+  completed_at: string;
+  total_time_ms: number;
+  plan: WritingPlan;
 }
 
 export function getStoredSessionById(sessionId: string): TestSession | null {
@@ -425,5 +438,38 @@ export async function getWritingSessionById(sessionId: string): Promise<WritingS
   });
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(`GET /api/writing-sessions/${sessionId} failed: ${res.status}`);
+  return res.json();
+}
+
+export async function submitPlanningSession(payload: PlanningSubmitPayload): Promise<PlanningSession> {
+  const res = await fetch(`${API_BASE}/api/planning-sessions`, {
+    ...FETCH_OPTS,
+    method: "POST",
+    headers: authHeaders({ "Content-Type": "application/json" }),
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    throw new Error(`POST /api/planning-sessions failed: ${res.status}`);
+  }
+  return res.json();
+}
+
+export async function getPlanningSessions(taskNumber?: 1 | 2): Promise<PlanningSession[]> {
+  const query = taskNumber ? `?task_number=${taskNumber}` : "";
+  const res = await fetch(`${API_BASE}/api/planning-sessions${query}`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
+  if (!res.ok) throw new Error(`GET /api/planning-sessions failed: ${res.status}`);
+  return res.json();
+}
+
+export async function getPlanningSessionById(sessionId: string): Promise<PlanningSession | null> {
+  const res = await fetch(`${API_BASE}/api/planning-sessions/${encodeURIComponent(sessionId)}`, {
+    ...FETCH_OPTS,
+    headers: authHeaders(),
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`GET /api/planning-sessions/${sessionId} failed: ${res.status}`);
   return res.json();
 }
