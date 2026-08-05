@@ -138,7 +138,8 @@ export type Task1QuestionType =
   | "table"
   | "pie-chart"
   | "map-plan"
-  | "process-diagram"
+  | "process-manufacturing"
+  | "natural-lifecycle"
   | "mixed-visuals";
 
 export interface Task1Plan {

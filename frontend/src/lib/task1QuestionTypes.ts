@@ -5,8 +5,7 @@ export type Task1TypeFilter = Task1QuestionType | "all";
 
 export interface Task1TypeMeta {
   label: string;
-  overviewTip: string;
-  detailTip: string;
+  guideHeading: string;
 }
 
 export const TASK1_TYPE_ORDER: Task1QuestionType[] = [
@@ -15,45 +14,43 @@ export const TASK1_TYPE_ORDER: Task1QuestionType[] = [
   "table",
   "pie-chart",
   "map-plan",
-  "process-diagram",
+  "process-manufacturing",
+  "natural-lifecycle",
   "mixed-visuals",
 ];
 
 export const TASK1_TYPE_META: Record<Task1QuestionType, Task1TypeMeta> = {
   "line-graph": {
     label: "Line graph",
-    overviewTip: "Overview: note the main rises, falls, peaks, or stable trends.",
-    detailTip: "Details: group similar trends and support them with selected start, end, peak, or crossing values.",
+    guideHeading: "Line Graphs",
   },
   "bar-chart": {
     label: "Bar chart",
-    overviewTip: "Overview: identify the highest, lowest, and most obvious comparison.",
-    detailTip: "Details: group similar categories instead of describing every bar in order.",
+    guideHeading: "Bar Charts",
   },
   table: {
     label: "Table",
-    overviewTip: "Overview: identify the largest, smallest, and any clear outlier or pattern.",
-    detailTip: "Details: compare meaningful rows or columns; do not report every cell.",
+    guideHeading: "Tables",
   },
   "pie-chart": {
     label: "Pie chart",
-    overviewTip: "Overview: identify the dominant and smallest shares, plus the biggest change if years are compared.",
-    detailTip: "Details: group major shares together, then smaller or changing shares.",
+    guideHeading: "Pie Charts",
   },
   "map-plan": {
     label: "Map or plan",
-    overviewTip: "Overview: summarize the largest changes and what stayed unchanged.",
-    detailTip: "Details: group features by area or purpose, such as transport and buildings.",
+    guideHeading: "Maps and Plans",
   },
-  "process-diagram": {
-    label: "Process or system",
-    overviewTip: "Overview: state the start, finish, broad phases, and whether the process is linear or cyclical.",
-    detailTip: "Details: group the stages into an early sequence and a later sequence.",
+  "process-manufacturing": {
+    label: "Manufacturing or system",
+    guideHeading: "Processes and Manufacturing Diagrams",
+  },
+  "natural-lifecycle": {
+    label: "Natural process or lifecycle",
+    guideHeading: "Natural Processes and Lifecycles",
   },
   "mixed-visuals": {
     label: "Mixed visuals",
-    overviewTip: "Overview: give one main observation from each visual and connect them if relevant.",
-    detailTip: "Details: give each visual a clear role so neither is overlooked.",
+    guideHeading: "Mixed Visuals",
   },
 };
 
@@ -63,8 +60,9 @@ const TEST_NUMBERS_BY_TYPE: Record<Task1QuestionType, number[]> = {
   table: [10, 16, 18, 25, 43, 54, 58],
   "pie-chart": [9, 30, 41, 51, 56],
   "map-plan": [1, 4, 13, 20, 27, 34, 37],
-  "process-diagram": [15, 19, 29, 44, 49, 53, 59],
-  "mixed-visuals": [7, 21, 28],
+  "process-manufacturing": [15, 19, 29, 49, 53],
+  "natural-lifecycle": [59],
+  "mixed-visuals": [7, 21, 28, 44],
 };
 
 const TEST_TYPE_BY_NUMBER = Object.fromEntries(

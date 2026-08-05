@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
-import task1GuideUrl from "../content/task-1-planning-guide.md?url";
 import {
   filterAndSortTask1Tests,
   getTask1QuestionType,
@@ -62,11 +61,8 @@ export function PlanningSelector() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Writing Idea Planning</h1>
         <p className="mt-1 text-sm text-gray-500">
-          Spend five minutes generating relevant ideas and organizing your response before writing.
+          Generate relevant ideas and organize your response before writing. The timer simply records elapsed time.
         </p>
-        <a href={task1GuideUrl} target="_blank" rel="noreferrer" className="mt-2 inline-flex text-sm font-medium text-blue-700 hover:text-blue-900">
-          Open the Task 1 five-minute guide →
-        </a>
       </div>
 
       <div className="mb-6 flex w-full gap-2 rounded-xl bg-gray-100 p-1 sm:w-fit">

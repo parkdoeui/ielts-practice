@@ -63,7 +63,7 @@ export function PlanningResultsView() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Planning feedback</p>
           <h1 className="mt-1 text-2xl font-bold text-gray-900">Task {session.task_number} · {session.test_id}</h1>
-          <p className="mt-2 text-sm text-gray-500">Completed in {elapsedLabel(session.total_time_ms)} · {session.within_time_target ? "within five-minute target" : "overtime"}</p>
+          <p className="mt-2 text-sm text-gray-500">Completed in {elapsedLabel(session.total_time_ms)}</p>
         </div>
         <div className="rounded-xl border border-blue-100 bg-blue-50 px-5 py-3 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-blue-700">Estimated planning band</p>

@@ -108,7 +108,8 @@ class WritingTaskInput(BaseModel):
         "table",
         "pie-chart",
         "map-plan",
-        "process-diagram",
+        "process-manufacturing",
+        "natural-lifecycle",
         "mixed-visuals",
     ]] = None
     prompt: str = Field(min_length=10, max_length=5000)

@@ -27,9 +27,12 @@ describe("Task 1 question types", () => {
       table: 7,
       "pie-chart": 5,
       "map-plan": 7,
-      "process-diagram": 7,
-      "mixed-visuals": 3,
+      "process-manufacturing": 5,
+      "natural-lifecycle": 1,
+      "mixed-visuals": 4,
     });
+    expect(getTask1QuestionType("writing-test-44")).toBe("mixed-visuals");
+    expect(getTask1QuestionType("writing-test-59")).toBe("natural-lifecycle");
   });
 
   it("filters by type and sorts type groups deterministically", () => {

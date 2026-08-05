@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import task1GuideUrl from "../content/task-1-planning-guide.md?url";
+import { Task1GuideModal } from "./Task1GuideModal";
 import { getPlanningSessionById, submitPlanningSession } from "../services/api";
 import { clearPlanningDraft, getPlanningDraft, savePlanningDraft, type PlanningDraft } from "../lib/planningDraft";
 import { EMPTY_TASK1_PLAN, normalizePlanningPlanForEdit, simplifyTask1Plan } from "../lib/planningPlans";
 import { getPlanningClock } from "../lib/planningTimer";
-import { getTask1QuestionType, TASK1_TYPE_META } from "../lib/task1QuestionTypes";
+import { getTask1QuestionType } from "../lib/task1QuestionTypes";
 import type { PlanningSession, Task1Plan, Task2Plan, WritingPlan, WritingTask, WritingTest } from "../types";
 
 const writingFiles = import.meta.glob<{ default: WritingTest }>(
@@ -139,6 +139,7 @@ export function PlanningPractice() {
   const [now, setNow] = useState(() => Date.now());
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [guideOpen, setGuideOpen] = useState(false);
 
   useEffect(() => {
     if (!testId || !task) return;
@@ -222,8 +223,9 @@ export function PlanningPractice() {
           <p className="truncate text-sm font-semibold">Writing Test {test.id.match(/(\d+)$/)?.[1]} · Task {taskNumber} Planning</p>
           <p className="text-xs text-gray-300">{revisionOf ? "Revision attempt" : "Idea generation practice"}</p>
         </div>
-        <div className={`shrink-0 font-mono text-lg font-bold tabular-nums ${clock.phase === "overtime" ? "text-red-300" : "text-white"}`}>
-          {clock.display}
+        <div className="shrink-0 text-center" aria-label={`Elapsed time ${clock.display}`}>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400">Elapsed</p>
+          <p className="font-mono text-lg font-bold tabular-nums text-white">{clock.display}</p>
         </div>
         <button type="button" onClick={() => navigate("/planning")} className="shrink-0 text-sm text-gray-300 hover:text-white">Exit</button>
       </header>
@@ -239,16 +241,6 @@ export function PlanningPractice() {
           <VisualPrompt task={task} />
         </section>
         <section className="min-w-0">
-          {task1Type && (
-            <div className="mb-4 rounded-xl border border-violet-100 bg-violet-50 p-4 text-sm leading-6 text-violet-950">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="font-semibold">{TASK1_TYPE_META[task1Type].label}</p>
-                <a href={task1GuideUrl} target="_blank" rel="noreferrer" className="text-xs font-semibold text-violet-700 hover:text-violet-900">Full Task 1 guide →</a>
-              </div>
-              <p className="mt-2">{TASK1_TYPE_META[task1Type].overviewTip}</p>
-              <p>{TASK1_TYPE_META[task1Type].detailTip}</p>
-            </div>
-          )}
           {plan.kind === "task_1"
             ? <Task1Form plan={simplifyTask1Plan(plan)} onChange={updatePlan} />
             : <Task2Form plan={plan} onChange={updatePlan} />}
@@ -260,6 +252,19 @@ export function PlanningPractice() {
           </div>
         </section>
       </main>
+      {task1Type && (
+        <>
+          <button
+            type="button"
+            onClick={() => setGuideOpen(true)}
+            aria-haspopup="dialog"
+            className="fixed bottom-5 right-5 z-40 rounded-full bg-violet-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-violet-900/20 hover:bg-violet-800 focus:outline-none focus:ring-4 focus:ring-violet-200"
+          >
+            Question guide
+          </button>
+          <Task1GuideModal type={task1Type} open={guideOpen} onClose={() => setGuideOpen(false)} />
+        </>
+      )}
     </div>
   );
 }

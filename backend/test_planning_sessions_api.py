@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import pytest
 from fastapi.testclient import TestClient
 
 import main
 from database import engine
-from main import app
+from main import WritingTaskInput, app
 from models import Base, PlanningSessionRecord
 
 
@@ -86,6 +87,22 @@ def setup_function() -> None:
     main.settings.vertex_project = None
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
+
+
+@pytest.mark.parametrize("question_type", [
+    "line-graph",
+    "bar-chart",
+    "table",
+    "pie-chart",
+    "map-plan",
+    "process-manufacturing",
+    "natural-lifecycle",
+    "mixed-visuals",
+])
+def test_task_one_accepts_every_current_question_type(question_type: str) -> None:
+    task = _task(1)
+    task["question_type"] = question_type
+    assert WritingTaskInput.model_validate(task).question_type == question_type
 
 
 def test_planning_routes_require_authentication() -> None:
