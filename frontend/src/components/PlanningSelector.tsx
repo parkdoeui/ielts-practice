@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { Task1GuideModal } from "./Task1GuideModal";
 import {
   filterAndSortTask1Tests,
   getTask1QuestionType,
@@ -9,7 +10,7 @@ import {
   type Task1TypeFilter,
 } from "../lib/task1QuestionTypes";
 import { getPlanningSessions } from "../services/api";
-import type { PlanningSession, WritingTest } from "../types";
+import type { PlanningSession, Task1QuestionType, WritingTest } from "../types";
 
 const writingFiles = import.meta.glob<{ default: WritingTest }>(
   "../data/writing-tests/*.json",
@@ -39,10 +40,11 @@ function latestByPrompt(sessions: PlanningSession[]): Map<string, PlanningSessio
 
 export function PlanningSelector() {
   const navigate = useNavigate();
-  const [taskNumber, setTaskNumber] = useState<1 | 2>(2);
+  const [taskNumber, setTaskNumber] = useState<1 | 2>(1);
   const [sessions, setSessions] = useState<PlanningSession[]>([]);
   const [questionType, setQuestionType] = useState<Task1TypeFilter>("all");
   const [sortBy, setSortBy] = useState<Task1Sort>("test-number");
+  const [guideType, setGuideType] = useState<Task1QuestionType | null>(null);
 
   useEffect(() => {
     getPlanningSessions(taskNumber).then(setSessions).catch(() => setSessions([]));
@@ -132,6 +134,17 @@ export function PlanningSelector() {
                   )}
                 </div>
                 <div className="flex shrink-0 flex-wrap gap-2">
+                  {taskNumber === 1 && (
+                    <button
+                      type="button"
+                      onClick={() => setGuideType(getTask1QuestionType(test.id))}
+                      className="rounded-lg border border-violet-300 bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-800 hover:border-violet-400 hover:bg-violet-100"
+                      aria-haspopup="dialog"
+                      aria-label={`Open ${TASK1_TYPE_META[getTask1QuestionType(test.id)].label} guide for Writing Test ${testNumber(test)}`}
+                    >
+                      Guide
+                    </button>
+                  )}
                   {previous && (
                     <button
                       type="button"
@@ -157,6 +170,9 @@ export function PlanningSelector() {
           <div className="rounded-xl border border-gray-200 bg-white p-6 text-sm text-gray-500">No prompts match this question type.</div>
         )}
       </div>
+      {guideType && (
+        <Task1GuideModal type={guideType} open onClose={() => setGuideType(null)} />
+      )}
     </div>
   );
 }

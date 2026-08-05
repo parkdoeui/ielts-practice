@@ -227,6 +227,16 @@ export function PlanningPractice() {
           <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400">Elapsed</p>
           <p className="font-mono text-lg font-bold tabular-nums text-white">{clock.display}</p>
         </div>
+        {task1Type && (
+          <button
+            type="button"
+            onClick={() => setGuideOpen(true)}
+            aria-haspopup="dialog"
+            className="shrink-0 rounded-lg border border-violet-300 bg-violet-500/10 px-3 py-2 text-xs font-semibold text-violet-100 hover:bg-violet-500/20 focus:outline-none focus:ring-2 focus:ring-violet-200"
+          >
+            <span className="hidden sm:inline">Question </span>Guide
+          </button>
+        )}
         <button type="button" onClick={() => navigate("/planning")} className="shrink-0 text-sm text-gray-300 hover:text-white">Exit</button>
       </header>
       {previous && (
@@ -258,7 +268,8 @@ export function PlanningPractice() {
             type="button"
             onClick={() => setGuideOpen(true)}
             aria-haspopup="dialog"
-            className="fixed bottom-5 right-5 z-40 rounded-full bg-violet-700 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-violet-900/20 hover:bg-violet-800 focus:outline-none focus:ring-4 focus:ring-violet-200"
+            style={{ bottom: "calc(1.25rem + env(safe-area-inset-bottom))" }}
+            className="fixed right-5 z-40 rounded-full bg-violet-700 px-5 py-3 text-sm font-bold text-white shadow-xl shadow-violet-900/30 ring-4 ring-white/80 hover:bg-violet-800 focus:outline-none focus:ring-4 focus:ring-violet-200"
           >
             Question guide
           </button>
