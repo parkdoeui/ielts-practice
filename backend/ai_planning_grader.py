@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-import re
+import pathlib
 from dataclasses import dataclass
 from math import floor
 from typing import Any
@@ -99,29 +99,16 @@ def _build_prompt(task: dict[str, Any], plan: dict[str, Any]) -> str:
         else "For Task 2, check the introduction position and roadmap, coverage of every question part, "
         "two developed body ideas, and a conclusion that restates rather than changes the position."
     )
-    return f"""You are an IELTS Writing planning coach.
-
-Evaluate only idea generation and response structure. Ignore grammar, spelling, vocabulary,
-punctuation, full-sentence quality, and whether the notes are written as fragments.
-Do not deduct for overtime. Do not generate polished prose or a full essay/report.
-
-{task_guidance}
-
-Score two dimensions using IELTS-style 0.0–9.0 half-band increments:
-- Task Achievement/Response: relevance, completeness, accuracy of task coverage, and development.
-- Coherence & Cohesion: logical grouping, progression, paragraph roles, and relationships between ideas.
-
-Return verbal feedback first: a concise summary, ideas worth retaining, missing or weak ideas,
-organization feedback, and one next-attempt focus. Then return an improved complete outline using
-the same task-specific shape as the learner's plan. The planning band is the average of the two
-criterion bands, rounded to the nearest half band.
-
-TASK:
-{json.dumps(task, ensure_ascii=False)}
-
-LEARNER PLAN:
-{json.dumps(plan, ensure_ascii=False)}
-"""
+    prompt_path = pathlib.Path(__file__).parent / "prompts" / "planning_grader.txt"
+    try:
+        template = prompt_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise PlanningGraderError(f"Failed to load planning prompt: {exc}") from exc
+    return template.format(
+        task_guidance=task_guidance,
+        task_json=json.dumps(task, ensure_ascii=False),
+        plan_json=json.dumps(plan, ensure_ascii=False),
+    )
 
 
 def normalize_planning_feedback(payload: dict[str, Any], submitted_plan: dict[str, Any], task_number: int) -> dict[str, Any]:
