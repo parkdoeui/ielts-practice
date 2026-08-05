@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, JSON, DateTime, UniqueConstraint
+from sqlalchemy import Boolean, Column, Integer, String, Float, JSON, DateTime, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase
 
 class Base(DeclarativeBase):
@@ -28,6 +28,22 @@ class WritingSessionRecord(Base):
     total_time_ms = Column(Integer, nullable=False)
     answers_json = Column(JSON, nullable=False)
     grading_json = Column(JSON, nullable=False)
+
+
+class PlanningSessionRecord(Base):
+    __tablename__ = "planning_sessions"
+    id = Column(String, primary_key=True)
+    test_id = Column(String, nullable=False, index=True)
+    task_number = Column(Integer, nullable=False, index=True)
+    parent_session_id = Column(String, nullable=True)
+    passcode = Column(String, nullable=False, index=True)
+    started_at = Column(DateTime, nullable=False)
+    completed_at = Column(DateTime, nullable=False)
+    total_time_ms = Column(Integer, nullable=False)
+    within_time_target = Column(Boolean, nullable=False)
+    task_json = Column(JSON, nullable=False)
+    plan_json = Column(JSON, nullable=False)
+    feedback_json = Column(JSON, nullable=False)
 
 
 class FullTestSessionRecord(Base):

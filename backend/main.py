@@ -1,16 +1,28 @@
+import json
 from datetime import datetime, timezone
 from math import floor
-from typing import Any, Literal, Optional
+from typing import Annotated, Any, Literal, Optional, Union
 
 from fastapi import FastAPI, Depends, HTTPException, Response, Cookie, Request, Header
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 from sqlalchemy.orm import Session
 
 from config import settings
 from database import engine, get_db
-from models import Base, FullTestSessionRecord, TestSessionRecord, WritingSessionRecord
+from models import (
+    Base,
+    FullTestSessionRecord,
+    PlanningSessionRecord,
+    TestSessionRecord,
+    WritingSessionRecord,
+)
 from ai_writing_grader import grade_writing_submission, WritingGraderError
+from ai_planning_grader import (
+    grade_planning_submission,
+    normalize_planning_feedback,
+    PlanningGraderError,
+)
 
 Base.metadata.create_all(bind=engine)
 
@@ -88,7 +100,7 @@ class ProgressResponse(BaseModel):
 
 
 class WritingTaskInput(BaseModel):
-    task_number: int
+    task_number: Literal[1, 2]
     task_type: str
     prompt: str = Field(min_length=10, max_length=5000)
     instructions: list[str] = Field(default_factory=list, max_length=12)
@@ -140,6 +152,123 @@ class WritingSubmitRequest(BaseModel):
         if len(task_1) > 12000 or len(task_2) > 20000:
             raise ValueError("answers exceed maximum allowed length")
         return {"1": task_1, "2": task_2}
+
+
+class Task1IntroductionSchema(BaseModel):
+    visual_subject: str = Field(default="", max_length=1000)
+
+
+class Task1OverviewSchema(BaseModel):
+    big_picture_1: str = Field(default="", max_length=1000)
+    big_picture_2: str = Field(default="", max_length=1000)
+
+
+class Task1DetailParagraphSchema(BaseModel):
+    grouping_focus: str = Field(default="", max_length=1000)
+    key_feature_1: str = Field(default="", max_length=1000)
+    supporting_data_1: str = Field(default="", max_length=1000)
+    key_feature_2: str = Field(default="", max_length=1000)
+    supporting_data_2: str = Field(default="", max_length=1000)
+    comparison_or_relationship: str = Field(default="", max_length=1000)
+
+
+class Task1PlanSchema(BaseModel):
+    kind: Literal["task_1"]
+    introduction: Task1IntroductionSchema
+    overview: Task1OverviewSchema
+    detail_paragraphs: list[Task1DetailParagraphSchema] = Field(min_length=1, max_length=2)
+
+
+class Task2IntroductionSchema(BaseModel):
+    position: str = Field(default="", max_length=1000)
+    roadmap: str = Field(default="", max_length=1000)
+
+
+class Task2BodySchema(BaseModel):
+    main_idea: str = Field(default="", max_length=1000)
+    explanation: str = Field(default="", max_length=1000)
+    example: str = Field(default="", max_length=1000)
+    link_to_position: str = Field(default="", max_length=1000)
+
+
+class Task2ConclusionSchema(BaseModel):
+    restated_position: str = Field(default="", max_length=1000)
+    synthesis: str = Field(default="", max_length=1000)
+
+
+class Task2PlanSchema(BaseModel):
+    kind: Literal["task_2"]
+    introduction: Task2IntroductionSchema
+    body_1: Task2BodySchema
+    body_2: Task2BodySchema
+    conclusion: Task2ConclusionSchema
+
+
+PlanningPlan = Annotated[
+    Union[Task1PlanSchema, Task2PlanSchema],
+    Field(discriminator="kind"),
+]
+
+
+class PlanningSubmitRequest(BaseModel):
+    id: str = Field(min_length=1, max_length=120)
+    test_id: str = Field(pattern=r"^writing-test-\d+$")
+    task: WritingTaskInput
+    parent_session_id: Optional[str] = Field(default=None, max_length=120)
+    started_at: str
+    completed_at: str
+    total_time_ms: int = Field(ge=0, le=86_400_000)
+    plan: PlanningPlan
+
+    @model_validator(mode="after")
+    def validate_plan_matches_task(self) -> "PlanningSubmitRequest":
+        expected = f"task_{self.task.task_number}"
+        if self.plan.kind != expected:
+            raise ValueError("plan kind must match task.task_number")
+        plan_text = json.dumps(self.plan.model_dump(), ensure_ascii=False)
+        def has_text(value: Any) -> bool:
+            if isinstance(value, dict):
+                return any(has_text(item) for item in value.values())
+            if isinstance(value, list):
+                return any(has_text(item) for item in value)
+            return isinstance(value, str) and bool(value.strip())
+
+        if not has_text(self.plan.model_dump(exclude={"kind"})):
+            raise ValueError("plan must contain at least one idea")
+        if len(plan_text) > 8_000:
+            raise ValueError("plan exceeds maximum length")
+        return self
+
+
+class PlanningCriterionResponse(BaseModel):
+    band: float
+    feedback: str
+
+
+class PlanningFeedbackResponse(BaseModel):
+    planning_band: float
+    task_achievement: PlanningCriterionResponse
+    coherence_cohesion: PlanningCriterionResponse
+    summary: str
+    relevant_ideas: list[str]
+    missing_or_weak_ideas: list[str]
+    organization_feedback: str
+    next_attempt_focus: str
+    improved_plan: dict[str, Any]
+
+
+class PlanningSessionResponse(BaseModel):
+    id: str
+    test_id: str
+    task_number: Literal[1, 2]
+    parent_session_id: Optional[str] = None
+    started_at: str
+    completed_at: str
+    total_time_ms: int
+    within_time_target: bool
+    task: dict[str, Any]
+    plan: dict[str, Any]
+    feedback: PlanningFeedbackResponse
 
 
 class WritingTaskCriteria(BaseModel):
@@ -315,6 +444,22 @@ def writing_session_to_response(record: WritingSessionRecord) -> WritingSessionR
         total_time_ms=record.total_time_ms,
         answers=answers,
         grading=record.grading_json,  # type: ignore[arg-type]
+    )
+
+
+def planning_session_to_response(record: PlanningSessionRecord) -> PlanningSessionResponse:
+    return PlanningSessionResponse(
+        id=record.id,
+        test_id=record.test_id,
+        task_number=record.task_number,
+        parent_session_id=record.parent_session_id,
+        started_at=record.started_at.isoformat(),
+        completed_at=record.completed_at.isoformat(),
+        total_time_ms=record.total_time_ms,
+        within_time_target=record.within_time_target,
+        task=record.task_json,
+        plan=record.plan_json,
+        feedback=record.feedback_json,
     )
 
 
@@ -740,3 +885,90 @@ def get_writing_session(
     if record.passcode != settings.valid_passcode:
         raise HTTPException(status_code=403, detail="Authentication required")
     return writing_session_to_response(record)
+
+
+@app.post("/api/planning-sessions", response_model=PlanningSessionResponse, status_code=201)
+def create_planning_session(
+    payload: PlanningSubmitRequest,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    if not settings.writing_grader_api_key and not settings.effective_vertex_project:
+        raise HTTPException(status_code=503, detail="Planning grader is not configured")
+    if db.get(PlanningSessionRecord, payload.id):
+        raise HTTPException(status_code=409, detail="Planning session already exists")
+
+    if payload.parent_session_id:
+        parent = db.get(PlanningSessionRecord, payload.parent_session_id)
+        if not parent or parent.passcode != settings.valid_passcode:
+            raise HTTPException(status_code=404, detail="Parent planning session not found")
+        if parent.test_id != payload.test_id or parent.task_number != payload.task.task_number:
+            raise HTTPException(status_code=400, detail="Revision must use the same test and task")
+
+    try:
+        feedback = grade_planning_submission(
+            task=payload.task.model_dump(),
+            plan=payload.plan.model_dump(),
+            api_key=settings.writing_grader_api_key,
+            credentials_json=settings.effective_vertex_credentials_json,
+            project=settings.effective_vertex_project,
+            location=settings.effective_vertex_location,
+            model=settings.writing_grader_model,
+        )
+        feedback = normalize_planning_feedback(
+            feedback,
+            payload.plan.model_dump(),
+            payload.task.task_number,
+        )
+    except PlanningGraderError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+    except Exception as exc:  # pragma: no cover - defensive provider fallback
+        raise HTTPException(status_code=502, detail="Planning grader unavailable") from exc
+
+    record = PlanningSessionRecord(
+        id=payload.id,
+        test_id=payload.test_id,
+        task_number=payload.task.task_number,
+        parent_session_id=payload.parent_session_id,
+        passcode=settings.valid_passcode,
+        started_at=parse_iso_datetime(payload.started_at),
+        completed_at=parse_iso_datetime(payload.completed_at),
+        total_time_ms=payload.total_time_ms,
+        within_time_target=payload.total_time_ms <= 300_000,
+        task_json=payload.task.model_dump(),
+        plan_json=payload.plan.model_dump(),
+        feedback_json=feedback,
+    )
+    db.add(record)
+    db.commit()
+    db.refresh(record)
+    return planning_session_to_response(record)
+
+
+@app.get("/api/planning-sessions", response_model=list[PlanningSessionResponse])
+def list_planning_sessions(
+    task_number: Optional[int] = None,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    if task_number is not None and task_number not in (1, 2):
+        raise HTTPException(status_code=422, detail="task_number must be 1 or 2")
+    query = db.query(PlanningSessionRecord).filter(
+        PlanningSessionRecord.passcode == settings.valid_passcode
+    )
+    if task_number is not None:
+        query = query.filter(PlanningSessionRecord.task_number == task_number)
+    records = query.order_by(PlanningSessionRecord.completed_at.desc()).all()
+    return [planning_session_to_response(record) for record in records]
+
+
+@app.get("/api/planning-sessions/{session_id}", response_model=PlanningSessionResponse)
+def get_planning_session(
+    session_id: str,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_authenticated),
+):
+    record = db.get(PlanningSessionRecord, session_id)
+    if not record or record.passcode != settings.valid_passcode:
+        raise HTTPException(status_code=404, detail="Planning session not found")
+    return planning_session_to_response(record)

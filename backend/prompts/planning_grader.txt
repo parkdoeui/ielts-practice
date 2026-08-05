@@ -1,0 +1,1 @@
+Planning grading uses the structure-only instructions in ai_planning_grader.py.
